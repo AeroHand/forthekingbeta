@@ -205,7 +205,7 @@ HealthChangeEventAction={
 		local illusion = UnitManager:CreateUnitByName(unitName, vposition, true, hunit:GetPlayerOwnerID(), hunit:GetTeamNumber())
 		illusion:SetControllableByPlayer(-1, true)
 		illusion:SetAngles( unitAngles.x, unitAngles.y, unitAngles.z )
-		CreateAandDSystem(illusion,UnitManager:GetAttackTypeFromName( unitName ),UnitManager:GetDefendTypeFromName( unitName ))
+		AandDSystem(illusion)
 		illusion:AddNewModifier(hunit, ability, "modifier_illusion", { duration = fduration, outgoing_damage = foutgoingdamage, incoming_damage = fincomingdamage })
 		illusion:MakeIllusion()
 		illusion:SetHealth(hunit:GetHealth())
@@ -823,10 +823,10 @@ function jn_W2_10b(keys)
 	local caster = keys.caster
 	local ab = keys.ability
 	if keys.Mode == 1 then
-		GetAandDSystem(caster):AddAttacktypeResistance("magic",ab:GetSpecialValueFor("resistance")*0.01,ab:GetAbilityName())
+		AandDSystem:GetAandDSystem(caster):AddAttacktypeResistance("magic",ab:GetSpecialValueFor("resistance")*0.01,ab:GetAbilityName())
 	end
 	if keys.Mode == 2 then
-		GetAandDSystem(caster):RemoveAttacktypeResistance("magic",ab:GetAbilityName())
+		AandDSystem:GetAandDSystem(caster):RemoveAttacktypeResistance("magic",ab:GetAbilityName())
 	end
 end
 function jn_W3_10(keys)
@@ -992,7 +992,7 @@ end
 function jn_E3_00(keys)
 	local caster = keys.caster
 	local ab = keys.ability
-	GetAandDSystem(caster):AddAttacktypeResistance("pierce",ab:GetSpecialValueFor("resistance")*0.01,ab:GetAbilityName())
+	AandDSystem:GetAandDSystem(caster):AddAttacktypeResistance("pierce",ab:GetSpecialValueFor("resistance")*0.01,ab:GetAbilityName())
 end
 function jn_E3_11a(keys)
 	local caster = keys.attacker
@@ -1013,7 +1013,7 @@ end
 function jn_E4_00(keys)
 	local caster = keys.caster
 	local ab = keys.ability
-	GetAandDSystem(caster):AddAttacktypeResistance("magic",ab:GetSpecialValueFor("resistance")*0.01,ab:GetAbilityName())
+	AandDSystem:GetAandDSystem(caster):AddAttacktypeResistance("magic",ab:GetSpecialValueFor("resistance")*0.01,ab:GetAbilityName())
 end
 function jn_E4_10(keys)
 	local caster = keys.caster
@@ -1148,7 +1148,7 @@ end
 function jn_D2_10b_buff(keys)
 	local caster = keys.target
 	local ab = keys.ability
-	local AandD = GetAandDSystem(caster)
+	local AandD = AandDSystem:GetAandDSystem(caster)
 	if keys.Mode == 1 then
 		AandD:AddAttacktypeResistance("magic",1,ab:GetAbilityName())
 	end
@@ -1208,8 +1208,8 @@ end
 function jn_D4_10c(keys)
 	local caster = keys.caster
 	local ab = keys.ability
-	GetAandDSystem(caster):AddAttacktypeResistance("magic",ab:GetSpecialValueFor("resistance")*0.01,ab:GetAbilityName())
-	GetAandDSystem(caster):AddAttacktypeResistance("pierce",ab:GetSpecialValueFor("resistance")*0.01,ab:GetAbilityName())
+	AandDSystem:GetAandDSystem(caster):AddAttacktypeResistance("magic",ab:GetSpecialValueFor("resistance")*0.01,ab:GetAbilityName())
+	AandDSystem:GetAandDSystem(caster):AddAttacktypeResistance("pierce",ab:GetSpecialValueFor("resistance")*0.01,ab:GetAbilityName())
 end
 function jn_D5_00(keys)
 	local caster = keys.caster
@@ -1953,13 +1953,13 @@ function jn_G6_11b(keys)
 	local ab = keys.ability
 	local target = keys.target
 	if keys.Mode == 1 then
-		local AandD = GetAandDSystem(target)
+		local AandD = AandDSystem:GetAandDSystem(target)
 		if AandD then
 			AandD:AddAttacktypeResistance("magic",ab:GetSpecialValueFor("resistance")*0.01,ab:GetAbilityName())
 		end
 	end
 	if keys.Mode == 2 then
-		local AandD = GetAandDSystem(target)
+		local AandD = AandDSystem:GetAandDSystem(target)
 		if AandD then
 			AandD:RemoveAttacktypeResistance("magic",ab:GetAbilityName())
 		end
