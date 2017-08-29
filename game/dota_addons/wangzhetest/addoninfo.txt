@@ -1,0 +1,33 @@
+"AddonInfo"
+{
+	maps			"3v3 2v2 1v1"
+	"TeamCount"		"2"
+	"IsPlayable"	"1"
+	"3v3"
+	{
+		"MaxPlayers"	"6"
+	}
+	"2v2"
+	{
+		"MaxPlayers"	"4"
+	}
+	"1v1"
+	{
+		"MaxPlayers"	"2"
+	}
+	"Default_Keys"
+	{
+		"01"
+		{
+			"Key"		"J"
+			"Command"	"+FlyoutScoreboard"
+			"Name"		"FlyoutScoreboard"
+		}
+		"02"
+		{
+			"Key"		"K"
+			"Command"	"+CrystalShop"
+			"Name"		"CrystalShop"
+		}
+	}
+}

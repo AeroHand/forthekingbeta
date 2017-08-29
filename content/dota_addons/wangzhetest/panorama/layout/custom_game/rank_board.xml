@@ -1,0 +1,41 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.vcss_c"/>
+		<include src="file://{resources}/styles/custom_game/rank_board.css" />
+	</styles>
+	<scripts>
+		<include src="file://{resources}/scripts/custom_game/rank_board.js" />
+	</scripts>
+	<snippets>
+		<snippet name="PlayerRank">
+			<Panel hittest="false" class="PlayerRankRoot">
+				<Label id="Player_rank" class="RankInNum" text="#RankNum"/>
+				<Panel id="Player_name_and_image" class="PlayerNameAndImage">
+					<DOTAAvatarImage id="Player_image" class="AvatarImage"/>
+					<DOTAUserName id="Player_name" class="PlayerName"/>
+				</Panel>
+				<Label id="Player_score" class="RankScore" text="#RankScore"/>
+				<Label id="Player_game_tms" class="RankGameTms" text="#RankGameTms"/>
+				<Label id="Player_win_rate" class="RankWinRate" text="#RankWinRate"/>
+			</Panel>
+		</snippet>
+	</snippets>
+
+	<Panel class="RankboardRoot" hittest="false">
+		<Button id="RankboardButton" onactivate="OnClickRankboardButton()">
+			<Label id="RankboardButtonText" text="#RankName"/>
+			<Panel id="RankboardButtonArrow"/>
+		</Button>
+		<Panel id="Rankboard">
+			<Panel id="RankTitle">
+				<Label id="Rank_num" class="RankInNum" text="#RankNum"/>
+				<Label id="Rank_name" class="Player" text="#RankPlayer"/>
+				<Label id="Rank_score" class="RankScore" text="#RankScore"/>
+				<Label id="Rank_game_tms" class="RankGameTms" text="#RankGameTms"/>
+				<Label id="Rank_win_rate" class="RankWinRate" text="#RankWinRate"/>
+			</Panel>
+			<Panel id="PlayersRank">
+			</Panel>
+		</Panel>
+	</Panel>
+</root>

@@ -1,0 +1,54 @@
+<root>
+	<styles>
+		<include src="file://{resources}/styles/custom_game/bosshealthbar.css" />
+	</styles>
+	<scripts>
+		<include src="file://{resources}/scripts/custom_game/bosshealthbar.js" />
+	</scripts>
+	<Panel class="BossHealthBarRoot" hittest="false">
+		<Panel id="BossHealthBarPanel" hittest="false">
+			<Panel id="BossImage1" hittest="false">
+				<Label id="LifeCount1" hittest="false"/>
+			</Panel>
+			<Panel id="BossState" hittest="false">
+				<Panel id="BossHealthBar1" hittest="false">
+					<Panel id="BossLevel1"
+					onmouseover="BossLevel1ShowTooltip()"
+					onmouseout="BossLevel1HideTooltip()">
+						<Label id="Lv1" text="Lv."/>
+						<Label id="LevelNumber1"/>
+					</Panel>
+					<Panel id="TeamAllScore1"
+					onmouseover="TeamAllScore1ShowTooltip()"
+					onmouseout="TeamAllScore1HideTooltip()">
+						<Label id="TeamName1" hittest="false"/>
+						<Label id="TeamScore1" hittest="false"/>
+					</Panel>
+					<Panel id="BossHealth1" hittest="false"/>
+					<Panel id="BossHealthOverlay1" hittest="false"/>
+					<Panel id="BossHealthLight1" hittest="false"/>
+				</Panel>
+				<Panel id="BossHealthBar2" hittest="false">
+					<Panel id="BossLevel2"
+					onmouseover="BossLevel2ShowTooltip()"
+					onmouseout="BossLevel2HideTooltip()">
+						<Label id="Lv2" text="Lv."/>
+						<Label id="LevelNumber2"/>
+					</Panel>
+					<Panel id="TeamAllScore2"
+					onmouseover="TeamAllScore2ShowTooltip()"
+					onmouseout="TeamAllScore2HideTooltip()">
+						<Label id="TeamName2" hittest="false"/>
+						<Label id="TeamScore2" hittest="false"/>
+					</Panel>
+					<Panel id="BossHealth2" hittest="false"/>
+					<Panel id="BossHealthOverlay2" hittest="false"/>
+					<Panel id="BossHealthLight2" hittest="false"/>
+				</Panel>
+			</Panel>
+			<Panel id="BossImage2" hittest="false">
+				<Label id="LifeCount2" hittest="false"/>
+			</Panel>
+		</Panel>
+	</Panel>
+</root>

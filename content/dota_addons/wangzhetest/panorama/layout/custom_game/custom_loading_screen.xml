@@ -1,0 +1,42 @@
+<root>
+	<styles>
+		<include src="file://{resources}/styles/dotastyles.css" />
+		<include src="file://{resources}/styles/custom_game/custom_loading_screen.css" />
+	</styles>
+	<script>
+		(function()
+		{
+			var max = 12;
+			$("#Tip").text = $.Localize("#tip_"+Math.round(Math.random()*(max-1)+1));
+		})();
+	</script>
+	<Panel class="GameLoadingRoot">
+		<Panel id="seq" >
+			<Image id="seq_bg" src="file://{images}/custom_game/loading_screen/loading_seq_bg.png" />
+			<Image id="seq_commanders" src="file://{images}/custom_game/loading_screen/loading_seq_commanders.png" />
+			<Image id="seq_creeps" src="file://{images}/custom_game/loading_screen/loading_seq_creeps.png" />
+		</Panel>
+		<Panel id="TitlePanel">
+			<Label id="GameTitle" text="#addon_game_name" style="" />
+			<Label text="E-mail: zhuzes@gmail.com\nhttp://www.dota2rpg.com" id="WebAndEmile"/>
+		</Panel>
+
+		<Panel id="TipPanel" hittest="false">
+			<Label id="Tip" text="" style="" hittest="false" />
+		</Panel>
+		<Panel id="Developers">
+			<Label text="#Creator"/>
+			<Panel id="Creator" class="column">
+				<DOTAAvatarImage class="avatar" steamid="76561198078603652" />
+				<DOTAAvatarImage class="avatar" steamid="76561198064763681" />
+				<DOTAAvatarImage class="avatar" steamid="76561198047021815" />
+				<DOTAAvatarImage class="avatar" steamid="76561198098649665" />
+				<DOTAAvatarImage class="avatar" steamid="76561198072158954" />
+			</Panel>
+			<Label text="#Mapper"/>
+			<Panel id="Mapper" class="column">
+				<DOTAAvatarImage class="avatar" steamid="76561198132023205" />
+			</Panel>
+		</Panel>
+	</Panel>
+</root>

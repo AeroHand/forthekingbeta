@@ -1,0 +1,8 @@
+ageaaa
+{
+	material materials/overviews/ageaaa.vmat
+	pos_x -7324
+	pos_y 7188
+	scale 14.063
+}
+

@@ -1,0 +1,75 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.vcss_c"/>
+		<include src="file://{resources}/styles/custom_game/crystalshop.css" />
+	</styles>
+	<scripts>
+		<include src="file://{resources}/scripts/custom_game/crystalshop.js" />
+	</scripts>
+	<Panel class="CrystalShopRoot" hittest="false">
+		<Panel id="CrystalShopPanel" hittest="false">
+			<Panel id="CrystalShop">
+				<Panel id="BossLevelupAndGenerals">
+					<Panel id="BossLevelup">
+						<Label id="BossLevelup_tittle" text="#BossLevelUp"/>
+						<Panel id="BossLevelup_States">
+							<Button id="BossLevelup_AttackDamage"
+								onmouseover="AttackDamageShowTooltip()"
+								onmouseout="AttackDamageHideTooltip()"
+								oncontextmenu="LevelupAttackDamage()">
+								<Label id="AttackDamage_Level" text="Lv.20"/>
+								<Label id="AttackDamage_Cost" text="58"/>
+							</Button>
+							<Button id="BossLevelup_Health"
+								onmouseover="HealthShowTooltip()"
+								onmouseout="HealthHideTooltip()"
+								oncontextmenu="LevelupHealth()">
+								<Label id="Health_Level" text="Lv.20"/>
+								<Label id="Health_Cost" text="58"/>
+							</Button>
+							<Button id="BossLevelup_HealthRegen"
+								onmouseover="HealthRegenShowTooltip()"
+								onmouseout="HealthRegenHideTooltip()"
+								oncontextmenu="LevelupHealthRegen()">
+								<Label id="HealthRegen_Level" text="Lv.20"/>
+								<Label id="HealthRegen_Cost" text="58"/>
+							</Button>
+						</Panel>
+					</Panel>
+					<Label id="Generals_tittle" text="#GeneralTittle"/>
+					<Panel id="Generals">
+						<Panel id="generals_column_1" />
+						<Panel id="generals_column_2" />
+					</Panel>
+				</Panel>
+				<Panel id="hireshop">
+					<Label id="hireshop_tittle" text="#DOTA_SHOP_NAME_SIDE"/>
+					<Panel id="hireshop_changeway">
+						<Label id="hireshop_nowway" text="#hireshop_nowway"/>
+						<DropDown id="hireshop_chooseway" oninputsubmit="ChangeWay()">
+							<Label text="#way0" id="hire_way0"/>
+							<Label text="#way1" id="hire_way1"/>
+							<Label text="#way2" id="hire_way2"/>
+							<Label text="#way3" id="hire_way3"/>
+							<Label text="#way4" id="hire_way4"/>
+						</DropDown>
+					</Panel>
+					<Panel id="hireshop_items">
+						<Panel id="hireshop_items_column_1" />
+						<Panel id="hireshop_items_column_2" />
+					</Panel>
+				</Panel>
+			</Panel>
+			<Panel id="CrystalShop_Button" hittest="false"
+				onmouseover="CrystalShopShowTooltip()"
+				onmouseout="CrystalShopHideTooltip()">
+				<Button id="CrystalShop_Button_Open" onactivate="OpenCrystalshop()">
+					<Label id="CrystalShop_Button_Open_Label" text="#crystalshop_title"/>
+				</Button>
+				<Button id="CrystalShop_Button_Close" onactivate="CloseCrystalshop()">
+					<Label id="CrystalShop_Button_Close_Label" text="#crystalshop_title"/>
+				</Button>
+			</Panel>
+		</Panel>
+	</Panel>
+</root>

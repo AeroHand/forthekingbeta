@@ -1,0 +1,216 @@
+.AbilityOverlayRoot
+{
+	horizontal-align: left;
+	vertical-align: bottom;
+	margin-bottom: 5px;
+	margin-left: 600px;
+	flow-children: right;
+}
+.AspectRatio16x10 .AbilityOverlayRoot
+{
+	margin-left: 600px;
+}
+.AspectRatio4x3 .AbilityOverlayRoot
+{
+	margin-left: 450px;
+}
+#Enter
+{
+	width: 80px;
+	height: 120px;
+	background-color: #222222;
+	flow-children: down;
+	visibility: visible;
+}
+.HideReroll #Enter
+{
+	visibility: collapse;
+}
+.HideReroll #EnterInset,
+.HideReroll #EnterTime,
+.HideReroll .X,
+{
+	visibility: collapse;
+}
+#EnterInset
+{
+	width: 100%;
+	height: 67%;
+	background-image: url(file://{images}/custom_game/Enter.png);
+}
+
+#EnterInset:hover
+{
+	border: 3px solid white;
+}
+#EnterInset:active
+{
+	border: 5px solid white;
+}
+
+#EnterTime
+{
+	font-size: 30px;
+	text-transform: uppercase;
+	text-shadow: 0px 1px 3px 2.5 #000000;
+	color: gradient( linear, 0% 0%, 0% 100%, from( #c88423 ), color-stop( 0.25, #c88423 ), color-stop( 0.5, #fffb84 ), color-stop( 0.75, #c88423 ), to( #9a6717 ) );
+	vertical-align: center;
+	horizontal-align: center;
+}
+#ability
+{
+	flow-children: down;
+}
+#ability_list
+{
+	padding-top: 15px;
+	padding-left: 10px;
+	flow-children: right;
+	background-color: #222222;
+	width: 570px;
+	height: 95px;
+}
+
+.AbilityPanel
+{
+	margin-top: 4px;
+	margin-bottom: 4px;
+}
+
+.AbilityPanel.no_ability
+{
+	visibility: collapse;
+}
+
+#ButtonAndLevel
+{
+	flow-children: down;
+}
+
+#AbilityButton
+{
+	width: 64px;
+	height: 64px;
+	border: 2px solid transparent;
+}
+
+.is_passive #AbilityButton
+{
+	border: 2px solid #00000000;
+}
+
+#UpgradeBorder
+{
+	background-color: transparent;
+}
+
+.learnable_ability #UpgradeBorder
+{
+   background-color: gradient( linear, 0% 0%, 0% 100%, from( #ffffff ), color-stop( 0.1, #c4a529 ), color-stop( 0.75, #9e8b2c ), color-stop( 0.9, #c4a529 ), to( #ffffff ) );
+}
+
+#AbilityButton:hover
+{
+	border: 2px solid white;
+}
+
+#AbilityButton:active
+{
+	border: 4px solid white;
+}
+#X_Ability
+{
+	width: 64px;
+	height: 64px;
+	visibility: collapse;
+	z-index: 1;
+}
+.X_ability #X_Ability
+{
+	visibility: visible;
+}
+.no_level DOTAAbilityImage
+{
+	saturation: 0;
+	wash-color: #303030;
+}
+
+.insufficient_mana DOTAAbilityImage
+{
+	saturation: 0;
+	wash-color: #1569be;
+}
+
+.potential_upgrade.no_level DOTAAbilityImage
+{
+	saturation: 1;
+	wash-color: white;
+}
+
+#AbilityStatusBorder
+{
+	border: 2px solid transparent;
+}
+
+.auto_cast_enabled #AbilityStatusBorder
+{
+	border: 4px solid orange;
+}
+
+.toggle_enabled #AbilityStatusBorder
+{
+	border: 4px solid green;
+}
+
+#AbilityLevelContainer
+{
+	horizontal-align: center;
+	flow-children: right;
+}
+
+.LevelPanel
+{
+	width: 12px;
+	height: 12px;
+
+	border-radius: 3px;
+
+	background-color: gradient( linear, 0% 0%, 0% 100%, from( #2e2716 ), to( #020302 ) );
+	border: 1px solid #ffffff05;
+}
+
+.active_level.LevelPanel
+{
+	background-color: #ceaa31;
+	border: 2px solid #734918;
+}
+
+#reroll
+{
+	background-color: #222222;
+	width: 570px;
+	height: 25px;
+	flow-children: right;
+	padding-left: 10px;
+}
+.X
+{
+	background-image: url(file://{images}/custom_game/X.png);
+	background-size: 100%;
+	height: 25px;
+	width: 25px;
+	margin-left: 19.5px;
+	margin-right: 24px;
+}
+.X:hover
+{
+	border: 1px solid white;
+}
+.X:active
+{
+	border: 2px solid white;
+}
+.choosed.X
+{
+	background-image: url(file://{images}/custom_game/X_choosed.png);
+}

@@ -1,0 +1,115 @@
+4.17
+1 军团镇压范围从600增强至1200
+2 先知圣礼范围从600增强至1200 持续时间50到70
+3 重做了上古恶兽的二技能：从5个随机单位每个120伤害修改为50发剧毒喷吐每个12点伤害
+4 采集精灵的价格从80下调至70
+5 采集间隔从8s下调至6s
+6 至高战舰从1745血削弱至1545血
+
+
+4.21
+1 重新随机兵的消耗从0/50/200/300/400/500/600改为0/50/100/200/300/400/500
+2 新增特殊兵种：天辉防御塔 无法产出兵 每5秒对地图上随机敌对单位造成100点伤害
+             可升级：    激光防御塔  每5秒对地图上随机敌对单位造成400点伤害
+3 修复了狂战斧 酸雾瓶 骨灰盒的伤害bug
+4 修复了售出的图标
+
+4.26
+1 先知暂时移除英雄列表
+2 天辉圣塔价格从300降至200
+  天辉龙塔价格从500降至400 不再消耗人口 每次将攻击2个单位
+3 3级骷髅射手的价格从210降至160
+4 冰晶神女的价格从250降至150 清灵天使的价格从500升至700
+5 添加了1v1 2v2两种新的模式 新模式暂时不计算积分
+
+4.27
+1 修复了取消农民建造会多退回10块钱的bug
+2 恭喜 永远的悖论 获得上次比赛的冠军！获得了勤王大将之一的冠名！新一轮的比赛也在筹备之中 如果你希望你的ID出现在兵种上 希望大家踊跃参加！
+3 清风游侠射程从460提升至760 狂风行者射程从520提升至820
+4 初春女神攻击间隔从1.8s降低至1.5s 
+5 赤龙战神暴击概率从15%提升至30%
+6 放逐者血量从780调整为880
+7 地狱火技能重做 1级为10%几率400范围溅射 2级为15%几率400范围溅射
+
+5.1
+1 老骗子1技能持续时间从3s提高至5s 老骗子2技能持续时间从5s提高至8s
+2 修复了很多技能和单位的描述
+
+5.12
+1 固守后无法建造/升级天辉圣塔
+2 天辉龙塔技能间隔从10s降低为8s
+
+5.18
+1 1级海民的价格从290提高至340
+2 通风大圣的价格从500提高至560
+
+5.26
+1 1级巫妖回血从10降低到5 2级巫妖回血从16降低到8
+2 2级海民的减速从30%提高至40% 价格从380提高至400 一拳搂死的概率从30%上调至50%
+3 1级巫医的攻速加成从30%提高至50% 2级巫医的攻速加成从50%提高至70%
+4 3种形态的敌法师攻击距离均增加100
+5 2级猪的技能伤害从12提高至24
+6 祝融神明的光环范围从700提高至1000 攻击力加成从24%提高至30%
+7 科多兽的踩地板范围从420提高至520 2级科多兽的踩地板伤害从280提高至360
+8 1级花仙的回复从275提高至300 2级花仙的回复从325提高至400 光环加成效果从10%提高至15%
+9 修复了英语客户端一些翻译为俄语的问题
+
+
+1 新兵种 近战飞行 轻甲攻城
+2 巫妖的冰甲不再提供生命回复
+3 二级火人光环数值提高
+4 二级猪技能伤害提高
+5 二级花仙光环数值提高
+6 二级海民减速从30提高至40
+7 巫医的光环范围增大
+
+
+
+1 新兵种
+
+08/22
+1 酒仙的溅射范围从220降低至160
+2 分裂箭小黑攻击力增加5
+3 2级小小分裂伤害从15%增加至25%
+4 2级尸王亡语伤害单位数量从3增加至4
+5 落难公主的人口从1增加至2
+6 luna的额外数量buff不在提供额外护甲 但luna的额外雕像数量上限从2增加至12
+7 1级viper的价格从260降低至210
+8 1级双头龙的价格从310降低至270 2.1级双头从560降低至520 2.2级从360降低至320
+9 轰炸机的价格从480降低至410
+10 2级火枪价格从180降低至160 3级火枪价格从280降低至260 
+11 1级炸弹人价格从280降低至220 溅射伤害从10%提高至30% 
+12 2级骨弓攻击间隔从0.36降低至0.3 3级骨弓攻击间隔从0.36降低至0.24
+13 1级黑鸟的价格从355降低至300
+14 加速手套的卷轴价格从280降低至180 效果从30 50 70攻速加成提升至30 60 90
+15 刷新球价格从230降低至150
+16 巨人护腕价格从300 400 400降低为250 275 300 冷却时间从55减少至35
+17 酸雾瓶cd从75s降低为55s
+18 修复了英文技能介绍里人马和熊战护甲错误的bug
+19 移除了载入界面里的锦标赛标语
+20 修复了reroll的水晶需求
+21 修复了先知大招的范围 之前只是看起来像1200其实还是600 现在是1200了
+22 修复了MMR不显示的问题
+
+1 Lv2 Panda's cleave aoe range reduce from 220 to 160
+2 Lv2.1 Drow's attack damage increase by 5
+3 Lv2 Tiny's cleave damage increase from 15% to 25%
+4 Lv2 Undying's deathrattle damage unit number increase from 3 to 4
+5 Lv2 VS' food increase from 1 to 2
+6 Luna's extra buff does not provide extra armor any more, but the extra buff's max number increases from 2 to 12
+7 Lv1 Viper's gold cost decrease from 260 to 210
+8 Lv1 Jakiro gold cost decrease from 310 to 270, 2.1 jakiro from 560 to 520, 2.2 jakiro from 360 to 320
+9 Lv2.1 Gyro(the not skyhigh one) gold cost decrease from 480 to 410
+10 Lv2 Sniper gold cost decrease from 180 to 160, Lv3 Sniper decrease from 280 to 260
+11 Lv1 Techies gold cost decrease from 280 to 220, aoe splash damage from 10% to 30%
+12 Lv2 Clincz attack speed decrease from 0.36s to 0.3s, Lv3 Clincz attack speed decrease from 0.36s to 0.24s
+13 Lv1 OD's gold cost decrease from 355 to 300
+14 Glove of haste's recipe's price decrease from 280 to 180, and effect increse from 30% 50% 70% to 30% 60% 90%
+15 Refresher Orb's price decrease from 230 to 150
+16 Bracelet's price decrease from 300 400 400 to 250 275 300, cool down from 55 to 35
+17 Acid Spray (the item) cool down decrease from 75s to 55s
+18 Fix some English description bug about some unit's armor type
+19 Remove tournament info in loading screen
+20 Fix the reroll crystal to 50 100 200 etc...
+21 Fix Furion's ult, before it looks like 1200 aoe range but it was actually 600, now it is correctly 1200
+22 Fix the MMR bug

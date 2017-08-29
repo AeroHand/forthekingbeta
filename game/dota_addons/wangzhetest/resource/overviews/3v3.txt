@@ -1,0 +1,8 @@
+3v3
+{
+	material materials/overviews/3v3.vmat
+	pos_x -6768
+	pos_y 7944
+	scale 13.375
+}
+

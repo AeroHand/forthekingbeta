@@ -1,0 +1,17 @@
+<root>
+	<styles>
+		<include src="file://{resources}/styles/dotastyles.css" />
+		<include src="file://{resources}/styles/custom_game/BossControl.css" />
+	</styles>
+	<scripts>
+		<include src="file://{resources}/scripts/custom_game/BossControl.js" />
+	</scripts>
+	<Panel class="BossControlRoot" hittest="false">
+		<Button id="BossControlButton"
+			onmouseover="BossControlShowTooltip()"
+			onmouseout="BossControlHideTooltip()"
+			onactivate="BossControl()">
+			<Label id="BossControlButton_Label" text="#GetBossControl" hittest="false"/>
+		</Button>
+	</Panel>
+</root>

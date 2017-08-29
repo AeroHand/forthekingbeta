@@ -1,0 +1,64 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.vcss_c"/>
+		<include src="file://{resources}/styles/custom_game/playerstates.css" />
+	</styles>
+	<scripts>
+		<include src="file://{resources}/scripts/custom_game/playerstates.js" />
+	</scripts>
+	<Panel class="PlayerStatesPanel" hittest="false">
+		<Panel id="RankingLevel">
+			<Label id="LevelNumber"/>
+		</Panel>
+		<Panel id="PlayerRandkInfo"
+			onmouseover="PlayerRandkInfoShowTooltip()"
+			onmouseout="PlayerRandkInfoHideTooltip()">
+			<Panel id="RankingAppellationAndName">
+				<Label id="RankingAppellation"/>
+			</Panel>
+			<Panel id="RankingScoreAndRank">
+				<Label id="RankingScore"/>
+				<Label id="Rank"/>
+			</Panel>
+		</Panel>
+		<Panel id="PlayerStates" hittest="false">
+			<Panel id="Crystal"
+				onmouseover="CrystalShowTooltip()"
+				onmouseout="CrystalHideTooltip()">
+				<Button id="Crystal_image"/>
+				<Label id="Crystal_count" class="Crystal_number" text="-1"/>
+			</Panel>
+			<Panel id="Income"
+				onmouseover="IncomeShowTooltip()"
+				onmouseout="IncomeHideTooltip()">
+				<Button id="Income_image"/>
+				<Label id="Income_count" class="Income_number" text="-1"/>
+			</Panel>
+			<Panel id="Worker"
+				onmouseover="WorkerShowTooltip()"
+				onmouseout="WorkerHideTooltip()">
+				<Button id="Worker_image"/>
+				<Label id="Worker_count" class="Worker_number" text="-1"/>
+				<Label id="Worker_virgule" class="Virgule" text="|"/>
+				<Label id="Tech_count" class="Tech_number" text="-1"/>
+			</Panel>
+			<Panel id="Food"
+				onmouseover="FoodShowTooltip()"
+				onmouseout="FoodHideTooltip()">
+				<Button id="Food_image"/>
+				<Label id="Food_count" class="Food_number" text="-1"/>
+				<Label id="Food_virgule" class="Virgule" text="/"/>
+				<Label id="Food_max" class="Food_number" text="-1"/>
+			</Panel>
+			<Panel id="Score"
+				onmouseover="ScoreShowTooltip()"
+				onmouseout="ScoreHideTooltip()">
+				<Button id="Score_image"/>
+				<Label id="Score_count" class="Score_number" text="-1"/>
+			</Panel>
+			<Panel id="Gold" hittest="false">			
+				<Label id="Gold_count" class="Score_number" text="-1"/>
+			</Panel>
+		</Panel>
+	</Panel>
+</root>

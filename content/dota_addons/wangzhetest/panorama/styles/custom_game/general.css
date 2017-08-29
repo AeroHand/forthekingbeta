@@ -1,0 +1,96 @@
+.GeneralPanel
+{
+	width: 121px;
+	height: 88px;
+	margin-top: 4px;
+	margin-bottom: 4px;
+	margin-left: 4px;
+	margin-right: 4px;
+	z-index: 0;
+}
+	.Cost
+	{
+		font-size: 15px;
+		color: white;
+	}
+	#GeneralCost
+	{
+		width: 121px;
+		height: 88px;
+		margin-top: 4px;
+		margin-bottom: 4px;
+		margin-left: 4px;
+		margin-right: 4px;
+		z-index: 1;
+	}
+		#GeneralGoldCost
+		{
+			text-shadow: 0px 0px 6px 4 gold;
+			visibility: visible;
+			vertical-align: bottom;
+			horizontal-align: left;
+			margin-bottom: 22px;
+		}
+		#GeneralLumberCost
+		{
+			text-shadow: 0px 0px 6px 4 blue;
+			visibility: visible;
+			vertical-align: bottom;
+			horizontal-align: right;
+			margin-right: 32px;
+			margin-bottom: 22px;
+		}
+	.Stock
+	{
+		font-size: 21px;
+		color: #CCCCCC;
+	}
+	#GeneralStock
+	{
+		text-shadow: 0px 0px 6px 2 #000000;
+		visibility: visible;
+		vertical-align: top;
+		horizontal-align: left;
+		margin-left: 5px;
+		margin-top: 1px;
+		z-index: 1;
+	}
+	#GeneralBorder
+	{
+		width: 87px;
+		height: 67px;
+		border: 3px solid gold;
+		border-radius: 5px;
+		margin-top: -1.5px;
+		margin-left: -1.5px;
+	}
+	.not_enough_states #GeneralBorder
+	{
+		border: 3px solid red;
+		border-radius: 5px;
+	}
+	.no_stock #GeneralBorder
+	{
+		border: 3px solid black;
+		border-radius: 5px;
+	}
+		#Cooldown
+		{
+			width: 100%;
+			height: 100%;
+			visibility: collapse;
+		}
+		#CooldownOverlay
+		{
+			height: 100%;
+			background-color: #000000DD;
+		}
+		#CooldownTimer
+		{
+			color: white;
+			font-size: 20px;
+			text-shadow: 0px 0px 6px 6 #000000;
+			horizontal-align: center;
+			vertical-align: center;
+		}
+

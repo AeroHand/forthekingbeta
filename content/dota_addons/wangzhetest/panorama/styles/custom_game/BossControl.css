@@ -1,0 +1,41 @@
+.BossControlRoot
+{
+	vertical-align: top;
+	horizontal-align: right;
+	margin-right: 350px;
+	margin-top: -22px;
+}
+#BossControlButton
+{
+	background-image: url(file://{images}/custom_game/BossControllableButton.psd);
+	background-size: 100%;
+	margin-top: 5px;
+	margin-right: 5px;
+	width: 207px;
+	height: 56px;
+}
+#BossControlButton:hover
+{
+	background-image: url(file://{images}/custom_game/BossControllableButton_light.psd);
+}
+#BossControlButton:hover Label
+{
+	color: #ffffff;
+}
+	#BossControlButton_Label
+	{
+		margin-top: 15px;
+		font-size: 18px;
+		color: #CCCCCC;
+		font-family: FZLanTingHei-R-GBK;
+		font-weight: bold;
+		text-align: center;
+		vertical-align: center;
+		horizontal-align: center;
+		tooltip-position: bottom;
+		tooltip-body-position: 50% 50%;
+	}
+	.Russian #BossControlButton_Label
+	{
+		font-family: Radiance;
+	}

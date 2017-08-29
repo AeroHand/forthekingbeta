@@ -1,0 +1,20 @@
+<root>
+	<styles>
+		<include src="file://{resources}/styles/custom_game/round.css" />
+	</styles>
+	<scripts>
+		<include src="file://{resources}/scripts/custom_game/round.js" />
+	</scripts>
+	<Panel class="RoundRoot" hittest="false">
+		<Panel class="RoundPanel" hittest="false">
+			<Label id="Round" text="#Round" hittest="false"/>
+			<Label id="RoundNumber" text="0" hittest="false"/>
+		</Panel>
+		<Panel class="RoundProgressBarPanel" hittest="false">
+			<Label id="RoundProgressBarTime" text="   " hittest="false"/>
+			<Panel id="RoundProgressBar" hittest="false">
+				<Panel id="RoundProgressBarOverlay" hittest="false"/>
+			</Panel>
+		</Panel>
+	</Panel>
+</root>

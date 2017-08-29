@@ -1,0 +1,28 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+		<include src="file://{resources}/styles/custom_game/end_screen.css" />
+	</styles>
+	<scripts>
+	</scripts>
+	<Panel class="Playerinfo">
+		<Image class="PlayerMVPInfo"/>
+		<Panel class="PlayerAvatarImageAndName">
+			<DOTAAvatarImage class="AvatarImage"/>
+			<Panel class="PlayerNameAndAppellation" >
+				<Label class="Name"/>
+				<Label class="Appellation"/>
+			</Panel>
+		</Panel>
+		<Label class="PlayerDamageToKing"/>
+		<Label class="PlayerBreakGold"/>
+		<Label class="PlayerKillCount"/>
+		<Label class="PlayerScore"/>
+		<Label class="PlayerGold"/>
+		<Label class="PlayerLumber"/>
+		<Label class="PlayerIncome"/>
+		<Label class="PlayerArmaments"/>
+		<Image class="PlayerMVP"/>
+		<Label class="PlayerMMR"/>
+	</Panel>
+</root>

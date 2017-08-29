@@ -1,0 +1,103 @@
+"DOTAHeroes"
+{
+	"npc_legion_commander"
+	{
+		"override_hero"				"npc_dota_hero_legion_commander"			// Hero to override
+		"VisionNighttimeRange"		"1800"										// Range of vision at night time.
+		"AutoAttacksByDefault"      "0"
+		//"DisplayAdditionalHeroes"   "1"              // 左上角图标
+		 "AttackRate" "1"
+		//"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_legion_commander.vsndevts"
+
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"AttackCapabilities"   "DOTA_UNIT_CAP_NO_ATTACK"
+    	"MovementSpeed"             "400"                       // 移动速度		
+		"Abilitylayout" "6"
+		"Ability1" "fakabing"
+		"Ability2" "tunbing_daiming"
+		"Ability3" "tunbing_chongfeng"
+		"Ability4" "legion_rerollbuilds"
+		"Ability5" "legion_zhenya"
+		"Ability6" "legion_gushou"
+		"Ability7" ""
+		"Ability8" ""
+		//"Ability8"	"build_base"
+   		"StatusHealth"              "20000"       // 基础生命值
+		"StatusMana"                "5000"         // 基础魔法值
+	    "StatusManaRegen"           "300"         // 魔法恢复速度
+	    "StatusHealthRegen"         "500"         // 生命恢复速度
+
+		 
+		  
+		"AttackDamageMin"           "1"
+	    "AttackDamageMax"           "2" 
+	}
+
+	"npc_legion_furion"
+	{
+		"override_hero"				"npc_dota_hero_furion"			// Hero to override
+		"VisionNighttimeRange"		"1800"										// Range of vision at night time.
+		"AutoAttacksByDefault"      "0"
+		//"DisplayAdditionalHeroes"   "1"              // 左上角图标
+		 "AttackRate" "1"
+		//"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_legion_commander.vsndevts"
+
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"AttackCapabilities"   "DOTA_UNIT_CAP_NO_ATTACK"
+    	"MovementSpeed"             "400"                       // 移动速度		
+		"Abilitylayout" "6"
+		"Ability1" "fakabing"
+		"Ability2" "tunbing_daiming"
+		"Ability3" "tunbing_chongfeng"
+		"Ability4" "legion_rerollbuilds"
+		"Ability5" "legion_shengli"
+		"Ability6" "legion_gushou"
+		"Ability7" ""
+		"Ability8" ""
+		//"Ability8"	"build_base"
+	   	"StatusHealth"              "20000"       // 基础生命值
+		"StatusMana"                "5000"         // 基础魔法值
+	    "StatusManaRegen"           "300"         // 魔法恢复速度
+	    "StatusHealthRegen"         "500"         // 生命恢复速度
+
+		 
+		  
+		"AttackDamageMin"           "1"
+	    "AttackDamageMax"           "2" 
+	}
+
+	"npc_legion_kunkka"
+	{
+		"override_hero"				"npc_dota_hero_kunkka"			// Hero to override
+		"VisionNighttimeRange"		"1800"										// Range of vision at night time.
+		"AutoAttacksByDefault"      "0"
+		//"DisplayAdditionalHeroes"   "1"              // 左上角图标
+		 "AttackRate" "1"
+		//"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_legion_commander.vsndevts"
+
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"AttackCapabilities"   "DOTA_UNIT_CAP_NO_ATTACK"
+    	"MovementSpeed"             "400"                       // 移动速度		
+		"Abilitylayout" "6"
+		"Ability1" "fakabing"
+		"Ability2" "tunbing_daiming"
+		"Ability3" "tunbing_chongfeng"
+		"Ability4" "legion_rerollbuilds"
+		"Ability5" "legion_liejiu"
+		"Ability6" "legion_gushou"
+		"Ability7" ""
+		"Ability8" ""
+	 	//"Ability8"	"build_base"
+   		"StatusHealth"              "20000"       // 基础生命值
+		"StatusMana"                "5000"         // 基础魔法值
+	    "StatusManaRegen"           "300"         // 魔法恢复速度
+	    "StatusHealthRegen"         "500"         // 生命恢复速度
+
+		 
+		  
+		"AttackDamageMin"           "1"
+	    "AttackDamageMax"           "2" 
+	}
+
+
+}

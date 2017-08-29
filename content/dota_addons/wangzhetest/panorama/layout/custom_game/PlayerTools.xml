@@ -1,0 +1,15 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.vcss_c"/>
+		<include src="file://{resources}/styles/custom_game/PlayerTools.css" />
+	</styles>
+	<scripts>
+		<include src="file://{resources}/scripts/custom_game/PlayerTools.js" />
+	</scripts>
+	<Panel class="PlayerToolsPanel" hittest="false">
+		<Button id="PlayerToolsButton" onactivate="ShowPlayerTools()" onmouseover="DOTAShowTitleTextTooltip( #ftk_settings, #ftk_settings_description)" onmouseout="DOTAHideTitleTextTooltip()"/>
+		<Panel id="PlayerTools">
+			<DOTASettingsSlider id="CameraDistanceSlider" text="#CameraDistance" min="1134" max="2134" convar="dota_camera_distance" />
+		</Panel>
+	</Panel>
+</root>

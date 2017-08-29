@@ -1,0 +1,29 @@
+<root>
+	<styles>
+		<include src="file://{resources}/styles/dotastyles.css" />
+		<include src="file://{resources}/styles/custom_game/action_bar.css" />
+	</styles>
+	<scripts>
+		<include src="file://{resources}/scripts/custom_game/action_bar.js" />
+	</scripts>
+	<Panel class="AbilityOverlayRoot">
+		<Panel id="Enter">
+			<Button id="EnterInset" onactivate="Enter_active(Players.GetLocalPlayer())"/>
+			<Label id="EnterTime" text="80"/>
+		</Panel>
+		<Panel id="ability">
+			<Panel id="ability_list" />
+			<Panel id="reroll">
+				<Button id="X1" class="X" onactivate="X_active(Players.GetLocalPlayer(),1)"/>
+				<Button id="X2" class="X" onactivate="X_active(Players.GetLocalPlayer(),2)"/>
+				<Button id="X3" class="X" onactivate="X_active(Players.GetLocalPlayer(),3)"/>
+				<Button id="X4" class="X" onactivate="X_active(Players.GetLocalPlayer(),4)"/>
+				<Button id="X5" class="X" onactivate="X_active(Players.GetLocalPlayer(),5)"/>
+				<Button id="X6" class="X" onactivate="X_active(Players.GetLocalPlayer(),6)"/>
+				<Button id="X7" class="X" onactivate="X_active(Players.GetLocalPlayer(),7)"/>
+				<Button id="X8" class="X" onactivate="X_active(Players.GetLocalPlayer(),8)"/>
+			</Panel>
+		</Panel>
+	</Panel>
+</root>
+

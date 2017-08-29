@@ -1,0 +1,8 @@
+rift
+{
+	material materials/overviews/rift.vmat
+	pos_x -6768
+	pos_y 7944
+	scale 13.375
+}
+

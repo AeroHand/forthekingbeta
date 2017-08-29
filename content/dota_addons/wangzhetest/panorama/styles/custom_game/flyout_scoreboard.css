@@ -1,0 +1,306 @@
+.FlyoutScoreboardRoot
+{
+	vertical-align: top;
+	horizontal-align: left;
+	flow-children: down;
+}
+#FlyoutScoreboardPanel
+{
+	horizontal-align: left;
+	margin-left: 250px;
+	flow-children: right;
+	background-image: url(file://{images}/custom_game/FlyoutScoreboard/Button.psd);
+	background-size: 100%;
+	padding: 10px;
+}
+#FlyoutScoreboardPanel:hover
+{
+	background-image: url(file://{images}/custom_game/FlyoutScoreboard/Button_light.psd);
+}
+.AspectRatio16x10 #FlyoutScoreboardPanel
+{
+	margin-left: 210px;
+}
+.AspectRatio4x3 #FlyoutScoreboardPanel
+{
+	margin-top: 50px;	
+	margin-left: 0px;	
+}
+	#FlyoutScoreboardText
+	{
+		font-size: 18px;
+		vertical-align: center;
+	}
+	#FlyoutScoreboardPanel:hover #FlyoutScoreboardText
+	{
+		color: #ffffff;
+	}
+	#FlyoutScoreboardButton
+	{
+		vertical-align: center;
+		background-image: url(file://{images}/custom_game/FlyoutScoreboard/openbutton.psd);
+		background-size: 100%;
+		width: 18px;
+		height: 20px;
+	}
+	.flyout_scoreboard_visible #FlyoutScoreboardButton
+	{
+		background-image: url(file://{images}/custom_game/FlyoutScoreboard/closebutton.psd);
+		background-size: 100%;
+	}
+#PlayerStates
+{
+	margin-top: 100px;
+	z-index: 0;
+	width: 650px;
+	visibility: collapse;
+	padding-left: 40px;
+	padding-top: 85px;
+	flow-children: down;
+}
+.flyout_scoreboard_visible #PlayerStates
+{
+	visibility: visible;
+}
+	#GameInfo
+	{
+		background-image: url(file://{images}/custom_game/FlyoutScoreboard/beijingwangzhi.psd);
+		background-size: 100%;
+		width: 100%;
+		height: 141px;
+		flow-children: down;
+		vertical-align: center;
+		horizontal-align: center;
+		margin-top:-150px;
+		margin-bottom:0px;
+	}
+		#GameName
+		{
+			font-size: 20px;
+			margin-top:75px;
+			vertical-align: center;
+			horizontal-align: center;
+			color: white;
+		}
+		#GameURL
+		{
+			font-size: 20px;
+			horizontal-align: center;
+			color: white;
+		}
+	.Team
+	{
+		width: 100%;
+		flow-children: down;
+		background-size: 100%;
+	}
+		.Teaminfo
+		{
+			width: 100%;
+			height: 45px;
+			flow-children: right;
+			background-color: #000000cc;
+			padding-left: 5%;
+		}
+		#player4,
+		#player8
+		{
+			visibility: collapse;
+		}
+		.Playerinfo1
+		{
+			width: 100%;
+			height: 55px;
+			vertical-align: center;
+			flow-children: right;
+			background-image: url(file://{images}/custom_game/EndScreen/Team1BG.png);
+			margin-bottom: 5px;
+			padding-left: 4%;
+		}
+		.Playerinfo2
+		{
+			width: 100%;
+			height: 55px;
+			vertical-align: center;
+			flow-children: right;
+			background-image: url(file://{images}/custom_game/EndScreen/Team2BG.png);
+			margin-bottom: 5px;
+			padding-left: 4%;
+		}
+			.TeamName
+			{
+				font-size: 30px;
+				vertical-align: center;
+				text-align: left;
+				color: white;
+				width: 33%;
+			}
+			.PlayerAvatarImageAndName
+			{
+				width: 33%;
+				height: 100%;
+				vertical-align: center;
+			}
+				.AvatarImage
+				{
+					vertical-align: center;
+					width: 45px;
+					height: 45px;
+				}
+				.NameAndAppellation
+				{
+					height: 100%;
+					vertical-align: center;
+					margin-left: 45px;
+				}
+					.Name
+					{
+						height: 50%;
+						vertical-align: top;
+						margin-top: 3px;
+						font-size: 22px;
+						text-align: left;
+						color: white;
+					}
+					.Appellation
+					{
+						vertical-align: bottom;
+						font-size: 15px;
+						text-align: left;
+						color: white;
+					}
+				.DisconnectedImage
+				{
+					width: 100%;
+					height: 100%;
+					border: 4px solid #ff00ff;
+					visibility: collapse;
+				}
+				.AbandonedImage
+				{
+					width: 100%;
+					height: 100%;
+					border: 4px solid #ff0000;
+					visibility: collapse;
+				}
+			.TeamIncome
+			{
+				font-size: 20px;
+				vertical-align: center;
+				text-align: center;
+				color: white;
+				margin-left: 4px;
+				width: 15%;
+			}
+			.PlayerIncome
+			{
+				font-size: 20px;
+				font-family: Radiance;
+				vertical-align: center;
+				text-align: center;
+				color: white;
+				margin-left: 4px;
+				width: 15%;
+			}
+			.TeamWorker
+			{
+				font-size: 20px;
+				vertical-align: center;
+				text-align: center;
+				color: white;
+				margin-left: 4px;
+				width: 15%;
+			}
+			.PlayerWorker
+			{
+				vertical-align: center;
+				margin-left: 4px;
+				width: 15%;
+				flow-children: right;
+			}
+				.PlayerWorkerCount
+				{
+					font-size: 18px;
+					font-family: Radiance;
+					color: white;
+					text-align: right;
+					width: 45%;
+				}
+				.PlayerTech
+				{
+					font-size: 18px;
+					font-family: Radiance;
+					color: white;
+					horizontal-align: left;
+				}
+				.Virgule
+				{
+					font-size: 18px;
+					font-family: Radiance;
+					color: white;
+					margin-left: 3px;
+					width: 6px;
+				}
+			.TeamScore
+			{
+				font-size: 20px;
+				vertical-align: center;
+				text-align: center;
+				color: white;
+				margin-left: 4px;
+				width: 15%;
+			}
+			.PlayerScore
+			{
+				font-size: 20px;
+				font-family: Radiance;
+				vertical-align: center;
+				text-align: center;
+				color: white;
+				margin-left: 4px;
+				width: 15%;
+			}
+			.TeamArmaments
+			{
+				font-size: 20px;
+				vertical-align: center;
+				text-align: center;
+				color: white;
+				margin-left: 4px;
+				width: 22%;
+			}
+			.PlayerArmaments
+			{
+				font-size: 20px;
+				font-family: Radiance;
+				vertical-align: center;
+				text-align: center;
+				color: white;
+				margin-left: 4px;
+				width: 22%;
+			}
+
+	.Russian .TeamName
+	{
+		font-family: Radiance;
+		font-size: 18px;
+	}
+	.Russian .PlayerName
+	{
+		font-family: Radiance;
+	}
+	.Russian .TeamIncome,
+	.Russian .TeamWorker,
+	.Russian .TeamScore,
+	.Russian .TeamArmaments,
+	{
+		font-family: Radiance;
+		font-size: 16px;
+	}
+	
+	.Rank
+	{
+		width: 100%;
+		flow-children: down;
+		background-size: 100%;
+	}

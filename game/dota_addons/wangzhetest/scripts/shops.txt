@@ -1,0 +1,120 @@
+"dota_shops"
+{
+	"consumables"//被动进攻
+	{
+		"item"		"item_armament_14"
+		"item"		"item_armament_16"
+		"item"		"item_armament_19"
+		"item"		"item_armament_33"
+		"item"		"item_armament_9"
+		"item"		"item_armament_17"
+		"item"		"item_armament_32"
+	}
+
+	"attributes"//主动进攻
+	{
+		"item"		"item_armament_34"
+		"item"		"item_armament_15"
+		"item"		"item_armament_35"
+		"item"		"item_armament_38"
+		"item"		"item_armament_10"
+		"item"		"item_armament_27"
+		"item"		"item_armament_12"
+		"item"		"item_armament_31"
+		"item"		"item_armament_2"
+		"item"		"item_armament_13"
+		"item"		"item_armament_6"
+		"item"		"item_armament_20"
+	}
+
+	"weapons_armor"//主动防守
+	{
+		"item"		"item_armament_28"
+		"item"		"item_armament_36"
+		"item"		"item_armament_11"
+		"item"		"item_armament_37"
+		"item"		"item_armament_1"
+		"item"		"item_armament_29"
+		"item"		"item_armament_5"
+		"item"		"item_armament_22"
+		"item"		"item_armament_30"
+		"item"		"item_armament_3"
+		"item"		"item_armament_21"
+	}
+			
+	"misc"//被动防守
+	{
+		"item"		"item_armament_23"
+		"item"		"item_armament_26"
+		"item"		"item_armament_24"
+		"item"		"item_armament_8"
+		"item"		"item_armament_4"
+		"item"		"item_armament_25"
+		"item"		"item_armament_7"
+		"item"		"item_armament_18"
+	}	
+	
+	// Level 1 - Green Recipes
+	"basics"
+	{
+			
+	}
+
+	// Level 2 - Blue Recipes
+	"support"
+	{
+	
+	}
+				
+	"magics"			
+	{
+
+	}
+		
+	// Level 3 - Purple Recipes	
+	"defense"
+	{
+
+	}
+			
+	"weapons"
+	{
+
+					
+					
+	}
+		
+	// Level 4 - Orange / Orb / Artifacts				
+	"artifacts"
+	{	
+
+	}
+
+	"sideshop1"//雇佣兵商店
+	{
+		// "item"		"item_hire_1"
+		// "item"		"item_hire_2"
+		// "item"		"item_hire_3"	
+		// "item"		"item_hire_4"	
+		// "item"		"item_hire_5"
+		// "item"		"item_hire_6"
+		// "item"		"item_hire_7"
+		// "item"		"item_hire_8"
+		// "item"		"item_hire_9"
+		// "item"		"item_hire_10"
+		// "item"		"item_hire_11"
+		// "item"		"item_hire_12"
+	}
+
+	"sideshop2"//雇佣兵商店
+	{
+
+	}
+
+
+	"secretshop"	//战神商店
+	{							
+
+	}
+
+}

@@ -1,0 +1,242 @@
+@define TotalLength: 30s;
+@define TimingFunc: linear;
+@define IterationCount: infinite;
+
+.GameLoadingRoot
+{
+	width: 100%;
+	height: 100%;
+	background-color: black;
+	overflow: clip;
+}
+
+#TitlePanel
+{
+	horizontal-align: left;
+	vertical-align: bottom;
+	margin-bottom: 150px;
+	margin-left: 100px;
+}
+#AnouncePanel
+{
+	horizontal-align: left;
+	vertical-align: top;
+	margin-top: 150px;
+	margin-left: 100px;
+
+	animation-name:chilun1animation;
+    animation-iteration-count:infinite;
+    animation-timing-function: linear;
+    animation-duration:10s;
+}
+#WebAndEmile
+{
+	horizontal-align: left;
+	margin-top: 130px;
+	font-size: 20px;
+	color: white;
+	text-shadow: 3px 3px 3px 5 purple;
+}
+#WebAndEmile2
+{
+	horizontal-align: left;
+	margin-top: 160px;
+	font-size: 20px;
+	color: white;
+	text-shadow: 3px 3px 3px 5 purple;
+}
+#GameTitle
+{
+	margin-bottom: -15px;
+	vertical-align: center;
+	text-transform: uppercase;
+	font-size: 80px;
+	color: gold;
+	text-shadow: 3px 3px 3px 5 purple;
+}
+#AnnounceTitle
+{
+	margin-bottom: -15px;
+	vertical-align: center;
+	text-transform: uppercase;
+	font-size: 60px;
+	color: grey;
+	text-shadow: 3px 3px 3px 5 gold;
+
+}
+#TipPanel
+{
+	horizontal-align: left;
+	vertical-align: top;
+	flow-children: right;
+	margin-left: 50px;
+	width: 1065px;
+	background-color: #00000080;
+}
+.AspectRatio16x10 #TipPanel
+{
+	width: 870px;
+}
+.AspectRatio4x3 #TipPanel
+{
+	width: 585px;
+}
+#Tip
+{
+	horizontal-align: center;
+	vertical-align: center;
+	font-size: 24px;
+	color: #ffffff;
+	text-shadow: 2px 2px 2px #000000;
+}
+#Developers
+{
+	flow-children: down;
+	background-color: #000000cc;
+	horizontal-align: left;
+	vertical-align: center;
+}
+#Developers Label
+{
+	color: white;
+	font-size: 20px;
+	horizontal-align: center;
+}
+.column
+{
+	width: 100%;
+	flow-children: down;
+}
+.avatar
+{
+	width: 48px;
+	height: 48px;
+	background-color: black;
+	vertical-align: middle;
+	horizontal-align: center;
+}
+
+#seq
+{
+    width: 100%;
+    height: 100%;
+}
+
+@keyframes 'x' {}
+
+#seq_bg
+{
+	width: 100%;
+	height: 100%;
+}
+
+#seq_creeps
+{
+	width: 100%;
+	height: 100%;
+/*	margin-left: -150px;
+	animation-name: seq_creeps_anim;
+	animation-duration: TotalLength;
+	animation-timing-function: ease;
+	animation-iteration-count: IterationCount;*/
+}
+
+@keyframes 'chilun1animation'
+{
+    0%
+    {
+ 
+    }
+
+    50%
+    {
+        transform: translateX( 10% ) translateY( 10% ) ;
+    }
+    100%
+    {
+        transform: translateX( -10% ) translateY( -10% ) ;
+    }
+}
+
+
+@keyframes 'seq_creeps_anim'
+{
+	0%
+	{
+		transform: translateX( 0% ) translateY( -20% );
+	}
+	10%
+	{
+		transform: translateX( 20% ) translateY( 20% ) ;
+	}
+	20%
+	{
+		transform: translateX( 40% ) translateY( -20% ) ;
+	}
+	30%
+	{
+		transform: translateX( 60% ) translateY( 20% ) ;
+	}
+	40%
+	{
+		transform: translateX( 80% ) translateY( -20% ) ;
+	}
+	50%
+	{
+		transform: translateX( 100% ) translateY( 20% ) ;
+	}
+	60%
+	{
+		transform: translateX( 80% ) translateY( -20% ) ;
+	}
+	70%
+	{
+		transform: translateX( 60% ) translateY( 20% ) ;
+	}
+	80%
+	{
+		transform: translateX( 40% ) translateY( -20% ) ;
+	}
+	90%
+	{
+		transform: translateX( 20% ) translateY( 20% );
+	}
+	100%
+	{
+		transform: translateX( 0% ) translateY( -20% );
+	}
+}
+
+#seq_commanders
+{
+	width: 100%;
+	height: 100%;
+	animation-name: seq_commanders_anim;
+	animation-duration: TotalLength;
+	animation-timing-function: TimingFunc;
+	animation-iteration-count: IterationCount;
+}
+
+@keyframes 'seq_commanders_anim'
+{
+	0%
+	{
+		transform: translateX( -25px ) translateY( -20px );
+	}
+	25%
+	{
+		transform: translateY( 0px );
+	}
+	50%
+	{
+		transform: translateX( 25px ) translateY( 0px );
+	}
+	25%
+	{
+		transform: translateY( 0px );
+	}
+	100%
+	{
+		transform: translateX( -25px ) translateY( -20px );
+	}
+}

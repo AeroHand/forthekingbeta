@@ -1,0 +1,8031 @@
+"DOTAAbilities"
+{
+	//贩售
+	"item_Sale_Build"
+	{
+		"ID"							"3000"
+		"BaseClass"						"item_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityManaCost"				"0"
+		"AbilityTextureName"			"custom/Sale_Build"
+		"AbilityCastAnimation"			"ACT_DOTA_IDLE"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		"ItemDroppable"					"0"
+		"ItemSellable"					"0"
+		"MaxLevel"						"2"
+		"ItemPurchasable"				"0"
+		"OnSpellStart"
+		{ 
+			"ReplaceUnit"
+			{
+				"UnitName"		"npc_dummy_build_base"
+				"Target"		"CASTER"
+				"OnSpawn"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/building.lua"
+						"Function"		"SaleBuild"
+					}
+				}
+			}
+		}
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"backmoney"			"100 50"
+			}
+		}
+	}
+
+	"item_score_1"
+	{
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"ID"					"3001"
+		"BaseClass"				"item_datadriven"//datadriven类
+		"ItemCost"				"0"//价格
+		"ItemDroppable"			"0"//不可丢弃
+		"ItemPurchasable"				"0"//不可购买
+		"ItemSellable"				"0"
+		"AbilityTextureName"		"custom/score_1"//参见名字
+	}
+
+
+	"item_score_2"
+	{
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"ID"					"3002"
+		"BaseClass"				"item_datadriven"//datadriven类
+		"ItemCost"				"0"//价格
+		"ItemDroppable"			"0"//不可丢弃
+		"ItemPurchasable"				"0"//不可购买
+		"ItemSellable"				"0"
+		"AbilityTextureName"		"custom/score_2"//参见名字
+	}
+
+	"item_score_3"
+	{
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"ID"					"3003"
+		"BaseClass"				"item_datadriven"//datadriven类
+		"ItemCost"				"0"//价格
+		"ItemPurchasable"				"0"//不可购买		
+		"ItemDroppable"			"0"//不可丢弃
+		"ItemSellable"				"0"
+		"AbilityTextureName"		"custom/score_3"//参见名字        
+	}
+
+	"item_score_4"
+	{
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"ID"					"3004"
+		"BaseClass"				"item_datadriven"//datadriven类
+		"ItemCost"				"0"//价格
+		"ItemPurchasable"				"0"//不可购买		
+		"ItemDroppable"			"0"//不可丢弃
+		"ItemSellable"				"0"
+		"AbilityTextureName"		"custom/score_4"//参见名字        
+	}
+	"item_score_5"
+	{
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"ID"					"3005"
+		"BaseClass"				"item_datadriven"//datadriven类
+		"ItemCost"				"0"//价格
+		"ItemPurchasable"				"0"//不可购买		
+		"ItemDroppable"			"0"//不可丢弃
+		"ItemSellable"				"0"
+		"AbilityTextureName"		"custom/score_5"//参见名字        
+	}
+	"item_score_6"
+	{
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"ID"					"3006"
+		"BaseClass"				"item_datadriven"//datadriven类
+		"ItemCost"				"0"//价格
+		"ItemPurchasable"				"0"//不可购买		
+		"ItemDroppable"			"0"//不可丢弃
+		"ItemSellable"				"0"
+		"AbilityTextureName"		"custom/score_6"//参见名字        
+	}
+//军备ARMAMENTS
+	//影之灵龛
+	"item_armament_1"
+	{
+		"ID"						"3007"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_1"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_BOTH"
+		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_BASIC"
+
+		"ItemCost"					"280"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+
+		"AbilityCooldown"			"38"
+		"AbilityCastPoint"			"0.1"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"healpersecond"		"80"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"damagepersecond"	"80"
+			}
+			"03"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"duration"			"8"
+			}
+		}
+		"OnAbilityPhaseStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities.lua"
+				"Function"		"FilterTarget"
+				"Caster"		"CASTER"
+				"TargetUnit"	"TARGET"
+			}
+		}
+		"OnSpellStart"
+		{
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_armament_1_buff1"
+				"Target"
+				{
+					"Center"	"TARGET"
+					"Teams"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+					"Types"		"DOTA_UNIT_TARGET_BASIC"
+				}
+				"Duration"		"%duration"
+			}
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_armament_1_buff2"
+				"Target"
+				{
+					"Center"	"TARGET"
+					"Teams"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+					"Types"		"DOTA_UNIT_TARGET_BASIC"
+				}
+				"Duration"		"%duration"
+			}
+			"FireSound"
+			{
+				"EffectName"	"DOTA_Item.UrnOfShadows.Activate"
+				"Target"		"TARGET"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_1_buff1"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"1"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"EffectName"		"particles/items2_fx/urn_of_shadows_heal.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+					}
+				}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"	"%healpersecond"
+				}
+			}
+			"modifier_armament_1_buff2"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"1"
+				"IsBuff"			"0"
+				"IsDebuff"			"1"
+				"IsStunDebuff"		"0"
+
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"EffectName"		"particles/items2_fx/urn_of_shadows_damage.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+					}
+				}
+				"ThinkInterval"		"1"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"SpellDamage"
+						"Target"		"TARGET"
+						"Damage"		"%damagepersecond"
+					}
+				}
+			}
+		}
+	}
+	//恐怖面具
+	"item_armament_2"
+	{
+		"ID"						"3008"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_2"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+
+		"ItemCost"					"500"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemBaseLevel"				"1"
+		"MaxUpgradeLevel"			"3"
+
+		"AbilityCooldown"			"75"
+		"AbilitySharedCooldown"		"item_armament_2"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"reducearmor"		"-3 -5 -7"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"duration"			"10"
+			}
+		}
+		"OnSpellStart"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"	"modifier_armament_2_buff"
+				"Target" 		"CASTER"
+			}
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_armament_2_buff"
+				"Target"		"CASTER"
+				"Duration"		"%duration"
+			}
+			"FireSound"
+			{
+				"EffectName"	"Hero_Axe.BerserkersCall.Item.Shoutmask"
+				"Target"		"CASTER"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_2_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+
+				"Aura"				"modifier_armament_2_buff_aura"
+				"Aura_Radius"		"99999"
+				"Aura_Teams"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+				"Aura_Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+				"Aura_Flags"		"DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE"
+				"Aura_ApplyToCaster""0"
+			}
+			"modifier_armament_2_buff_aura"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"0"
+				"IsBuff"			"0"
+				"IsDebuff"			"1"
+				"IsStunDebuff"		"0"
+
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"EffectName"		"particles/items_fx/aura_vlads.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+					}
+				}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%reducearmor"
+				}
+			}
+		}
+	}
+	"item_recipe_armament_2_level2"
+	{
+		"ID"							"3009"
+		"BaseClass"						"item_recipe_arcane_boots"
+
+		"ItemCost"						"500"
+		"ItemRecipe"					"1" 
+		"ItemResult"					"item_armament_2_level2"
+		"ItemRequirements"
+		{
+			"01"	"item_armament_2"
+		}
+	}
+	"item_armament_2_level2"
+	{
+		"ID"						"3010"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_2_level2"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+
+		"ItemCost"					"500"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemDisassembleRule"		"DOTA_ITEM_DISASSEMBLE_NEVER"
+		"ItemBaseLevel"				"2"
+		"MaxUpgradeLevel"			"3"
+
+		"AbilityCooldown"			"75"
+		"AbilitySharedCooldown"		"item_armament_2"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"reducearmor"		"-3 -5 -7"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"duration"			"10"
+			}
+		}
+		"OnSpellStart"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"	"modifier_armament_2_buff"
+				"Target" 		"CASTER"
+			}
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_armament_2_buff"
+				"Target"		"CASTER"
+				"Duration"		"%duration"
+			}
+			"FireSound"
+			{
+				"EffectName"	"Hero_Axe.BerserkersCall.Item.Shoutmask"
+				"Target"		"CASTER"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_2_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+
+				"Aura"				"modifier_armament_2_buff_aura"
+				"Aura_Radius"		"99999"
+				"Aura_Teams"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+				"Aura_Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+				"Aura_Flags"		"DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE"
+				"Aura_ApplyToCaster""0"
+			}
+			"modifier_armament_2_buff_aura"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"0"
+				"IsBuff"			"0"
+				"IsDebuff"			"1"
+				"IsStunDebuff"		"0"
+
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"EffectName"		"particles/items_fx/aura_vlads.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+					}
+				}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%reducearmor"
+				}
+			}
+		}
+	}
+	"item_recipe_armament_2_level3"
+	{
+		"ID"							"3011"
+		"BaseClass"						"item_recipe_arcane_boots"
+
+		"ItemCost"						"500"
+		"ItemRecipe"					"1" 
+		"ItemResult"					"item_armament_2_level3"
+		"ItemRequirements"
+		{
+			"01"	"item_armament_2_level2"
+		}
+	}
+	"item_armament_2_level3"
+	{
+		"ID"						"3012"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_2_level3"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+
+		"ItemCost"					"500"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemDisassembleRule"		"DOTA_ITEM_DISASSEMBLE_NEVER"
+		"ItemBaseLevel"				"3"
+		"MaxUpgradeLevel"			"3"
+
+		"AbilityCooldown"			"75"
+		"AbilitySharedCooldown"		"item_armament_2"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"reducearmor"		"-3 -5 -7"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"duration"			"10"
+			}
+		}
+		"OnSpellStart"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"	"modifier_armament_2_buff"
+				"Target" 		"CASTER"
+			}
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_armament_2_buff"
+				"Target"		"CASTER"
+				"Duration"		"%duration"
+			}
+			"FireSound"
+			{
+				"EffectName"	"Hero_Axe.BerserkersCall.Item.Shoutmask"
+				"Target"		"CASTER"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_2_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+
+				"Aura"				"modifier_armament_2_buff_aura"
+				"Aura_Radius"		"99999"
+				"Aura_Teams"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+				"Aura_Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+				"Aura_Flags"		"DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE"
+				"Aura_ApplyToCaster""0"
+			}
+			"modifier_armament_2_buff_aura"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"0"
+				"IsBuff"			"0"
+				"IsDebuff"			"1"
+				"IsStunDebuff"		"0"
+
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"EffectName"		"particles/items_fx/aura_vlads.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+					}
+				}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%reducearmor"
+				}
+			}
+		}
+	}
+	//玄冥盾牌
+	"item_armament_3"
+	{
+		"ID"						"3013"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_3"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+
+		"ItemCost"					"380"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemBaseLevel"				"1"
+		"MaxUpgradeLevel"			"3"
+
+		"AoERadius"					"%radius"
+		"AbilityCooldown"			"100"
+		"AbilitySharedCooldown"		"item_armament_3"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"armor"				"10 25 40"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"radius"			"250"
+			}
+			"03"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"duration"			"15"
+			}
+		}
+		"OnSpellStart"
+		{
+			"CreateThinker"
+			{
+				"ModifierName"	"modifier_armament_3_thinker"
+				"Target" 		"POINT"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_3_thinker"
+			{
+				"OnCreated"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"		"TARGET"
+					}
+					"FireSound"
+					{
+						"EffectName"	"DOTA_Item.Buckler.Activate"
+						"Target"		"TARGET"
+					}
+					"ActOnTargets"
+					{
+						"Target"
+						{
+							"Center"	"TARGET"
+							"Radius"	"%radius"
+							"Teams"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+							"Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+							"Flags"		"DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE"
+						}
+						"Action"
+						{
+							"RemoveModifier"
+							{
+								"ModifierName"	"modifier_armament_3_buff"
+								"Target"		"TARGET"
+							}
+							"ApplyModifier"
+							{
+								"ModifierName"	"modifier_armament_3_buff"
+								"Target"		"TARGET"
+								"Duration"		"%duration"
+							}
+						}
+					}
+				}
+			}
+			"modifier_armament_3_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"1"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"EffectName"		"particles/items_fx/buckler.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+					}
+				}
+
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%armor"
+				}
+			}
+		}
+	}
+	"item_recipe_armament_3_level2"
+	{
+		"ID"							"3014"
+		"BaseClass"						"item_recipe_arcane_boots"
+
+		"ItemCost"						"500"
+		"ItemRecipe"					"1" 
+		"ItemResult"					"item_armament_3_level2"
+		"ItemRequirements"
+		{
+			"01"	"item_armament_3"
+		}
+	}
+	"item_armament_3_level2"
+	{
+		"ID"						"3015"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_3_level2"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+
+		"ItemCost"					"380"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemDisassembleRule"		"DOTA_ITEM_DISASSEMBLE_NEVER"
+		"ItemBaseLevel"				"2"
+		"MaxUpgradeLevel"			"3"
+
+		"AoERadius"					"%radius"
+		"AbilityCooldown"			"100"
+		"AbilitySharedCooldown"		"item_armament_3"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"armor"				"10 25 40"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"radius"			"250"
+			}
+			"03"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"duration"			"15"
+			}
+		}
+		"OnSpellStart"
+		{
+			"CreateThinker"
+			{
+				"ModifierName"	"modifier_armament_3_thinker"
+				"Target" 		"POINT"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_3_thinker"
+			{
+				"OnCreated"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"		"TARGET"
+					}
+					"FireSound"
+					{
+						"EffectName"	"DOTA_Item.Buckler.Activate"
+						"Target"		"TARGET"
+					}
+					"ActOnTargets"
+					{
+						"Target"
+						{
+							"Center"	"TARGET"
+							"Radius"	"%radius"
+							"Teams"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+							"Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+							"Flags"		"DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE"
+						}
+						"Action"
+						{
+							"RemoveModifier"
+							{
+								"ModifierName"	"modifier_armament_3_buff"
+								"Target"		"TARGET"
+							}
+							"ApplyModifier"
+							{
+								"ModifierName"	"modifier_armament_3_buff"
+								"Target"		"TARGET"
+								"Duration"		"%duration"
+							}
+						}
+					}
+				}
+			}
+			"modifier_armament_3_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"1"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"EffectName"		"particles/items_fx/buckler.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+					}
+				}
+
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%armor"
+				}
+			}
+		}
+	}
+	"item_recipe_armament_3_level3"
+	{
+		"ID"							"3016"
+		"BaseClass"						"item_recipe_arcane_boots"
+
+		"ItemCost"						"500"
+		"ItemRecipe"					"1" 
+		"ItemResult"					"item_armament_3_level3"
+		"ItemRequirements"
+		{
+			"01"	"item_armament_3_level2"
+		}
+	}
+	"item_armament_3_level3"
+	{
+		"ID"						"3017"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_3_level3"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+
+		"ItemCost"					"380"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemDisassembleRule"		"DOTA_ITEM_DISASSEMBLE_NEVER"
+		"ItemBaseLevel"				"3"
+		"MaxUpgradeLevel"			"3"
+
+		"AoERadius"					"%radius"
+		"AbilityCooldown"			"100"
+		"AbilitySharedCooldown"		"item_armament_3"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"armor"				"10 25 40"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"radius"			"250"
+			}
+			"03"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"duration"			"15"
+			}
+		}
+		"OnSpellStart"
+		{
+			"CreateThinker"
+			{
+				"ModifierName"	"modifier_armament_3_thinker"
+				"Target" 		"POINT"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_3_thinker"
+			{
+				"OnCreated"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"		"TARGET"
+					}
+					"FireSound"
+					{
+						"EffectName"	"DOTA_Item.Buckler.Activate"
+						"Target"		"TARGET"
+					}
+					"ActOnTargets"
+					{
+						"Target"
+						{
+							"Center"	"TARGET"
+							"Radius"	"%radius"
+							"Teams"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+							"Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+							"Flags"		"DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE"
+						}
+						"Action"
+						{
+							"RemoveModifier"
+							{
+								"ModifierName"	"modifier_armament_3_buff"
+								"Target"		"TARGET"
+							}
+							"ApplyModifier"
+							{
+								"ModifierName"	"modifier_armament_3_buff"
+								"Target"		"TARGET"
+								"Duration"		"%duration"
+							}
+						}
+					}
+				}
+			}
+			"modifier_armament_3_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"1"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"EffectName"		"particles/items_fx/buckler.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+					}
+				}
+
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%armor"
+				}
+			}
+		}
+	}
+	//锁子甲
+	"item_armament_4"
+	{
+		"ID"						"3018"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_4"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		"ItemCost"					"450"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemBaseLevel"				"1"
+		"MaxUpgradeLevel"			"3"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"armor"				"3 4 5"
+			}
+		}
+		"OnEquip"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"	"modifier_armament_4"
+				"Target"		"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities.lua"
+				"Function"		"item_armament_4"
+				"Mode"			"0"
+			}
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_armament_4"
+				"Target"		"CASTER"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_4"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+
+				"Aura"				"modifier_armament_4_aura"
+				"Aura_Radius"		"99999"
+				"Aura_Teams"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+				"Aura_Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+				"Aura_Flags"		"DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE"
+				"Aura_ApplyToCaster""1"
+			}
+			"modifier_armament_4_aura"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_4"
+						"Mode"			"1"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_4"
+						"Mode"			"2"
+					}
+				}
+			}
+			"modifier_armament_4_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%armor"
+				}
+			}
+		}
+	}
+	"item_recipe_armament_4_level2"
+	{
+		"ID"							"3019"
+		"BaseClass"						"item_recipe_arcane_boots"
+
+		"ItemCost"						"160"
+		"ItemRecipe"					"1" 
+		"ItemResult"					"item_armament_4_level2"
+		"ItemRequirements"
+		{
+			"01"	"item_armament_4"
+		}
+	}
+	"item_armament_4_level2"
+	{
+		"ID"						"3020"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_4_level2"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		"ItemCost"					"450"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemDisassembleRule"		"DOTA_ITEM_DISASSEMBLE_NEVER"
+		"ItemBaseLevel"				"2"
+		"MaxUpgradeLevel"			"3"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"armor"				"3 4 5"
+			}
+		}
+		"OnEquip"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"	"modifier_armament_4"
+				"Target"		"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities.lua"
+				"Function"		"item_armament_4"
+				"Mode"			"0"
+			}
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_armament_4"
+				"Target"		"CASTER"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_4"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+
+				"Aura"				"modifier_armament_4_aura"
+				"Aura_Radius"		"99999"
+				"Aura_Teams"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+				"Aura_Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+				"Aura_Flags"		"DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE"
+				"Aura_ApplyToCaster""1"
+			}
+			"modifier_armament_4_aura"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_4"
+						"Mode"			"1"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_4"
+						"Mode"			"2"
+					}
+				}
+			}
+			"modifier_armament_4_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%armor"
+				}
+			}
+		}
+	}
+	"item_recipe_armament_4_level3"
+	{
+		"ID"							"3021"
+		"BaseClass"						"item_recipe_arcane_boots"
+
+		"ItemCost"						"160"
+		"ItemRecipe"					"1" 
+		"ItemResult"					"item_armament_4_level3"
+		"ItemRequirements"
+		{
+			"01"	"item_armament_4_level2"
+		}
+	}
+	"item_armament_4_level3"
+	{
+		"ID"						"3022"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_4_level3"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		"ItemCost"					"450"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemDisassembleRule"		"DOTA_ITEM_DISASSEMBLE_NEVER"
+		"ItemBaseLevel"				"3"
+		"MaxUpgradeLevel"			"3"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"armor"				"3 4 5"
+			}
+		}
+		"OnEquip"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"	"modifier_armament_4"
+				"Target"		"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities.lua"
+				"Function"		"item_armament_4"
+				"Mode"			"0"
+			}
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_armament_4"
+				"Target"		"CASTER"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_4"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+
+				"Aura"				"modifier_armament_4_aura"
+				"Aura_Radius"		"99999"
+				"Aura_Teams"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+				"Aura_Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+				"Aura_Flags"		"DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE"
+				"Aura_ApplyToCaster""1"
+			}
+			"modifier_armament_4_aura"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_4"
+						"Mode"			"1"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_4"
+						"Mode"			"2"
+					}
+				}
+			}
+			"modifier_armament_4_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%armor"
+				}
+			}
+		}
+	}
+	//巨人护腕
+	"item_armament_5"
+	{
+		"ID"						"3023"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_5"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_BASIC"
+
+		"ItemCost"					"250"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemBaseLevel"				"1"
+		"MaxUpgradeLevel"			"3"
+
+		"AbilityCooldown"			"35"
+		"AbilitySharedCooldown"		"item_armament_5"
+		"AbilityCastPoint"			"0.1"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"health"			"600 1200 2400"
+			}
+		}
+		"OnAbilityPhaseStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities.lua"
+				"Function"		"FilterTarget"
+				"Caster"		"CASTER"
+				"TargetUnit"	"TARGET"
+			}
+		}
+		"OnSpellStart"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"	"modifier_armament_5_buff"
+				"Target"		"TARGET"
+			}
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_armament_5_buff"
+				"Target"		"TARGET"
+			}
+			"FireSound"
+			{
+				"EffectName"	"Hero_OgreMagi.Bloodlust.Cast"
+				"Target"		"CASTER"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_5_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"1"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+
+				"OnCreated"
+				{
+					"FireSound"
+					{
+						"EffectName"	"Hero_OgreMagi.Bloodlust.Target"
+						"Target"		"TARGET"
+					}
+					"AttachEffect"
+					{
+						"EffectName"		"particles/units/heroes/hero_ogre_magi/ogre_magi_bloodlust_buff.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+					}
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_5"
+						"Mode"			"1"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_5"
+						"Mode"			"2"
+					}				
+				}
+			}
+		}
+	}
+	"item_recipe_armament_5_level2"
+	{
+		"ID"							"3024"
+		"BaseClass"						"item_recipe_arcane_boots"
+
+		"ItemCost"						"275"
+		"ItemRecipe"					"1" 
+		"ItemResult"					"item_armament_5_level2"
+		"ItemRequirements"
+		{
+			"01"	"item_armament_5"
+		}
+	}
+	"item_armament_5_level2"
+	{
+		"ID"						"3025"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_5_level2"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_BASIC"
+
+		"ItemCost"					"250"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemDisassembleRule"		"DOTA_ITEM_DISASSEMBLE_NEVER"
+		"ItemBaseLevel"				"2"
+		"MaxUpgradeLevel"			"3"
+
+		"AbilityCooldown"			"55"
+		"AbilitySharedCooldown"		"item_armament_5"
+		"AbilityCastPoint"			"0.1"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"health"			"600 1200 2400"
+			}
+		}
+		"OnAbilityPhaseStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities.lua"
+				"Function"		"FilterTarget"
+				"Caster"		"CASTER"
+				"TargetUnit"	"TARGET"
+			}
+		}
+		"OnSpellStart"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"	"modifier_armament_5_buff"
+				"Target"		"TARGET"
+			}
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_armament_5_buff"
+				"Target"		"TARGET"
+			}
+			"FireSound"
+			{
+				"EffectName"	"Hero_OgreMagi.Bloodlust.Cast"
+				"Target"		"CASTER"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_5_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"1"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+
+				"OnCreated"
+				{
+					"FireSound"
+					{
+						"EffectName"	"Hero_OgreMagi.Bloodlust.Target"
+						"Target"		"TARGET"
+					}
+					"AttachEffect"
+					{
+						"EffectName"		"particles/units/heroes/hero_ogre_magi/ogre_magi_bloodlust_buff.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+					}
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_5"
+						"Mode"			"1"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_5"
+						"Mode"			"2"
+					}				
+				}
+			}
+		}
+	}
+	"item_recipe_armament_5_level3"
+	{
+		"ID"							"3026"
+		"BaseClass"						"item_recipe_arcane_boots"
+
+		"ItemCost"						"300"
+		"ItemRecipe"					"1" 
+		"ItemResult"					"item_armament_5_level3"
+		"ItemRequirements"
+		{
+			"01"	"item_armament_5_level2"
+		}
+	}
+	"item_armament_5_level3"
+	{
+		"ID"						"3027"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_5_level3"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_BASIC"
+
+		"ItemCost"					"250"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemDisassembleRule"		"DOTA_ITEM_DISASSEMBLE_NEVER"
+		"ItemBaseLevel"				"3"
+		"MaxUpgradeLevel"			"3"
+
+		"AbilityCooldown"			"55"
+		"AbilitySharedCooldown"		"item_armament_5"
+		"AbilityCastPoint"			"0.1"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"health"			"600 1200 2400"
+			}
+		}
+		"OnAbilityPhaseStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities.lua"
+				"Function"		"FilterTarget"
+				"Caster"		"CASTER"
+				"TargetUnit"	"TARGET"
+			}
+		}
+		"OnSpellStart"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"	"modifier_armament_5_buff"
+				"Target"		"TARGET"
+			}
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_armament_5_buff"
+				"Target"		"TARGET"
+			}
+			"FireSound"
+			{
+				"EffectName"	"Hero_OgreMagi.Bloodlust.Cast"
+				"Target"		"CASTER"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_5_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"1"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+
+				"OnCreated"
+				{
+					"FireSound"
+					{
+						"EffectName"	"Hero_OgreMagi.Bloodlust.Target"
+						"Target"		"TARGET"
+					}
+					"AttachEffect"
+					{
+						"EffectName"		"particles/units/heroes/hero_ogre_magi/ogre_magi_bloodlust_buff.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+					}
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_5"
+						"Mode"			"1"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_5"
+						"Mode"			"2"
+					}				
+				}
+			}
+		}
+	}
+	//裂地之剑
+	"item_armament_6"
+	{
+		"ID"						"3028"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_6"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+
+		"ItemCost"					"600"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+
+		"AoERadius"					"%radius"
+		"AbilityCooldown"			"100"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"damage"			"125"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"radius"			"1400"
+			}
+			"03"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"stuntime"			"2.5"
+			}
+		}
+		"OnSpellStart"
+		{
+			"CreateThinker"
+			{
+				"ModifierName"	"modifier_armament_6_thinker"
+				"Target" 		"POINT"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_6_thinker"
+			{
+				"OnCreated"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"		"TARGET"
+					}
+					"FireSound"
+					{
+						"EffectName"	"Hero_Leshrac.Split_Earth.Tormented"
+						"Target"		"TARGET"
+					}
+					"FireEffect"
+					{
+						"EffectName"		"particles/econ/items/leshrac/leshrac_tormented_staff/leshrac_split_tormented.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+						"ControlPoints"
+						{
+							"01"	"%radius 0 0"
+						}
+					}
+					"ActOnTargets"
+					{
+						"Target"
+						{
+							"Center"	"TARGET"
+							"Radius"	"%radius"
+							"Teams"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+							"Types"		"DOTA_UNIT_TARGET_BASIC"
+							"Flags"		"DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE"
+						}
+						"Action"
+						{
+							"RemoveModifier"
+							{
+								"ModifierName"	"modifier_armament_6_buff"
+								"Target"		"TARGET"
+							}
+							"ApplyModifier"
+							{
+								"ModifierName"	"modifier_armament_6_buff"
+								"Target"		"TARGET"
+								"Duration"		"%stuntime"
+							}
+							"RunScript"
+							{
+								"ScriptFile"	"scripts/vscripts/abilities.lua"
+								"Function"		"SpellDamage"
+								"Target"		"TARGET"
+								"Damage"		"%damage"
+							}
+						}
+					}
+				}
+			}
+			"modifier_armament_6_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"1"
+				"IsBuff"			"0"
+				"IsDebuff"			"1"
+				"IsStunDebuff"		"1"
+
+				"EffectName"		"particles/generic_gameplay/generic_stunned.vpcf"
+				"EffectAttachType"	"follow_overhead"
+				"OverrideAnimation"	"ACT_DOTA_DISABLED"
+
+				"States"
+				{
+					"MODIFIER_STATE_STUNNED"		"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+		}
+	}
+	//护心甲
+	"item_armament_7"
+	{
+		"ID"						"3029"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_7"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		"ItemCost"					"600"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemBaseLevel"				"1"
+		"MaxUpgradeLevel"			"2"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"armor"				"10"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"chance"			"25"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_7_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"1"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"EffectName"		"particles/units/heroes/hero_medusa/medusa_mana_shield_spiral03.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+					}
+				}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%armor"
+				}
+			}
+		}
+	}
+	"item_recipe_armament_7_level2"
+	{
+		"ID"							"3030"
+		"BaseClass"						"item_recipe_arcane_boots"
+
+		"ItemCost"						"1800"
+		"ItemRecipe"					"1" 
+		"ItemResult"					"item_armament_7_level2"
+		"ItemRequirements"
+		{
+			"01"	"item_armament_7"
+		}
+	}
+	"item_armament_7_level2"
+	{
+		"ID"						"3031"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_7_level2"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		"ItemCost"					"600"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemDisassembleRule"		"DOTA_ITEM_DISASSEMBLE_NEVER"
+		"ItemBaseLevel"				"2"
+		"MaxUpgradeLevel"			"2"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"armor"				"10"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"chance"			"25"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_7_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"1"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"EffectName"		"particles/units/heroes/hero_medusa/medusa_mana_shield_spiral03.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+					}
+				}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%armor"
+				}
+			}
+		}
+	}
+	//回复戒指
+	"item_armament_8"
+	{
+		"ID"						"3032"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_8"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		"ItemCost"					"400"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemBaseLevel"				"1"
+		"MaxUpgradeLevel"			"2"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"healthregen"		"30"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"chance"			"25"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_8_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"1"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"EffectName"		"particles/items_fx/healing_flask.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+					}
+				}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"	"%healthregen"
+				}
+			}
+		}
+	}
+	"item_recipe_armament_8_level2"
+	{
+		"ID"							"3033"
+		"BaseClass"						"item_recipe_arcane_boots"
+
+		"ItemCost"						"1200"
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_armament_8_level2"
+		"ItemRequirements"
+		{
+			"01"	"item_armament_8"
+		}
+	}
+	"item_armament_8_level2"
+	{
+		"ID"						"3034"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_8_level2"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		"ItemCost"					"400"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemDisassembleRule"		"DOTA_ITEM_DISASSEMBLE_NEVER"
+		"ItemBaseLevel"				"2"
+		"MaxUpgradeLevel"			"2"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"healthregen"		"30"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"chance"			"25"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_8_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"1"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"EffectName"		"particles/items_fx/healing_flask.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+					}
+				}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"	"%healthregen"
+				}
+			}
+		}
+	}
+	//振奋宝石
+	"item_armament_9"
+	{
+		"ID"						"3035"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_9"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+
+		"ItemCost"					"360"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+
+		"AoERadius"					"%radius"
+		"AbilityCooldown"			"120"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"attackspeed"		"60"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"radius"			"150"
+			}
+		}
+		"OnSpellStart"
+		{
+			"CreateThinker"
+			{
+				"ModifierName"	"modifier_armament_9_thinker"
+				"Target" 		"POINT"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_9_thinker"
+			{
+				"OnCreated"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"		"TARGET"
+					}
+					"FireSound"
+					{
+						"EffectName"	"DOTA_Item.AbyssalBlade.Activate"
+						"Target"		"TARGET"
+					}
+					"ActOnTargets"
+					{
+						"Target"
+						{
+							"Center"	"TARGET"
+							"Radius"	"%radius"
+							"Teams"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+							"Types"		"DOTA_UNIT_TARGET_BASIC"
+							"Flags"		"DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE"
+						}
+						"Action"
+						{
+							"RemoveModifier"
+							{
+								"ModifierName"	"modifier_armament_9_buff"
+								"Target"		"TARGET"
+							}
+							"ApplyModifier"
+							{
+								"ModifierName"	"modifier_armament_9_buff"
+								"Target"		"TARGET"
+							}
+						}
+					}
+				}
+			}
+			"modifier_armament_9_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"1"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"EffectName"		"particles/units/heroes/hero_lone_druid/lone_druid_rabid_buff_speed_ring.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+						"ControlPointEntities"
+						{
+							"TARGET"	"attach_origin"
+							"TARGET"	"attach_origin"
+							"TARGET"	"attach_origin"
+						}
+					}
+				}
+
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%attackspeed"
+				}
+			}
+		}
+	}
+	//酸雾瓶
+	"item_armament_10"
+	{
+		"ID"						"3036"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_10"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+
+		"ItemCost"					"300"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+
+		"AoERadius"					"%radius"
+		"AbilityCooldown"			"55"
+		"AbilityCastPoint"			"0.1"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"damagepersecond"	"20"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"reducearmor"		"-5"
+			}
+			"03"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"radius"			"300"
+			}
+			"04"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"duration"			"10"
+			}
+		}
+		"OnAbilityPhaseStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities.lua"
+				"Function"		"FilterTarget"
+				"Caster"		"CASTER"
+				"TargetUnit"	"TARGET"
+			}
+		}
+		"OnSpellStart"
+		{
+			"CreateThinker"
+			{
+				"ModifierName"	"modifier_armament_10_aura"
+				"Target" 		"TARGET"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_10_aura"
+			{
+				"Duration"			"%duration"
+
+				"Aura"				"modifier_armament_10_buff"
+				"Aura_Radius"		"%radius"
+				"Aura_Teams"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+				"Aura_Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+				"Aura_Flags"		"DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE"
+				"Aura_ApplyToCaster""0"
+
+				"OnCreated"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"		"TARGET"
+					}
+					"FireSound"
+					{
+						"EffectName"	"Hero_Alchemist.AcidSpray"
+						"Target"		"TARGET"
+					}
+					"AttachEffect"
+					{
+						"EffectName"				"particles/units/heroes/hero_alchemist/alchemist_acid_spray.vpcf"
+						"EffectAttachType"			"follow_origin"
+						"Target"					"TARGET"
+						"EffectRadius"				"%radius"
+						"EffectColorA"				"0 255 0"
+						"EffectColorB"				"0 255 0"
+					}
+				}
+
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_10"
+					}				
+				}
+			}
+			"modifier_armament_10_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"0"
+				"IsBuff"			"0"
+				"IsDebuff"			"1"
+				"IsStunDebuff"		"0"
+				"ThinkInterval"		"1"
+				"OnIntervalThink"
+				{
+					"FireSound"
+					{
+						"EffectName"	"Hero_Alchemist.AcidSpray.Damage"
+						"Target"		"TARGET"
+					}
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"SpellDamage"
+						"Target"		"TARGET"
+						"Damage"		"%damagepersecond"
+					}
+				}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%reducearmor"
+				}
+			}
+		}
+	}
+	//光明石
+	"item_armament_11"
+	{
+		"ID"						"3037"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_11"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+
+		"ItemCost"					"230"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+
+		"AoERadius"					"%radius"
+		"AbilityCooldown"			"75"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"misschance"		"75"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"radius"			"300"
+			}
+			"03"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"duration"			"5"
+			}
+			"04"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"bossduration"		"3"
+			}
+		}
+		"OnSpellStart"
+		{
+			"CreateThinker"
+			{
+				"ModifierName"	"modifier_armament_11_thinker"
+				"Target" 		"POINT"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_11_thinker"
+			{
+				"OnCreated"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"		"TARGET"
+					}
+					"FireSound"
+					{
+						"EffectName"	"Hero_KeeperOfTheLight.BlindingLight"
+						"Target"		"TARGET"
+					}
+					"FireEffect"
+					{
+						"EffectName"		"particles/units/heroes/hero_keeper_of_the_light/keeper_of_the_light_blinding_light_aoe.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+						"EffectRadius"		"%radius"
+						"ControlPointEntities"
+						{
+							"TARGET"	"attach_origin"
+							"TARGET"	"attach_origin"
+						}
+					}
+					"ActOnTargets"
+					{
+						"Target"
+						{
+							"Center"	"TARGET"
+							"Radius"	"%radius"
+							"Teams"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+							"Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+							"Flags"		"DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE"
+						}
+						"Action"
+						{
+							"RemoveModifier"
+							{
+								"ModifierName"	"modifier_armament_11_buff"
+								"Target"		"TARGET"
+							}
+							"ApplyModifier"
+							{
+								"ModifierName"	"modifier_armament_11_buff"
+								"Target"
+								{
+									"Center"	"TARGET"
+									"Teams"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+									"Types"		"DOTA_UNIT_TARGET_HERO"
+								}
+								"Duration"		"%bossduration"
+							}
+							
+							"ApplyModifier"
+							{
+								"ModifierName"	"modifier_armament_11_buff"
+								"Target"
+								{
+									"Center"	"TARGET"
+									"Teams"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+									"Types"		"DOTA_UNIT_TARGET_BASIC"
+								}
+								"Duration"		"%duration"
+							}
+						}
+					}
+				}
+			}
+			"modifier_armament_11_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"1"
+				"IsBuff"			"0"
+				"IsDebuff"			"1"
+				"IsStunDebuff"		"0"
+
+				"EffectName"		"particles/units/heroes/hero_keeper_of_the_light/keeper_of_the_light_blinding_light_debuff.vpcf"
+				"EffectAttachType"	"follow_origin"
+
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MISS_PERCENTAGE"		"%misschance"
+				}
+			}
+		}
+	}
+	//风暴漩涡
+	"item_armament_12"
+	{
+		"ID"						"3038"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_12"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+
+		"ItemCost"					"300"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+
+		"AoERadius"					"%radius"
+		"AbilityCooldown"			"45"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"damage"			"125"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"slowattackspeed"	"-50"
+			}
+			"03"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"slowmovespeed"		"-50"
+			}
+			"04"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"radius"			"300"
+			}
+			"05"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"duration"			"3.8"
+			}
+			"06"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"bossduration"		"2"
+			}
+		}
+		"OnSpellStart"
+		{
+			"CreateThinker"
+			{
+				"ModifierName"	"modifier_armament_12_thinker"
+				"Target" 		"POINT"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_12_thinker"
+			{
+				"OnCreated"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"		"TARGET"
+					}
+					"FireSound"
+					{
+						"EffectName"	"Item.Maelstrom.Chain_Lightning.Jump"
+						"Target"		"TARGET"
+					}
+					"FireEffect"
+					{
+						"EffectName"		"particles/units/heroes/hero_disruptor/disruptor_static_storm.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+						"EffectRadius"		"%radius"
+					}
+					"ActOnTargets"
+					{
+						"Target"
+						{
+							"Center"	"TARGET"
+							"Radius"	"%radius"
+							"Teams"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+							"Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+							"Flags"		"DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE"
+						}
+						"Action"
+						{
+							"RemoveModifier"
+							{
+								"ModifierName"	"modifier_armament_12_buff"
+								"Target"		"TARGET"
+							}
+							"ApplyModifier"
+							{
+								"ModifierName"	"modifier_armament_12_buff"
+								"Target"
+								{
+									"Center"	"TARGET"
+									"Teams"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+									"Types"		"DOTA_UNIT_TARGET_HERO"
+								}
+								"Duration"		"%bossduration"
+							}
+							
+							"ApplyModifier"
+							{
+								"ModifierName"	"modifier_armament_12_buff"
+								"Target"
+								{
+									"Center"	"TARGET"
+									"Teams"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+									"Types"		"DOTA_UNIT_TARGET_BASIC"
+								}
+								"Duration"		"%duration"
+							}
+							"RunScript"
+							{
+								"ScriptFile"	"scripts/vscripts/abilities.lua"
+								"Function"		"SpellDamage"
+								"Target"		"TARGET"
+								"Damage"		"%damage"
+							}
+						}
+					}
+				}
+			}
+			"modifier_armament_12_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"1"
+				"IsBuff"			"0"
+				"IsDebuff"			"1"
+				"IsStunDebuff"		"0"
+
+				"EffectName"		"particles/units/heroes/hero_leshrac/leshrac_lightning_slow.vpcf"
+				"EffectAttachType"	"follow_origin"
+
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%slowattackspeed"
+				    "MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%slowmovespeed" 
+				}
+			}
+		}
+	}
+	//雷神之锤
+	"item_armament_13"
+	{
+		"ID"						"3039"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_13"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+
+		"ItemCost"					"500"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemBaseLevel"				"1"
+		"MaxUpgradeLevel"			"3"
+
+		"AoERadius"					"%radius"
+		"AbilityCooldown"			"120 80 40"
+		"AbilitySharedCooldown"		"item_armament_13"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"damage"			"48"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"period"			"0.1"
+			}
+			"03"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"radius"			"500"
+			}
+			"04"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"duration"			"7"
+			}
+		}
+		"OnSpellStart"
+		{
+			"CreateThinker"
+			{
+				"ModifierName"	"modifier_armament_13_thinker"
+				"Target" 		"POINT"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_13_thinker"
+			{
+				"Duration"			"%duration"
+				"ThinkInterval"		"%period"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_13"
+						"Mode"			"1"
+					}
+				}
+				"OnCreated"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"		"TARGET"
+					}
+					"FireSound"
+					{
+						"EffectName"	"Hero_Razor.Storm.Cast"
+						"Target"		"TARGET"
+					}
+					"FireSound"
+					{
+						"EffectName"	"Hero_Razor.Storm.Loop"
+						"Target"		"TARGET"
+					}
+					"AttachEffect"
+					{
+						"EffectName"		"particles/units/heroes/hero_razor_reduced_flash/razor_rain_storm_reduced_flash.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_13"
+						"Mode"			"2"
+					}
+				}
+			}
+		}
+	}
+	"item_recipe_armament_13_level2"
+	{
+		"ID"							"3040"
+		"BaseClass"						"item_recipe_arcane_boots"
+
+		"ItemCost"						"400"
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_armament_13_level2"
+		"ItemRequirements"
+		{
+			"01"	"item_armament_13"
+		}
+	}
+	"item_armament_13_level2"
+	{
+		"ID"						"3041"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_13_level2"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+
+		"ItemCost"					"500"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemDisassembleRule"		"DOTA_ITEM_DISASSEMBLE_NEVER"
+		"ItemBaseLevel"				"2"
+		"MaxUpgradeLevel"			"3"
+
+		"AoERadius"					"%radius"
+		"AbilityCooldown"			"120 80 40"
+		"AbilitySharedCooldown"		"item_armament_13"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"damage"			"48"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"period"			"0.1"
+			}
+			"03"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"radius"			"500"
+			}
+			"04"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"duration"			"7"
+			}
+		}
+		"OnSpellStart"
+		{
+			"CreateThinker"
+			{
+				"ModifierName"	"modifier_armament_13_thinker"
+				"Target" 		"POINT"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_13_thinker"
+			{
+				"Duration"			"%duration"
+				"ThinkInterval"		"%period"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_13"
+						"Mode"			"1"
+					}
+				}
+				"OnCreated"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"		"TARGET"
+					}
+					"FireSound"
+					{
+						"EffectName"	"Hero_Razor.Storm.Cast"
+						"Target"		"TARGET"
+					}
+					"FireSound"
+					{
+						"EffectName"	"Hero_Razor.Storm.Loop"
+						"Target"		"TARGET"
+					}
+					"AttachEffect"
+					{
+						"EffectName"		"particles/units/heroes/hero_razor_reduced_flash/razor_rain_storm_reduced_flash.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_13"
+						"Mode"			"2"
+					}
+				}
+			}
+		}
+	}
+	"item_recipe_armament_13_level3"
+	{
+		"ID"							"3042"
+		"BaseClass"						"item_recipe_arcane_boots"
+
+		"ItemCost"						"400"
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_armament_13_level3"
+		"ItemRequirements"
+		{
+			"01"	"item_armament_13_level2"
+		}
+	}
+	"item_armament_13_level3"
+	{
+		"ID"						"3043"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_13_level3"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+
+		"ItemCost"					"500"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemDisassembleRule"		"DOTA_ITEM_DISASSEMBLE_NEVER"
+		"ItemBaseLevel"				"3"
+		"MaxUpgradeLevel"			"3"
+
+		"AoERadius"					"%radius"
+		"AbilityCooldown"			"120 80 40"
+		"AbilitySharedCooldown"		"item_armament_13"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"damage"			"48"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"period"			"0.1"
+			}
+			"03"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"radius"			"500"
+			}
+			"04"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"duration"			"7"
+			}
+		}
+		"OnSpellStart"
+		{
+			"CreateThinker"
+			{
+				"ModifierName"	"modifier_armament_13_thinker"
+				"Target" 		"POINT"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_13_thinker"
+			{
+				"Duration"			"%duration"
+				"ThinkInterval"		"%period"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_13"
+						"Mode"			"1"
+					}
+				}
+				"OnCreated"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"		"TARGET"
+					}
+					"FireSound"
+					{
+						"EffectName"	"Hero_Razor.Storm.Cast"
+						"Target"		"TARGET"
+					}
+					"FireSound"
+					{
+						"EffectName"	"Hero_Razor.Storm.Loop"
+						"Target"		"TARGET"
+					}
+					"AttachEffect"
+					{
+						"EffectName"		"particles/units/heroes/hero_razor_reduced_flash/razor_rain_storm_reduced_flash.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_13"
+						"Mode"			"2"
+					}
+				}
+			}
+		}
+	}
+	//加速手套
+	"item_armament_14"
+	{
+		"ID"						"3044"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_14"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_BASIC"
+
+		"ItemCost"					"180"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemBaseLevel"				"1"
+		"MaxUpgradeLevel"			"3"
+
+		"AbilityCooldown"			"35"
+		"AbilityCastPoint"			"0.1"
+		"AbilitySharedCooldown"		"item_armament_14"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"attackspeed"		"30 60 90"
+			}
+		}
+		"OnAbilityPhaseStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities.lua"
+				"Function"		"FilterTarget"
+				"Caster"		"CASTER"
+				"TargetUnit"	"TARGET"
+			}
+		}
+		"OnSpellStart"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"	"modifier_armament_14_buff"
+				"Target"		"TARGET"
+			}
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_armament_14_buff"
+				"Target"		"TARGET"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_14_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"1"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+
+				"OnCreated"
+				{
+					"FireSound"
+					{
+						"EffectName"	"DOTA_Item.Butterfly"
+						"Target"		"TARGET"
+					}
+					"FireEffect"
+					{
+						"EffectName"		"particles/items2_fx/butterfly_active.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+						"ControlPointEntities"
+						{
+							"TARGET"	"attach_hitloc"
+							"CASTER"	"attach_hitloc"
+						}
+					}
+					"AttachEffect"
+					{
+						"EffectName"		"particles/items_fx/ghost.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+					}
+				}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%attackspeed"
+				}
+			}
+		}
+	}
+	"item_recipe_armament_14_level2"
+	{
+		"ID"							"3062"
+		"BaseClass"						"item_recipe_arcane_boots"
+
+		"ItemCost"						"180"
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_armament_14_level2"
+		"ItemRequirements"
+		{
+			"01"	"item_armament_14"
+		}
+	}
+	"item_armament_14_level2"
+	{
+		"ID"						"3063"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_14_level2"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_BASIC"
+
+		"ItemCost"					"180"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemDisassembleRule"		"DOTA_ITEM_DISASSEMBLE_NEVER"
+		"ItemBaseLevel"				"2"
+		"MaxUpgradeLevel"			"3"
+
+		"AbilityCooldown"			"35"
+		"AbilityCastPoint"			"0.1"
+		"AbilitySharedCooldown"		"item_armament_14"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"attackspeed"		"30 60 90"
+			}
+		}
+		"OnAbilityPhaseStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities.lua"
+				"Function"		"FilterTarget"
+				"Caster"		"CASTER"
+				"TargetUnit"	"TARGET"
+			}
+		}
+		"OnSpellStart"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"	"modifier_armament_14_buff"
+				"Target"		"TARGET"
+			}
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_armament_14_buff"
+				"Target"		"TARGET"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_14_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"1"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+
+				"OnCreated"
+				{
+					"FireSound"
+					{
+						"EffectName"	"DOTA_Item.Butterfly"
+						"Target"		"TARGET"
+					}
+					"FireEffect"
+					{
+						"EffectName"		"particles/items2_fx/butterfly_active.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+						"ControlPointEntities"
+						{
+							"TARGET"	"attach_hitloc"
+							"CASTER"	"attach_hitloc"
+						}
+					}
+					"AttachEffect"
+					{
+						"EffectName"		"particles/items_fx/ghost.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+					}
+				}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%attackspeed"
+				}
+			}
+		}
+	}
+	"item_recipe_armament_14_level3"
+	{
+		"ID"							"3064"
+		"BaseClass"						"item_recipe_arcane_boots"
+
+		"ItemCost"						"180"
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_armament_14_level3"
+		"ItemRequirements"
+		{
+			"01"	"item_armament_14_level2"
+		}
+	}
+	"item_armament_14_level3"
+	{
+		"ID"						"3065"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_14_level3"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_BASIC"
+
+		"ItemCost"					"180"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemDisassembleRule"		"DOTA_ITEM_DISASSEMBLE_NEVER"
+		"ItemBaseLevel"				"3"
+		"MaxUpgradeLevel"			"3"
+
+		"AbilityCooldown"			"35"
+		"AbilityCastPoint"			"0.1"
+		"AbilitySharedCooldown"		"item_armament_14"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"attackspeed"		"30 60 90"
+			}
+		}
+		"OnAbilityPhaseStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities.lua"
+				"Function"		"FilterTarget"
+				"Caster"		"CASTER"
+				"TargetUnit"	"TARGET"
+			}
+		}
+		"OnSpellStart"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"	"modifier_armament_14_buff"
+				"Target"		"TARGET"
+			}
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_armament_14_buff"
+				"Target"		"TARGET"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_14_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"1"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+
+				"OnCreated"
+				{
+					"FireSound"
+					{
+						"EffectName"	"DOTA_Item.Butterfly"
+						"Target"		"TARGET"
+					}
+					"FireEffect"
+					{
+						"EffectName"		"particles/items2_fx/butterfly_active.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+						"ControlPointEntities"
+						{
+							"TARGET"	"attach_hitloc"
+							"CASTER"	"attach_hitloc"
+						}
+					}
+					"AttachEffect"
+					{
+						"EffectName"		"particles/items_fx/ghost.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+					}
+				}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%attackspeed"
+				}
+			}
+		}
+	}
+	//疯狂面具
+	"item_armament_15"
+	{
+		"ID"						"3045"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_15"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_HERO"
+
+		"ItemCost"					"230"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+
+		"AbilityCooldown"			"42"
+		"AbilityCastPoint"			"0.1"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"attackspeed"		"70"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"duration"			"7"
+			}
+		}
+		"OnAbilityPhaseStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities.lua"
+				"Function"		"FilterTarget"
+				"Caster"		"CASTER"
+				"TargetUnit"	"TARGET"
+			}
+		}
+		"OnSpellStart"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"	"modifier_armament_15_buff"
+				"Target"		"TARGET"
+			}
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_armament_15_buff"
+				"Target"		"TARGET"
+				"Duration"		"%duration"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_15_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"1"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"EffectName"		"particles/items2_fx/mask_of_madness.vpcf"
+				"EffectAttachType"	"follow_origin"
+
+				"OnCreated"
+				{
+					"FireSound"
+					{
+						"EffectName"	"DOTA_Item.MaskOfMadness.Activate"
+						"Target"		"TARGET"
+					}
+				}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%attackspeed"
+				}
+			}
+		}
+	}
+	//阔剑
+	"item_armament_16"
+	{
+		"ID"						"3046"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_16"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		"ItemCost"					"300"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemBaseLevel"				"1"
+		"MaxUpgradeLevel"			"3"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"attackdamamagepercent"	"8 13 18"
+			}
+		}
+		"OnEquip"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"	"modifier_armament_16"
+				"Target"		"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities.lua"
+				"Function"		"item_armament_16"
+				"Mode"			"0"
+			}
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_armament_16"
+				"Target"		"CASTER"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_16"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+
+				"Aura"				"modifier_armament_16_aura"
+				"Aura_Radius"		"99999"
+				"Aura_Teams"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+				"Aura_Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+				"Aura_Flags"		"DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE"
+				"Aura_ApplyToCaster""1"
+			}
+			"modifier_armament_16_aura"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_16"
+						"Mode"			"1"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_16"
+						"Mode"			"2"
+					}
+				}
+			}
+			"modifier_armament_16_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_DAMAGEOUTGOING_PERCENTAGE"	"%attackdamamagepercent"
+				}
+			}
+		}
+	}
+	"item_recipe_armament_16_level2"
+	{
+		"ID"							"3047"
+		"BaseClass"						"item_recipe_arcane_boots"
+
+		"ItemCost"						"300"
+		"ItemRecipe"					"1" 
+		"ItemResult"					"item_armament_16_level2"
+		"ItemRequirements"
+		{
+			"01"	"item_armament_16"
+		}
+	}
+	"item_armament_16_level2"
+	{
+		"ID"						"3048"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_16_level2"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		"ItemCost"					"300"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemDisassembleRule"		"DOTA_ITEM_DISASSEMBLE_NEVER"
+		"ItemBaseLevel"				"2"
+		"MaxUpgradeLevel"			"3"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"attackdamamagepercent"	"8 13 18"
+			}
+		}
+		"OnEquip"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"	"modifier_armament_16"
+				"Target"		"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities.lua"
+				"Function"		"item_armament_16"
+				"Mode"			"0"
+			}
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_armament_16"
+				"Target"		"CASTER"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_16"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+
+				"Aura"				"modifier_armament_16_aura"
+				"Aura_Radius"		"99999"
+				"Aura_Teams"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+				"Aura_Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+				"Aura_Flags"		"DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE"
+				"Aura_ApplyToCaster""1"
+			}
+			"modifier_armament_16_aura"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_16"
+						"Mode"			"1"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_16"
+						"Mode"			"2"
+					}
+				}
+			}
+			"modifier_armament_16_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_DAMAGEOUTGOING_PERCENTAGE"	"%attackdamamagepercent"
+				}
+			}
+		}
+	}
+	"item_recipe_armament_16_level3"
+	{
+		"ID"							"3049"
+		"BaseClass"						"item_recipe_arcane_boots"
+
+		"ItemCost"						"300"
+		"ItemRecipe"					"1" 
+		"ItemResult"					"item_armament_16_level3"
+		"ItemRequirements"
+		{
+			"01"	"item_armament_16_level2"
+		}
+	}
+	"item_armament_16_level3"
+	{
+		"ID"						"3050"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_16_level3"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		"ItemCost"					"300"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemDisassembleRule"		"DOTA_ITEM_DISASSEMBLE_NEVER"
+		"ItemBaseLevel"				"3"
+		"MaxUpgradeLevel"			"3"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"attackdamamagepercent"	"8 13 18"
+			}
+		}
+		"OnEquip"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"	"modifier_armament_16"
+				"Target"		"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities.lua"
+				"Function"		"item_armament_16"
+				"Mode"			"0"
+			}
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_armament_16"
+				"Target"		"CASTER"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_16"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+
+				"Aura"				"modifier_armament_16_aura"
+				"Aura_Radius"		"99999"
+				"Aura_Teams"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+				"Aura_Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+				"Aura_Flags"		"DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE"
+				"Aura_ApplyToCaster""1"
+			}
+			"modifier_armament_16_aura"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_16"
+						"Mode"			"1"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_16"
+						"Mode"			"2"
+					}
+				}
+			}
+			"modifier_armament_16_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_DAMAGEOUTGOING_PERCENTAGE"	"%attackdamamagepercent"
+				}
+			}
+		}
+	}
+	//银月之晶
+	"item_armament_17"
+	{
+		"ID"						"3051"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_17"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		"ItemCost"					"600"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemBaseLevel"				"1"
+		"MaxUpgradeLevel"			"2"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"attackspeed"		"40"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"chance"			"25"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_17_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"1"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"EffectName"		"particles/units/heroes/hero_skeletonking/skeletonking_hellfireblast_debuff.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+					}
+				}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%attackspeed"
+				}
+			}
+		}
+	}
+	"item_recipe_armament_17_level2"
+	{
+		"ID"							"3052"
+		"BaseClass"						"item_recipe_arcane_boots"
+
+		"ItemCost"						"1800"
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_armament_17_level2"
+		"ItemRequirements"
+		{
+			"01"	"item_armament_17"
+		}
+	}
+	"item_armament_17_level2"
+	{
+		"ID"						"3053"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_17_level2"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		"ItemCost"					"600"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemDisassembleRule"		"DOTA_ITEM_DISASSEMBLE_NEVER"
+		"ItemBaseLevel"				"2"
+		"MaxUpgradeLevel"			"2"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"attackspeed"		"40"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"chance"			"25"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_17_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"1"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"EffectName"		"particles/units/heroes/hero_skeletonking/skeletonking_hellfireblast_debuff.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+					}
+				}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%attackspeed"
+				}
+			}
+		}
+	}
+	//闪避护符
+	"item_armament_18"
+	{
+		"ID"						"3054"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_18"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		"ItemCost"					"625"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemBaseLevel"				"1"
+		"MaxUpgradeLevel"			"2"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"evasion"			"25"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"chance"			"25"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_18_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"1"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"EffectName"		"particles/units/heroes/hero_skywrath_mage/skywrath_mage_concussive_shot_slow_debuff.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+					}
+				}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_EVASION_CONSTANT"	"%evasion"
+				}
+			}
+		}
+	}
+	"item_recipe_armament_18_level2"
+	{
+		"ID"							"3055"
+		"BaseClass"						"item_recipe_arcane_boots"
+
+		"ItemCost"						"1875"
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_armament_18_level2"
+		"ItemRequirements"
+		{
+			"01"	"item_armament_18"
+		}
+	}
+	"item_armament_18_level2"
+	{
+		"ID"						"3056"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_18_level2"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		"ItemCost"					"625"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemDisassembleRule"		"DOTA_ITEM_DISASSEMBLE_NEVER"
+		"ItemBaseLevel"				"2"
+		"MaxUpgradeLevel"			"2"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"evasion"			"25"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"chance"			"25"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_18_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"1"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"EffectName"		"particles/units/heroes/hero_skywrath_mage/skywrath_mage_concussive_shot_slow_debuff.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+					}
+				}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_EVASION_CONSTANT"	"%evasion"
+				}
+			}
+		}
+	}
+	//鹰歌弓
+	"item_armament_19"
+	{
+		"ID"						"3057"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_19"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		"ItemCost"					"300"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemBaseLevel"				"1"
+		"MaxUpgradeLevel"			"3"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"attackdamamagepercent"	"10 15 20"
+			}
+		}
+		"OnEquip"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"	"modifier_armament_19"
+				"Target"		"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities.lua"
+				"Function"		"item_armament_19"
+				"Mode"			"0"
+			}
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_armament_19"
+				"Target"		"CASTER"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_19"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+
+				"Aura"				"modifier_armament_19_aura"
+				"Aura_Radius"		"99999"
+				"Aura_Teams"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+				"Aura_Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+				"Aura_Flags"		"DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE | DOTA_UNIT_TARGET_FLAG_RANGED_ONLY"
+				"Aura_ApplyToCaster""1"
+			}
+			"modifier_armament_19_aura"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_19"
+						"Mode"			"1"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_19"
+						"Mode"			"2"
+					}
+				}
+			}
+			"modifier_armament_19_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_DAMAGEOUTGOING_PERCENTAGE"	"%attackdamamagepercent"
+				}
+			}
+		}
+	}
+	"item_recipe_armament_19_level2"
+	{
+		"ID"							"3058"
+		"BaseClass"						"item_recipe_arcane_boots"
+
+		"ItemCost"						"300"
+		"ItemRecipe"					"1" 
+		"ItemResult"					"item_armament_19_level2"
+		"ItemRequirements"
+		{
+			"01"	"item_armament_19"
+		}
+	}
+	"item_armament_19_level2"
+	{
+		"ID"						"3059"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_19_level2"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		"ItemCost"					"300"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemDisassembleRule"		"DOTA_ITEM_DISASSEMBLE_NEVER"
+		"ItemBaseLevel"				"2"
+		"MaxUpgradeLevel"			"3"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"attackdamamagepercent"	"10 15 20"
+			}
+		}
+		"OnEquip"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"	"modifier_armament_19"
+				"Target"		"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities.lua"
+				"Function"		"item_armament_19"
+				"Mode"			"0"
+			}
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_armament_19"
+				"Target"		"CASTER"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_19"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+
+				"Aura"				"modifier_armament_19_aura"
+				"Aura_Radius"		"99999"
+				"Aura_Teams"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+				"Aura_Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+				"Aura_Flags"		"DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE | DOTA_UNIT_TARGET_FLAG_RANGED_ONLY"
+				"Aura_ApplyToCaster""1"
+			}
+			"modifier_armament_19_aura"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_19"
+						"Mode"			"1"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_19"
+						"Mode"			"2"
+					}
+				}
+			}
+			"modifier_armament_19_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_DAMAGEOUTGOING_PERCENTAGE"	"%attackdamamagepercent"
+				}
+			}
+		}
+	}
+	"item_recipe_armament_19_level3"
+	{
+		"ID"							"3060"
+		"BaseClass"						"item_recipe_arcane_boots"
+
+		"ItemCost"						"300"
+		"ItemRecipe"					"1" 
+		"ItemResult"					"item_armament_19_level3"
+		"ItemRequirements"
+		{
+			"01"	"item_armament_19_level2"
+		}
+	}
+	"item_armament_19_level3"
+	{
+		"ID"						"3061"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_19_level3"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		"ItemCost"					"300"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemDisassembleRule"		"DOTA_ITEM_DISASSEMBLE_NEVER"
+		"ItemBaseLevel"				"3"
+		"MaxUpgradeLevel"			"3"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"attackdamamagepercent"	"10 15 20"
+			}
+		}
+		"OnEquip"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"	"modifier_armament_19"
+				"Target"		"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities.lua"
+				"Function"		"item_armament_19"
+				"Mode"			"0"
+			}
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_armament_19"
+				"Target"		"CASTER"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_19"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+
+				"Aura"				"modifier_armament_19_aura"
+				"Aura_Radius"		"99999"
+				"Aura_Teams"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+				"Aura_Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+				"Aura_Flags"		"DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE | DOTA_UNIT_TARGET_FLAG_RANGED_ONLY"
+				"Aura_ApplyToCaster""1"
+			}
+			"modifier_armament_19_aura"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_19"
+						"Mode"			"1"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_19"
+						"Mode"			"2"
+					}
+				}
+			}
+			"modifier_armament_19_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_DAMAGEOUTGOING_PERCENTAGE"	"%attackdamamagepercent"
+				}
+			}
+		}
+	}
+	//辉耀
+	"item_armament_20"
+	{
+		"ID"						"3066"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_20"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+
+		"ItemCost"					"675"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+
+		"AoERadius"					"%radius"
+		"AbilityCooldown"			"90"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"damagepersecond"	"40"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"radius"			"800"
+			}
+			"03"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"duration"			"10"
+			}
+		}
+		"OnSpellStart"
+		{
+			"CreateThinker"
+			{
+				"ModifierName"	"modifier_armament_20_thinker"
+				"Target" 		"POINT"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_20_thinker"
+			{
+				"Duration"			"%duration"
+				"ThinkInterval"		"1"
+				"OnIntervalThink"
+				{
+					"ActOnTargets"
+					{
+						"Target"
+						{
+							"Center"	"TARGET"
+							"Radius"	"%radius"
+							"Teams"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+							"Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+						}
+						"Action"
+						{
+							"RunScript"
+							{
+								"ScriptFile"	"scripts/vscripts/abilities.lua"
+								"Function"		"SpellDamage"
+								"Target"		"TARGET"
+								"Damage"		"%damagepersecond"
+							}
+						}
+					}
+				}
+				"OnCreated"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"		"TARGET"
+					}
+					"FireSound"
+					{
+						"EffectName"	"Hero_Phoenix.SunRay.Beam"
+						"Target"		"TARGET"
+					}
+					"FireSound"
+					{
+						"EffectName"	"Hero_Phoenix.SunRay.Loop"
+						"Target"		"TARGET"
+					}
+					"AttachEffect"
+					{
+						"EffectName"		"particles/units/heroes/hero_phoenix/phoenix_supernova_egg.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+						"ControlPointEntities"
+						{
+							"TARGET"	"attach_origin"
+							"TARGET"	"attach_origin"
+							"TARGET"	"attach_origin"
+						}
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_20"
+					}
+				}
+			}
+		}
+	}
+	//血精石
+	"item_armament_21"
+	{
+		"ID"						"3067"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_21"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+
+		"ItemCost"					"525"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+
+		"AoERadius"					"%radius"
+		"AbilityCooldown"			"120"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"healthregen"		"50"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"radius"			"900"
+			}
+			"03"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"duration"			"15"
+			}
+		}
+		"OnSpellStart"
+		{
+			"CreateThinker"
+			{
+				"ModifierName"	"modifier_armament_21_thinker"
+				"Target" 		"POINT"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_21_thinker"
+			{
+				"Duration"			"%duration"
+				"Aura"				"modifier_armament_21_buff"
+				"Aura_Radius"		"%radius"
+				"Aura_Teams"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+				"Aura_Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+				"Aura_Flags"		"DOTA_UNIT_TARGET_FLAG_NONE"
+				"Aura_ApplyToCaster""1"
+				"ThinkInterval"		"1"
+				"OnIntervalThink"
+				{
+					"FireSound"
+					{
+						"EffectName"	"n_creep_ForestTrollHighPriest.Heal"
+						"Target"		"TARGET"
+					}
+				}
+				"OnCreated"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"		"TARGET"
+					}
+					"FireSound"
+					{
+						"EffectName"	"Hero_Oracle.FalsePromise.Healed"
+						"Target"		"TARGET"
+					}
+					"AttachEffect"
+					{
+						"EffectName"		"particles/econ/items/juggernaut/bladekeeper_healing_ward/juggernaut_healing_ward_dc.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+						"ControlPoints"
+						{
+							"01"	"%radius %radius %radius"
+						}
+					}
+				}
+			}
+			"modifier_armament_21_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"EffectName"		"particles/econ/items/necrolyte/necronub_death_pulse/necrolyte_pulse_ka_friend_heal_sparks.vpcf"
+				"EffectAttachType"	"follow_origin"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"		"%healthregen"
+				}
+			}
+		}
+	}
+	//穷鬼盾
+	"item_armament_22"
+	{
+		"ID"						"3068"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_22"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_BASIC"
+
+		"ItemCost"					"300"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+
+		"AbilityCooldown"			"60"
+		"AbilityCastPoint"			"0.1"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"block_chance"		"80"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"block_damage"		"40"
+			}
+		}
+		"OnAbilityPhaseStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities.lua"
+				"Function"		"FilterTarget"
+				"Caster"		"CASTER"
+				"TargetUnit"	"TARGET"
+			}
+		}
+		"OnSpellStart"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"	"modifier_armament_22_buff"
+				"Target"		"TARGET"
+			}
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_armament_22_buff"
+				"Target"		"TARGET"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_22_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"1"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+
+				"OnCreated"
+				{
+					"FireSound"
+					{
+						"EffectName"	"DOTA_Item.HotD.Activate"
+						"Target"		"TARGET"
+					}
+					"AttachEffect"
+					{
+						"EffectName"		"particles/units/heroes/hero_medusa/medusa_mana_shield_shell_add.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+					}
+					"Random"
+					{
+						"Chance"			"%block_chance"
+						"OnSuccess"
+						{
+							"ApplyModifier"
+							{
+								"ModifierName"	"modifier_armament_22_buff_block"
+								"Target"		"TARGET"
+							}
+						}
+					}
+				}
+				"OnDestroy"
+				{
+					"RemoveModifier"
+					{
+						"ModifierName"	"modifier_armament_22_buff_block"
+						"Target"		"TARGET"
+					}
+				}
+				"OnAttacked"
+				{
+					"Random"
+					{
+						"Chance"			"%block_chance"
+						"OnSuccess"
+						{
+							"ApplyModifier"
+							{
+								"ModifierName"	"modifier_armament_22_buff_block"
+								"Target"		"TARGET"
+							}
+						}
+						"OnFailure"
+						{
+							"RemoveModifier"
+							{
+								"ModifierName"	"modifier_armament_22_buff_block"
+								"Target"		"TARGET"
+							}
+						}
+					}
+				}
+			}
+			"modifier_armament_22_buff_block"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PHYSICAL_CONSTANT_BLOCK"		"%block_damage"
+				}
+			}
+		}
+	}
+	//守护指环
+	"item_armament_23"
+	{
+		"ID"						"3069"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_23"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		"ItemCost"					"125"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemBaseLevel"				"1"
+		"MaxUpgradeLevel"			"3"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"armor"				"1 2 3"
+			}
+		}
+		"OnEquip"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"	"modifier_armament_23"
+				"Target"		"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities.lua"
+				"Function"		"item_armament_23"
+				"Mode"			"0"
+			}
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_armament_23"
+				"Target"		"CASTER"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_23"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+
+				"Aura"				"modifier_armament_23_aura"
+				"Aura_Radius"		"99999"
+				"Aura_Teams"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+				"Aura_Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+				"Aura_Flags"		"DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE"
+				"Aura_ApplyToCaster""1"
+			}
+			"modifier_armament_23_aura"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_23"
+						"Mode"			"1"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_23"
+						"Mode"			"2"
+					}
+				}
+			}
+			"modifier_armament_23_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%armor"
+				}
+			}
+		}
+	}
+	"item_recipe_armament_23_level2"
+	{
+		"ID"							"3070"
+		"BaseClass"						"item_recipe_arcane_boots"
+
+		"ItemCost"						"125"
+		"ItemRecipe"					"1" 
+		"ItemResult"					"item_armament_23_level2"
+		"ItemRequirements"
+		{
+			"01"	"item_armament_23"
+		}
+	}
+	"item_armament_23_level2"
+	{
+		"ID"						"3071"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_23_level2"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		"ItemCost"					"125"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemDisassembleRule"		"DOTA_ITEM_DISASSEMBLE_NEVER"
+		"ItemBaseLevel"				"2"
+		"MaxUpgradeLevel"			"3"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"armor"				"1 2 3"
+			}
+		}
+		"OnEquip"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"	"modifier_armament_23"
+				"Target"		"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities.lua"
+				"Function"		"item_armament_23"
+				"Mode"			"0"
+			}
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_armament_23"
+				"Target"		"CASTER"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_23"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+
+				"Aura"				"modifier_armament_23_aura"
+				"Aura_Radius"		"99999"
+				"Aura_Teams"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+				"Aura_Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+				"Aura_Flags"		"DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE"
+				"Aura_ApplyToCaster""1"
+			}
+			"modifier_armament_23_aura"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_23"
+						"Mode"			"1"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_23"
+						"Mode"			"2"
+					}
+				}
+			}
+			"modifier_armament_23_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%armor"
+				}
+			}
+		}
+	}
+	"item_recipe_armament_23_level3"
+	{
+		"ID"							"3072"
+		"BaseClass"						"item_recipe_arcane_boots"
+
+		"ItemCost"						"125"
+		"ItemRecipe"					"1" 
+		"ItemResult"					"item_armament_23_level3"
+		"ItemRequirements"
+		{
+			"01"	"item_armament_23_level2"
+		}
+	}
+	"item_armament_23_level3"
+	{
+		"ID"						"3073"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_23_level3"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		"ItemCost"					"125"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemDisassembleRule"		"DOTA_ITEM_DISASSEMBLE_NEVER"
+		"ItemBaseLevel"				"3"
+		"MaxUpgradeLevel"			"3"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"armor"				"1 2 3"
+			}
+		}
+		"OnEquip"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"	"modifier_armament_23"
+				"Target"		"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities.lua"
+				"Function"		"item_armament_23"
+				"Mode"			"0"
+			}
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_armament_23"
+				"Target"		"CASTER"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_23"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+
+				"Aura"				"modifier_armament_23_aura"
+				"Aura_Radius"		"99999"
+				"Aura_Teams"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+				"Aura_Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+				"Aura_Flags"		"DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE"
+				"Aura_ApplyToCaster""1"
+			}
+			"modifier_armament_23_aura"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_23"
+						"Mode"			"1"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_23"
+						"Mode"			"2"
+					}
+				}
+			}
+			"modifier_armament_23_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%armor"
+				}
+			}
+		}
+	}
+	//吸血面具
+	"item_armament_24"
+	{
+		"ID"						"3074"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_24"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		"ItemCost"					"300"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemBaseLevel"				"1"
+		"MaxUpgradeLevel"			"3"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"lifesteal"			"10 20 30"
+			}
+		}
+		"OnEquip"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"	"modifier_armament_24"
+				"Target"		"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities.lua"
+				"Function"		"item_armament_24"
+				"Mode"			"0"
+			}
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_armament_24"
+				"Target"		"CASTER"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_24"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+
+				"Aura"				"modifier_armament_24_aura"
+				"Aura_Radius"		"99999"
+				"Aura_Teams"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+				"Aura_Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+				"Aura_Flags"		"DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE"
+				"Aura_ApplyToCaster""1"
+			}
+			"modifier_armament_24_aura"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_24"
+						"Mode"			"1"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_24"
+						"Mode"			"2"
+					}
+				}
+			}
+			"modifier_armament_24_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+			}
+		}
+	}
+	"item_recipe_armament_24_level2"
+	{
+		"ID"							"3075"
+		"BaseClass"						"item_recipe_arcane_boots"
+
+		"ItemCost"						"300"
+		"ItemRecipe"					"1" 
+		"ItemResult"					"item_armament_24_level2"
+		"ItemRequirements"
+		{
+			"01"	"item_armament_24"
+		}
+	}
+	"item_armament_24_level2"
+	{
+		"ID"						"3076"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_24_level2"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		"ItemCost"					"300"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemDisassembleRule"		"DOTA_ITEM_DISASSEMBLE_NEVER"
+		"ItemBaseLevel"				"2"
+		"MaxUpgradeLevel"			"3"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"lifesteal"			"10 20 30"
+			}
+		}
+		"OnEquip"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"	"modifier_armament_24"
+				"Target"		"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities.lua"
+				"Function"		"item_armament_24"
+				"Mode"			"0"
+			}
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_armament_24"
+				"Target"		"CASTER"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_24"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+
+				"Aura"				"modifier_armament_24_aura"
+				"Aura_Radius"		"99999"
+				"Aura_Teams"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+				"Aura_Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+				"Aura_Flags"		"DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE"
+				"Aura_ApplyToCaster""1"
+			}
+			"modifier_armament_24_aura"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_24"
+						"Mode"			"1"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_24"
+						"Mode"			"2"
+					}
+				}
+			}
+			"modifier_armament_24_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+			}
+		}
+	}
+	"item_recipe_armament_24_level3"
+	{
+		"ID"							"3077"
+		"BaseClass"						"item_recipe_arcane_boots"
+
+		"ItemCost"						"300"
+		"ItemRecipe"					"1" 
+		"ItemResult"					"item_armament_24_level3"
+		"ItemRequirements"
+		{
+			"01"	"item_armament_24_level2"
+		}
+	}
+	"item_armament_24_level3"
+	{
+		"ID"						"3078"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_24_level3"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		"ItemCost"					"300"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemDisassembleRule"		"DOTA_ITEM_DISASSEMBLE_NEVER"
+		"ItemBaseLevel"				"3"
+		"MaxUpgradeLevel"			"3"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"lifesteal"			"10 20 30"
+			}
+		}
+		"OnEquip"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"	"modifier_armament_24"
+				"Target"		"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities.lua"
+				"Function"		"item_armament_24"
+				"Mode"			"0"
+			}
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_armament_24"
+				"Target"		"CASTER"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_24"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+
+				"Aura"				"modifier_armament_24_aura"
+				"Aura_Radius"		"99999"
+				"Aura_Teams"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+				"Aura_Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+				"Aura_Flags"		"DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE"
+				"Aura_ApplyToCaster""1"
+			}
+			"modifier_armament_24_aura"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_24"
+						"Mode"			"1"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_24"
+						"Mode"			"2"
+					}
+				}
+			}
+			"modifier_armament_24_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+			}
+		}
+	}
+	//静谧之鞋
+	"item_armament_25"
+	{
+		"ID"						"3079"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_25"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		"ItemCost"					"525"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"movespeed"			"15"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"healthregen"		"3"
+			}
+		}
+		"OnEquip"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"	"modifier_armament_25"
+				"Target"		"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities.lua"
+				"Function"		"item_armament_25"
+				"Mode"			"0"
+			}
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_armament_25"
+				"Target"		"CASTER"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_25"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+
+				"Aura"				"modifier_armament_25_aura"
+				"Aura_Radius"		"99999"
+				"Aura_Teams"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+				"Aura_Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+				"Aura_Flags"		"DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE"
+				"Aura_ApplyToCaster""1"
+			}
+			"modifier_armament_25_aura"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_25"
+						"Mode"			"1"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_25"
+						"Mode"			"2"
+					}
+				}
+			}
+			"modifier_armament_25_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"Properties"
+				{
+				    "MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%movespeed" 
+				    "MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"		"%healthregen"
+				}
+			}
+		}
+	}
+	//治疗戒指
+	"item_armament_26"
+	{
+		"ID"						"3080"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_26"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		"ItemCost"					"175"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemBaseLevel"				"1"
+		"MaxUpgradeLevel"			"3"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"healthregen"		"3 7 12"
+			}
+		}
+		"OnEquip"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"	"modifier_armament_26"
+				"Target"		"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities.lua"
+				"Function"		"item_armament_26"
+				"Mode"			"0"
+			}
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_armament_26"
+				"Target"		"CASTER"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_26"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+
+				"Aura"				"modifier_armament_26_aura"
+				"Aura_Radius"		"99999"
+				"Aura_Teams"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+				"Aura_Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+				"Aura_Flags"		"DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE"
+				"Aura_ApplyToCaster""1"
+			}
+			"modifier_armament_26_aura"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_26"
+						"Mode"			"1"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_26"
+						"Mode"			"2"
+					}
+				}
+			}
+			"modifier_armament_26_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"	"%healthregen"
+				}
+			}
+		}
+	}
+	"item_recipe_armament_26_level2"
+	{
+		"ID"							"3081"
+		"BaseClass"						"item_recipe_arcane_boots"
+
+		"ItemCost"						"300"
+		"ItemRecipe"					"1" 
+		"ItemResult"					"item_armament_26_level2"
+		"ItemRequirements"
+		{
+			"01"	"item_armament_26"
+		}
+	}
+	"item_armament_26_level2"
+	{
+		"ID"						"3082"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_26_level2"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		"ItemCost"					"175"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemDisassembleRule"		"DOTA_ITEM_DISASSEMBLE_NEVER"
+		"ItemBaseLevel"				"2"
+		"MaxUpgradeLevel"			"3"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"healthregen"		"3 7 12"
+			}
+		}
+		"OnEquip"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"	"modifier_armament_26"
+				"Target"		"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities.lua"
+				"Function"		"item_armament_26"
+				"Mode"			"0"
+			}
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_armament_26"
+				"Target"		"CASTER"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_26"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+
+				"Aura"				"modifier_armament_26_aura"
+				"Aura_Radius"		"99999"
+				"Aura_Teams"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+				"Aura_Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+				"Aura_Flags"		"DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE"
+				"Aura_ApplyToCaster""1"
+			}
+			"modifier_armament_26_aura"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_26"
+						"Mode"			"1"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_26"
+						"Mode"			"2"
+					}
+				}
+			}
+			"modifier_armament_26_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"	"%healthregen"
+				}
+			}
+		}
+	}
+	"item_recipe_armament_26_level3"
+	{
+		"ID"							"3083"
+		"BaseClass"						"item_recipe_arcane_boots"
+
+		"ItemCost"						"300"
+		"ItemRecipe"					"1" 
+		"ItemResult"					"item_armament_26_level3"
+		"ItemRequirements"
+		{
+			"01"	"item_armament_26_level2"
+		}
+	}
+	"item_armament_26_level3"
+	{
+		"ID"						"3084"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_26_level3"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		"ItemCost"					"175"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemDisassembleRule"		"DOTA_ITEM_DISASSEMBLE_NEVER"
+		"ItemBaseLevel"				"3"
+		"MaxUpgradeLevel"			"3"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"healthregen"		"3 7 12"
+			}
+		}
+		"OnEquip"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"	"modifier_armament_26"
+				"Target"		"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities.lua"
+				"Function"		"item_armament_26"
+				"Mode"			"0"
+			}
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_armament_26"
+				"Target"		"CASTER"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_26"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+
+				"Aura"				"modifier_armament_26_aura"
+				"Aura_Radius"		"99999"
+				"Aura_Teams"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+				"Aura_Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+				"Aura_Flags"		"DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE"
+				"Aura_ApplyToCaster""1"
+			}
+			"modifier_armament_26_aura"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_26"
+						"Mode"			"1"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_26"
+						"Mode"			"2"
+					}
+				}
+			}
+			"modifier_armament_26_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"	"%healthregen"
+				}
+			}
+		}
+	}
+	//深渊之刃
+	"item_armament_27"
+	{
+		"ID"						"3085"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_27"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+
+		"ItemCost"					"300"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemBaseLevel"				"1"
+		"MaxUpgradeLevel"			"3"
+
+		"AoERadius"					"%radius"
+		"AbilityCooldown"			"75"
+		"AbilitySharedCooldown"		"item_armament_27"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"damage"			"125 250 375"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"stuntime"			"1.75 3.5 5.25"
+			}
+			"03"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"radius"			"225"
+			}
+		}
+		"OnSpellStart"
+		{
+			"CreateThinker"
+			{
+				"ModifierName"	"modifier_armament_27_thinker"
+				"Target"		"POINT"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_27_thinker"
+			{
+				"OnCreated"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"		"TARGET"
+					}
+					"FireSound"
+					{
+						"EffectName"	"DOTA_Item.AbyssalBlade.Activate"
+						"Target"		"TARGET"
+					}
+					"ActOnTargets"
+					{
+						"Target"
+						{
+							"Center"	"TARGET"
+							"Radius"	"%radius"
+							"Teams"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+							"Types"		"DOTA_UNIT_TARGET_BASIC"
+						}
+						"Action"
+						{
+							"RemoveModifier"
+							{
+								"ModifierName"	"modifier_armament_27_buff"
+								"Target"		"TARGET"
+							}
+							"ApplyModifier"
+							{
+								"ModifierName"	"modifier_armament_27_buff"
+								"Target"		"TARGET"
+								"Duration"		"%stuntime"
+							}
+							"RunScript"
+							{
+								"ScriptFile"	"scripts/vscripts/abilities.lua"
+								"Function"		"SpellDamage"
+								"Target"		"TARGET"
+								"Damage"		"%damage"
+							}
+						}
+					}
+				}
+			}
+			"modifier_armament_27_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"1"
+				"IsBuff"			"0"
+				"IsDebuff"			"1"
+				"IsStunDebuff"		"1"
+
+				"EffectName"		"particles/generic_gameplay/generic_stunned.vpcf"
+				"EffectAttachType"	"follow_overhead"
+				"OverrideAnimation"	"ACT_DOTA_DISABLED"
+				"States"
+				{
+					"MODIFIER_STATE_STUNNED"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+
+				"OnCreated"
+				{
+					"FireEffect"
+					{
+						"EffectName"		"particles/items_fx/abyssal_blade.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+					}
+				}
+			}
+		}
+	}
+	"item_recipe_armament_27_level2"
+	{
+		"ID"							"3086"
+		"BaseClass"						"item_recipe_arcane_boots"
+
+		"ItemCost"						"300"
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_armament_27_level2"
+		"ItemRequirements"
+		{
+			"01"	"item_armament_27"
+		}
+	}
+	"item_armament_27_level2"
+	{
+		"ID"						"3087"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_27_level2"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+
+		"ItemCost"					"300"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemDisassembleRule"		"DOTA_ITEM_DISASSEMBLE_NEVER"
+		"ItemBaseLevel"				"2"
+		"MaxUpgradeLevel"			"3"
+
+		"AoERadius"					"%radius"
+		"AbilityCooldown"			"75"
+		"AbilitySharedCooldown"		"item_armament_27"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"damage"			"125 250 375"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"stuntime"			"1.75 3.5 5.25"
+			}
+			"03"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"radius"			"225"
+			}
+		}
+		"OnSpellStart"
+		{
+			"CreateThinker"
+			{
+				"ModifierName"	"modifier_armament_27_thinker"
+				"Target"		"POINT"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_27_thinker"
+			{
+				"OnCreated"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"		"TARGET"
+					}
+					"FireSound"
+					{
+						"EffectName"	"DOTA_Item.AbyssalBlade.Activate"
+						"Target"		"TARGET"
+					}
+					"ActOnTargets"
+					{
+						"Target"
+						{
+							"Center"	"TARGET"
+							"Radius"	"%radius"
+							"Teams"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+							"Types"		"DOTA_UNIT_TARGET_BASIC"
+						}
+						"Action"
+						{
+							"RemoveModifier"
+							{
+								"ModifierName"	"modifier_armament_27_buff"
+								"Target"		"TARGET"
+							}
+							"ApplyModifier"
+							{
+								"ModifierName"	"modifier_armament_27_buff"
+								"Target"		"TARGET"
+								"Duration"		"%stuntime"
+							}
+							"RunScript"
+							{
+								"ScriptFile"	"scripts/vscripts/abilities.lua"
+								"Function"		"SpellDamage"
+								"Target"		"TARGET"
+								"Damage"		"%damage"
+							}
+						}
+					}
+				}
+			}
+			"modifier_armament_27_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"1"
+				"IsBuff"			"0"
+				"IsDebuff"			"1"
+				"IsStunDebuff"		"1"
+
+				"EffectName"		"particles/generic_gameplay/generic_stunned.vpcf"
+				"EffectAttachType"	"follow_overhead"
+				"OverrideAnimation"	"ACT_DOTA_DISABLED"
+				"States"
+				{
+					"MODIFIER_STATE_STUNNED"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+
+				"OnCreated"
+				{
+					"FireEffect"
+					{
+						"EffectName"		"particles/items_fx/abyssal_blade.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+					}
+				}
+			}
+		}
+	}
+	"item_recipe_armament_27_level3"
+	{
+		"ID"							"3088"
+		"BaseClass"						"item_recipe_arcane_boots"
+
+		"ItemCost"						"300"
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_armament_27_level3"
+		"ItemRequirements"
+		{
+			"01"	"item_armament_27_level2"
+		}
+	}
+	"item_armament_27_level3"
+	{
+		"ID"						"3089"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_27_level3"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+
+		"ItemCost"					"300"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemDisassembleRule"		"DOTA_ITEM_DISASSEMBLE_NEVER"
+		"ItemBaseLevel"				"3"
+		"MaxUpgradeLevel"			"3"
+
+		"AoERadius"					"%radius"
+		"AbilityCooldown"			"75"
+		"AbilitySharedCooldown"		"item_armament_27"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"damage"			"125 250 375"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"stuntime"			"1.75 3.5 5.25"
+			}
+			"03"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"radius"			"225"
+			}
+		}
+		"OnSpellStart"
+		{
+			"CreateThinker"
+			{
+				"ModifierName"	"modifier_armament_27_thinker"
+				"Target"		"POINT"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_27_thinker"
+			{
+				"OnCreated"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"		"TARGET"
+					}
+					"FireSound"
+					{
+						"EffectName"	"DOTA_Item.AbyssalBlade.Activate"
+						"Target"		"TARGET"
+					}
+					"ActOnTargets"
+					{
+						"Target"
+						{
+							"Center"	"TARGET"
+							"Radius"	"%radius"
+							"Teams"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+							"Types"		"DOTA_UNIT_TARGET_BASIC"
+						}
+						"Action"
+						{
+							"RemoveModifier"
+							{
+								"ModifierName"	"modifier_armament_27_buff"
+								"Target"		"TARGET"
+							}
+							"ApplyModifier"
+							{
+								"ModifierName"	"modifier_armament_27_buff"
+								"Target"		"TARGET"
+								"Duration"		"%stuntime"
+							}
+							"RunScript"
+							{
+								"ScriptFile"	"scripts/vscripts/abilities.lua"
+								"Function"		"SpellDamage"
+								"Target"		"TARGET"
+								"Damage"		"%damage"
+							}
+						}
+					}
+				}
+			}
+			"modifier_armament_27_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"1"
+				"IsBuff"			"0"
+				"IsDebuff"			"1"
+				"IsStunDebuff"		"1"
+
+				"EffectName"		"particles/generic_gameplay/generic_stunned.vpcf"
+				"EffectAttachType"	"follow_overhead"
+				"OverrideAnimation"	"ACT_DOTA_DISABLED"
+				"States"
+				{
+					"MODIFIER_STATE_STUNNED"	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+
+				"OnCreated"
+				{
+					"FireEffect"
+					{
+						"EffectName"		"particles/items_fx/abyssal_blade.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+					}
+				}
+			}
+		}
+	}
+	//回复头巾
+	"item_armament_28"
+	{
+		"ID"						"3090"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_28"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+
+		"ItemCost"					"200"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemBaseLevel"				"1"
+		"MaxUpgradeLevel"			"2"
+
+		"AoERadius"					"%radius"
+		"AbilityCooldown"			"100"
+		"AbilitySharedCooldown"		"item_armament_28"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"heal"				"300 500"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"radius"			"300"
+			}
+			"03"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"duration"			"15"
+			}
+			"04"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"healthregen"		"20 33.3"
+			}
+		}
+		"OnSpellStart"
+		{
+			"CreateThinker"
+			{
+				"ModifierName"	"modifier_armament_28_thinker"
+				"Target" 		"POINT"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_28_thinker"
+			{
+				"OnCreated"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"		"TARGET"
+					}
+					"FireSound"
+					{
+						"EffectName"	"Item.GuardianGreaves.Activate"
+						"Target"		"TARGET"
+					}
+					"ActOnTargets"
+					{
+						"Target"
+						{
+							"Center"	"TARGET"
+							"Radius"	"%radius"
+							"Teams"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+							"Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+							"Flags"		"DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE"
+						}
+						"Action"
+						{
+							"RemoveModifier"
+							{
+								"ModifierName"	"modifier_armament_28_buff"
+								"Target"		"TARGET"
+							}
+							"ApplyModifier"
+							{
+								"ModifierName"	"modifier_armament_28_buff"
+								"Target"		"TARGET"
+								"Duration"		"%duration"
+							}
+						}
+					}
+				}
+			}
+			"modifier_armament_28_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"1"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"EffectName"		"particles/units/heroes/hero_oracle/oracle_purifyingflames_heal.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+					}
+				}
+
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"	"%healthregen"
+				}
+			}
+		}
+	}
+	"item_recipe_armament_28_level2"
+	{
+		"ID"							"3091"
+		"BaseClass"						"item_recipe_arcane_boots"
+
+		"ItemCost"						"200"
+		"ItemRecipe"					"1" 
+		"ItemResult"					"item_armament_28_level2"
+		"ItemRequirements"
+		{
+			"01"	"item_armament_28"
+		}
+	}
+	"item_armament_28_level2"
+	{
+		"ID"						"3092"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_28_level2"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+
+		"ItemCost"					"200"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemDisassembleRule"		"DOTA_ITEM_DISASSEMBLE_NEVER"
+		"ItemBaseLevel"				"2"
+		"MaxUpgradeLevel"			"2"
+
+		"AoERadius"					"%radius"
+		"AbilityCooldown"			"100"
+		"AbilitySharedCooldown"		"item_armament_28"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"heal"				"300 500"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"radius"			"300"
+			}
+			"03"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"duration"			"15"
+			}
+			"04"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"healthregen"		"20 33.3"
+			}
+		}
+		"OnSpellStart"
+		{
+			"CreateThinker"
+			{
+				"ModifierName"	"modifier_armament_28_thinker"
+				"Target" 		"POINT"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_28_thinker"
+			{
+				"OnCreated"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"		"TARGET"
+					}
+					"FireSound"
+					{
+						"EffectName"	"Item.GuardianGreaves.Activate"
+						"Target"		"TARGET"
+					}
+					"ActOnTargets"
+					{
+						"Target"
+						{
+							"Center"	"TARGET"
+							"Radius"	"%radius"
+							"Teams"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+							"Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+							"Flags"		"DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE"
+						}
+						"Action"
+						{
+							"RemoveModifier"
+							{
+								"ModifierName"	"modifier_armament_28_buff"
+								"Target"		"TARGET"
+							}
+							"ApplyModifier"
+							{
+								"ModifierName"	"modifier_armament_28_buff"
+								"Target"		"TARGET"
+								"Duration"		"%duration"
+							}
+						}
+					}
+				}
+			}
+			"modifier_armament_28_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"1"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"EffectName"		"particles/units/heroes/hero_oracle/oracle_purifyingflames_heal.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+					}
+				}
+
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"	"%healthregen"
+				}
+			}
+		}
+	}
+	//战鼓
+	"item_armament_29"
+	{
+		"ID"						"3093"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_29"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+
+		"ItemCost"					"280"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemBaseLevel"				"1"
+		"MaxUpgradeLevel"			"3"
+
+		"AoERadius"					"%radius"
+		"AbilityCooldown"			"70"
+		"AbilitySharedCooldown"		"item_armament_29"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"movespeed"			"50 80 100"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"radius"			"800"
+			}
+			"03"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"duration"			"5"
+			}
+		}
+		"OnSpellStart"
+		{
+			"CreateThinker"
+			{
+				"ModifierName"	"modifier_armament_29_thinker"
+				"Target" 		"POINT"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_29_thinker"
+			{
+				"OnCreated"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"		"TARGET"
+					}
+					"FireSound"
+					{
+						"EffectName"	"DOTA_Item.DoE.Activate"
+						"Target"		"TARGET"
+					}
+					"ActOnTargets"
+					{
+						"Target"
+						{
+							"Center"	"TARGET"
+							"Radius"	"%radius"
+							"Teams"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+							"Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+							"Flags"		"DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE"
+						}
+						"Action"
+						{
+							"RemoveModifier"
+							{
+								"ModifierName"	"modifier_armament_29_buff"
+								"Target"		"TARGET"
+							}
+							"ApplyModifier"
+							{
+								"ModifierName"	"modifier_armament_29_buff"
+								"Target"		"TARGET"
+								"Duration"		"%duration"
+							}
+						}
+					}
+				}
+			}
+			"modifier_armament_29_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"1"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"EffectName"		"particles/items_fx/drum_of_endurance_buff.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+					}
+				}
+
+				"Properties"
+				{
+				    "MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%movespeed" 
+				}
+			}
+		}
+	}
+	"item_recipe_armament_29_level2"
+	{
+		"ID"							"3094"
+		"BaseClass"						"item_recipe_arcane_boots"
+
+		"ItemCost"						"300"
+		"ItemRecipe"					"1" 
+		"ItemResult"					"item_armament_29_level2"
+		"ItemRequirements"
+		{
+			"01"	"item_armament_29"
+		}
+	}
+	"item_armament_29_level2"
+	{
+		"ID"						"3095"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_29_level2"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+
+		"ItemCost"					"280"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemDisassembleRule"		"DOTA_ITEM_DISASSEMBLE_NEVER"
+		"ItemBaseLevel"				"2"
+		"MaxUpgradeLevel"			"3"
+
+		"AoERadius"					"%radius"
+		"AbilityCooldown"			"70"
+		"AbilitySharedCooldown"		"item_armament_29"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"movespeed"			"50 80 100"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"radius"			"800"
+			}
+			"03"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"duration"			"5"
+			}
+		}
+		"OnSpellStart"
+		{
+			"CreateThinker"
+			{
+				"ModifierName"	"modifier_armament_29_thinker"
+				"Target" 		"POINT"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_29_thinker"
+			{
+				"OnCreated"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"		"TARGET"
+					}
+					"FireSound"
+					{
+						"EffectName"	"DOTA_Item.DoE.Activate"
+						"Target"		"TARGET"
+					}
+					"ActOnTargets"
+					{
+						"Target"
+						{
+							"Center"	"TARGET"
+							"Radius"	"%radius"
+							"Teams"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+							"Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+							"Flags"		"DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE"
+						}
+						"Action"
+						{
+							"RemoveModifier"
+							{
+								"ModifierName"	"modifier_armament_29_buff"
+								"Target"		"TARGET"
+							}
+							"ApplyModifier"
+							{
+								"ModifierName"	"modifier_armament_29_buff"
+								"Target"		"TARGET"
+								"Duration"		"%duration"
+							}
+						}
+					}
+				}
+			}
+			"modifier_armament_29_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"1"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"EffectName"		"particles/items_fx/drum_of_endurance_buff.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+					}
+				}
+
+				"Properties"
+				{
+				    "MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%movespeed" 
+				}
+			}
+		}
+	}
+	"item_recipe_armament_29_level3"
+	{
+		"ID"							"3096"
+		"BaseClass"						"item_recipe_arcane_boots"
+
+		"ItemCost"						"300"
+		"ItemRecipe"					"1" 
+		"ItemResult"					"item_armament_29_level3"
+		"ItemRequirements"
+		{
+			"01"	"item_armament_29_level2"
+		}
+	}
+	"item_armament_29_level3"
+	{
+		"ID"						"3097"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_29_level3"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+
+		"ItemCost"					"280"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemDisassembleRule"		"DOTA_ITEM_DISASSEMBLE_NEVER"
+		"ItemBaseLevel"				"3"
+		"MaxUpgradeLevel"			"3"
+
+		"AoERadius"					"%radius"
+		"AbilityCooldown"			"70"
+		"AbilitySharedCooldown"		"item_armament_29"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"movespeed"			"50 80 100"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"radius"			"800"
+			}
+			"03"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"duration"			"5"
+			}
+		}
+		"OnSpellStart"
+		{
+			"CreateThinker"
+			{
+				"ModifierName"	"modifier_armament_29_thinker"
+				"Target" 		"POINT"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_29_thinker"
+			{
+				"OnCreated"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"		"TARGET"
+					}
+					"FireSound"
+					{
+						"EffectName"	"DOTA_Item.DoE.Activate"
+						"Target"		"TARGET"
+					}
+					"ActOnTargets"
+					{
+						"Target"
+						{
+							"Center"	"TARGET"
+							"Radius"	"%radius"
+							"Teams"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+							"Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+							"Flags"		"DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE"
+						}
+						"Action"
+						{
+							"RemoveModifier"
+							{
+								"ModifierName"	"modifier_armament_29_buff"
+								"Target"		"TARGET"
+							}
+							"ApplyModifier"
+							{
+								"ModifierName"	"modifier_armament_29_buff"
+								"Target"		"TARGET"
+								"Duration"		"%duration"
+							}
+						}
+					}
+				}
+			}
+			"modifier_armament_29_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"1"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"EffectName"		"particles/items_fx/drum_of_endurance_buff.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+					}
+				}
+
+				"Properties"
+				{
+				    "MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%movespeed" 
+				}
+			}
+		}
+	}
+	//梅肯斯姆
+	"item_armament_30"
+	{
+		"ID"						"3098"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_30"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+
+		"ItemCost"					"300"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemBaseLevel"				"1"
+		"MaxUpgradeLevel"			"3"
+
+		"AoERadius"					"%radius"
+		"AbilityCooldown"			"120 60 30"
+		"AbilitySharedCooldown"		"item_armament_30"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"heal"				"400"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"armor"				"5"
+			}
+			"03"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"radius"			"300"
+			}
+			"04"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"duration"			"15"
+			}
+		}
+		"OnSpellStart"
+		{
+			"CreateThinker"
+			{
+				"ModifierName"	"modifier_armament_30_thinker"
+				"Target" 		"POINT"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_30_thinker"
+			{
+				"OnCreated"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"		"TARGET"
+					}
+					"FireSound"
+					{
+						"EffectName"	"DOTA_Item.Mekansm.Activate"
+						"Target"		"TARGET"
+					}
+					"ActOnTargets"
+					{
+						"Target"
+						{
+							"Center"	"TARGET"
+							"Radius"	"%radius"
+							"Teams"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+							"Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+							"Flags"		"DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE"
+						}
+						"Action"
+						{
+							"RemoveModifier"
+							{
+								"ModifierName"	"modifier_armament_30_buff"
+								"Target"		"TARGET"
+							}
+							"ApplyModifier"
+							{
+								"ModifierName"	"modifier_armament_30_buff"
+								"Target"		"TARGET"
+								"Duration"		"%duration"
+							}
+							"Heal"
+							{
+								"Target"		"TARGET"
+								"HealAmount"	"%heal"
+							}
+						}
+					}
+				}
+			}
+			"modifier_armament_30_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"1"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"EffectName"		"particles/items2_fx/mekanism.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+					}
+				}
+
+				"Properties"
+				{
+				    "MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%armor"
+				}
+			}
+		}
+	}
+	"item_recipe_armament_30_level2"
+	{
+		"ID"							"3099"
+		"BaseClass"						"item_recipe_arcane_boots"
+
+		"ItemCost"						"300"
+		"ItemRecipe"					"1" 
+		"ItemResult"					"item_armament_30_level2"
+		"ItemRequirements"
+		{
+			"01"	"item_armament_30"
+		}
+	}
+	"item_armament_30_level2"
+	{
+		"ID"						"3100"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_30_level2"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+
+		"ItemCost"					"300"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemDisassembleRule"		"DOTA_ITEM_DISASSEMBLE_NEVER"
+		"ItemBaseLevel"				"2"
+		"MaxUpgradeLevel"			"3"
+
+		"AoERadius"					"%radius"
+		"AbilityCooldown"			"120 60 30"
+		"AbilitySharedCooldown"		"item_armament_30"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"heal"				"400"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"armor"				"5"
+			}
+			"03"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"radius"			"300"
+			}
+			"04"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"duration"			"15"
+			}
+		}
+		"OnSpellStart"
+		{
+			"CreateThinker"
+			{
+				"ModifierName"	"modifier_armament_30_thinker"
+				"Target" 		"POINT"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_30_thinker"
+			{
+				"OnCreated"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"		"TARGET"
+					}
+					"FireSound"
+					{
+						"EffectName"	"DOTA_Item.Mekansm.Activate"
+						"Target"		"TARGET"
+					}
+					"ActOnTargets"
+					{
+						"Target"
+						{
+							"Center"	"TARGET"
+							"Radius"	"%radius"
+							"Teams"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+							"Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+							"Flags"		"DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE"
+						}
+						"Action"
+						{
+							"RemoveModifier"
+							{
+								"ModifierName"	"modifier_armament_30_buff"
+								"Target"		"TARGET"
+							}
+							"ApplyModifier"
+							{
+								"ModifierName"	"modifier_armament_30_buff"
+								"Target"		"TARGET"
+								"Duration"		"%duration"
+							}
+							"Heal"
+							{
+								"Target"		"TARGET"
+								"HealAmount"	"%heal"
+							}
+						}
+					}
+				}
+			}
+			"modifier_armament_30_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"1"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"EffectName"		"particles/items2_fx/mekanism.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+					}
+				}
+
+				"Properties"
+				{
+				    "MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%armor"
+				}
+			}
+		}
+	}
+	"item_recipe_armament_30_level3"
+	{
+		"ID"							"3101"
+		"BaseClass"						"item_recipe_arcane_boots"
+
+		"ItemCost"						"300"
+		"ItemRecipe"					"1" 
+		"ItemResult"					"item_armament_30_level3"
+		"ItemRequirements"
+		{
+			"01"	"item_armament_30_level2"
+		}
+	}
+	"item_armament_30_level3"
+	{
+		"ID"						"3102"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_30_level3"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+
+		"ItemCost"					"300"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemDisassembleRule"		"DOTA_ITEM_DISASSEMBLE_NEVER"
+		"ItemBaseLevel"				"3"
+		"MaxUpgradeLevel"			"3"
+
+		"AoERadius"					"%radius"
+		"AbilityCooldown"			"120 60 30"
+		"AbilitySharedCooldown"		"item_armament_30"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"heal"				"400"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"armor"				"5"
+			}
+			"03"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"radius"			"300"
+			}
+			"04"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"duration"			"15"
+			}
+		}
+		"OnSpellStart"
+		{
+			"CreateThinker"
+			{
+				"ModifierName"	"modifier_armament_30_thinker"
+				"Target" 		"POINT"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_30_thinker"
+			{
+				"OnCreated"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"		"TARGET"
+					}
+					"FireSound"
+					{
+						"EffectName"	"DOTA_Item.Mekansm.Activate"
+						"Target"		"TARGET"
+					}
+					"ActOnTargets"
+					{
+						"Target"
+						{
+							"Center"	"TARGET"
+							"Radius"	"%radius"
+							"Teams"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+							"Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+							"Flags"		"DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE"
+						}
+						"Action"
+						{
+							"RemoveModifier"
+							{
+								"ModifierName"	"modifier_armament_30_buff"
+								"Target"		"TARGET"
+							}
+							"ApplyModifier"
+							{
+								"ModifierName"	"modifier_armament_30_buff"
+								"Target"		"TARGET"
+								"Duration"		"%duration"
+							}
+							"Heal"
+							{
+								"Target"		"TARGET"
+								"HealAmount"	"%heal"
+							}
+						}
+					}
+				}
+			}
+			"modifier_armament_30_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"1"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"EffectName"		"particles/items2_fx/mekanism.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+					}
+				}
+
+				"Properties"
+				{
+				    "MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%armor"
+				}
+			}
+		}
+	}
+	//狂战斧
+	"item_armament_31"
+	{
+		"ID"						"3103"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_31"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+
+		"ItemCost"					"400"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemBaseLevel"				"1"
+		"MaxUpgradeLevel"			"2"
+
+		"AoERadius"					"%radius"
+		"AbilityCooldown"			"120 60"
+		"AbilitySharedCooldown"		"item_armament_31"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"damagepersecond"	"20"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"radius"			"350"
+			}
+			"03"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"duration"			"5"
+			}
+		}
+		"OnSpellStart"
+		{
+			"CreateThinker"
+			{
+				"ModifierName"	"modifier_armament_31_thinker"
+				"Target" 		"POINT"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_31_thinker"
+			{
+				"Duration"			"%duration"
+				"ThinkInterval"		"0.25"
+				"OnIntervalThink"
+				{
+					"ActOnTargets"
+					{
+						"Target"
+						{
+							"Center"	"TARGET"
+							"Radius"	"%radius"
+							"Teams"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+							"Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+						}
+						"Action"
+						{
+							"FireEffect"
+							{
+								"EffectName"		"particles/units/heroes/hero_juggernaut/juggernaut_blade_fury_tgt.vpcf"
+								"EffectAttachType"	"follow_overhead"
+								"Target"			"TARGET"
+							}
+							"RunScript"
+							{
+								"ScriptFile"	"scripts/vscripts/abilities.lua"
+								"Function"		"SpellDamage"
+								"Target"		"TARGET"
+								"Damage"		"%damagepersecond"
+							}
+						}
+					}
+				}
+				"OnCreated"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"		"TARGET"
+					}
+					"FireSound"
+					{
+						"EffectName"	"Hero_Juggernaut.BladeFuryStart"
+						"Target"		"TARGET"
+					}
+					"AttachEffect"
+					{
+						"EffectName"		"particles/units/heroes/hero_juggernaut/juggernaut_blade_fury.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+						"ControlPoints"
+						{
+							"05"	"%radius 0 0"
+						}
+					}
+				}
+				"OnDestroy"
+				{
+					"FireSound"
+					{
+						"EffectName"	"Hero_Juggernaut.BladeFuryStop"
+						"Target"		"TARGET"
+					}
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_31"
+					}
+				}
+			}
+		}
+	}
+	"item_recipe_armament_31_level2"
+	{
+		"ID"							"3104"
+		"BaseClass"						"item_recipe_arcane_boots"
+
+		"ItemCost"						"400"
+		"ItemRecipe"					"1" 
+		"ItemResult"					"item_armament_31_level2"
+		"ItemRequirements"
+		{
+			"01"	"item_armament_31"
+		}
+	}
+	"item_armament_31_level2"
+	{
+		"ID"						"3105"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_31_level2"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+
+		"ItemCost"					"400"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemDisassembleRule"		"DOTA_ITEM_DISASSEMBLE_NEVER"
+		"ItemBaseLevel"				"2"
+		"MaxUpgradeLevel"			"2"
+
+		"AoERadius"					"%radius"
+		"AbilityCooldown"			"120 60"
+		"AbilitySharedCooldown"		"item_armament_31"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"damagepersecond"	"20"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"radius"			"350"
+			}
+			"03"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"duration"			"5"
+			}
+		}
+		"OnSpellStart"
+		{
+			"CreateThinker"
+			{
+				"ModifierName"	"modifier_armament_31_thinker"
+				"Target" 		"POINT"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_31_thinker"
+			{
+				"Duration"			"%duration"
+				"ThinkInterval"		"0.25"
+				"OnIntervalThink"
+				{
+					"ActOnTargets"
+					{
+						"Target"
+						{
+							"Center"	"TARGET"
+							"Radius"	"%radius"
+							"Teams"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+							"Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+						}
+						"Action"
+						{
+							"FireEffect"
+							{
+								"EffectName"		"particles/units/heroes/hero_juggernaut/juggernaut_blade_fury_tgt.vpcf"
+								"EffectAttachType"	"follow_overhead"
+								"Target"			"TARGET"
+							}
+							"RunScript"
+							{
+								"ScriptFile"	"scripts/vscripts/abilities.lua"
+								"Function"		"SpellDamage"
+								"Target"		"TARGET"
+								"Damage"		"%damagepersecond"
+							}
+						}
+					}
+				}
+				"OnCreated"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"		"TARGET"
+					}
+					"FireSound"
+					{
+						"EffectName"	"Hero_Juggernaut.BladeFuryStart"
+						"Target"		"TARGET"
+					}
+					"AttachEffect"
+					{
+						"EffectName"		"particles/units/heroes/hero_juggernaut/juggernaut_blade_fury.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+						"ControlPoints"
+						{
+							"05"	"%radius 0 0"
+						}
+					}
+				}
+				"OnDestroy"
+				{
+					"FireSound"
+					{
+						"EffectName"	"Hero_Juggernaut.BladeFuryStop"
+						"Target"		"TARGET"
+					}
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_31"
+					}
+				}
+			}
+		}
+	}
+	//代达罗斯之殇
+	"item_armament_32"
+	{
+		"ID"						"3106"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_32"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		"ItemCost"					"775"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemBaseLevel"				"1"
+		"MaxUpgradeLevel"			"2"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"crit_chance"		"25"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"crit"				"350"
+			}
+			"03"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"chance"			"25"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_32_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"1"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"EffectName"		"particles/units/heroes/hero_chaos_knight/chaos_knight_reality_rift_buff.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+						"ControlPointEntities"
+						{
+							"TARGET"	"attach_attack1"
+						}
+					}
+				}
+				"OnDestroy"
+				{
+					"RemoveModifier"
+					{
+						"ModifierName"	"modifier_armament_32_buff_crit"
+						"Target"		"TARGET"
+					}
+				}
+				"OnAttackStart"
+				{
+					"Random"
+					{
+						"Chance"			"%crit_chance"
+						"OnSuccess"
+						{
+							"ApplyModifier"
+							{
+								"ModifierName"	"modifier_armament_32_buff_crit"
+								"Target"		"ATTACKER"
+							}
+						}
+						"OnFailure"
+						{
+							"RemoveModifier"
+							{
+								"ModifierName"	"modifier_armament_32_buff_crit"
+								"Target"		"ATTACKER"
+							}
+						}
+					}
+				}
+			}
+			"modifier_armament_32_buff_crit"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PREATTACK_CRITICALSTRIKE"	"%crit"
+				}
+			}
+		}
+	}
+	"item_recipe_armament_32_level2"
+	{
+		"ID"							"3107"
+		"BaseClass"						"item_recipe_arcane_boots"
+
+		"ItemCost"						"2325"
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_armament_32_level2"
+		"ItemRequirements"
+		{
+			"01"	"item_armament_32"
+		}
+	}
+	"item_armament_32_level2"
+	{
+		"ID"						"3108"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_32_level2"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		"ItemCost"					"775"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemDisassembleRule"		"DOTA_ITEM_DISASSEMBLE_NEVER"
+		"ItemBaseLevel"				"2"
+		"MaxUpgradeLevel"			"2"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"crit_chance"		"25"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"crit"				"350"
+			}
+			"03"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"chance"			"25"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_32_buff"
+			{
+				"IsBuff"			"1"
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"EffectName"		"particles/units/heroes/hero_chaos_knight/chaos_knight_reality_rift_buff.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+						"ControlPointEntities"
+						{
+							"TARGET"	"attach_attack1"
+						}
+					}
+				}
+				"OnDestroy"
+				{
+					"RemoveModifier"
+					{
+						"ModifierName"	"modifier_armament_32_buff_crit"
+						"Target"		"TARGET"
+					}
+				}
+				"OnAttackStart"
+				{
+					"Random"
+					{
+						"Chance"			"%crit_chance"
+						"OnSuccess"
+						{
+							"ApplyModifier"
+							{
+								"ModifierName"	"modifier_armament_32_buff_crit"
+								"Target"		"ATTACKER"
+							}
+						}
+						"OnFailure"
+						{
+							"RemoveModifier"
+							{
+								"ModifierName"	"modifier_armament_32_buff_crit"
+								"Target"		"ATTACKER"
+							}
+						}
+					}
+				}
+			}
+			"modifier_armament_32_buff_crit"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PREATTACK_CRITICALSTRIKE"	"%crit"
+				}
+			}
+		}
+	}
+	//短棍
+	"item_armament_33"
+	{
+		"ID"						"3109"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_33"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		"ItemCost"					"300"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemBaseLevel"				"1"
+		"MaxUpgradeLevel"			"3"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"attackspeed"		"10 14 18"
+			}
+		}
+		"OnEquip"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"	"modifier_armament_33"
+				"Target"		"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities.lua"
+				"Function"		"item_armament_33"
+				"Mode"			"0"
+			}
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_armament_33"
+				"Target"		"CASTER"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_33"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+
+				"Aura"				"modifier_armament_33_aura"
+				"Aura_Radius"		"99999"
+				"Aura_Teams"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+				"Aura_Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+				"Aura_Flags"		"DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE"
+				"Aura_ApplyToCaster""1"
+			}
+			"modifier_armament_33_aura"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_33"
+						"Mode"			"1"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_33"
+						"Mode"			"2"
+					}
+				}
+			}
+			"modifier_armament_33_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%attackspeed"
+				}
+			}
+		}
+	}
+	"item_recipe_armament_33_level2"
+	{
+		"ID"							"3110"
+		"BaseClass"						"item_recipe_arcane_boots"
+
+		"ItemCost"						"300"
+		"ItemRecipe"					"1" 
+		"ItemResult"					"item_armament_33_level2"
+		"ItemRequirements"
+		{
+			"01"	"item_armament_33"
+		}
+	}
+	"item_armament_33_level2"
+	{
+		"ID"						"3111"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_33_level2"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		"ItemCost"					"300"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemDisassembleRule"		"DOTA_ITEM_DISASSEMBLE_NEVER"
+		"ItemBaseLevel"				"2"
+		"MaxUpgradeLevel"			"3"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"attackspeed"		"10 14 18"
+			}
+		}
+		"OnEquip"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"	"modifier_armament_33"
+				"Target"		"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities.lua"
+				"Function"		"item_armament_33"
+				"Mode"			"0"
+			}
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_armament_33"
+				"Target"		"CASTER"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_33"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+
+				"Aura"				"modifier_armament_33_aura"
+				"Aura_Radius"		"99999"
+				"Aura_Teams"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+				"Aura_Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+				"Aura_Flags"		"DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE"
+				"Aura_ApplyToCaster""1"
+			}
+			"modifier_armament_33_aura"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_33"
+						"Mode"			"1"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_33"
+						"Mode"			"2"
+					}
+				}
+			}
+			"modifier_armament_33_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%attackspeed"
+				}
+			}
+		}
+	}
+	"item_recipe_armament_33_level3"
+	{
+		"ID"							"3112"
+		"BaseClass"						"item_recipe_arcane_boots"
+
+		"ItemCost"						"300"
+		"ItemRecipe"					"1" 
+		"ItemResult"					"item_armament_33_level3"
+		"ItemRequirements"
+		{
+			"01"	"item_armament_33_level2"
+		}
+	}
+	"item_armament_33_level3"
+	{
+		"ID"						"3113"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_33_level3"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		"ItemCost"					"300"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemDisassembleRule"		"DOTA_ITEM_DISASSEMBLE_NEVER"
+		"ItemBaseLevel"				"3"
+		"MaxUpgradeLevel"			"3"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"attackspeed"		"10 14 18"
+			}
+		}
+		"OnEquip"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"	"modifier_armament_33"
+				"Target"		"CASTER"
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities.lua"
+				"Function"		"item_armament_33"
+				"Mode"			"0"
+			}
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_armament_33"
+				"Target"		"CASTER"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_33"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+
+				"Aura"				"modifier_armament_33_aura"
+				"Aura_Radius"		"99999"
+				"Aura_Teams"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+				"Aura_Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+				"Aura_Flags"		"DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE"
+				"Aura_ApplyToCaster""1"
+			}
+			"modifier_armament_33_aura"
+			{
+				"Passive"			"0"
+				"IsHidden"			"1"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_33"
+						"Mode"			"1"
+					}
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_33"
+						"Mode"			"2"
+					}
+				}
+			}
+			"modifier_armament_33_buff"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%attackspeed"
+				}
+			}
+		}
+	}
+	//迈达斯之手
+	"item_armament_34"
+	{
+		"ID"						"3114"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_34"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_BASIC"
+
+		"ItemCost"					"200"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+
+		"AbilityCooldown"			"60"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"health_value"		"380"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"extra_gold"		"10"
+			}
+		}
+		"OnSpellStart"
+		{
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_armament_34_buff"
+				"Target" 		"TARGET"
+				"Duration"		"2"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_34_buff"
+			{
+				"IsHidden"			"1"
+				"Passive"			"0"
+				"IsPurgable"		"0"
+				"IsBuff"			"1"
+				"IsDebuff"			"0"
+				"IsStunDebuff"		"0"
+				"StatusEffectName"		"particles/status_fx/status_effect_phantom_lancer_illusion.vpcf"
+				"StatusEffectPriority" "10"
+				"States"
+				{
+					"MODIFIER_STATE_FROZEN"					"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_NO_HEALTH_BAR"			"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_MAGIC_IMMUNE"			"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_ATTACK_IMMUNE"			"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_STUNNED"				"MODIFIER_STATE_VALUE_ENABLED"
+				}
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"item_armament_34"
+					}
+				}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MIN_HEALTH"		"1"
+				}
+			}
+		}
+	}
+	//刷新球
+	"item_armament_35"
+	{
+		"ID"						"3115"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_35"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_BASIC"
+
+		"ItemCost"					"150"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemBaseLevel"				"1"
+		"AbilityCooldown"			"90"
+		"AbilitySharedCooldown"		"item_armament_35"
+		"AbilityCastPoint"			"0.1"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"mana"				"60"
+			}
+		}
+		"OnAbilityPhaseStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities.lua"
+				"Function"		"FilterTarget"
+				"Caster"		"CASTER"
+				"TargetUnit"	"TARGET"
+			}
+		}
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities.lua"
+				"Function"		"item_armament_35"
+			}
+			"FireEffect"
+			{
+				"EffectName"		"particles/items2_fx/refresher.vpcf"
+				"EffectAttachType"	"follow_origin"
+				"Target"			"TARGET"
+				"ControlPointEntities"
+				{
+					"TARGET"	"attach_hitloc"
+				}
+			}
+			"FireSound"
+			{
+				"EffectName"	"DOTA_Item.Refresher.Activate"
+				"Target"		"TARGET"
+			}
+		}
+	}
+	//死灵书
+	"item_armament_36"
+	{
+		"ID"						"3116"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_36"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_BASIC"
+
+		"ItemCost"					"200"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+		"ItemBaseLevel"				"1"
+		"AbilityCooldown"			"100"
+		"AbilitySharedCooldown"		"item_armament_36"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"		"FIELD_INTEGER"
+				"count"			"5"
+			}
+		}
+		"OnSpellStart"
+		{
+			"SpawnUnit"
+			{
+				"UnitName"		"npc_unit_armament_36_BZ"
+				"Target" 		"CASTER"
+				"Duration"		"0"
+				"UnitCount"		"%count"
+				"UnitLimit"		"0"
+				"GrantsGold"	"0"
+				"GrantsXP"		"0"
+				"SpawnRadius"	"50"
+				"OnSpawn"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"		"TARGET"
+						"Duration"		"0.03"
+					}
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"Spawn"
+					}
+					"FireEffect"
+					{
+						"EffectName"		"particles/items_fx/necronomicon_spawn.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+					}
+				}
+			}
+			"FireSound"
+			{
+				"EffectName"	"DOTA_Item.Necronomicon.Activate"
+				"Target"		"CASTER"
+			}
+		}
+	}
+	//毒芒果
+	"item_armament_37"
+	{
+		"ID"						"3117"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_37"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_BASIC"
+
+		"ItemCost"					"250"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+
+		"AbilityCooldown"			"50"
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities.lua"
+				"Function"		"item_armament_37"
+			}
+			"FireEffect"
+			{
+				"EffectName"		"particles/items3_fx/mango_active.vpcf"
+				"EffectAttachType"	"follow_origin"
+				"Target"			"TARGET"
+			}
+			"FireSound"
+			{
+				"EffectName"	"DOTA_Item.Mango.Activate"
+				"Target"		"TARGET"
+			}
+		}
+	}
+	//驱鬼炮仗
+	"item_armament_38"
+	{
+		"ID"						"3118"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"custom/armament_38"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+
+		"ItemCost"					"275"
+		"ItemDroppable"				"0"
+		"ItemSellable"				"1"
+
+		"AoERadius"					"%radius"
+		"AbilityCooldown"			"90"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"perdamage"			"6"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"period"			"0.2"
+			}
+			"03"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"radius"			"300"
+			}
+			"04"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"duration"			"10"
+			}
+		}
+		"OnSpellStart"
+		{
+			"CreateThinker"
+			{
+				"ModifierName"	"modifier_armament_38_thinker"
+				"Target" 		"POINT"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_armament_38_thinker"
+			{
+				"Duration"			"%duration"
+				"ThinkInterval"		"%period"
+				"OnIntervalThink"
+				{
+					"FireSound"
+					{
+						"EffectName"	"ParticleDriven.Firecrackers"
+						"Target"		"TARGET"
+					}
+					"FireEffect"
+					{
+						"EffectName"		"particles/units/heroes/hero_techies/techies_land_mine_explode.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+						"ControlPoints"
+						{
+							"02"	"%radius 0 0"
+						}
+					}
+					"ActOnTargets"
+					{
+						"Target"
+						{
+							"Center"	"TARGET"
+							"Radius"	"%radius"
+							"Teams"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+							"Types"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+						}
+						"Action"
+						{
+							"RunScript"
+							{
+								"ScriptFile"	"scripts/vscripts/abilities.lua"
+								"Function"		"SpellDamage"
+								"Target"		"TARGET"
+								"Damage"		"%perdamage"
+							}
+						}
+					}
+				}
+				"OnCreated"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"		"TARGET"
+					}
+					"AttachEffect"
+					{
+						"EffectName"		"particles/cny_firecrackers_bundle.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"TARGET"
+					}
+				}
+			}
+		}
+	}
+}

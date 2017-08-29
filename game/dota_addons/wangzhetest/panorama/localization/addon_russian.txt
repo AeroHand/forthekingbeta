@@ -1,0 +1,140 @@
+"addon"
+{
+	"Team1Name"														"Защитники света"
+	"Team2Name"														"Темный легион"
+	"FlyoutScoreboard"														"Статистика (J)"
+
+	"Round"														"Раунд"
+	"BossLevel"														"Повышение уровня"
+	"BossLevelUp"														"Улучшение Короля"
+	"BossLevelUpSuccess"														"Уровень повышен"
+	"BossADLevelIsMax"														"Атака повышена до максимального уровня!"
+	"BossHLevelIsMax"														"Здоровье повышено до максимального уровня!"
+	"BossHRLevelIsMax"														"Скорость добычи максимально улучшена"
+	"DOTA_SHOP_NAME_SIDE"														"Нанять наёмников"
+	"crystalshop_title"														"Лавка"
+	"hireshop_way"														"Выбор линии"
+	"hireshop_nowway"														"Линия игрока"
+	"hireshop_hire"														"Наемники"
+	"way0"														"По умолчанию"
+	"way1"														"1 линия"
+	"way2"														"2 линия"
+	"way3"														"3 линия"
+	"way4"														"4 линия"
+	"MapInfo"													"За Короля: Пламя войны"
+	"MapInfo_Description"		"Создатель: <font color='#FF8000'>无双</font> | <font color='#FF8000'>Demon</font> | <font color='#FF8000'>nat</font><br>Email: zhuzes@gmail.com<br>Сайт: http://www.dota2rpg.com<br>Русский перевод: <font color='#FF8000'>Infinity Reflection</font>(infreflect@gmail.com)"
+	"Crystal"					"Кристаллы"
+	"Income"														"Доход"
+	"Income_Description"														"Базовый доход: <font color='#FDD990'>{d:baseincome}</font><br>Дополнительный доход: <font color='#FDD990'>{d:extraincome}</font>"
+	"Score"														"войска"
+	"AllScore"														"войска"
+	"Worker"														"Добыча"
+	"Food"														"Продовольствие"
+	"FlyoutScoreboardKey"														"Горячая клавиша:J<br>Статитистика всех игроков<br>(Статистика недоступна до 8 раунда)"
+	"CrystalShopKey"														"Горячая клавиша:K<br>Потратьте кристалы на найм наемников или на улучшение Короля"
+	"StopHeroWarning"														"Утвести командира от линии"
+	"InvalidWay"														"Не верная линия!"
+	"NoStock"														"Нет в наличии!"
+	"NoEnoughMoney"														"Недостаточно золота!"
+	"NoEnoughFood"														"Недостаточно продовольствия!"
+	"NoEnoughLumber"														"Недостаточно кристаллов!"
+	"MaxTechLevel"														"Достигнут максимальный уровень"
+	"NoEnoughScore"														"Недостаточный уровень войск!"
+	"NoEnoughScore600"														"Уровень войска  меньше 600!"
+	"NoEnoughScore1000"														"Уровень войска  меньше 1000!"
+	"NoEnoughScore2000"														"Уровень войска  меньше 2000!"
+	"NoEnoughScore5000"														"Уровень войска  меньше 5000!"
+	"MaxFarmerNum"														"Максимальное кол-во сборщиков!"
+	"MaxFullFood"														"Максимальное кол-во продовольствия!"
+	"UpFoodFinish"														"Уровень продовольствия повышен!"
+	"UpTechFinish"														"Улучшена скорость сбора кристаллов!"
+	"UpFarmerFinish"														"Сборщик кристаллов готов!"
+	"CantTarget"														"Невозможно применить на этой цели!"
+	"ShowToEnemy"														"Статистика недоступна до 8 раунда"
+
+	"BossLevelup_AttackDamage"														"Улучшить Атаку"
+	"BossLevelup_AttackDamage_Description"														"Повышает атаку Короля на <font color='#FF8000'>10</font> единиц<br> А так же каждого война Короля на<font color='#FF8000'>1</font> единицу<br><font color='#FA5858'>Максимальный уровень: 20</font><br><font color='#FFD700'>Доход: 2</font>"
+	"BossLevelup_Health"														"Улучшить Здоровье"
+	"BossLevelup_Health_Description"														"Повышает здоровье Короля на <font color='#FF8000'>350</font> единиц<br> А так же каждого война Короля на<font color='#FF8000'>35</font> единиц<br><font color='#FA5858'>Максимальный уровень: 20</font><br><font color='#FFD700'>Доход: 2</font>"
+	"BossLevelup_HealthRegen"														"Улучшить Регенерацию"
+	"BossLevelup_HealthRegen_Description"														"Повышает восстановление здоровья Короля на <font color='#FF8000'>2.5</font>единицы<br> А так же каждого война Короля на <font color='#FF8000'>0.25</font> единиц<br><font color='#FA5858'>Максимальный уровень: 20</font><br><font color='#FFD700'>Доход: 2</font>"
+
+	"item_hire_1"														"Шакал-вор"
+	"item_hire_1_Description"														"Атака: <font color='#FF8000'>4 - 5</font>            Тип Атаки: <font color='#FF8000'>Нормальная</font><br>Attack Speed: <font color='#FF8000'>1.35сек. на удар</font><br>Дальность атаки: <font color='#FF8000'>100/Ближняя</font><br>—————————————<br>Здоровье: <font color='#FF8000'>66</font><br>Броня: <font color='#FF8000'>0</font>                   Тип Брони: <font color='#FF8000'>Средняя</font><br>—————————————<br>Abilities: <font color='#088A29'>Уклонение</font><br><font color='#FA5858'>25% шанс избежать удара</font><br><font color='#4169E1'>Цена: {d:crystal} Кристаллов</font><br><font color='#FFD700'>Увеличивает доход на: {d:income}</font>"
+
+	"item_hire_2"														"Троль"
+	"item_hire_2_Description"														"Атака: <font color='#FF8000'>7 - 9</font>            Тип Атаки: <font color='#FF8000'>Колющая</font><br>Attack Speed: <font color='#FF8000'>0.9сек. на удар</font><br>Дальность атаки: <font color='#FF8000'>400/Дальняя</font><br>—————————————<br>Здоровье: <font color='#FF8000'>50</font><br>Броня: <font color='#FF8000'>0</font>                   Тип Брони: <font color='#FF8000'>Легкая</font><br>—————————————<br>Abilities: <font color='#088A29'>Крит. удар</font><br><font color='#FA5858'>25% шанс нанести 2.5x кратный урон.</font><br><font color='#4169E1'>Цена: {d:crystal} Кристаллов</font><br><font color='#FFD700'>Увеличивает доход на: {d:income}</font>"
+
+	"item_hire_3" 														"Жестокий Рабовладелец"
+	"item_hire_3_Description"														"Атака: <font color='#FF8000'>10 - 11</font>            Тип Атаки: <font color='#FF8000'>Нормальная</font><br>Attack Speed: <font color='#FF8000'>0.9сек. на удар</font><br>Дальность атаки: <font color='#FF8000'>100/Ближняя</font><br>—————————————<br>Здоровье: <font color='#FF8000'>425</font><br>Броня: <font color='#FF8000'>3</font>                   Тип Брони: <font color='#FF8000'>Тяжелая</font><br>—————————————<br>Abilities: <font color='#088A29'>Отравление</font><br><font color='#FA5858'> Яд наносит 10 единиц урона в сек&#44; в течении 10 сек.(Не суммируется) </font><br><font color='#4169E1'>Цена: {d:crystal} Кристаллов</font><br><font color='#FFD700'>Увеличивает доход на: {d:income}</font>"
+
+
+	"item_hire_4"														"Огр-маг"
+	"item_hire_4_Description"														"Атака: <font color='#FF8000'>21 - 28</font>            Тип Атаки: <font color='#FF8000'>Магическая</font><br>Attack Speed: <font color='#FF8000'>1.8сек. на удар</font><br>Дальность атаки: <font color='#FF8000'>325/Дальняя</font><br>—————————————<br>Здоровье: <font color='#FF8000'>480</font><br>Броня: <font color='#FF8000'>3</font>                   Тип Брони: <font color='#FF8000'>Тяжелая</font><br>—————————————<br>Abilities: <font color='#088A29'>Восстановление</font><br><font color='#FA5858'>Увеличивает регенерацию здоровья на 5 единиц в радиусе 420. (Не суммируется)</font><br><font color='#4169E1'>Цена: {d:crystal} Кристаллов</font><br><font color='#FFD700'>Увеличивает доход на: {d:income}</font>"
+
+	"item_hire_5"														"Лютые волки"
+	"item_hire_5_Description"														"Атака: <font color='#FF8000'>10 - 20</font>            Тип Атаки: <font color='#FF8000'>Осадная</font><br>Attack Speed: <font color='#FF8000'>1.35сек. на удар</font><br>Дальность атаки: <font color='#FF8000'>100/Ближняя</font><br>—————————————<br>Здоровье: <font color='#FF8000'>875</font><br>Броня: <font color='#FF8000'>5</font>                   Тип Брони: <font color='#FF8000'>Fortified</font><br>—————————————<br>Abilities: <font color='#088A29'>Вождь</font><br><font color='#FA5858'>Увеличивает силу атаки союзных войск на 8% в радиусе 620. (Не суммируется)</font><br><font color='#4169E1'>Цена: {d:crystal} Кристаллов</font><br><font color='#FFD700'>Увеличивает доход на: {d:income}</font>"
+
+	"item_hire_6"														"Фавн"
+	"item_hire_6_Description"														"Атака: <font color='#FF8000'>33 - 35</font>            Тип Атаки: <font color='#FF8000'>Колющая</font><br>Attack Speed: <font color='#FF8000'>1.5сек. на удар</font><br>Дальность атаки: <font color='#FF8000'>500/Дальняя</font><br>—————————————<br>Здоровье: <font color='#FF8000'>732</font><br>Броня: <font color='#FF8000'>3</font>                   Тип Брони: <font color='#FF8000'>Легкая</font><br>—————————————<br>Abilities: <font color='#088A29'>Аура Ускорения</font><br><font color='#FA5858'>Увеличивает скорость передвижения союзных войск на 30% в радиусе 700. (Не суммируется)</font><br><font color='#4169E1'>Цена: {d:crystal} Кристаллов</font><br><font color='#FFD700'>Увеличивает доход на: {d:income}</font>"
+
+	"item_hire_7"														"Дикая птица"
+	"item_hire_7_Description"														"Атака: <font color='#FF8000'>42 - 53</font>           Тип Атаки: <font color='#FF8000'>Хаос</font><br>Attack Speed: <font color='#FF8000'>1.35сек. на удар</font><br>Дальность атаки: <font color='#FF8000'>100/Ближняя</font><br>—————————————<br>Здоровье: <font color='#FF8000'>1080</font><br>Броня: <font color='#FF8000'>5</font>                   Тип Брони: <font color='#FF8000'>Тяжелая</font><br>—————————————<br>Abilities: <font color='#088A29'>Аура Дикой Птицы</font><br><font color='#FA5858'>Увеличивает броню союзных войск на 3 в радиусе 700. (Не суммируется)</font><br><font color='#4169E1'>Цена: {d:crystal} Кристаллов</font><br><font color='#FFD700'>Увеличивает доход на: {d:income}</font>"
+
+	"item_hire_8"														"Грязевой голем"
+	"item_hire_8_Description"														"Атака: <font color='#FF8000'>41 - 62</font>           Тип Атаки: <font color='#FF8000'>Колющая</font><br>Attack Speed: <font color='#FF8000'>0.7сек. на удар</font><br>Дальность атаки: <font color='#FF8000'>500/Дальняя</font><br>—————————————<br>Здоровье: <font color='#FF8000'>770</font><br>Броня: <font color='#FF8000'>3</font>                   Тип Брони: <font color='#FF8000'>Легкая</font><br>—————————————<br>Abilities: <font color='#088A29'>Рикошет</font><br><font color='#FA5858'>Последовательно поражает 2 дополнительные цели&#44; урон каждой следующей цели уменьшается на 60%.</font><br><font color='#4169E1'>Цена: {d:crystal} Кристаллов</font><br><font color='#FFD700'>Увеличивает доход на: {d:income}</font>"
+
+	"item_hire_9"														"Сатир"
+	"item_hire_9_Description"														"Атака: <font color='#FF8000'>40 - 50</font>           Тип Атаки: <font color='#FF8000'>Нормальная</font><br>Attack Speed: <font color='#FF8000'>0.33сек. на удар</font><br>Дальность атаки: <font color='#FF8000'>100/Ближняя</font><br>—————————————<br>Здоровье: <font color='#FF8000'>1350</font><br>Броня: <font color='#FF8000'>6</font>                   Тип Брони: <font color='#FF8000'>No</font><br>—————————————<br>Abilities: <font color='#088A29'>Кунг Фу&#44; Уменьшение брони</font><br><font color='#FA5858'>15% шанс нанести 3x кратный урон. 15% шанс избежать удара.<br>Снижает броню вражеского юнита на 5 в течении 4сек.</font><br><font color='#4169E1'>Цена: {d:crystal} Кристаллов</font><br><font color='#FFD700'>Увеличивает доход на: {d:income}</font>"
+
+	"item_hire_10"														"Адский медведь"
+	"item_hire_10_Description"														"Атака: <font color='#FF8000'>70 - 80</font>           Тип Атаки: <font color='#FF8000'>Божественная</font><br>Attack Speed: <font color='#FF8000'>0.7сек. на удар</font><br>Дальность атаки: <font color='#FF8000'>100/Ближняя</font><br>—————————————<br>Здоровье: <font color='#FF8000'>2220</font><br>Броня: <font color='#FF8000'>8</font>                   Тип Брони: <font color='#FF8000'>Тяжелая</font><br>—————————————<br>Abilities: <font color='#088A29'>Смертоносные когти&#44; Аура Жажды Крови</font><br><font color='#FA5858'>При атаке наносит 25% урона соседним целям в радиусе 150.(Не суммируется)</font><br><font color='#4169E1'>Цена: {d:crystal} Кристаллов</font><br><font color='#FFD700'>Увеличивает доход на: {d:income}</font>"
+
+	"item_hire_11"														"Рошан"
+	"item_hire_11_Description"														"Атака: <font color='#FF8000'>88 - 110</font>           Тип Атаки: <font color='#FF8000'>Хаос</font><br>Attack Speed: <font color='#FF8000'>1.35сек. на удар</font><br>Дальность атаки: <font color='#FF8000'>100/Ближняя</font><br>—————————————<br>Здоровье: <font color='#FF8000'>2780</font><br>Броня: <font color='#FF8000'>8</font>                   Тип Брони: <font color='#FF8000'>Средняя</font><br>—————————————<br>Abilities: <font color='#088A29'>Бессмертие&#44; Оглушение&#44; Устрашение</font><br><font color='#FA5858'>Увеличивает броню на 5 единиц в радиусе 500. (Не суммируется)<br>Дает 25% шанс оглушить противника и нанести 120 единиц дополнительного урона . Оглушает цель на 2сек.(0.5сек. Короля)<br>Наносит врагам 10 единиц урона в сек. в радиусе 300</font><br><font color='#4169E1'>Цена: {d:crystal} Кристаллов</font><br><font color='#FFD700'>Увеличивает доход на: {d:income}</font>"
+
+	"item_hire_12"														"Люцифер"
+	"item_hire_12_Description"														"Атака: <font color='#FF8000'>221 - 262</font>           Тип Атаки: <font color='#FF8000'>Божественная</font><br>Attack Speed: <font color='#FF8000'>0.9сек. на удар</font><br>Дальность атаки: <font color='#FF8000'>360/Ближняя</font><br>—————————————<br>Здоровье: <font color='#FF8000'>2320</font><br>Броня: <font color='#FF8000'>7</font>                   Тип Брони: <font color='#FF8000'>Древняя</font><br>—————————————<br>Abilities: <font color='#088A29'>Аура Стремительности&#44; Отцовская забота&#44; Гибель</font><br><font color='#FA5858'>Увеличивает скорость атаки на 15% и передвижения на 30% единиц в радиусе 900. (Не суммируется)<br>Увеличивает силу атаки союзных войск на 15% в радиусе 900. (Не суммируется)<br>Запрещает вражескому юниту произносить заклинания. Наносит 60 урона в сек&#44; в течении 8 сек&#44; Перезарядка: 15сек. Мана: 60</font><br><font color='#4169E1'>Цена: {d:crystal} Кристаллов</font><br><font color='#FFD700'>Увеличивает доход на: {d:income}</font>"
+
+
+		"GetBossControl"													"Управлять Королем"
+		"BossControler"														"Управляет Королем"
+		"DamageToKing"														"Урон Королю"
+		"BreakGold"															"Награды"
+		"KillCount"															"убито"
+		"Gold"																"Золото"
+		"QuestTimer"														"Загрузка Раунда "
+		"GeneralTittle"                                                    "Нанять Полевого Командира"
+
+		"general_1"                                                                            "Амбер"
+		"general_1_Description"                                                                "<font color='#DC143C'>На поле боя Королей выходит Полевой Командир!</font><br>Атака: <font color='#FF8000'>100 - 100</font>            Тип атаки: <font color='#FF8000'>Хаос</font><br>Скорость атаки: <font color='#FF8000'>1s/time</font><br>Дальность атаки: <font color='#FF8000'>128/Melee</font><br>—————————————<br>Здоровье: <font color='#FF8000'>5000</font><br>Броня: <font color='#FF8000'>7</font>                   Тип брони: <font color='#FF8000'>Божественная</font><br>—————————————<br>Умения: <font color='#088A29'>Валькирия</font><br><font color='#FA5858'>10% шанс нанести 2х урон. 10% шанс уклониться от вражеской атаки.<br>Даёт 10 дополнительной брони всем союзникам в радиусе 1200.</font><br><font color='#4169E1'>Стоимость в кристалах: {d:crystal}</font><br><font color='#FFB6C1'>Необходимый размер армии: {d:needscore}</font>"
+
+		"general_2"                                                                            "Оливия"
+		"general_2_Description"                                                                "<font color='#DC143C'>На поле боя Королей выходит Полевой Командир!</font><br>Атака: <font color='#FF8000'>100 - 100</font>            Тип атаки: <font color='#FF8000'>Хаос</font><br>Скорость атаки: <font color='#FF8000'>1s/time</font><br>Дальность атаки: <font color='#FF8000'>128/Melee</font><br>—————————————<br>Здоровье: <font color='#FF8000'>4300</font><br>Броня: <font color='#FF8000'>7</font>                   Тип брони: <font color='#FF8000'>Божественная</font><br>—————————————<br>Умения: <font color='#088A29'>Courage</font><br><font color='#FA5858'>Дополнительная регенерация здоровья 30 ед.<br>Даёт 15% дополнительной скорости атаки всем союзникам в радиусе 1200.</font><br><font color='#4169E1'>Стоимость в кристалах: {d:crystal}</font><br><font color='#FFB6C1'>Необходимый размер армии: {d:needscore}</font>"
+
+		"general_3"                                                                            "Кайлин"
+		"general_3_Description"                                                                "<font color='#DC143C'>На поле боя Королей выходит Полевой Командир!</font><br>Атака: <font color='#FF8000'>100 - 100</font>            Тип атаки: <font color='#FF8000'>Хаос</font><br>Скорость атаки: <font color='#FF8000'>1s/time</font><br>Дальность атаки: <font color='#FF8000'>128/Melee</font><br>—————————————<br>Здоровье: <font color='#FF8000'>3800</font><br>Броня: <font color='#FF8000'>7</font>                   Тип брони: <font color='#FF8000'>Божественная</font><br>—————————————<br>Умения: <font color='#088A29'>Dexterity</font><br><font color='#FA5858'>15% шанс уклониться от вражеской атаки.<br>Даёт 15% ауру вампиризма всем союзникам в радиусе 1200.</font><br><font color='#4169E1'>Стоимость в кристалах: {d:crystal}</font><br><font color='#FFB6C1'>Необходимый размер армии: {d:needscore}</font>"
+
+		"general_4"                                                                            "Сноу Поэм"
+		"general_4_Description"                                                                "<font color='#DC143C'>На поле боя Королей выходит Полевой Командир!</font><br>Атака: <font color='#FF8000'>100 - 100</font>            Тип атаки: <font color='#FF8000'>Хаос</font><br>Скорость атаки: <font color='#FF8000'>1s/time</font><br>Дальность атаки: <font color='#FF8000'>128/Melee</font><br>—————————————<br>Здоровье: <font color='#FF8000'>3400</font><br>Броня: <font color='#FF8000'>7</font>                   Тип брони: <font color='#FF8000'>Божественная</font><br>—————————————<br>Умения: <font color='#088A29'>Inspire</font><br><font color='#FA5858'>15% шанс нанести 3х урон.<br>Даёт 15% силы атаки всем союзникам в радиусе 1200.</font><br><font color='#4169E1'>Стоимость в кристалах: {d:crystal}</font><br><font color='#FFB6C1'>Необходимый размер армии: {d:needscore}</font>"
+
+		"general_5"                                                                            "Лира"
+		"general_5_Description"                                                                "<font color='#DC143C'>На поле боя Королей выходит Полевой Командир!</font><br>Атака: <font color='#FF8000'>100 - 100</font>            Тип атаки: <font color='#FF8000'>Хаос</font><br>Скорость атаки: <font color='#FF8000'>1s/time</font><br>Дальность атаки: <font color='#FF8000'>128/Melee</font><br>—————————————<br>Здоровье: <font color='#FF8000'>3000</font><br>Броня: <font color='#FF8000'>7</font>                   Тип брони: <font color='#FF8000'>Божественная</font><br>—————————————<br>Умения: <font color='#088A29'>Faith</font><br><font color='#FA5858'>Всегда игнорирует 10 ед. получаемого урона.<br>Даёт 15 дополнительных ед. регенерации здоровья всем союзникам в радиусе 1200.</font><br><font color='#4169E1'>Стоимость в кристалах: {d:crystal}</font><br><font color='#FFB6C1'>Необходимый размер армии: {d:needscore}</font>"
+
+		"general_6"                                                                            "Глоу"
+		"general_6_Description"                                                                "<font color='#DC143C'>На поле боя Королей выходит Полевой Командир!</font><br>Атака: <font color='#FF8000'>100 - 100</font>            Тип атаки: <font color='#FF8000'>Хаос</font><br>Скорость атаки: <font color='#FF8000'>1s/time</font><br>Дальность атаки: <font color='#FF8000'>128/Melee</font><br>—————————————<br>Здоровье: <font color='#FF8000'>2000</font><br>Броня: <font color='#FF8000'>7</font>                   Тип брони: <font color='#FF8000'>Божественная</font><br>—————————————<br>Умения: <font color='#088A29'>Domineer</font><br><font color='#FA5858'>Наносит 75 урона в секунду всем противникам в радиусе 600.</font><br><font color='#4169E1'>Стоимость в кристалах: {d:crystal}</font><br><font color='#FFB6C1'>Необходимый размер армии: {d:needscore}</font>"
+
+		"tip_1"		"Совет: Обращайте внимание на порядок следования войск. Лучше всего посылать вперёд танков с ближней атакой, а юнитов с дальней атакой и большим уроном в секунду - за ними."
+		"tip_2"		"Совет: Нет бесполезных солдат. Просто используйте их мудро."
+		"tip_3"		"Совет: Командиры могут изменять список доступных для постройки солдат. Можете попробовать это, если противник вас полностью подавляет."
+		"tip_4"		"Совет: Магическая Атака сокрушает Тяжёлую Броню, Нормальная Атака сокрушает Среднюю Броню, Колющая Атака сокрушает Лёгкую Броню, Осадная Атака сокрушает Укреплённую Броню."
+		"tip_5"		"Совет: Не забывайте вовремя нанимать и улучшать сборщиков кристалов, в противном случае вы быстро отстанете."
+		"tip_6"		"Совет: Кристалы могут быть использованы для покупки наёмников и улучшения Короля, они увеличивают ваш доход, в то время как хороший доход часто является залогом победы."
+		"tip_7"		"Совет: Основной целью игры является уничтожение вражеского Короля. Не расстраивайтесь, если соперник сильнее в начале игры - сильные в начале игры солдаты в дальнейшем могут проиграть."
+		"tip_8"		"Совет: Ключом к победе является контроль линии. Для контроля линии Командиры могут использовать Заряд или Ожидать Приказа."
+		"tip_9"		"Совет: Наёмники и Вооружение могут быть использованы для союзников. Хорошая командная работа может принести победу."
+		"tip_10"	"Совет: Улучшение Короля не даёт вам прямой выгоды, однако увеличивает шансы команды на победу."
+		"tip_11"	"Совет: Задерживать своих солдат лучше всего когда линия столкновения находится ближе к вам."
+		"OnlyCommanderCanTakeArmaments"														"Вооружение может быть использовано только Командиром!"
+
+}

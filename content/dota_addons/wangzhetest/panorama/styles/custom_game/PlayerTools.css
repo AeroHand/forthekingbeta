@@ -1,0 +1,41 @@
+.PlayerToolsPanel
+{
+	margin-top: 0px;
+	margin-right: 200px;
+	vertical-align: top;
+	horizontal-align: right;
+}
+#PlayerToolsButton
+{
+	margin-right: 5px;
+	vertical-align: top;
+	horizontal-align: right;
+	width: 35px;
+	height: 35px;
+	background-image: url("s2r://panorama/images/control_icons/gear_png.vtex");
+	background-size: 27px;
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+	wash-color: #cccccc;
+	tooltip-position: bottom;
+}
+#PlayerToolsButton:hover
+{
+	wash-color: #9999aa;
+}
+#PlayerToolsButton:active
+{
+	wash-color: #7777aa;
+	sound: "ui_settings_multi";
+}
+#PlayerTools
+{
+	margin-top: 50px;
+	background-color: #000000cc;
+	width: 300px;
+	visibility: collapse;
+}
+.show_tools #PlayerTools,
+{
+	visibility: visible;
+}

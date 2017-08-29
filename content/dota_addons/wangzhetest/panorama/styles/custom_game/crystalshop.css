@@ -1,0 +1,400 @@
+.CrystalShopRoot
+{
+	vertical-align: top;
+	horizontal-align: right;
+	z-index: 5;
+	width: 100%;
+	height: 100%;
+}
+#CrystalShopPanel
+{
+	vertical-align: bottom;
+	horizontal-align: right;
+	margin-right: 7px;
+	height: 100%;
+	flow-children: down;
+}
+#CrystalShop_Button
+{
+	vertical-align: bottom;
+	horizontal-align: right;
+	margin-right: 12.5px;
+	margin-bottom: 12.5px;
+}
+#CrystalShop_Button_Open
+{
+	height: 36px;
+	width: 96px;
+	background-image: url(file://{images}/custom_game/CrystalShop.psd);
+	background-size: 100%;
+}
+	#CrystalShop_Button_Open_Label
+	{
+		color: #E0E0E0;
+		text-shadow: 3px 3px 3px 1.5 #000000;
+		font-size: 19px;
+		font-family: FZKai-Z03;
+		font-weight: bold;
+		font-style: italic;
+		vertical-align: center;
+		horizontal-align: center;
+	}
+#CrystalShop_Button_Close
+{
+	height: 36px;
+	width: 96px;
+	background-image: url(file://{images}/custom_game/CrystalShop.psd);
+	background-size: 100%;
+}
+	#CrystalShop_Button_Close_Label
+	{
+		color: #E0E0E0;
+		text-shadow: 3px 3px 3px 1.5 #000000;
+		font-size: 19px;
+		font-family: FZKai-Z03;
+		font-weight: bold;
+		font-style: italic;
+		vertical-align: center;
+		horizontal-align: center;
+	}
+#CrystalShop
+{
+	margin-top: 95px;
+	flow-children: right;
+}
+#hireshop
+{
+	width: 300px;
+	height: 700px;
+	flow-children: down;
+	background-image: url(file://{images}/custom_game/shopui.png);
+	background-size: 100%;
+}
+	#hireshop_tittle
+	{
+		font-size: 25px;
+		font-family: FZKai-Z03;
+		text-align: center;
+		color: #FFFFFF;
+		text-shadow: 0px 0px 100px 6 #FFCC00;
+		background-color: #222222;
+		border: 2px solid #FFFF00;
+		width: 262px;
+		horizontal-align: center;
+		margin-top: 20px;
+	}
+	#hireshop_changeway
+	{
+		flow-children: right;
+		width: 262px;
+		margin-left: 20px;
+		margin-top: 20px;
+	}
+		#hireshop_nowway
+		{
+			font-size: 20px;
+			color: #FFFFFF;
+			vertical-align: center;
+		}
+		#hireshop_chooseway
+		{
+			vertical-align: center;
+		}
+	#hireshop_items
+	{
+		margin-left: 38px;
+		margin-top: 10px;
+		flow-children: right;
+	}
+		#hireshop_items_column_1
+		{
+			flow-children: down;
+		}
+
+		#hireshop_items_column_2
+		{
+			flow-children: down;
+		}
+
+.ItemPanel
+{
+	width: 121px;
+	height: 88px;
+	margin-top: 4px;
+	margin-bottom: 4px;
+	margin-left: 4px;
+	margin-right: 4px;
+	z-index: 0;
+}
+	.Cost
+	{
+		font-size: 15px;
+		color: white;
+	}
+	#ItemCost
+	{
+		width: 121px;
+		height: 88px;
+		margin-top: 4px;
+		margin-bottom: 4px;
+		margin-left: 4px;
+		margin-right: 4px;
+		z-index: 1;
+	}
+		#ItemGoldCost
+		{
+			text-shadow: 0px 0px 6px 4 gold;
+			visibility: visible;
+			vertical-align: bottom;
+			horizontal-align: left;
+			margin-bottom: 22px;
+		}
+		#ItemLumberCost
+		{
+			text-shadow: 0px 0px 6px 4 blue;
+			visibility: visible;
+			vertical-align: bottom;
+			horizontal-align: right;
+			margin-right: 32px;
+			margin-bottom: 22px;
+		}
+	.Stock
+	{
+		font-size: 21px;
+		color: #CCCCCC;
+	}
+	#ItemStock
+	{
+		text-shadow: 0px 0px 6px 2 #000000;
+		visibility: visible;
+		vertical-align: top;
+		horizontal-align: left;
+		margin-left: 5px;
+		margin-top: 1px;
+		z-index: 1;
+	}
+	#ItemBorder
+	{
+		width: 87px;
+		height: 67px;
+		border: 3px solid gold;
+		border-radius: 5px;
+		margin-top: -1.5px;
+		margin-left: -1.5px;
+	}
+	.not_enough_states #ItemBorder
+	{
+		border: 3px solid red;
+		border-radius: 5px;
+	}
+	.no_stock #ItemBorder
+	{
+		border: 3px solid black;
+		border-radius: 5px;
+	}
+		#Cooldown
+		{
+			width: 100%;
+			height: 100%;
+			visibility: collapse;
+		}
+		#CooldownOverlay
+		{
+			height: 100%;
+			background-color: #000000DD;
+		}
+		#CooldownTimer
+		{
+			color: white;
+			font-size: 20px;
+			text-shadow: 0px 0px 6px 6 #000000;
+			horizontal-align: center;
+			vertical-align: center;
+		}
+
+#BossLevelupAndGenerals
+{
+	width: 300px;
+	height: 700px;
+	flow-children: down;
+	background-image: url(file://{images}/custom_game/shopui.png);
+	background-size: 100%;
+}
+#BossLevelup
+{
+	width: 300px;
+	height: 155px;
+	flow-children: down;
+}
+	#BossLevelup_tittle
+	{
+		font-size: 25px;
+		font-family: FZKai-Z03;
+		text-align: center;
+		color: #FFFFFF;
+		text-shadow: 0px 0px 100px 6 #FFCC00;
+		background-color: #222222;
+		border: 2px solid #FFFF00;
+		width: 262px;
+		horizontal-align: center;
+		margin-top: 20px;
+	}
+	#BossLevelup_States
+	{
+		margin-top: 20px;
+		margin-left: 16px;
+		horizontal-align: left;
+		flow-children: right;
+	}
+		#BossLevelup_AttackDamage
+		{
+			horizontal-align: left;
+			margin-left: 11px;
+			width: 76px;
+			height: 76px;
+			background-image: url(file://{images}/custom_game/LvlupAttackDamage.png);
+			background-size: 100%;
+			border: 3px solid gold;
+			border-radius: 2px;
+		}
+			#AttackDamage_Level
+			{
+				font-family: Radiance;
+				color: white;
+				text-shadow: 0px 0px 6px 10 black;
+				visibility: visible;
+				vertical-align: top;
+				horizontal-align: left;
+				margin-left: 1px;
+				margin-top: -1px;
+				z-index: 1;
+			}
+			#AttackDamage_Cost
+			{
+				font-family: Radiance;
+				color:white;
+				text-shadow: 0px 0px 6px 6 blue;
+				visibility: visible;
+				vertical-align: bottom;
+				horizontal-align: right;
+				margin-bottom: -6px;
+			}
+		#BossLevelup_Health
+		{
+			horizontal-align: left;
+			margin-left: 11px;
+			width: 76px;
+			height: 76px;
+			background-image: url(file://{images}/custom_game/LvlupHealth.png);
+			background-size: 100%;
+			border: 3px solid gold;
+			border-radius: 2px;
+		}
+			#Health_Level
+			{
+				font-family: Radiance;
+				color: white;
+				text-shadow: 0px 0px 6px 10 black;
+				visibility: visible;
+				vertical-align: top;
+				horizontal-align: left;
+				margin-left: 1px;
+				margin-top: -1px;
+				z-index: 1;
+			}
+			#Health_Cost
+			{
+				font-family: Radiance;
+				color:white;
+				text-shadow: 0px 0px 6px 6 blue;
+				visibility: visible;
+				vertical-align: bottom;
+				horizontal-align: right;
+				margin-bottom: -6px;
+			}
+		#BossLevelup_HealthRegen
+		{
+			horizontal-align: left;
+			margin-left: 11px;
+			width: 76px;
+			height: 76px;
+			background-image: url(file://{images}/custom_game/LvlupHealthRegen.png);
+			background-size: 100%;
+			border: 3px solid gold;
+			border-radius: 2px;
+		}
+			#HealthRegen_Level
+			{
+				font-family: Radiance;
+				color: white;
+				text-shadow: 0px 0px 6px 10 black;
+				visibility: visible;
+				vertical-align: top;
+				horizontal-align: left;
+				margin-left: 1px;
+				margin-top: -1px;
+				z-index: 1;
+			}
+			#HealthRegen_Cost
+			{
+				font-family: Radiance;
+				color:white;
+				text-shadow: 0px 0px 6px 6 blue;
+				visibility: visible;
+				vertical-align: bottom;
+				horizontal-align: right;
+				margin-bottom: -6px;
+			}
+		.not_enough_states #BossLevelup_AttackDamage,
+		.not_enough_states #BossLevelup_Health,
+		.not_enough_states #BossLevelup_HealthRegen
+		{
+			border: 3px solid red;
+			border-radius: 2px;
+		}
+		.max_level1 #BossLevelup_AttackDamage,
+		.max_level2 #BossLevelup_Health,
+		.max_level3 #BossLevelup_HealthRegen
+		{
+			border: 3px solid black;
+			border-radius: 2px;
+		}
+
+	.Russian #CrystalShop_Button_Open_Label,
+	.Russian #CrystalShop_Button_Close_Label,
+	.Russian #hireshop_tittle,
+	.Russian #BossLevelup_tittle,
+	.Russian #Generals_tittle,
+	{
+		font-family: Radiance;
+	}
+
+	#Generals_tittle
+	{
+		font-size: 25px;
+		font-family: FZKai-Z03;
+		text-align: center;
+		color: #FFFFFF;
+		text-shadow: 0px 0px 100px 6 #FFCC00;
+		background-color: #222222;
+		border: 2px solid #FFFF00;
+		width: 262px;
+		horizontal-align: center;
+		margin-top: 20px;
+	}
+	#Generals
+	{
+		margin-left: 38px;
+		margin-top: 10px;
+		flow-children: right;
+	}
+		#generals_column_1
+		{
+			flow-children: down;
+		}
+
+		#generals_column_2
+		{
+			flow-children: down;
+		}
+

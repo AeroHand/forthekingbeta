@@ -1,0 +1,247 @@
+.BossHealthBarRoot
+{
+	vertical-align: top;
+	horizontal-align: center;
+}
+	#BossHealthBarPanel
+	{
+		flow-children: right;
+	}
+		#BossImage1
+		{
+			width: 60px;
+			height: 73px;
+			background-image: url(file://{images}/custom_game/Boss/Boss1.psd);
+			background-size: 100%;
+			z-index: 2;
+		}
+			#LifeCount1
+			{
+				width: 28px;
+				height: 28px;
+				vertical-align: bottom;
+				horizontal-align: center;
+				text-align: center;
+				color: #fbf365;
+				font-size: 28px;
+				font-family: Radiance;
+				margin-left: 2px;
+				margin-bottom: 3px;
+				z-index: 3;
+			}
+		#BossImage2
+		{
+			width: 60px;
+			height: 73px;
+			background-image: url(file://{images}/custom_game/Boss/Boss2.psd);
+			background-size: 100%;
+			z-index: 2;
+		}
+			#LifeCount2
+			{
+				width: 28px;
+				height: 28px;
+				vertical-align: bottom;
+				horizontal-align: center;
+				text-align: center;
+				color: #c6f0f5;
+				font-size: 28px;
+				font-family: Radiance;
+				margin-right: 6px;
+				margin-bottom: 3px;
+				z-index: 3;
+			}
+		#BossState
+		{
+			flow-children: right;
+		}
+			#BossHealthBar1
+			{
+				horizontal-align: left;
+				vertical-align: bottom;
+				margin-left: -17px;
+				height: 65px;
+			}
+				#BossLevel1
+				{
+					horizontal-align: left;
+					flow-children: right;
+					margin-top: 20px;
+					margin-left: 17px;
+					z-index: 3;
+				}
+					#Lv1
+					{
+						text-align: center;
+						color: #fbf365;
+						font-size: 20px;
+						font-family: Radiance;
+						font-weight: bold;
+					}
+					#LevelNumber1
+					{
+						text-align: center;
+						color: #fbf365;
+						font-size: 20px;
+						font-family: Radiance;
+						font-weight: bold;
+					}
+				#TeamAllScore1
+				{
+					flow-children: right;
+					vertical-align: top;
+					horizontal-align: center;
+					margin-top: 15px;
+					z-index: 3;
+				}
+					#TeamName1
+					{
+						text-align: center;
+						color: #fbf365;
+						font-size: 20px;
+						font-family: FZKai-Z03;
+						font-weight: bold;
+					}
+					#TeamScore1
+					{
+						text-align: center;
+						color: #fbf365;
+						font-size: 20px;
+						font-family: Radiance;
+						font-weight: bold;
+						margin-top: -2px;
+					}
+				#BossHealth1
+				{
+					margin-bottom: 3px;
+					margin-left: 3px;
+					width: 300px;
+					height: 19px;
+					background-image: url(file://{images}/custom_game/Boss/HealthBar1.psd);
+					background-size: 100%;
+					z-index: 1;
+					horizontal-align: left;
+					vertical-align: bottom;
+				}
+				#BossHealthOverlay1
+				{
+					width: 306px;
+					height: 25px;
+					background-image: url(file://{images}/custom_game/Boss/HealthBarEmpty1.psd);
+					background-size: 100%;
+					border: 3px solid #ffa70f;
+					border-radius: 3px;
+					z-index: 0;
+					horizontal-align: left;
+					vertical-align: bottom;
+				}
+				#BossHealthLight1
+				{
+					width: 306px;
+					height: 25px;
+					background-image: url(file://{images}/custom_game/Boss/HealthBarLight1.psd);
+					background-size: 100%;
+					z-index: 2;
+					horizontal-align: left;
+					vertical-align: bottom;
+				}
+			#BossHealthBar2
+			{
+				horizontal-align: right;
+				vertical-align: bottom;
+				margin-left: 65px;
+				margin-right: -15px;
+				height: 65px;
+			}
+				#BossLevel2
+				{
+					horizontal-align: right;
+					flow-children: right;
+					margin-top: 20px;
+					margin-right: 15px;
+					z-index: 3;
+				}
+					#Lv2
+					{
+						text-align: center;
+						color: #c6f0f5;
+						font-size: 20px;
+						font-family: Radiance;
+						font-weight: bold;
+					}
+					#LevelNumber2
+					{
+						text-align: center;
+						color: #c6f0f5;
+						font-size: 20px;
+						font-family: Radiance;
+						font-weight: bold;
+					}
+				#TeamAllScore2
+				{
+					flow-children: right;
+					vertical-align: top;
+					horizontal-align: center;
+					margin-top: 15px;
+					z-index: 3;
+				}
+					#TeamName2
+					{
+						text-align: center;
+						color: #c6f0f5;
+						font-size: 20px;
+						font-family: FZKai-Z03;
+						font-weight: bold;
+					}
+					#TeamScore2
+					{
+						text-align: center;
+						color: #c6f0f5;
+						font-size: 20px;
+						font-family: Radiance;
+						font-weight: bold;
+						margin-top: -2px;
+					}
+				#BossHealth2
+				{
+					margin-bottom: 3px;
+					margin-right: 3px;
+					width: 300px;
+					height: 19px;
+					background-image: url(file://{images}/custom_game/Boss/HealthBar2.psd);
+					background-size: 100%;
+					z-index: 1;
+					horizontal-align: right;
+					vertical-align: bottom;
+				}
+				#BossHealthOverlay2
+				{
+					width: 306px;
+					height: 25px;
+					background-image: url(file://{images}/custom_game/Boss/HealthBarEmpty2.psd);
+					background-size: 100%;
+					border: 3px solid #6e45a0;
+					border-radius: 3px;
+					z-index: 0;
+					horizontal-align: right;
+					vertical-align: bottom;
+				}
+				#BossHealthLight2
+				{
+					width: 306px;
+					height: 25px;
+					background-image: url(file://{images}/custom_game/Boss/HealthBarLight2.psd);
+					background-size: 100%;
+					z-index: 2;
+					horizontal-align: right;
+					vertical-align: bottom;
+				}
+
+		.Russian #TeamName1,
+		.Russian #TeamName2,
+		.Russian #TeamScore1,
+		.Russian #TeamScore2,
+		{
+			font-family: Radiance;
+			font-size: 18px;
+		}

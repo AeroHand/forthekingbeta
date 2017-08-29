@@ -1,0 +1,148 @@
+"addon"
+{
+	"Team1Name"														"Lumi Guard"
+	"Team2Name"														"Dark Legion"
+	"FlyoutScoreboard"														"Player Info( J )"
+
+	"Round"														"Round"
+	"BossLevel"														"Enhance Level"
+	"BossLevelUp"														"王の強化"
+	"BossLevelUpSuccess"														"王のレベルアップ"
+	"BossADLevelIsMax"														"攻撃強化は最大レベルに達しています。"
+	"BossHLevelIsMax"														"HP強化は最大レベルに達しています。"
+	"BossHRLevelIsMax"														"回復速度強化は最大レベルに達しています。"
+	"DOTA_SHOP_NAME_SIDE"														"傭兵を雇う"
+	"crystalshop_title"														"Military"
+	"hireshop_way"														"傭兵出撃レーン"
+	"hireshop_nowway"														"現在のレーン"
+	"hireshop_hire"														"傭兵"
+	"way0"														"デフォルト"
+	"way1"														"レーン1"
+	"way2"														"レーン2"
+	"way3"														"レーン3"
+	"way4"														"レーン4"
+	"MapInfo"													"For The King: Beacon Fire"
+	"MapInfo_Description"														"Creater: <font color='#FF8000'>无双</font> | <font color='#FF8000'>Demon</font> | <font color='#FF8000'>nat</font><br>Email: zhuzes@gmail.com<br>Website: http://www.dota2rpg.com<br>English Translator: <font color='#FF8000'>Rabbitism兔基</font>(popmessiah@126.com)"
+	"Crystal"														"Crystal"
+	"Income"														"Income"
+	"Income_Description"														"基本収入: <font color='#ffd990'>{d:baseincome}</font><br>追加収入: <font color='#ffd990'>{d:extraincome}</font>"
+	"Score"														"Troops"
+	"AllScore"														"合計troop"
+	"Worker"														"Collect"
+	"Food"														"Food"
+	"FlyoutScoreboardKey"														"HotKey:J<br>全プレイヤーの情報を見る<br>(ラウンド8より前の時は敵の情報は見られません。)"
+	"CrystalShopKey"														"HotKey:K<br>クリスタルを使い、兵をアップグレード・登用する。"
+	"StopHeroWarning"														"コマンダーは前線には行けません。"
+	"InvalidWay"														"Invalid path!"
+	"NoStock"														"Out of stock!"
+	"NoEnoughMoney"														"ゴールドが足りません。"
+	"NoEnoughFood"														"Foodが足りません。"
+	"NoEnoughLumber"														"クリスタルが足りません。"
+	"MaxTechLevel"														"既に最大まで研究しています。"
+	"NoEnoughScore"														"Troopが足りません。"
+	"NoEnoughScore600"														"Troopが600未満です。"
+	"NoEnoughScore1000"														"Troopが1000未満です。"
+	"NoEnoughScore2000"														"Troopが2000未満です。"
+	"NoEnoughScore5000"														"Troopが5000未満です。"
+	"MaxFarmerNum"														"収集者の数が最大になりました！"
+	"MaxFullFood"														"Foodのレベルが歳代になりました！"
+	"UpFoodFinish"														"Foodレベルアップ!"
+	"UpTechFinish"														"クリスタル収集効率レベルアップ！"
+	"UpFarmerFinish"														"クリスタル収集者を雇いました。"
+	"CantTarget"														"この対象に使うことは出来ません。"
+	"ShowToEnemy"														"ラウンド8まで敵の情報は見られません。"
+
+	"BossLevelup_AttackDamage"														"Enhance Attack"
+	"BossLevelup_AttackDamage_Description"														"王の攻撃力を<font color='#FF8000'>10</font>上昇させる。<br>兵士の攻撃力を<font color='#FF8000'>1</font>上昇させる。 <br><font color='#FA5858'>最大レベル: 20</font><br><font color='#FFD700'>Income: 2</font>"
+	"BossLevelup_Health"														"Enhance HP"
+	"BossLevelup_Health_Description"														"王の最大HPを <font color='#FF8000'>350</font>上昇させる。<br>兵士の攻撃力を<font color='#FF8000'>35</font>上昇させる。<br><font color='#FA5858'>最大レベル: 20</font><br><font color='#FFD700'>Income: 2</font>"
+	"BossLevelup_HealthRegen"														"Enhance Recovery"
+	"BossLevelup_HealthRegen_Description"														"王のHP回復速度を<font color='#FF8000'>2.5</font> 上昇させる。<br>兵士の攻撃力を<font color='#FF8000'>0.25</font>上昇させる。<br><font color='#FA5858'>最大レベル: 20</font><br><font color='#FFD700'>Income: 2</font>"
+
+	"item_hire_1"														"Jackal Thief"
+	"item_hire_1_Description"														"Attack: <font color='#FF8000'>4 - 5</font>            Attack Type: <font color='#FF8000'>Normal</font><br>Attack Speed: <font color='#FF8000'>1.35s/time</font><br>Attack range: <font color='#FF8000'>100/近接</font><br>—————————————<br>HP: <font color='#FF8000'>66</font><br>Armor: <font color='#FF8000'>0</font>                   Armor Type: <font color='#FF8000'>Medium</font><br>—————————————<br>アビリティ: <font color='#088A29'>Evasion</font><br><font color='#FA5858'>25%回避確率</font><br><font color='#4169E1'>クリスタルコスト: {d:crystal}</font><br><font color='#FFD700'>増える収入量: {d:income}</font>"
+
+	"item_hire_2"														"Toss Troll"
+	"item_hire_2_Description"														"Attack: <font color='#FF8000'>7 - 9</font>            Attack Type: <font color='#FF8000'>Pierce</font><br>Attack Speed: <font color='#FF8000'>0.9s/time</font><br>Attack range: <font color='#FF8000'>400/遠隔</font><br>—————————————<br>HP: <font color='#FF8000'>50</font><br>Armor: <font color='#FF8000'>0</font>                   Armor Type: <font color='#FF8000'>Light</font><br>—————————————<br>アビリティ: <font color='#088A29'>Critical Strike</font><br><font color='#FA5858'>25%の確立で2.5倍のダメージを与える。</font><br><font color='#4169E1'>クリスタルコスト: {d:crystal}</font><br><font color='#FFD700'>増える収入量: {d:income}</font>"
+
+	"item_hire_3" "Brutal Slaveholder"
+	"item_hire_3_Description"														"Attack: <font color='#FF8000'>10 - 11</font>            Attack Type: <font color='#FF8000'>Normal</font><br>Attack Speed: <font color='#FF8000'>0.9s/time</font><br>Attack range: <font color='#FF8000'>100/近接</font><br>—————————————<br>HP: <font color='#FF8000'>425</font><br>Armor: <font color='#FF8000'>3</font>                   Armor Type: <font color='#FF8000'>Heavy</font><br>—————————————<br>アビリティ: <font color='#088A29'>Poison Sting</font><br><font color='#FA5858'>攻撃時、秒間10ダメージを与える。&#44; 10秒間持続する(重複しない) </font><br><font color='#4169E1'>クリスタルコスト: {d:crystal}</font><br><font color='#FFD700'>増える収入量: {d:income}</font>"
+
+
+	"item_hire_4"														"Ogre Magi"
+	"item_hire_4_Description"														"Attack: <font color='#FF8000'>21 - 28</font>            Attack Type: <font color='#FF8000'>Magical</font><br>Attack Speed: <font color='#FF8000'>1.8s/time</font><br>Attack range: <font color='#FF8000'>325/遠隔</font><br>—————————————<br>HP: <font color='#FF8000'>480</font><br>Armor: <font color='#FF8000'>3</font>                   Armor Type: <font color='#FF8000'>Heavy</font><br>—————————————<br>アビリティ: <font color='#088A29'>Recovery</font><br><font color='#FA5858'>5HP回復速度上昇を範囲420以内にいる味方に与える。(重複しない)</font><br><font color='#4169E1'>クリスタルコスト: {d:crystal}</font><br><font color='#FFD700'>増える収入量: {d:income}</font>"
+
+	"item_hire_5"														"Fierce Wolves"
+	"item_hire_5_Description"														"Attack: <font color='#FF8000'>10 - 20</font>            Attack Type: <font color='#FF8000'>Siege</font><br>Attack Speed: <font color='#FF8000'>1.35s/time</font><br>Attack range: <font color='#FF8000'>100/近接</font><br>—————————————<br>HP: <font color='#FF8000'>875</font><br>Armor: <font color='#FF8000'>5</font>                   Armor Type: <font color='#FF8000'>Fortified</font><br>—————————————<br>アビリティ: <font color='#088A29'>Chieftain</font><br><font color='#FA5858'>8%攻撃力上昇を範囲620以内にいる味方に与える。(重複しない)</font><br><font color='#4169E1'>クリスタルコスト: {d:crystal}</font><br><font color='#FFD700'>増える収入量: {d:income}</font>"
+
+	"item_hire_6"														"Gallop Antelope"
+	"item_hire_6_Description"														"Attack: <font color='#FF8000'>33 - 35</font>            Attack Type: <font color='#FF8000'>Pierce</font><br>Attack Speed: <font color='#FF8000'>1.5s/time</font><br>Attack range: <font color='#FF8000'>500/遠隔</font><br>—————————————<br>HP: <font color='#FF8000'>732</font><br>Armor: <font color='#FF8000'>3</font>                   Armor Type: <font color='#FF8000'>Light</font><br>—————————————<br>アビリティ: <font color='#088A29'>Rush Aura</font><br><font color='#FA5858'>30%の移動速度上昇を範囲700以内にいる味方に与える。 (重複しない)</font><br><font color='#4169E1'>クリスタルコスト: {d:crystal}</font><br><font color='#FFD700'>増える収入量: {d:income}</font>"
+
+	"item_hire_7"														"Manic Wildwing"
+	"item_hire_7_Description"														"Attack: <font color='#FF8000'>42 - 53</font>           Attack Type: <font color='#FF8000'>Chaos</font><br>Attack Speed: <font color='#FF8000'>1.35s/time</font><br>Attack range: <font color='#FF8000'>100/近接</font><br>—————————————<br>HP: <font color='#FF8000'>1080</font><br>Armor: <font color='#FF8000'>5</font>                   Armor Type: <font color='#FF8000'>Heavy</font><br>—————————————<br>アビリティ: <font color='#088A29'>Wildwing Aura</font><br><font color='#FA5858'>3アーマーを範囲700以内にいる味方に与える。(重複しない)</font><br><font color='#4169E1'>クリスタルコスト: {d:crystal}</font><br><font color='#FFD700'>増える収入量: {d:income}</font>"
+
+	"item_hire_8"														"Mud Golem"
+	"item_hire_8_Description"														"Attack: <font color='#FF8000'>41 - 62</font>           Attack Type: <font color='#FF8000'>Pierce</font><br>Attack Speed: <font color='#FF8000'>0.7s/time</font><br>Attack range: <font color='#FF8000'>500/遠隔</font><br>—————————————<br>HP: <font color='#FF8000'>770</font><br>Armor: <font color='#FF8000'>3</font>                   Armor Type: <font color='#FF8000'>Light</font><br>—————————————<br>アビリティ: <font color='#088A29'>Bouncing Stone</font><br><font color='#FA5858'>攻撃が2回跳ねる。&#44;ダメージは60%づつ低下していく。</font><br><font color='#4169E1'>クリスタルコスト: {d:crystal}</font><br><font color='#FFD700'>増える収入量: {d:income}</font>"
+
+	"item_hire_9"														"Satyr"
+	"item_hire_9_Description"														"Attack: <font color='#FF8000'>40 - 50</font>           Attack Type: <font color='#FF8000'>Normal</font><br>Attack Speed: <font color='#FF8000'>0.33s/time</font><br>Attack range: <font color='#FF8000'>100/近接</font><br>—————————————<br>HP: <font color='#FF8000'>1350</font><br>Armor: <font color='#FF8000'>6</font>                   Armor Type: <font color='#FF8000'>No</font><br>—————————————<br>アビリティ: <font color='#088A29'>Kung Fu&#44; Corruption</font><br><font color='#FA5858'>15%の確立で3倍のダメージを与える。15%の確立で攻撃を避ける。<br>対象のアーマーを4秒間5下げる。</font><br><font color='#4169E1'>クリスタルコスト: {d:crystal}</font><br><font color='#FFD700'>増える収入量: {d:income}</font>"
+
+	"item_hire_10"														"HellBear"
+	"item_hire_10_Description"														"Attack: <font color='#FF8000'>70 - 80</font>           Attack Type: <font color='#FF8000'>Divine</font><br>Attack Speed: <font color='#FF8000'>0.7s/time</font><br>Attack range: <font color='#FF8000'>100/近接</font><br>—————————————<br>HP: <font color='#FF8000'>2220</font><br>Armor: <font color='#FF8000'>8</font>                   Armor Type: <font color='#FF8000'>Heavy</font><br>—————————————<br>アビリティ: <font color='#088A29'>Striking Claws&#44; Bloodlust Aura</font><br><font color='#FA5858'>25%のクリーヴダメージを範囲150以内の敵に与える。(重複しない)</font><br><font color='#4169E1'>クリスタルコスト: {d:crystal}</font><br><font color='#FFD700'>増える収入量: {d:income}</font>"
+
+	"item_hire_11"														"Roshan"
+	"item_hire_11_Description"														"Attack: <font color='#FF8000'>88 - 110</font>           Attack Type: <font color='#FF8000'>Chaos</font><br>Attack Speed: <font color='#FF8000'>1.35s/time</font><br>Attack range: <font color='#FF8000'>100/近接</font><br>—————————————<br>HP: <font color='#FF8000'>2780</font><br>Armor: <font color='#FF8000'>8</font>                   Armor Type: <font color='#FF8000'>Medium</font><br>—————————————<br>アビリティ: <font color='#088A29'>Immortal&#44; Bash&#44; Determent</font><br><font color='#FA5858'>5アーマーを範囲500以内の味方に与える。 (重複しない)<br>25%の確立で120の追加ダメージを与え、対象を2秒（王には0.5秒）スタンさせる。<br>秒間10ダメージを範囲300以内にいる敵に与える。</font><br><font color='#4169E1'>クリスタルコスト: {d:crystal}</font><br><font color='#FFD700'>増える収入量: {d:income}</font>"
+
+	"item_hire_12"														"Doom"
+	"item_hire_12_Description"														"Attack: <font color='#FF8000'>221 - 262</font>           Attack Type: <font color='#FF8000'>Divine</font><br>Attack Speed: <font color='#FF8000'>0.9s/time</font><br>Attack range: <font color='#FF8000'>360/近接</font><br>—————————————<br>HP: <font color='#FF8000'>2320</font><br>Armor: <font color='#FF8000'>7</font>                   Armor Type: <font color='#FF8000'>Divine</font><br>—————————————<br>アビリティ: <font color='#088A29'>Swiftness Aura&#44; Paternal love&#44; Doom</font><br><font color='#FA5858'>15%の攻撃速度と30%の移動速度上昇を範囲900以内の味方に与える。(重複しない)<br>15%の追加攻撃力上昇を範囲900以内の味方に与える。(重複しない)<br>対象をサイレンス状態にし、秒間60ダメージを与える。&#44; 8秒間持続する。&#44; CD: 15s. Mana: 60</font><br><font color='#4169E1'>クリスタルコスト: {d:crystal}</font><br><font color='#FFD700'>増える収入量: {d:income}</font>"
+
+
+		"GetBossControl"													"Operate King"
+		"BossControler"														"The King's Player"
+		"DamageToKing"														"Kill King"
+		"BreakGold"															"BTReward"
+		"KillCount"															"Kill Count"
+		"Gold"																"Gold"
+		"QuestTimer"														"Start Charge "
+
+        "GeneralTittle"                                                    "Recruit Duty General"
+
+        "general_1"                                                                            "Amber"
+        "general_1_Description"                                                                "<font color='#DC143C'>将軍が王を助けに現れた！</font><br>Attack: <font color='#FF8000'>100 - 100</font>            Attack Type: <font color='#FF8000'>Chaos</font><br>Attack Speed: <font color='#FF8000'>1s/time</font><br>Attack Range: <font color='#FF8000'>128/近接</font><br>—————————————<br>Hitpoint: <font color='#FF8000'>5000</font><br>Armor: <font color='#FF8000'>7</font>                   Armor Type: <font color='#FF8000'>Divine</font><br>—————————————<br>アビリティ: <font color='#088A29'>Valkyr</font><br><font color='#FA5858'>10%の確立で2倍のダメージを与える。10%の確立で敵の攻撃を避ける。<br>10ボーナスアーマーを範囲1200以内にいる味方に与える。</font><br><font color='#4169E1'>クリスタルコスト: {d:crystal}</font><br><font color='#FFB6C1'>必要Troop: {d:needscore}</font>"
+
+        "general_2"                                                                            "Olivia"
+        "general_2_Description"                                                                "<font color='#DC143C'>将軍が王を助けに現れた！</font><br>Attack: <font color='#FF8000'>100 - 100</font>            Attack Type: <font color='#FF8000'>Chaos</font><br>Attack Speed: <font color='#FF8000'>1s/time</font><br>Attack Range: <font color='#FF8000'>128/近接</font><br>—————————————<br>Hitpoint: <font color='#FF8000'>4300</font><br>Armor: <font color='#FF8000'>7</font>                   Armor Type: <font color='#FF8000'>Divine</font><br>—————————————<br>アビリティ: <font color='#088A29'>Courage</font><br><font color='#FA5858'>30ボーナスHP回復上昇<br>15%の攻撃速度上昇を範囲1200以内にいる味方に与える。</font><br><font color='#4169E1'>クリスタルコスト: {d:crystal}</font><br><font color='#FFB6C1'>必要Troop: {d:needscore}</font>"
+
+        "general_3"                                                                            "Kylin"
+        "general_3_Description"                                                                "<font color='#DC143C'>将軍が王を助けに現れた！</font><br>Attack: <font color='#FF8000'>100 - 100</font>            Attack Type: <font color='#FF8000'>Chaos</font><br>Attack Speed: <font color='#FF8000'>1s/time</font><br>Attack Range: <font color='#FF8000'>128/近接</font><br>—————————————<br>Hitpoint: <font color='#FF8000'>3800</font><br>Armor: <font color='#FF8000'>7</font>                   Armor Type: <font color='#FF8000'>Divine</font><br>—————————————<br>アビリティ: <font color='#088A29'>Dexterity</font><br><font color='#FA5858'>15%の確立で敵の攻撃を避ける。<br>15%のライフスティールを範囲1200以内の味方に与える。</font><br><font color='#4169E1'>クリスタルコスト: {d:crystal}</font><br><font color='#FFB6C1'>必要Troop: {d:needscore}</font>"
+
+        "general_4"                                                                            "Snow Poem"
+        "general_4_Description"                                                                "<font color='#DC143C'>将軍が王を助けに現れた！</font><br>Attack: <font color='#FF8000'>100 - 100</font>            Attack Type: <font color='#FF8000'>Chaos</font><br>Attack Speed: <font color='#FF8000'>1s/time</font><br>Attack Range: <font color='#FF8000'>128/近接</font><br>—————————————<br>Hitpoint: <font color='#FF8000'>3400</font><br>Armor: <font color='#FF8000'>7</font>                   Armor Type: <font color='#FF8000'>Divine</font><br>—————————————<br>アビリティ: <font color='#088A29'>Inspire</font><br><font color='#FA5858'>15%の確立で3倍のダメージを与える。<br>15%の攻撃力上昇を範囲1200以内の味方に与える。</font><br><font color='#4169E1'>クリスタルコスト: {d:crystal}</font><br><font color='#FFB6C1'>必要Troop: {d:needscore}</font>"
+
+        "general_5"                                                                            "Lyre"
+        "general_5_Description"                                                                "<font color='#DC143C'>将軍が王を助けに現れた！</font><br>Attack: <font color='#FF8000'>100 - 100</font>            Attack Type: <font color='#FF8000'>Chaos</font><br>Attack Speed: <font color='#FF8000'>1s/time</font><br>Attack Range: <font color='#FF8000'>128/近接</font><br>—————————————<br>Hitpoint: <font color='#FF8000'>3000</font><br>Armor: <font color='#FF8000'>7</font>                   Armor Type: <font color='#FF8000'>Divine</font><br>—————————————<br>アビリティ: <font color='#088A29'>Faith</font><br><font color='#FA5858'>100%の確立で10のダメージを無視する。<br>15HP回復速度上昇を範囲1200以内の味方に与える。</font><br><font color='#4169E1'>クリスタルコスト: {d:crystal}</font><br><font color='#FFB6C1'>必要Troop: {d:needscore}</font>"
+
+        "general_6"                                                                            "Glow"
+        "general_6_Description"                                                                "<font color='#DC143C'>将軍が王を助けに現れた！</font><br>Attack: <font color='#FF8000'>100 - 100</font>            Attack Type: <font color='#FF8000'>Chaos</font><br>Attack Speed: <font color='#FF8000'>1s/time</font><br>Attack Range: <font color='#FF8000'>128/近接</font><br>—————————————<br>Hitpoint: <font color='#FF8000'>2500</font><br>Armor: <font color='#FF8000'>7</font>                   Armor Type: <font color='#FF8000'>Divine</font><br>—————————————<br>アビリティ: <font color='#088A29'>Domineer</font><br><font color='#FA5858'>秒間75ダメージを範囲600以内の敵に与える。</font><br><font color='#4169E1'>クリスタルコスト: {d:crystal}</font><br><font color='#FFB6C1'>必要Troop: {d:needscore}</font>"
+
+		"tip_1"		"Tip: フォーメーションに気を使いましょう。遠距離攻撃DPSの前に近接攻撃タンクを配置するのがいいでしょう。"
+		"tip_2"		"Tip: 使えない兵士は存在しません。賢く配置しましょう。"
+		"tip_3"		"Tip: コマンダーは召喚可能兵士リストを更新することが出来ます。完全にカウンターされた時に使うといいでしょう。"
+		"tip_4"		"Tip: Magical攻撃はHeavyアーマーに、Normal攻撃はMediumアーマーに、Pierce攻撃はLightアーマーに、Siege攻撃はFortifiedアーマーに効果的です。"
+		"tip_5"		"Tip: クリスタル収集家を適切な時に雇用/アップグレードしなければ、遅れを取ることになるでしょう。"
+		"tip_6"		"Tip: クリスタルは傭兵を雇ったり王を強化するのに使うことができ、それにより収入を得ることが出来ます。そして収入はいずれ勝利へと導いてくれるでしょう。"
+		"tip_7"		"Tip: 最終的な勝利条件は敵の王を倒すことです。序盤に強い敵の兵士は最終的には負ける事もあるので、最初に少し負けたくらいで怒らないようにしましょう。"
+		"tip_8"		"Tip: コマンダーは周囲の兵士に勝利への鍵となる突撃・待機の命令を出すことが出来ます。"
+		"tip_9"		"Tip: 傭兵やアイテムは味方に使うことも出来ます。チームワークは勝利への近道です。"
+		"tip_10"	"Tip: 王をアップグレードしてもあなたに直接影響はありませんが、長い目で見るとチーム全体を助けることになります。"
+		"tip_11"	"Tip: 前線が自軍の陣地に近い場合は兵士を一時待機させるといいかもしれません。"
+		"OnlyCommanderCanTakeArmaments"														"コマンダーのみがアイテムを持つことが出来ます。"
+		"Creator"																			"クリエイター"
+		"Mapper"																			"マップ制作"
+		"NeedTechLevel1"																	"基礎戦闘研究が必要です。"
+		"NeedTechLevel2"																	"高等戦闘研究が必要です。"
+		"UpTechLevel1"																		"基礎戦闘研究完了！"
+		"UpTechLevel2"																		"高等戦闘研究完了！"
+		"TeamHasArmaments"																	"あなたのチームはこのアイテムを持っています。"
+
+}

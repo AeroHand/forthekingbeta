@@ -1,0 +1,11 @@
+<root>
+	<styles>
+		<include src="file://{resources}/styles/custom_game/showmessage.css" />
+	</styles>
+	<scripts>
+		<include src="file://{resources}/scripts/custom_game/showmessage.js" />
+	</scripts>
+	<Panel class="ShowMessageRoot" hittest="false">
+		<Label id="Message" hittest="false"/>
+	</Panel>
+</root>

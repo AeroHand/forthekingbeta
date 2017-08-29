@@ -1,0 +1,195 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.vcss_c"/>
+		<include src="file://{resources}/styles/custom_game/flyout_scoreboard.css" />
+	</styles>
+	<scripts>
+		<include src="file://{resources}/scripts/custom_game/flyout_scoreboard.js" />
+	</scripts>
+	<Panel class="FlyoutScoreboardRoot" hittest="false">
+		<Panel id="FlyoutScoreboardPanel"
+				onmouseover="FlyoutScoreboardButtonShowTooltip()"
+				onmouseout="FlyoutScoreboardButtonHideTooltip()"
+				onactivate="OnClickFlyoutScoreboardButton()">
+			<Label id="FlyoutScoreboardText" text="#FlyoutScoreboard"/>
+			<Panel id="FlyoutScoreboardButton"/>
+		</Panel>
+		<Panel id="PlayerStates">
+			<Panel id="GameInfo">
+				<Label id="GameName" text="#addon_game_name"/>
+				<Label id="GameURL" text="www.dota2rpg.com"/>
+			</Panel>
+			<Panel id="Team1" class="Team">
+				<Panel id="Team1_info" class="Teaminfo">
+					<Label id="Team1_name" class="TeamName" text="#Team1Name"/>
+					<Label id="Team1_info_income" class="TeamIncome" text="#Income"/>
+					<Label id="Team1_info_worker_count" class="TeamWorker" text="#Worker"/>
+					<Label id="Team1_info_score" class="TeamScore" text="#Score"/>
+					<Label id="Team1_info_armaments" class="TeamArmaments" text="#DOTA_HUDShop"/>
+				</Panel>
+				<Panel id="player1" class="Playerinfo1">
+					<Panel id="player1_avatarimageandname" class="PlayerAvatarImageAndName">
+						<DOTAAvatarImage class="AvatarImage"/>
+						<Panel class="NameAndAppellation" >
+							<Label class="Name"/>
+							<Label class="Appellation"/>
+						</Panel>
+						<Image class="DisconnectedImage" hittest="false"/>
+						<Image class="AbandonedImage" hittest="false"/>
+					</Panel>
+					<Label id="player1_income" class="PlayerIncome"/>
+					<Panel id="player1_worker" class="PlayerWorker">
+						<Label id="player1_worker_count" class="PlayerWorkerCount"/>
+						<Label id="player1_worker_virgule" class="Virgule"/>
+						<Label id="player1_tech" class="PlayerTech"/>
+					</Panel>
+					<Label id="player1_score" class="PlayerScore"/>
+					<Label id="player1_armaments" class="PlayerArmaments"/>
+				</Panel>
+				<Panel id="player2" class="Playerinfo1">
+					<Panel id="player2_avatarimageandname" class="PlayerAvatarImageAndName">
+						<DOTAAvatarImage class="AvatarImage"/>
+						<Panel class="NameAndAppellation" >
+							<Label class="Name"/>
+							<Label class="Appellation"/>
+						</Panel>
+						<Image class="DisconnectedImage" hittest="false"/>
+						<Image class="AbandonedImage" hittest="false"/>
+					</Panel>
+					<Label id="player2_income" class="PlayerIncome"/>
+					<Panel id="player2_worker" class="PlayerWorker">
+						<Label id="player2_worker_count" class="PlayerWorkerCount"/>
+						<Label id="player2_worker_virgule" class="Virgule"/>
+						<Label id="player2_tech" class="PlayerTech"/>
+					</Panel>
+					<Label id="player2_score" class="PlayerScore"/>
+					<Label id="player2_armaments" class="PlayerArmaments"/>
+				</Panel>
+				<Panel id="player3" class="Playerinfo1">
+					<Panel id="player3_avatarimageandname" class="PlayerAvatarImageAndName">
+						<DOTAAvatarImage class="AvatarImage"/>
+						<Panel class="NameAndAppellation" >
+							<Label class="Name"/>
+							<Label class="Appellation"/>
+						</Panel>
+						<Image class="DisconnectedImage" hittest="false"/>
+						<Image class="AbandonedImage" hittest="false"/>
+					</Panel>
+					<Label id="player3_income" class="PlayerIncome"/>
+					<Panel id="player3_worker" class="PlayerWorker">
+						<Label id="player3_worker_count" class="PlayerWorkerCount"/>
+						<Label id="player3_worker_virgule" class="Virgule"/>
+						<Label id="player3_tech" class="PlayerTech"/>
+					</Panel>
+					<Label id="player3_score" class="PlayerScore"/>
+					<Label id="player3_armaments" class="PlayerArmaments"/>
+				</Panel>
+				<Panel id="player4" class="Playerinfo1">
+					<Panel id="player4_avatarimageandname" class="PlayerAvatarImageAndName">
+						<DOTAAvatarImage class="AvatarImage"/>
+						<Panel class="NameAndAppellation" >
+							<Label class="Name"/>
+							<Label class="Appellation"/>
+						</Panel>
+						<Image class="DisconnectedImage" hittest="false"/>
+						<Image class="AbandonedImage" hittest="false"/>
+					</Panel>
+					<Label id="player4_name" class="PlayerName"/>
+					<Label id="player4_income" class="PlayerIncome"/>
+					<Panel id="player4_worker" class="PlayerWorker">
+						<Label id="player4_worker_count" class="PlayerWorkerCount"/>
+						<Label id="player4_worker_virgule" class="Virgule"/>
+						<Label id="player4_tech" class="PlayerTech"/>
+					</Panel>
+					<Label id="player4_score" class="PlayerScore"/>
+					<Label id="player4_armaments" class="PlayerArmaments"/>
+				</Panel>
+			</Panel>
+			<Panel id="Team2" class="Team">
+				<Panel id="Team2_info" class="Teaminfo">
+					<Label id="Team2_name" class="TeamName" text="#Team2Name"/>
+					<Label id="Team2_info_income" class="TeamIncome" text="#Income"/>
+					<Label id="Team2_info_worker_count" class="TeamWorker" text="#Worker"/>
+					<Label id="Team2_info_score" class="TeamScore" text="#Score"/>
+					<Label id="Team2_info_armaments" class="TeamArmaments" text="#DOTA_HUDShop"/>
+				</Panel>
+				<Panel id="player5" class="Playerinfo2">
+					<Panel id="player5_avatarimageandname" class="PlayerAvatarImageAndName">
+						<DOTAAvatarImage class="AvatarImage"/>
+						<Panel class="NameAndAppellation" >
+							<Label class="Name"/>
+							<Label class="Appellation"/>
+						</Panel>
+						<Image class="DisconnectedImage" hittest="false"/>
+						<Image class="AbandonedImage" hittest="false"/>
+					</Panel>
+					<Label id="player5_income" class="PlayerIncome"/>
+					<Panel id="player5_worker" class="PlayerWorker">
+						<Label id="player5_worker_count" class="PlayerWorkerCount"/>
+						<Label id="player5_worker_virgule" class="Virgule"/>
+						<Label id="player5_tech" class="PlayerTech"/>
+					</Panel>
+					<Label id="player5_score" class="PlayerScore"/>
+					<Label id="player5_armaments" class="PlayerArmaments"/>
+				</Panel>
+				<Panel id="player6" class="Playerinfo2">
+					<Panel id="player6_avatarimageandname" class="PlayerAvatarImageAndName">
+						<DOTAAvatarImage class="AvatarImage"/>
+						<Panel class="NameAndAppellation" >
+							<Label class="Name"/>
+							<Label class="Appellation"/>
+						</Panel>
+						<Image class="DisconnectedImage" hittest="false"/>
+						<Image class="AbandonedImage" hittest="false"/>
+					</Panel>
+					<Label id="player6_income" class="PlayerIncome"/>
+					<Panel id="player6_worker" class="PlayerWorker">
+						<Label id="player6_worker_count" class="PlayerWorkerCount"/>
+						<Label id="player6_worker_virgule" class="Virgule"/>
+						<Label id="player6_tech" class="PlayerTech"/>
+					</Panel>
+					<Label id="player6_score" class="PlayerScore"/>
+					<Label id="player6_armaments" class="PlayerArmaments"/>
+				</Panel>
+				<Panel id="player7" class="Playerinfo2">
+					<Panel id="player7_avatarimageandname" class="PlayerAvatarImageAndName">
+						<DOTAAvatarImage class="AvatarImage"/>
+						<Panel class="NameAndAppellation" >
+							<Label class="Name"/>
+							<Label class="Appellation"/>
+						</Panel>
+						<Image class="DisconnectedImage" hittest="false"/>
+						<Image class="AbandonedImage" hittest="false"/>
+					</Panel>
+					<Label id="player7_income" class="PlayerIncome"/>
+					<Panel id="player7_worker" class="PlayerWorker">
+						<Label id="player7_worker_count" class="PlayerWorkerCount"/>
+						<Label id="player7_worker_virgule" class="Virgule"/>
+						<Label id="player7_tech" class="PlayerTech"/>
+					</Panel>
+					<Label id="player7_score" class="PlayerScore"/>
+					<Label id="player7_armaments" class="PlayerArmaments"/>
+				</Panel>
+				<Panel id="player8" class="Playerinfo2">
+					<Panel id="player8_avatarimageandname" class="PlayerAvatarImageAndName">
+						<DOTAAvatarImage class="AvatarImage"/>
+						<Panel class="NameAndAppellation" >
+							<Label class="Name"/>
+							<Label class="Appellation"/>
+						</Panel>
+						<Image class="DisconnectedImage" hittest="false"/>
+						<Image class="AbandonedImage" hittest="false"/>
+					</Panel>
+					<Label id="player8_income" class="PlayerIncome"/>
+					<Panel id="player8_worker" class="PlayerWorker">
+						<Label id="player8_worker_count" class="PlayerWorkerCount"/>
+						<Label id="player8_worker_virgule" class="Virgule"/>
+						<Label id="player8_tech" class="PlayerTech"/>
+					</Panel>
+					<Label id="player8_score" class="PlayerScore"/>
+					<Label id="player8_armaments" class="PlayerArmaments"/>
+				</Panel>
+			</Panel>
+		</Panel>
+	</Panel>
+</root>

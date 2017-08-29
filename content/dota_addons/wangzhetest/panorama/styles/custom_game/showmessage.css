@@ -1,0 +1,41 @@
+.ShowMessageRoot
+{
+	vertical-align: bottom;
+	horizontal-align: left;
+	margin-bottom: 315px;
+	margin-left: 465px;
+	flow-children: right;
+}
+	#Message
+	{
+		font-size: 35px;
+		font-family: FZLanTingHei-R-GBK;
+		vertical-align: center;
+		horizontal-align: center;
+		text-align: center;
+		color: #D50000;
+		text-shadow: 1px 1px 1px 2 #000000;
+		width: 1000px;
+
+		opacity: 0;
+		transition-property: transform, opacity;
+		transition-duration: 0.15s;
+		transform: scaleX(1) scaleY(1);
+	}
+	.Russian #Message
+	{
+		font-family: Radiance;
+	}
+	.show #Message
+	{
+		opacity: 1;
+		transition-property: transform, opacity;
+		transition-duration: 1.15s;
+		transform: scaleX(1) scaleY(1);
+	}
+	.time #Message
+	{
+		transition-property: transform;
+		transition-duration: 0.15s;
+		transform: scaleX(1.2) scaleY(1.2);
+	}

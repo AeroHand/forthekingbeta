@@ -1,0 +1,325 @@
+.PlayerStatesPanel
+{
+	width: 100%;
+	height: 100%;
+	opacity: 1;
+}
+#MapInfo
+{
+	vertical-align: bottom;
+	horizontal-align: right;
+	height: 80px;
+	width: 80px;
+	background-image: url(file://{images}/custom_game/PlayerStates/GameInfo.psd);
+	background-size: 100%;
+	z-index: 1;
+}
+.is_not_commander #PlayerRandkInfo,
+.is_not_commander #RankingLevel,
+{
+	visibility: collapse;
+}
+#PlayerRandkInfo
+{
+	vertical-align: bottom;
+	horizontal-align: center;
+	background-image: url(file://{images}/custom_game/PlayerStates/RankingStatesBG.png);
+	background-size: 100%;
+	width: 204px;
+	height: 45px;
+	z-index: 1;
+	margin-bottom: 150px;
+	margin-right: 675px;
+	flow-children: down;
+}
+#RankingLevel
+{
+	vertical-align: bottom;
+	horizontal-align: center;
+	background-image: url(file://{images}/custom_game/PlayerStates/RankingLevelBG.png);
+	background-size: 100%;
+	width: 45px;
+	height: 45px;
+	z-index: 2;
+	margin-bottom: 150px;
+	margin-right: 870px;
+}
+	#LevelNumber
+	{
+		margin-top: 6px;
+		width: 100%;
+		height: 100%;
+		font-size: 28px;
+		color: gradient( linear, 0% 0%, 0% 100%, from( #c88423 ), color-stop( 0.25, #c88423 ), color-stop( 0.5, #fffb84 ), color-stop( 0.75, #c88423 ), to( #9a6717 ) );
+		text-align: center;
+	}
+	#RankingAppellationAndName
+	{
+		margin-left: 30%;
+		vertical-align: center;
+		horizontal-align: left;
+		width: 100%;
+		height: 50%;
+	}
+		#RankingAppellation
+		{
+			font-size: 18px;
+			vertical-align: center;
+			horizontal-align: center;
+			color: gradient( linear, 0% 0%, 0% 100%, from( gold ), color-stop( 0.25, gold ), color-stop( 0.5, #fffb84 ), color-stop( 0.75, gold ), to( #9a6717 ) );
+		}
+	#RankingScoreAndRank
+	{
+		margin-left: 25%;
+		vertical-align: center;
+		horizontal-align: left;
+		width: 100%;
+		height: 50%;
+	}
+		#RankingScore
+		{
+			font-size: 14px;
+			vertical-align: center;
+			horizontal-align: left;
+			color: white;
+			font-weight: bolder;
+		}
+		#Rank
+		{
+			font-size: 14px;
+			vertical-align: center;
+			horizontal-align: left;
+			margin-left: 75px;
+			color: white;
+			font-weight: bolder;
+		}
+.Virgule
+{
+	font-size: 20.5px;
+	font-family: Radiance;
+	color: white;
+}
+#PlayerStates
+{
+	vertical-align: bottom;
+	horizontal-align: right;
+	z-index: 0;
+}
+	#Crystal
+	{
+		flow-children: right;
+		width: 125px;
+		height: 40px;
+		margin-bottom: 130px;
+		margin-right: 100px;
+		background-image: url(file://{images}/custom_game/PlayerStates/NumberBg.psd);
+		background-size: 100%;
+		tooltip-position: top;
+		tooltip-body-position: 50% 50%;
+	}
+		.Crystal_number
+		{
+			font-size: 20.5px;
+			font-family: Radiance;
+			color: #4294f8;
+		}
+		#Crystal_image
+		{
+			horizontal-align: left;
+			vertical-align: center;
+			height: 28px;
+			width: 32px;
+			background-image: url(file://{images}/custom_game/PlayerStates/Crystal.psd);
+			background-size: 100%;
+			margin-left: 10px;
+		}
+		#Crystal_count
+		{
+			vertical-align: center;
+			horizontal-align: right;
+			margin-right: 10px;
+		}
+	#Income
+	{
+		flow-children: right;
+		width: 125px;
+		height: 40px;
+		margin-left: 125px;
+		background-image: url(file://{images}/custom_game/PlayerStates/NumberBg.psd);
+		background-size: 100%;
+		tooltip-position: top;
+		tooltip-body-position: 50% 50%;
+	}
+		.Income_number
+		{
+			font-size: 20.5px;
+			font-family: Radiance;
+			color: #ffd990;
+		}
+		#Income_image
+		{
+			horizontal-align: left;
+			vertical-align: center;
+			height: 28px;
+			width: 32px;
+			background-image: url(file://{images}/custom_game/PlayerStates/Income.psd);
+			background-size: 100%;
+			margin-left: 10px;
+		}
+		#Income_count
+		{
+			vertical-align: center;
+			horizontal-align: right;
+			margin-right: 10px;
+		}
+	#Score
+	{
+		flow-children: right;
+		width: 250px;
+		height: 40px;
+		margin-top: 75px;
+		background-image: url(file://{images}/custom_game/PlayerStates/NumberBg.psd);
+		background-size: 100%;
+		tooltip-position: top;
+		tooltip-body-position: 50% 50%;
+	}
+		.Score_number
+		{
+			font-size: 20.5px;
+			font-family: Radiance;
+			color: #ff7eac;
+		}
+		#Score_image
+		{
+			horizontal-align: left;
+			vertical-align: center;
+			height: 28px;
+			width: 32px;
+			background-image: url(file://{images}/custom_game/PlayerStates/Score.psd);
+			background-size: 100%;
+			margin-left: 10px;
+		}
+		#Score_count
+		{
+			vertical-align: center;
+			horizontal-align: right;
+			margin-right: 10px;
+		}
+	#Worker
+	{
+		flow-children: right;
+		width: 125px;
+		height: 40px;
+		margin-top: 35px;
+		background-image: url(file://{images}/custom_game/PlayerStates/NumberBg.psd);
+		background-size: 100%;
+		tooltip-position: top;
+		tooltip-body-position: 50% 50%;
+	}
+		.Worker_number
+		{
+			font-size: 20.5px;
+			font-family: Radiance;
+			color: #1E90FF;
+		}
+		.Tech_number
+		{
+			font-size: 20.5px;
+			font-family: Radiance;
+			color: #1E90FF;
+		}
+		#Worker_image
+		{
+			horizontal-align: left;
+			vertical-align: center;
+			height: 28px;
+			width: 32px;
+			background-image: url(file://{images}/custom_game/PlayerStates/Worker.psd);
+			background-size: 100%;
+			margin-left: 10px;
+		}
+		#Worker_count
+		{
+			vertical-align: center;
+			horizontal-align: left;
+			margin-left: 40px;
+		}
+		#Worker_virgule
+		{
+			vertical-align: center;
+			horizontal-align: center;
+			width: 6px;
+		}
+		#Tech_count
+		{
+			vertical-align: center;
+			horizontal-align: left;
+		}
+	#Food
+	{
+		flow-children: right;
+		width: 125px;
+		height: 40px;
+		margin-top: 35px;
+		margin-left: 125px;
+		background-image: url(file://{images}/custom_game/PlayerStates/NumberBg.psd);
+		background-size: 100%;
+		tooltip-position: top;
+		tooltip-body-position: 50% 50%;
+	}
+		.Food_number
+		{
+			font-size: 20.5px;
+			font-family: Radiance;
+			color: #ac704f;
+		}
+		#Food_image
+		{
+			horizontal-align: left;
+			vertical-align: center;
+			height: 28px;
+			width: 32px;
+			background-image: url(file://{images}/custom_game/PlayerStates/Food.psd);
+			background-size: 100%;
+			margin-left: 10px;
+		}
+		#Food_count
+		{
+			vertical-align: center;
+			horizontal-align: left;
+			margin-left: 20px;
+		}
+		#Food_virgule
+		{
+			vertical-align: center;
+			horizontal-align: center;
+			width: 6px;
+		}
+		#Food_max
+		{
+			vertical-align: center;
+			horizontal-align: left;
+		}
+#Gold
+	{
+		flow-children: right;
+		width: 80px;
+		height: 40px;
+		margin-top: 120px;
+		margin-right: 100px;
+		background-image: url(file://{images}/custom_game/PlayerStates/NumberBg.psd);
+		background-size: 100%;
+	}
+		.Gold_number
+		{
+			font-size: 20.5px;
+			font-family: Radiance;
+			color: #ffd990;
+		}
+	
+		#Gold_count
+		{
+			vertical-align: center;
+			horizontal-align: right;
+			margin-right: 10px;
+		}
