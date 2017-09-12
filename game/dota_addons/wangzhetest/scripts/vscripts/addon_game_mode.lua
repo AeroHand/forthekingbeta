@@ -15,7 +15,7 @@ require('UNITS/king')
 _G.test_mode = true
 _G.Rank_mode = true
 _G.MaxPlayerCount = 6
-_G.FirstBlood = false
+_G.FirstBlood = FirstBlood or false
 _G.WinnerTeam = DOTA_TEAM_GOODGUYS
 _G.Match_id = 0
 _G.Vesion = "v1.11"
@@ -1769,9 +1769,9 @@ function CbtfGameMode:DamageFilter( filterTable )
 		local source_unit = EntIndexToHScript(filterTable.entindex_attacker_const)
 		if damaged_unit and source_unit then
 			local damage = filterTable.damage
-			if GetAandDSystem(damaged_unit) and GetAandDSystem(source_unit) and filterTable.damagetype_const==DAMAGE_TYPE_PHYSICAL then
-				local damaged_unit_AandD = GetAandDSystem(damaged_unit)
-				local source_unit_AandD = GetAandDSystem(source_unit)
+			if AandDSystem:GetAandDSystem(damaged_unit) and AandDSystem:GetAandDSystem(source_unit) and filterTable.damagetype_const==DAMAGE_TYPE_PHYSICAL then
+				local damaged_unit_AandD = AandDSystem:GetAandDSystem(damaged_unit)
+				local source_unit_AandD = AandDSystem:GetAandDSystem(source_unit)
 				local resistance = damaged_unit_AandD:GetAttacktypeResistance(source_unit_AandD:GetAttackType())
 				if damaged_unit:HasModifier("modifier_jn_X5_00c_buff") and source_unit_AandD:GetAttackType() == "magic" then
 					if damaged_unit:GetContext("jn_X5_00c_absorb") > 0 then

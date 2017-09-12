@@ -1,17 +1,45 @@
-if AandDSystem == nil then
-	AandDSystem = class({})
-end
-AandDSystemTable = {}
-function GetAandDSystem(hunit)
-	return AandDSystemTable[hunit:entindex()]
-end
-function AandDSystem:new(o)
-	o = o or {}
-	setmetatable(o,self)
-	self.__index=self
-	return o
-end
---初始抗性表
+AandDSystem = AandDSystem or class(
+{
+	attackTypeAbilityList =
+	{
+		normal = "AB",
+		pierce = "AP",
+		magic = "AM",
+		siege = "AS",
+		chaos = "AL",
+		hero = "AH",
+	},
+	defenseTypeAbilityList =
+	{
+		small = "DW",
+		medium = "DS",
+		large = "DZ",
+		fort = "DC",
+		hero = "DH",
+		none = "DB",
+	},
+	resistanceTable = 
+	{
+		["normal"] = {},
+		["pierce"] = {},
+		["magic"] = {},
+		["siege"] = {},
+		["chaos"] = {},
+		["hero"] = {},
+	},
+	resistance = 
+	{
+		["normal"] = 0,
+		["pierce"] = 0,
+		["magic"] = 0,
+		["siege"] = 0,
+		["chaos"] = 0,
+		["hero"] = 0,
+	},
+},
+nil, nil)
+
+AandDSystem.AandDSystemTable = {}
 AandDSystem.DefaultResistance = 
 {
 	["normal".."VS".."small"] = 1-0.80,
@@ -56,147 +84,117 @@ AandDSystem.DefaultResistance =
 	["hero".."VS".."hero"] = 1-1.00,
 	["hero".."VS".."none"] = 1-1.00,
 }
-function AandDSystem:Init()
-	self.attacktype_ability =
-	{
-		normal="AB",
-		pierce="AP",
-		magic="AM",
-		siege="AS",
-		chaos="AL",
-		hero="AH",
-	}
-	self.defensetype_ability =
-	{
-		small="DW",
-		medium="DS",
-		large="DZ",
-		fort="DC",
-		hero="DH",
-		none="DB",
-	}
-	self.ResistanceTable = 
-	{
-		["normal"] = {},
-		["pierce"] = {},
-		["magic"] = {},
-		["siege"] = {},
-		["chaos"] = {},
-		["hero"] = {},
-	}
-	self.Resistance = 
-	{
-		["normal"] = 0,
-		["pierce"] = 0,
-		["magic"] = 0,
-		["siege"] = 0,
-		["chaos"] = 0,
-		["hero"] = 0,
-	}
+
+function AandDSystem:GetAandDSystem(hUnit)
+	return self.AandDSystemTable[hUnit:entindex()]
 end
-function AandDSystem:UpdateResistance(sattacktype)
-	local r = 1
-	for i,resistance in pairs(self.ResistanceTable[sattacktype]) do
-		r = r * (1-resistance)
-	end
-	self.Resistance[sattacktype] = 1-r
-end
---sname为索引，可以用做修改或删除所添加的抗性，不填，则返回一个系统随机生成的索引
-function AandDSystem:AddAttacktypeResistance(sattacktype,fresistance,sname)
-	if not (sattacktype == "normal" or sattacktype == "pierce" or sattacktype == "magic" or sattacktype == "siege" or sattacktype == "chaos" or sattacktype == "hero") then
-		return
-	end
-	sname = sname or DoUniqueString(sattacktype)
-	self.ResistanceTable[sattacktype][sname] = fresistance
-	self:UpdateResistance(sattacktype)
-	return sname
-end
-function AandDSystem:RemoveAttacktypeResistance(sattacktype,sname)
-	if not (sattacktype == "normal" or sattacktype == "pierce" or sattacktype == "magic" or sattacktype == "siege" or sattacktype == "chaos" or sattacktype == "hero") then
-		return
-	end
-	if type(sname) ~= "string" then
-		return
-	end
-	self.ResistanceTable[sattacktype][sname] = 0
-	self:UpdateResistance(sattacktype)
-end
-function AandDSystem:GetAttacktypeResistance(sattacktype)
-	return self.Resistance[sattacktype]
-end
-function AandDSystem:GetUnit()
-	return self.Unit
-end
-function AandDSystem:GetAttackType()
-	return self.AttackType
-end
-function AandDSystem:GetDefensetype()
-	return self.Defensetype
-end
-function AandDSystem:TransDefenseType(sdefensetype)
-	if sdefensetype == "W" then
-		return "small"
-	end
-	if sdefensetype == "S" then
-		return "medium"
-	end
-	if sdefensetype == "Z" then
-		return "large"
-	end
-	if sdefensetype == "C" then
-		return "fort"
-	end
-	if sdefensetype == "H" then
-		return "hero"
-	end
-	if sdefensetype == "B" then
-		return "none"
-	end
-	return sdefensetype
-end
-function AandDSystem:TransAttackType(sattacktype)
-	if sattacktype == "B" then
-		return "normal"
-	end
-	if sattacktype == "P" then
-		return "pierce"
-	end
-	if sattacktype == "M" then
-		return "magic"
-	end
-	if sattacktype == "S" then
-		return "siege"
-	end
-	if sattacktype == "L" then
-		return "chaos"
-	end
-	if sattacktype == "H" then
-		return "hero"
-	end
-	return sattacktype
-end
---给单位添加攻防系统，并且初始化抗性
-function CreateAandDSystem(hunit,sattacktype,sdefensetype)
-	local AandD = AandDSystem:new()
-	local s = hunit:entindex()
-	AandDSystemTable[s] = AandD
-	AandD:Init()
-	AandD.Unit = hunit
-	sattacktype = AandD:TransAttackType(sattacktype)
-	sdefensetype = AandD:TransDefenseType(sdefensetype)
+
+function AandDSystem:constructor(hUnit)
+	local index = hUnit:entindex()
+	AandDSystem.AandDSystemTable[index] = self
+
+	local unitName = hUnit:GetUnitName()
+	local attackType = UnitManager:GetAttackTypeFromName(unitName)
+	local defenseType = UnitManager:GetDefendTypeFromName(unitName)
+
+	self.unit = hUnit
+	attackType = self:TransAttackType(attackType)
+	defenseType = self:TransDefenseType(defenseType)
 
 	--初始化抗性
-	for i,v in pairs(AandD.attacktype_ability) do
-		AandD:AddAttacktypeResistance(i,AandD.DefaultResistance[i.."VS"..sdefensetype],v)
+	for i,v in pairs(self.attackTypeAbilityList) do
+		self:AddAttacktypeResistance(i, self.DefaultResistance[i.."VS"..defenseType], v)
 	end
-	
-	UnitManager:AddDefaultAbility(AandD.Unit)
 
-	AandD.AttackType = sattacktype
-	AandD.Attacktype_Abiltiy = AbilityManager:AddAndSet(AandD.Unit,AandD.attacktype_ability[sattacktype])
+	UnitManager:AddDefaultAbility(self.unit)
 
-	AandD.Defensetype = sdefensetype
-	AandD.Defensetype_Abiltiy = AbilityManager:AddAndSet(AandD.Unit,AandD.defensetype_ability[sdefensetype])
+	self.attackType = attackType
+	self.attackTypeAbility = AbilityManager:AddAndSet(self.unit, self.attackTypeAbilityList[attackType])
 
-	return AandD
+	self.defenseType = defenseType
+	self.defenseTypeAbiltiy = AbilityManager:AddAndSet(self.unit, self.defenseTypeAbilityList[defenseType])
+end
+
+function AandDSystem:UpdateResistance(attackType)
+	local r = 1
+	for i,resistance in pairs(self.resistanceTable[attackType]) do
+		r = r * (1-resistance)
+	end
+	self.resistance[attackType] = 1-r
+end
+--sname为索引，可以用做修改或删除所添加的抗性，不填，则返回一个系统随机生成的索引
+function AandDSystem:AddAttacktypeResistance(attackType, fResistance, sName)
+	if not (attackType == "normal" or attackType == "pierce" or attackType == "magic" or attackType == "siege" or attackType == "chaos" or attackType == "hero") then
+		return
+	end
+	sName = sName or DoUniqueString(attackType)
+	self.resistanceTable[attackType][sName] = fResistance
+	self:UpdateResistance(attackType)
+	return sName
+end
+function AandDSystem:RemoveAttacktypeResistance(attackType, sName)
+	if not (attackType == "normal" or attackType == "pierce" or attackType == "magic" or attackType == "siege" or attackType == "chaos" or attackType == "hero") then
+		return
+	end
+	if type(sName) ~= "string" then
+		return
+	end
+	self.resistanceTable[attackType][sName] = nil
+	self:UpdateResistance(attackType)
+end
+
+function AandDSystem:GetAttacktypeResistance(attackType)
+	return self.resistance[attackType]
+end
+function AandDSystem:GetUnit()
+	return self.unit
+end
+function AandDSystem:GetAttackType()
+	return self.attackType
+end
+function AandDSystem:GetDefensetype()
+	return self.defenseType
+end
+
+function AandDSystem:TransDefenseType(defenseType)
+	if defenseType == "W" then
+		return "small"
+	end
+	if defenseType == "S" then
+		return "medium"
+	end
+	if defenseType == "Z" then
+		return "large"
+	end
+	if defenseType == "C" then
+		return "fort"
+	end
+	if defenseType == "H" then
+		return "hero"
+	end
+	if defenseType == "B" then
+		return "none"
+	end
+	return defenseType
+end
+function AandDSystem:TransAttackType(attackType)
+	if attackType == "B" then
+		return "normal"
+	end
+	if attackType == "P" then
+		return "pierce"
+	end
+	if attackType == "M" then
+		return "magic"
+	end
+	if attackType == "S" then
+		return "siege"
+	end
+	if attackType == "L" then
+		return "chaos"
+	end
+	if attackType == "H" then
+		return "hero"
+	end
+	return attackType
 end
