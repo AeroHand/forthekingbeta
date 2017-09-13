@@ -1256,6 +1256,7 @@ ParticleTable={
 	"particles/units/heroes/hero_alchemist/alchemist_lasthit_msg_gold.vpcf",
 	"particles/units/heroes/hero_alchemist/alchemist_chemical_rage.vpcf",
 	"particles/units/heroes/hero_dazzle/dazzle_armor_enemy.vpcf",
+	"particles/units/heroes/hero_doom_bringer/doom_bringer_devour.vpcf",
 	"particles/base_attacks/generic_projectile.vpcf",
 	"particles/units/heroes/hero_invoker/invoker_alacrity_buff.vpcf",
 	"particles/banner_circle.vpcf",
@@ -1309,6 +1310,7 @@ SoundTabel={
 	"soundevents/game_sounds_heroes/game_sounds_furion.vsndevts",
 	"soundevents/game_sounds_heroes/game_sounds_kunkka.vsndevts",
 	"soundevents/game_sounds_heroes/game_sounds_brewmaster.vsndevts",
+	"soundevents/game_sounds_heroes/game_sounds_doom_bringer.vsndevts",
 }
 
 function Precache( context )

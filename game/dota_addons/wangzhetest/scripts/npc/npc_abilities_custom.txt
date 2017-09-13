@@ -11835,6 +11835,71 @@
 	}
   }
 
+  "X8_00"
+{
+	"BaseClass" "ability_datadriven"
+	"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELLED"
+	
+	"AbilityTextureName" "custom/X8_00"//脥录卤锚 
+	"AbilityChannelTime" "3"
+	"AbilityGoldCost"         "600" //禄篓路脩陆冒脟庐
+	"AbilityManaCost"          "5"//禄篓路脩脠脣驴脷
+	"HotKeyOverride"    "X"//驴矛陆脻录眉 
+	"AbilityCastAnimation"	"ACT_DOTA_IDLE"
+	"AbilitySpecial"
+	{
+		"98"
+		{
+			"var_type"	"FIELD_INTEGER"
+			"NeedScore"	"1000"//卤酶脕娄脪陋脟贸
+		}
+		"99"
+		{
+			"var_type"	"FIELD_INTEGER"
+			"GoldCost"	"600"//禄篓路脩陆冒脟庐
+		}
+	}
+	"OnSpellStart"
+	{ 
+		"RunScript"
+		{ 
+		"ScriptFile"      "scripts/vscripts/building.lua"
+		"Function"        "Xconditions"
+		
+		}
+	}
+
+	"OnChannelSucceeded"
+	{
+		"ReplaceUnit"
+		{
+			"UnitName"      "npc_unit_X8_00_LH"//碌楼脦禄
+			"Target"        "CASTER"
+			"OnSpawn"
+			{
+			  "RunScript"
+			  { "ScriptFile"      "scripts/vscripts/building.lua"
+				"Function"        "buildbuilding"
+			  }
+				"RunScript"
+				{
+					"ScriptFile"	"scripts/vscripts/building.lua"
+					"Function"		"RemoveX"
+				}
+			}
+		}
+	}
+	
+	"OnChannelInterrupted"
+	{
+	  "RunScript"
+	  { "ScriptFile"      "scripts/vscripts/building.lua"
+		"Function"        "CancelBuild"
+	  }
+	}
+  }
+
+
 "F9_00"                      
 {
   "BaseClass" "ability_datadriven"
@@ -31632,7 +31697,101 @@
 
 }
 
+"jn_X8_00a"
+{
+	"BaseClass"						"ability_datadriven"
+	"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+	"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+	"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_BASIC"
+	"AbilityTextureName"		    "custom/jn_X8_00b"
+	"MaxLevel"						"1"
+	"AbilityCooldown"				"15"
+	"AbilityManaCost"				"60"
+	"AbilityCastRange"				"%radius"
+	"AbilityCastPoint"				"0"
+	"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY"
+	"AbilitySpecial"
+	{
+		"01"
+		{
+			"var_type"			"FIELD_INTEGER"
+			"damage"			"12"
+		}
+		"02"
+		{
+			"var_type"			"FIELD_INTEGER"
+			"maxcount"			"1"
+		}
+		"03"
+		{
+			"var_type"			"FIELD_FLOAT"
+			"radius"			"300"
+		}
+	}
+	"OnAbilityPhaseStart"
+	{
+		"DelayedAction"
+		{
+			"Delay"		"%AbilityCastPoint"
+			"Action"
+			{
+				"RunScript"
+				{
+					"ScriptFile"	"scripts/vscripts/abilities.lua"
+					"Function"		"AttackOrder"
+					"TargetUnit"	"CASTER"
+				}
+			}
+		}
+	}
+	"OnSpellStart"
+	{
 
+		"FireSound"
+		{
+			"EffectName"	"Hero_DoomBringer.DevourCast"
+			"Target"		"TARGET"
+		}
+		"FireEffect"
+		{
+			"EffectName"        "particles/units/heroes/hero_doom_bringer/doom_bringer_devour.vpcf"
+			"EffectAttachType"  "follow_origin"
+			
+			"ControlPointEntities"
+			{
+				"TARGET"	"attach_origin"
+				"CASTER"	"attach_origin"
+			}
+		}
+		"RunScript"
+		{
+			"ScriptFile"	"scripts/vscripts/abilities.lua"
+			"Function"		"Devour"
+		}
+	}
+	
+	"Modifiers"
+	{
+		"modifier_jn_X8_00b"
+		{
+			"Passive"			"1"
+			"IsHidden"			"1"
+			"IsPurgable"		"0"
+			"IsBuff"			"1"
+			"IsDebuff"			"0"
+			"IsStunDebuff"		"0"
+			"OnAttackStart"
+			{
+				"RunScript"
+				{
+					"ScriptFile"	"scripts/vscripts/abilities.lua"
+					"Function"		"jn_X8_00b"
+				}
+			}
+		}
+		
+	}
+}
 
 
 
