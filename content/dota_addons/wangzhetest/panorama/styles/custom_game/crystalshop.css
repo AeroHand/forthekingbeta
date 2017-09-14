@@ -398,3 +398,28 @@
 			flow-children: down;
 		}
 
+	#DuelOfKing
+	{
+		horizontal-align: center;
+		margin-top: -20px;
+		margin-bottom: 20px;
+		margin-top: -20px;
+		margin-top: -20px;
+		
+		width: 265px;
+		height: fill-parent-flow(1);
+
+		background-color: #00000080;
+
+		tooltip-position: bottom;
+		tooltip-body-position: 50% 100%;
+		tooltip-arrow-position: 50% 50%;
+	}
+		#DuelOfKing > #DuelOfKingInfo
+		{
+			visibility: collapse;
+		}
+		#DuelOfKing > #Division
+		{
+			visibility: collapse;
+		}

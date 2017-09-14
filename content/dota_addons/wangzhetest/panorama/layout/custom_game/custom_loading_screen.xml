@@ -2,6 +2,8 @@
 	<styles>
 		<include src="file://{resources}/styles/dotastyles.css" />
 		<include src="file://{resources}/styles/custom_game/custom_loading_screen.css" />
+
+		<include src="file://{resources}/styles/custom_game/duel_of_king.css" />
 	</styles>
 	<script>
 		(function()
@@ -36,6 +38,25 @@
 			<Label text="#Mapper"/>
 			<Panel id="Mapper" class="column">
 				<DOTAAvatarImage class="avatar" steamid="76561198132023205" />
+			</Panel>
+		</Panel>
+		<Panel id="DuelOfKing" class="DuelOfKingRoot">
+			<Label id="DuelOfKingName" text="#DuelOfKingName" />
+			<Label id="DuelOfKingInfo" text="#DuelOfKingInfo" />
+			<Panel id="Division">
+				<Panel class="DivisionLine" />
+				<Label id="DuelOfKingDownloadText" text="#Download" />
+				<Panel class="DivisionLine" />
+			</Panel>
+			<Panel id="DuelOfKingDownload">
+				<Panel id="ios_TwoDimensionCode">
+					<Label text="#iosVersion" />
+					<Image class="TwoDimensionCode" src="file://{images}/custom_game/DuelOfKing/ios.png" />
+				</Panel>
+				<Panel id="android_TwoDimensionCode">
+					<Label text="androidVersion" />
+					<Image class="TwoDimensionCode" src="file://{images}/custom_game/DuelOfKing/android.png" />
+				</Panel>
 			</Panel>
 		</Panel>
 	</Panel>

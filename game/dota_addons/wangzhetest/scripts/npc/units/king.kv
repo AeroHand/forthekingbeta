@@ -1,0 +1,211 @@
+"DOTAUnits"
+{
+	"npc_king_left_LC"
+	{
+		"BaseClass"					"npc_dota_creature"
+
+		"Model"						"models/heroes/chen/chen.vmdl"
+		"ModelScale"				"2.8"
+		"SoundSet"					"hero_chen"
+		"GameSoundsFile"			"soundevents/game_sounds_heroes/game_sounds_chen.vsndevts"
+
+		"Level"						"10"
+
+		// Attack
+		//----------------------------------------------------------------
+		"AttackCapabilities"		"DOTA_UNIT_CAP_RANGED_ATTACK"
+		"AttackDamageMin"			"100"
+		"AttackDamageMax"			"100"
+		"AttackRate"				"1"
+		"AttackAnimationPoint"		"0.3"
+		"AttackAcquisitionRange"	"950"
+		"ProjectileModel"			"particles/econ/items/keeper_of_the_light/kotl_weapon_arcane_staff/keeper_base_attack_arcane_staff.vpcf"
+		"ProjectileSpeed"			"1800"
+		"AttackRange"				"950"
+
+		// Armor
+		//----------------------------------------------------------------
+		"ArmorPhysical"				"10"
+		"MagicalResistance"			"0"
+
+		// Bounty
+		//----------------------------------------------------------------
+		"BountyGoldMin"				"0"
+		"BountyGoldMax"				"0"
+		"BountyXP"					"0"
+
+		// Status
+		//----------------------------------------------------------------
+		"StatusHealth"				"9300"
+		"StatusHealthRegen"			"25"
+		"StatusMana"				"660"
+		"StatusManaRegen"			"1"
+		"StatusStartingMana"		"-1"
+
+		// Ability
+		//----------------------------------------------------------------
+		"Ability1"					""
+		"Ability2"					""
+		"Ability3"					"spilt_left"
+		"Ability4"					""
+		"Ability5"					"BossLevelup"
+		"Ability6"					"HolyLight"
+		"Ability7"					""
+		"Ability8"					"AandD"
+		"AbilityLayout"				"6"
+
+		// Bounds
+		//----------------------------------------------------------------
+		"BoundsHullName"			"DOTA_HULL_SIZE_BARRACKS"
+		"RingRadius"				"150"
+		"HealthBarOffset"			"500"
+	
+		// Movement
+		//----------------------------------------------------------------
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"				"300"
+		"MovementTurnRate"			"1"
+		"HasAggressiveStance"		"0"
+		"FollowRange"				"100"
+
+		// Vision
+		//----------------------------------------------------------------
+		"VisionDaytimeRange"		"1700"
+		"VisionNighttimeRange"		"1700"
+
+		// Bots
+		//----------------------------------------------------------------
+		"AttackDesire"				"1"
+
+		// Orther
+		//----------------------------------------------------------------
+		"TeamName"					"DOTA_TEAM_NEUTRALS"
+		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_HERO"
+		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_HERO"
+		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_BUILDING"
+		"ConsideredHero"			"1"
+		"IsAncient"					"1"
+		"CanBeDominated"			"0"
+		"HasInventory"				"0"
+
+		//"vscripts"				"WorldBoss_WuLuo.lua"
+
+		"Creature"
+		{
+			"AttachWearables"
+			{
+				"Wearable1"{"ItemDef"	"5733"}
+				"Wearable2"{"ItemDef"	"6588"}
+				"Wearable3"{"ItemDef"	"5708"}
+				"Wearable4"{"ItemDef"	"5998"}
+				"Wearable5"{"ItemDef"	"5662"}
+				"Wearable6"{"ItemDef"	"5663"}
+				"Wearable7"{"ItemDef"	"5664"}
+				"Wearable8"{"ItemDef"	"5732"}
+				"Wearable9"{"ItemDef"	"5036"}
+			}
+		}
+	}
+	"npc_king_right_LC"
+	{
+		"BaseClass"					"npc_dota_creature"
+
+		"Model"						"models/heroes/abaddon/abaddon.vmdl"
+		"ModelScale"				"2.1"
+		"SoundSet"					"Hero_Nevermore"
+		"GameSoundsFile"			"soundevents/game_sounds_heroes/game_sounds_nevermore.vsndevts"
+
+		"Level"						"10"
+
+		// Attack
+		//----------------------------------------------------------------
+		"AttackCapabilities"		"DOTA_UNIT_CAP_RANGED_ATTACK"
+		"AttackDamageMin"			"100"
+		"AttackDamageMax"			"100"
+		"AttackRate"				"1"
+		"AttackAnimationPoint"		"0.3"
+		"AttackAcquisitionRange"	"950"
+		"ProjectileModel"			"particles/units/heroes/hero_nevermore/nevermore_base_attack.vpcf"
+		"ProjectileSpeed"			"1800"
+		"AttackRange"				"950"
+
+		// Armor
+		//----------------------------------------------------------------
+		"ArmorPhysical"				"10"
+		"MagicalResistance"			"0"
+
+		// Bounty
+		//----------------------------------------------------------------
+		"BountyGoldMin"				"0"
+		"BountyGoldMax"				"0"
+		"BountyXP"					"0"
+
+		// Status
+		//----------------------------------------------------------------
+		"StatusHealth"				"9300"
+		"StatusHealthRegen"			"25"
+		"StatusMana"				"660"
+		"StatusManaRegen"			"1"
+		"StatusStartingMana"		"-1"
+
+		// Ability
+		//----------------------------------------------------------------
+		"Ability1"					""
+		"Ability2"					""
+		"Ability3"					"spilt_right"
+		"Ability4"					""
+		"Ability5"					"BossLevelup"
+		"Ability6"					"HolyLight"
+		"Ability7"					""
+		"Ability8"					"AandD"
+		"AbilityLayout"				"6"
+
+		// Bounds
+		//----------------------------------------------------------------
+		"BoundsHullName"			"DOTA_HULL_SIZE_BARRACKS"
+		"RingRadius"				"150"
+		"HealthBarOffset"			"500"
+	
+		// Movement
+		//----------------------------------------------------------------
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"				"300"
+		"MovementTurnRate"			"1"
+		"HasAggressiveStance"		"0"
+		"FollowRange"				"100"
+
+		// Vision
+		//----------------------------------------------------------------
+		"VisionDaytimeRange"		"1700"
+		"VisionNighttimeRange"		"1700"
+
+		// Bots
+		//----------------------------------------------------------------
+		"AttackDesire"				"1"
+
+		// Orther
+		//----------------------------------------------------------------
+		"TeamName"					"DOTA_TEAM_NEUTRALS"
+		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_HERO"
+		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_HERO"
+		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_BUILDING"
+		"ConsideredHero"			"1"
+		"IsAncient"					"1"
+		"CanBeDominated"			"0"
+		"HasInventory"				"0"
+
+		//"vscripts"				"WorldBoss_WuLuo.lua"
+
+		"Creature"
+		{
+			"AttachWearables"
+			{
+				"Wearable1"{"ItemDef"	"5691"}
+				"Wearable2"{"ItemDef"	"6408"}
+				"Wearable3"{"ItemDef"	"6409"}
+				"Wearable4"{"ItemDef"	"5398"}
+				"Wearable5"{"ItemDef"	"6411"}
+			}
+		}
+	}
+}

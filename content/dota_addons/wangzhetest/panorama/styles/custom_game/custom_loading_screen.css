@@ -2,6 +2,20 @@
 @define TimingFunc: linear;
 @define IterationCount: infinite;
 
+#DuelOfKing
+{
+	horizontal-align: left;
+	vertical-align: top;
+	position: 0px 64px 0px;
+
+	width: 225px;
+
+	padding-top: 10px;
+	padding-bottom: 10px;
+
+	background-color: #000000cc;
+}
+
 .GameLoadingRoot
 {
 	width: 100%;

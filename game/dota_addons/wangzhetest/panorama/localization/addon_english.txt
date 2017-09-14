@@ -165,5 +165,9 @@
 		"ftk_settings_description"															"Game Setting"
 		"CameraDistance"																	"Camera Distance"
 
-
+		"DuelOfKingName"																	"Duel Of King"
+		"DuelOfKingInfo"																	"Play ForTheKing:BeaconFire on your phones!"
+		"Download"																			"Download"
+		"iosVersion"																		"ios"
+		"androidVersion"																	"android"
 }

@@ -2,6 +2,8 @@
 	<styles>
 		<include src="s2r://panorama/styles/dotastyles.vcss_c"/>
 		<include src="file://{resources}/styles/custom_game/crystalshop.css" />
+
+		<include src="file://{resources}/styles/custom_game/duel_of_king.css" />
 	</styles>
 	<scripts>
 		<include src="file://{resources}/scripts/custom_game/crystalshop.js" />
@@ -40,6 +42,25 @@
 					<Panel id="Generals">
 						<Panel id="generals_column_1" />
 						<Panel id="generals_column_2" />
+					</Panel>
+					<Panel id="DuelOfKing" class="DuelOfKingRoot" onmouseover="UIShowTextTooltip(DuelOfKingInfo)"  onmouseout="UIHideTextTooltip()" >
+						<Label id="DuelOfKingName" text="#DuelOfKingName" />
+						<Label id="DuelOfKingInfo" text="#DuelOfKingInfo" />
+						<Panel id="Division">
+							<Panel class="DivisionLine" />
+							<Label id="DuelOfKingDownloadText" text="#Download" />
+							<Panel class="DivisionLine" />
+						</Panel>
+						<Panel id="DuelOfKingDownload">
+							<Panel id="ios_TwoDimensionCode">
+								<Label text="#iosVersion" />
+								<Image class="TwoDimensionCode" src="file://{images}/custom_game/DuelOfKing/ios.png" />
+							</Panel>
+							<Panel id="android_TwoDimensionCode">
+								<Label text="androidVersion" />
+								<Image class="TwoDimensionCode" src="file://{images}/custom_game/DuelOfKing/android.png" />
+							</Panel>
+						</Panel>
 					</Panel>
 				</Panel>
 				<Panel id="hireshop">

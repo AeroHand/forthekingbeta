@@ -171,4 +171,10 @@
 		"ftk_settings"																		"设置"
 		"ftk_settings_description"															"一些特殊的设置。例如：镜头高度"
 		"CameraDistance"																	"镜头高度"
+
+		"DuelOfKingName"																	"军团对决"
+		"DuelOfKingInfo"																	"在手机上玩王者·烽火狼烟！"
+		"Download"																			"下载"
+		"iosVersion"																		"ios版本"
+		"androidVersion"																	"android版本"
 }

@@ -1,0 +1,81 @@
+.DuelOfKingRoot
+{
+	flow-children: down;
+}
+	#DuelOfKingName
+	{
+		horizontal-align: center;
+
+		width: 100%;
+
+		color: white;
+		font-size: 30px;
+		text-align: center;
+	}
+	#DuelOfKingInfo
+	{
+		horizontal-align: center;
+
+		width: 100%;
+
+		color: white;
+		font-size: 18px;
+		text-align: center;
+	}
+	#Division
+	{
+		width: 100%;
+
+		flow-children: right;
+	}
+		.DivisionLine
+		{
+			vertical-align: center;
+
+			height: 1px;
+			width: fill-parent-flow(1);
+			
+			background-color: lightgray;
+		}
+		#DuelOfKingDownloadText
+		{
+			vertical-align: center;
+
+			font-size: 18px;
+			color: white;
+			text-align: center;
+		}
+	#DuelOfKingDownload
+	{
+		width: 100%;
+
+		flow-children: right;
+	}
+		#DuelOfKingDownload Label
+		{
+			horizontal-align: center;
+
+			width: 100%;
+
+			color: white;
+			font-size: 22.5px;
+			text-align: center;
+			text-overflow: shrink;
+		}
+		#ios_TwoDimensionCode
+		{
+			width: 50%;
+			flow-children: down;
+		}
+		#android_TwoDimensionCode
+		{
+			width: 50%;
+			flow-children: down;
+		}
+			.TwoDimensionCode
+			{
+				horizontal-align: center;
+
+				width: 80%;
+				height: width-percentage(100%);
+			}
