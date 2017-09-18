@@ -2629,7 +2629,7 @@ function Devour(keys)
 			if (target_ab) then
 				local abname=target_ab:GetAbilityName()
 				if string.find(abname, "jn") then
-					caster:AddAbility(abname)
+					AbilityManager:AddAndSet( caster, abname)
 				end
 			end
 		end

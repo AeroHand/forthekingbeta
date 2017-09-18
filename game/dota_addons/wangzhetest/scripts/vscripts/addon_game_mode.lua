@@ -1372,8 +1372,16 @@ function CbtfGameMode:InitGameMode()
 			return 0.1
 		end
 	, 0.1)
-	GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, _G.MaxPlayerCount/2 )
-	GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_BADGUYS, _G.MaxPlayerCount/2 )
+	if GetMapName() == "3v3" then
+		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, 3 )
+		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_BADGUYS, 3 )
+	elseif GetMapName() == "2v2" then
+		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, 2 )
+		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_BADGUYS, 2 )
+	else
+		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, 1 )
+		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_BADGUYS, 1 )
+	end
 	--GameRules:GetGameModeEntity():SetContextThink(DoUniqueString("RoundThinker"), "RoundThinker", 0.1)
 	GameRules:SetUseUniversalShopMode(true)
 	SendToServerConsole("dota_max_physical_items_purchase_limit 9999")
