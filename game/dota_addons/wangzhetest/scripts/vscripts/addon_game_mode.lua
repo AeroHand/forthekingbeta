@@ -12,7 +12,7 @@ end
 require('require_everything')
 require('UNITS/king')
 
-_G.test_mode = true
+_G.test_mode = false
 _G.Rank_mode = true
 _G.MaxPlayerCount = 6
 _G.FirstBlood = FirstBlood or false
@@ -1310,7 +1310,7 @@ SoundTabel={
 	"soundevents/game_sounds_heroes/game_sounds_furion.vsndevts",
 	"soundevents/game_sounds_heroes/game_sounds_kunkka.vsndevts",
 	"soundevents/game_sounds_heroes/game_sounds_brewmaster.vsndevts",
-	"soundevents/game_sounds_heroes/game_sounds_doom_bringer.vsndevts",
+	"soundevents/game_sounds_heroes/game_sounds_doombringer.vsndevts",
 }
 
 function Precache( context )

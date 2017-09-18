@@ -11899,6 +11899,67 @@
 	}
   }
 
+  "X8_10"
+{
+	"BaseClass" "ability_datadriven"
+	"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELLED"
+	
+	"AbilityTextureName" "custom/X8_10"//脥录卤锚 
+	"AbilityChannelTime" "3"
+	"AbilityGoldCost"         "750" //禄篓路脩陆冒脟庐
+	"AbilityManaCost"          "4"//禄篓路脩脠脣驴脷
+	"HotKeyOverride"    "X"//驴矛陆脻录眉 
+	"AbilityCastAnimation"	"ACT_DOTA_IDLE"
+	"AbilitySpecial"
+	{
+		"98"
+		{
+			"var_type"	"FIELD_INTEGER"
+			"NeedScore"	"5000"//卤酶脕娄脪陋脟贸
+		}
+		"99"
+		{
+			"var_type"	"FIELD_INTEGER"
+			"GoldCost"	"1100"//禄篓路脩陆冒脟庐
+		}
+	}
+	"OnSpellStart"
+	{ 
+		"RunScript"
+		{ 
+		"ScriptFile"      "scripts/vscripts/building.lua"
+		"Function"        "Xconditions"
+		
+		}
+	}
+
+	"OnChannelSucceeded"
+	{
+		"ReplaceUnit"
+		{
+			"UnitName"      "npc_unit_X8_10_LH"//碌楼脦禄
+			"Target"        "CASTER"
+			"OnSpawn"
+			{
+			  "RunScript"
+			  { "ScriptFile"      "scripts/vscripts/building.lua"
+				"Function"        "buildbuilding"
+			  }
+			}
+		}
+	}
+	
+	"OnChannelInterrupted"
+	{
+	  "RunScript"
+	  { "ScriptFile"      "scripts/vscripts/building.lua"
+		"Function"        "CancelBuild"
+	  }
+	}
+  }
+
+
+
 
 "F9_00"                      
 {
@@ -12116,7 +12177,7 @@
   
   "AbilityTextureName" "custom/G7_00" //脥录卤锚 潞脥录录脛脺脥卢脙没
   "AbilityChannelTime" "1.5"
-  "AbilityGoldCost"         "265" //禄篓路脩陆冒脟庐
+  "AbilityGoldCost"         "275" //禄篓路脩陆冒脟庐
   "AbilityManaCost"          "2"//禄篓路脩脠脣驴脷
   "HotKeyOverride"    "G"
 	"AbilitySpecial"
@@ -14782,7 +14843,7 @@
 	"BaseClass"					"ability_datadriven"
 	"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 	"AbilityTextureName"		"custom/jn_Q6_21"
-	"AbilityCooldown"			"15"
+	"AbilityCooldown"			"10"
 	"MaxLevel"					"1"
 	"AbilitySpecial"
 	{
@@ -15209,7 +15270,7 @@
 		"01"
 		{
 			"var_type"			"FIELD_INTEGER"
-			"chance"			"20"
+			"chance"			"30"
 		}
 		"02"
 		{
@@ -15314,7 +15375,7 @@
 		"01"
 		{
 			"var_type"			"FIELD_INTEGER"
-			"chance"			"30"
+			"chance"			"40"
 		}
 		"02"
 		{
@@ -26342,12 +26403,12 @@
 		"02"
 		{
 			"var_type"			"FIELD_FLOAT"
-			"slowattackspeed"	"-30"
+			"slowattackspeed"	"-1"
 		}
 		"03"
 		{
 			"var_type"			"FIELD_FLOAT"
-			"slowmovespeed"		"-30"
+			"slowmovespeed"		"-1"
 		}
 		"04"
 		{
@@ -31705,8 +31766,8 @@
 	"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_BASIC"
 	"AbilityTextureName"		    "custom/jn_X8_00b"
 	"MaxLevel"						"1"
-	"AbilityCooldown"				"15"
-	"AbilityManaCost"				"60"
+	"AbilityCooldown"				"40"
+	"AbilityManaCost"				"30"
 	"AbilityCastRange"				"%radius"
 	"AbilityCastPoint"				"0"
 	"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY"
@@ -31793,6 +31854,101 @@
 	}
 }
 
+"jn_X8_10a"
+{
+	"BaseClass"						"ability_datadriven"
+	"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+	"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+	"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_BASIC"
+	"AbilityTextureName"		    "custom/jn_X8_10b"
+	"MaxLevel"						"1"
+	"AbilityCooldown"				"20"
+	"AbilityManaCost"				"10"
+	"AbilityCastRange"				"%radius"
+	"AbilityCastPoint"				"0"
+	"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY"
+	"AbilitySpecial"
+	{
+		"01"
+		{
+			"var_type"			"FIELD_INTEGER"
+			"damage"			"12"
+		}
+		"02"
+		{
+			"var_type"			"FIELD_INTEGER"
+			"maxcount"			"1"
+		}
+		"03"
+		{
+			"var_type"			"FIELD_FLOAT"
+			"radius"			"300"
+		}
+	}
+	"OnAbilityPhaseStart"
+	{
+		"DelayedAction"
+		{
+			"Delay"		"%AbilityCastPoint"
+			"Action"
+			{
+				"RunScript"
+				{
+					"ScriptFile"	"scripts/vscripts/abilities.lua"
+					"Function"		"AttackOrder"
+					"TargetUnit"	"CASTER"
+				}
+			}
+		}
+	}
+	"OnSpellStart"
+	{
+
+		"FireSound"
+		{
+			"EffectName"	"Hero_DoomBringer.DevourCast"
+			"Target"		"TARGET"
+		}
+		"FireEffect"
+		{
+			"EffectName"        "particles/units/heroes/hero_doom_bringer/doom_bringer_devour.vpcf"
+			"EffectAttachType"  "follow_origin"
+			
+			"ControlPointEntities"
+			{
+				"TARGET"	"attach_origin"
+				"CASTER"	"attach_origin"
+			}
+		}
+		"RunScript"
+		{
+			"ScriptFile"	"scripts/vscripts/abilities.lua"
+			"Function"		"Devour"
+		}
+	}
+	
+	"Modifiers"
+	{
+		"modifier_jn_X8_00b"
+		{
+			"Passive"			"1"
+			"IsHidden"			"1"
+			"IsPurgable"		"0"
+			"IsBuff"			"1"
+			"IsDebuff"			"0"
+			"IsStunDebuff"		"0"
+			"OnAttackStart"
+			{
+				"RunScript"
+				{
+					"ScriptFile"	"scripts/vscripts/abilities.lua"
+					"Function"		"jn_X8_00b"
+				}
+			}
+		}
+		
+	}
+}
 
 
 }

@@ -246,6 +246,7 @@ UnitManager.AbilityTable={
 	npc_unit_X7_00_LH={"jn_X7_00a","jn_X7_00b"},
 	npc_unit_X7_10_LH={"jn_X7_10a","jn_X7_10b","jn_X7_10c"},
 	npc_unit_X8_00_LH={"jn_X8_00a"},
+	npc_unit_X8_10_LH={"jn_X8_10a"},
 	npc_unit_G7_00_BS={"jn_G7_00",},
 	npc_unit_G7_10_BS={"jn_G7_10",},
 	npc_unit_G7_11_BS={"jn_G7_11a","jn_G7_11b",},

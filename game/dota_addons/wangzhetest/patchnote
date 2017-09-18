@@ -115,16 +115,35 @@
 22 Fix the MMR bug
 
 
-1 新兵种 E8_00 鹰身女妖宝宝
-         E8_10 鹰身女妖防御者   技能林肯发球
-2 新兵种 W8_00 巨魔进攻者
-        W8_10 巨魔战将（远程）
-        W8_11 巨魔战将(近战)
-3 新兵种 X8_00 老屠夫 直接吞噬一个单位并获得其技能 cd 36s
-         X9_10 食神 直接吞噬一个单位并获得其技能 cd 18s
-         			腐肉光环 500范围内敌方单位每秒损失25生命
+
+1 新神授兵种 X8_00 屠夫 直接吞噬一个单位并获得其技能 cd 60s
+            X8_10 血腥吞噬者 直接吞噬一个单位并获得其技能 cd 30s
+2 在载入界面添加王者对决的广告
+3 在游戏内添加王者对决的广告
+4 更新了勤王大将的名字作为锦标赛的奖励
+5 苦行僧价格从265提高至275
+6 至高战舰不再对攻击目标造成30%移动速度和攻击速度减缓
+7 白虎的隐身cd从15s降低至10s
+8 死灵龙的攻击间隔从1.3s降低至0.9s
+9 二级和三级火枪的爆头概率分别提高10%
+
+1 new divine unit: pudge
+2 add AD for Duel of King, a mobile version of For The King, on loading screen (it only has Chinese server now so it may be lag outside China, we are working on international servers right now)
+3 add AD for Duel of King in game UI
+4 update duty generals' names as tournament reward!
+5 lv1 antimage's price increase from 265 to 275
+6 skyhigh warship no longer slow his attack target
+7 potm's ability cooldown decrease from 15s to 10s
+8 visage's attack speed increase from 1.3s to 0.9s
+9 both sniper's ability trigger chance increased by 10%
+
+1 try to fix pudge's ability
+2 make bloody pudge smaller
+3 bloody pudge's ability cooldown decrease from 30s to 20s
+4 pudge's ability cooldown decrese from 60s to 40s
+
 4 新物品 armanent_39 屠夫之口 250价格  cd 100s
 					吞噬一个单位 并在另外一个地方释放他
-5 在载入界面添加qq群 discord群信息 添加锦标赛结果和感谢 添加王者对决的广告
+5 
 6 在游戏内添加王者对决的广告
 7 更新了勤王大将的名字作为锦标赛的奖励

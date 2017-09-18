@@ -114,22 +114,22 @@
 		"Gold"															"金钱"
 		"GeneralTittle"													"征召勤王大将"
 
-		"general_1"																			"琥珀"
+		"general_1"																			"调皮虎爸"
 		"general_1_Description"																"<font color='#DC143C'>勤王大将直接驰援王者战场!</font><br>攻击:<font color='#FF8000'>100 - 100</font>            攻击类型:<font color='#FF8000'>混乱</font><br>攻速:<font color='#FF8000'>1s/次</font><br>射程:<font color='#FF8000'>128/近战</font><br>—————————————<br>生命值:<font color='#FF8000'>5000</font><br>护甲:<font color='#FF8000'>7</font>                   护甲类型:<font color='#FF8000'>神授</font><br>—————————————<br>技能:<font color='#088A29'>战神</font><br><font color='#FA5858'>10%的概率造成2倍伤害，10%的概率闪避敌人攻击。<br>增加1200范围友军10点护甲。</font><br><font color='#4169E1'>消耗水晶:{d:crystal}</font><br><font color='#FFB6C1'>兵力需求:{d:needscore}</font>"
 
-		"general_2"																			"奥利维亚"
+		"general_2"																			"garden#5"
 		"general_2_Description"																"<font color='#DC143C'>勤王大将直接驰援王者战场!</font><br>攻击:<font color='#FF8000'>100 - 100</font>            攻击类型:<font color='#FF8000'>混乱</font><br>攻速:<font color='#FF8000'>1s/次</font><br>射程:<font color='#FF8000'>128/近战</font><br>—————————————<br>生命值:<font color='#FF8000'>4300</font><br>护甲:<font color='#FF8000'>7</font>                   护甲类型:<font color='#FF8000'>神授</font><br>—————————————<br>技能:<font color='#088A29'>勇气</font><br><font color='#FA5858'>自身额外30点生命回复速度<br>增加1200范围友军15%攻速。</font><br><font color='#4169E1'>消耗水晶:{d:crystal}</font><br><font color='#FFB6C1'>兵力需求:{d:needscore}</font>"
 
-		"general_3"																			"麒麟"
+		"general_3"																			"王健林"
 		"general_3_Description"																"<font color='#DC143C'>勤王大将直接驰援王者战场!</font><br>攻击:<font color='#FF8000'>100 - 100</font>            攻击类型:<font color='#FF8000'>混乱</font><br>攻速:<font color='#FF8000'>1s/次</font><br>射程:<font color='#FF8000'>128/近战</font><br>—————————————<br>生命值:<font color='#FF8000'>3800</font><br>护甲:<font color='#FF8000'>7</font>                   护甲类型:<font color='#FF8000'>神授</font><br>—————————————<br>技能:<font color='#088A29'>灵巧</font><br><font color='#FA5858'>15%的概率闪避敌人攻击<br>增加1200范围友军单位15%的吸血能力。</font><br><font color='#4169E1'>消耗水晶:{d:crystal}</font><br><font color='#FFB6C1'>兵力需求:{d:needscore}</font>"
 
-		"general_4"																			"雪诗"
+		"general_4"																			"不听不听 飞鞋点金"
 		"general_4_Description"																"<font color='#DC143C'>勤王大将直接驰援王者战场!</font><br>攻击:<font color='#FF8000'>100 - 100</font>            攻击类型:<font color='#FF8000'>混乱</font><br>攻速:<font color='#FF8000'>1s/次</font><br>射程:<font color='#FF8000'>128/近战</font><br>—————————————<br>生命值:<font color='#FF8000'>3400</font><br>护甲:<font color='#FF8000'>7</font>                   护甲类型:<font color='#FF8000'>神授</font><br>—————————————<br>技能:<font color='#088A29'>鼓舞</font><br><font color='#FA5858'>15%的概率造成3倍攻击伤害<br>增加1200范围友军单位15%的攻击力。</font><br><font color='#4169E1'>消耗水晶:{d:crystal}</font><br><font color='#FFB6C1'>兵力需求:{d:needscore}</font>"
 
-		"general_5"																			"箩漩"
+		"general_5"																			"Evil"
 		"general_5_Description"																"<font color='#DC143C'>勤王大将直接驰援王者战场!</font><br>攻击:<font color='#FF8000'>100 - 100</font>            攻击类型:<font color='#FF8000'>混乱</font><br>攻速:<font color='#FF8000'>1s/次</font><br>射程:<font color='#FF8000'>128/近战</font><br>—————————————<br>生命值:<font color='#FF8000'>3000</font><br>护甲:<font color='#FF8000'>7</font>                   护甲类型:<font color='#FF8000'>神授</font><br>—————————————<br>技能:<font color='#088A29'>信念</font><br><font color='#FA5858'>100%忽略10点伤害<br>增加1200码范围友军15点生命恢复速度。</font><br><font color='#4169E1'>消耗水晶:{d:crystal}</font><br><font color='#FFB6C1'>兵力需求:{d:needscore}</font>"
 
-		"general_6"																			"冠军：永远的悖论"
+		"general_6"																			"Mauror"
 		"general_6_Description"																"<font color='#DC143C'>勤王大将直接驰援王者战场!</font><br>攻击:<font color='#FF8000'>100 - 100</font>            攻击类型:<font color='#FF8000'>混乱</font><br>攻速:<font color='#FF8000'>1s/次</font><br>射程:<font color='#FF8000'>128/近战</font><br>—————————————<br>生命值:<font color='#FF8000'>2000</font><br>护甲:<font color='#FF8000'>7</font>                   护甲类型:<font color='#FF8000'>神授</font><br>—————————————<br>技能:<font color='#088A29'>霸气</font><br><font color='#FA5858'>每秒对周围600码敌人造成75点伤害。</font><br><font color='#4169E1'>消耗水晶:{d:crystal}</font><br><font color='#FFB6C1'>兵力需求:{d:needscore}</font>"
 
 		"QuestTimer"																		"发起冲锋  "
