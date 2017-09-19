@@ -1,7 +1,7 @@
 --攻击丢失效果
 function AttackFailed( keys )
 	local caster = keys.attacker
-	PopupMiss(keys.attacker)
+	SendOverheadEventMessage(nil, OVERHEAD_ALERT_MISS, caster, 0, nil)
 end
 function FangZhiFaDai(keys)
 	local attacker = keys.attacker

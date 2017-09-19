@@ -1893,6 +1893,9 @@ function CbtfGameMode:DamageFilter( filterTable )
 				end
 			end
 		end
+		if PlayerResource:IsValidPlayer(source_unit:GetPlayerOwnerID()) then
+	        SendOverheadEventMessage(nil, OVERHEAD_ALERT_DAMAGE, damaged_unit, filterTable.damage, nil)
+		end
 	end
 	return true
 end
