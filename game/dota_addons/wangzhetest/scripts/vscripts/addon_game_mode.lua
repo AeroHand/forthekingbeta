@@ -1424,6 +1424,7 @@ function CbtfGameMode:InitGameMode()
 	CustomGameEventManager:RegisterListener("set_boss_controllable", SetBossControllableEvent)
 	CustomGameEventManager:RegisterListener("get_rank_state", GetPlayerRankState)
 	CustomGameEventManager:RegisterListener("reroll", Reroll)
+	CustomGameEventManager:RegisterListener("update_player_settings", UpdatePlayerSettings)
 
 	GameRules:GetGameModeEntity():SetExecuteOrderFilter( Dynamic_Wrap( CbtfGameMode, "ExecuteOrderFilter" ), self )
 	GameRules:GetGameModeEntity():SetDamageFilter( Dynamic_Wrap( CbtfGameMode, "DamageFilter" ),self)
@@ -1472,6 +1473,16 @@ function CbtfGameMode:ModifyGoldFilter( filterTable )
 
 	return true
 end
+
+function UpdatePlayerSettings(index,keys)
+	local pid = keys.PlayerID
+	local PlayerPosition = PlayerCalc:GetPlayerPositionByID(pid)
+
+	if keys.show_damage_message then
+		PlayerS[PlayerPosition].show_damage_message = (keys.show_damage_message == 1)
+	end
+end
+
 function Reroll(index,keys)
 	local pid = keys.PlayerID
 	local PlayerPosition = PlayerCalc:GetPlayerPositionByID(pid)
@@ -1894,7 +1905,12 @@ function CbtfGameMode:DamageFilter( filterTable )
 			end
 		end
 		if PlayerResource:IsValidPlayer(source_unit:GetPlayerOwnerID()) then
-	        SendOverheadEventMessage(nil, OVERHEAD_ALERT_DAMAGE, damaged_unit, filterTable.damage, nil)
+			for _, PlayerPosition in pairs(AllPlayers) do
+				local pid = PlayerCalc:GetPlayerIDByPosition(PlayerPosition)
+				if PlayerResource:IsValidPlayer(pid) and PlayerS[PlayerPosition].show_damage_message == true then
+					SendOverheadEventMessage(PlayerResource:GetPlayer(pid), OVERHEAD_ALERT_DAMAGE, damaged_unit, filterTable.damage, nil)
+				end
+			end
 		end
 	end
 	return true
@@ -2744,6 +2760,9 @@ function CbtfGameMode:InitPlayer(PlayerID,PlayerPosition)
 		PlayerS[PlayerPosition].AbandonRound = 0
 		--HEX系统
 		PlayerS[PlayerPosition].hex_Q3 = false
+
+		--玩家设置
+		PlayerS[PlayerPosition].show_damage_message = false					--显示真实伤害
 		--测试模式
 		if _G.test_mode then
 			PlayerS[PlayerPosition].Lumber = 10000
@@ -2768,6 +2787,8 @@ function CbtfGameMode:OnPlayerReconnected(keys)
 			-- CustomUI:DynamicHud_Create(nReconnectedPlayerID,"playerstates","file://{resources}/layout/custom_game/playerstates.xml",nil)
 			-- CustomUI:DynamicHud_Create(nReconnectedPlayerID,"showmessage","file://{resources}/layout/custom_game/showmessage.xml",nil)
 		end
+
+		PlayerS[PlayerPosition].show_damage_message = false					--显示真实伤害
 
 		GameRules:GetGameModeEntity():SetContextThink(DoUniqueString("OnPlayerReconnected"),
 			function()

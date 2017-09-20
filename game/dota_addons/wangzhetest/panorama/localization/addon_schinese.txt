@@ -177,4 +177,6 @@
 		"Download"																			"下载"
 		"iosVersion"																		"ios版本"
 		"androidVersion"																	"android版本"
+
+		"ShowRealDamage"																	"显示伤害（非内置的，会显示正确受到的伤害）"
 }

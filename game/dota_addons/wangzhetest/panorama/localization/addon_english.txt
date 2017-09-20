@@ -170,4 +170,6 @@
 		"Download"																			"Download"
 		"iosVersion"																		"ios"
 		"androidVersion"																	"android"
+
+		"ShowRealDamage"																	"Show Damage(Non built-in, it can show real damage)"
 }
