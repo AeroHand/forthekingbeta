@@ -10,7 +10,7 @@
 		<Button id="PlayerToolsButton" onactivate="ShowPlayerTools()" onmouseover="DOTAShowTitleTextTooltip( #ftk_settings, #ftk_settings_description)" onmouseout="DOTAHideTitleTextTooltip()"/>
 		<Panel id="PlayerTools">
 			<DOTASettingsSlider id="CameraDistanceSlider" text="#CameraDistance" min="1134" max="2134" convar="dota_camera_distance" />
-			<ToggleButton selected="false" text="#ShowRealDamage" onselect="ShowRealDamage(1)" ondeselect="ShowRealDamage(0)" />
+			<ToggleButton selected="false" text="#ShowRealDamage" onmouseover="UIShowTextTooltip(ShowRealDamageTooltip)" onmouseout="UIHideTextTooltip()" onselect="ShowRealDamage(1)" ondeselect="ShowRealDamage(0)" />
 		</Panel>
 	</Panel>
 </root>
