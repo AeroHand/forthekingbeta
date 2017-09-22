@@ -828,7 +828,7 @@
 	"BountyGoldMax"             "2"         // 最大金钱奖励
 	// Status
 	//----------------------------------------------------------------
-	"StatusHealth"              "700"       // 基础生命值
+	"StatusHealth"              "600"       // 基础生命值
 	"StatusHealthRegen"         "0.25"         // 生命恢复速度
 	"StatusMana"                "60"         // 基础魔法值
 	"StatusManaRegen"           "1"         // 魔法恢复速度

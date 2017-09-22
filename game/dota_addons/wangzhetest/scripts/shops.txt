@@ -9,6 +9,7 @@
 		"item"		"item_armament_9"
 		"item"		"item_armament_17"
 		"item"		"item_armament_32"
+		//"item"		"item_armament_39"
 	}
 
 	"attributes"//主动进攻

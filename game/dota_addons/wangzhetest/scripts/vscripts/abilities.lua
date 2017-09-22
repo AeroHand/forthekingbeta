@@ -3098,6 +3098,23 @@ function item_armament_37(keys)
 	end
 end
 
+function item_armament_39(keys)
+	local caster = keys.caster
+	local ab = keys.ability
+	local target = keys.target
+	if (caster:HasItemInInventory("armanent_39")) then
+
+	end
+end
+function item_armament_40(keys)
+	local caster = keys.caster
+	local ab = keys.ability
+	local target = keys.target
+	if (caster:HasItemInInventory("armanent_40")) then
+
+	end
+end
+
 
 --单位特效
 function particle_G3(keys)

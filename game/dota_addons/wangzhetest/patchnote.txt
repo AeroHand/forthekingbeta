@@ -150,3 +150,15 @@
 
 在设置中添加了“显示伤害”开关按钮，可以用于显示单位真实受到的伤害
 Add ShowDamage toggle-button in Settings, it can show real damage.
+
+
+9.21
+1 重置了攻防系统 现在应该和更新前一样 不再会有伤害不对的bug了
+2 修复了猕猴王幻象击杀单位不给玩家金钱的bug
+3 修复了高级火枪描述和单位不一致的问题
+4 1级sven血量从700降低至600
+
+1 fix AD system so there shouldn't be any damage bug anymore
+2 fix the bug that lv2.1 PL's illusion's kill doesnt give player gold
+3 fix sniper's description
+4 lv1 sven's hp nerf from 700 to 600
