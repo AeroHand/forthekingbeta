@@ -330,9 +330,9 @@ function UnitManager:CreateUnitByBuilding( u_building , s_ability_name)
 	local PlayerPosition = PlayerCalc:GetPlayerPositionByID(i_playerID)
 
 	local u_unit = UnitManager:CreateUnitByName( s_unit_name, v_unit_point, true, i_playerID, i_teamnumber)
-
-	AandDSystem(u_unit)
-
+	local attack_type_name = UnitManager:GetAttackTypeFromName( s_unit_name )
+	local defend_type_name = UnitManager:GetDefendTypeFromName( s_unit_name )
+	CreateAandDSystem(u_unit,attack_type_name,defend_type_name)
 	u_unit:AddNewModifier(nil, nil, "modifier_phased", {duration=0.3})
 	local v_order = nil
 
@@ -494,9 +494,9 @@ function UnitManager:SummonUnit(u_caster,u_unit)
 
 	u_unit:SetOwner(PlayerS[PlayerPosition].Hero)
 	u_unit:SetControllableByPlayer(-1,true)
-
-	AandDSystem(u_unit)
-
+	local attack_type_name = UnitManager:GetAttackTypeFromName( s_unit_name )
+	local defend_type_name = UnitManager:GetDefendTypeFromName( s_unit_name )
+	CreateAandDSystem(u_unit,attack_type_name,defend_type_name)
 	AddLabel(u_unit,"SummonUnit")--标记为召唤单位
 	u_unit:AddNewModifier(nil, nil, "modifier_phased", {duration=0.3})
 	local v_order = nil
@@ -562,9 +562,9 @@ function UnitManager:HireUnit(i_playerID,s_item,position)
 	local v_unit_point = Entities:FindByName(nil, "hire_"..tostring(position)):GetAbsOrigin()+RandomVector(150)
 
 	local u_unit = UnitManager:CreateUnitByName( s_unit_name,v_unit_point, true, i_playerID, i_teamnumber)
-
-	AandDSystem(u_unit)
-
+	local attack_type_name = UnitManager:GetAttackTypeFromName( s_unit_name )
+	local defend_type_name = UnitManager:GetDefendTypeFromName( s_unit_name )
+	CreateAandDSystem(u_unit,attack_type_name,defend_type_name)
 	u_unit:AddNewModifier(nil, nil, "modifier_phased", {duration=0.3})
 
 	u_unit:SetContextThink(DoUniqueString("order_later"),
@@ -615,9 +615,9 @@ function UnitManager:CreateGeneral(i_playerID,s_item)
 	end
 
 	local u_unit = UnitManager:CreateUnitByName( s_unit_name,v_unit_point, true, i_playerID, i_teamnumber)
-
-	AandDSystem(u_unit)
-
+	local attack_type_name = UnitManager:GetAttackTypeFromName( s_unit_name )
+	local defend_type_name = UnitManager:GetDefendTypeFromName( s_unit_name )
+	CreateAandDSystem(u_unit,attack_type_name,defend_type_name)
 	if s_item == "general_1" then
 		if i_teamnumber == DOTA_TEAM_GOODGUYS then
 			AbilityManager:AddAndSet( u_unit, "jn_king_20_left" )
@@ -721,8 +721,8 @@ function DamageManager:CustonDamage( caster, target, a_type, base_damage, isatta
 			damage_type = DAMAGE_TYPE_PHYSICAL,
 		}
 	else
-		local damaged_unit_AandD = AandDSystem:GetAandDSystem(target)
-		local source_unit_AandD = AandDSystem:GetAandDSystem(caster)
+		local damaged_unit_AandD = GetAandDSystem(target)
+		local source_unit_AandD = GetAandDSystem(caster)
 		local resistance = damaged_unit_AandD:GetAttacktypeResistance(source_unit_AandD:GetAttackType())
 		damageTable = 
 		{

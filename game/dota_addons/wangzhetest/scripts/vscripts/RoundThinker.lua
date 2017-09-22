@@ -185,7 +185,7 @@ function RoundThinker(now)
 		if RoundThinker_wave <= 100 then
 			for left = 1,9 do --左边护卫队
 				local leftHwd = CreateUnitByName("npc_unit_huweidui_left_BZ",Vector(-4160,20,265),false,nil,nil,DOTA_TEAM_GOODGUYS)
-				AandDSystem(leftHwd)
+				CreateAandDSystem(leftHwd,"B","Z")
 				--随着时间强化
 				leftHwd:SetBaseDamageMin(RoundThinker_wave+5)
 				leftHwd:SetBaseDamageMax(RoundThinker_wave+5)
@@ -205,7 +205,7 @@ function RoundThinker(now)
 			end
 			for right = 1,9 do --右边护卫队
 				local rightHwd = CreateUnitByName("npc_unit_huweidui_right_BZ",Vector(4160,20,265),false,nil,nil,DOTA_TEAM_BADGUYS)
-				AandDSystem(rightHwd)
+				CreateAandDSystem(rightHwd,"B","Z")
 				--随着时间强化
 				rightHwd:SetBaseDamageMin(RoundThinker_wave+5)
 				rightHwd:SetBaseDamageMax(RoundThinker_wave+5)
