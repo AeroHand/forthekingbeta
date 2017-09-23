@@ -8042,8 +8042,7 @@
 		"ItemDroppable"				"0"
 		"ItemSellable"				"1"
 
-		"AbilityCooldown"			"120"
-
+		"AbilityCooldown"			"100"
 		"OnSpellStart"
 		{
 			"RunScript"
@@ -8078,20 +8077,39 @@
 		"ItemSellable"				"1"
 
 		"AbilityCooldown"			"0"
+		"precache"
+	{
+		"soundfile"	"soundevents/game_sounds_heroes/game_sounds_omniknight.vsndevts"
+		"particle"	"particles/units/heroes/hero_omniknight/omniknight_purification.vpcf"
+		"particle"	"particles/units/heroes/hero_omniknight/omniknight_purification_hit.vpcf"
+		"particle"	"particles/units/heroes/hero_omniknight/omniknight_purification_cast.vpcf"
 
+	}
 		"OnSpellStart"
 		{
 			"RunScript"
 			{
 				"ScriptFile"	"scripts/vscripts/abilities.lua"
+				"Target"		"POINT"
 				"Function"		"item_armament_40"
 			}
 
 			"FireSound"
 			{
 				"EffectName"	"DOTA_Item.Mango.Activate"
-				"Target"		"TARGET"
+				"Target"		"POINT"
 			}
+			"FireEffect"
+			{
+			"Target"			"POINT"
+			"EffectName"		"particles/units/heroes/hero_omniknight/omniknight_purification.vpcf"
+			"EffectAttachType"	"follow_origin"
+			"ControlPoints"
+			{
+				"00"	"0 0 0"
+				"01"	"%radius %radius %radius"
+			}
+		}
 		}
 	}
 

@@ -3098,20 +3098,70 @@ function item_armament_37(keys)
 	end
 end
 
+pudgesfood=nil;
 function item_armament_39(keys)
 	local caster = keys.caster
-	local ab = keys.ability
 	local target = keys.target
-	if (caster:HasItemInInventory("armanent_39")) then
-
-	end
+	if target:HasAbility("build_base") or target:HasAbility("kexuanmajia") then
+		BTFGeneral:ShowError(caster:GetPlayerOwnerID(),"#CantTarget","General.NoGold")
+	else
+		if (caster:HasItemInInventory("item_armament_39")) then
+			for item_index = 0,5,1 do
+				local item = caster:GetItemInSlot(item_index)
+				if item then
+					if item:GetName() == "item_armament_39" then
+						caster:RemoveItem(item)
+						local item = CreateItem("item_armament_40", nil, nil)
+						caster:AddItem(item)
+						--target:AddEffect(EF_NODRAW)
+						--target:SetAbsOrigin(target:GetAbsOrigin()+Vector(0, 0,1000))
+						pudgesfood=target
+						break
+					end					
+				end
+			end
+		end
+	end	
 end
 function item_armament_40(keys)
 	local caster = keys.caster
-	local ab = keys.ability
-	local target = keys.target
-	if (caster:HasItemInInventory("armanent_40")) then
+	local point = keys.target_points[1]
+	if (caster:HasItemInInventory("item_armament_40")) then
+		for item_index = 0,5,1 do
+			local item = caster:GetItemInSlot(item_index)
+			if item then
+				if item:GetName() == "item_armament_40" then
+					--pudgesfood:RemoveEffect(EF_NODRAW)
+					pudgesfood:SetAbsOrigin(point)
+					i_teamnumber=pudgesfood:GetTeam()
+					if i_teamnumber == DOTA_TEAM_GOODGUYS then
+						v_order = Vector( 8500, 0, 0 )+point
+					end
+					if i_teamnumber == DOTA_TEAM_BADGUYS then
+						v_order = Vector( -8500, 0, 0 )+point
+					end
+					v_order.x = math.min(v_order.x,6400)
+					v_order.x = math.max(v_order.x,-6400)
 
+					local newOrder = {                                        --发送攻击指令
+						UnitIndex = pudgesfood:entindex(), 
+						OrderType = DOTA_UNIT_ORDER_ATTACK_MOVE,
+						TargetIndex = nil, --Optional.  Only used when targeting units
+						AbilityIndex = 0, --Optional.  Only used when casting abilities
+						Position = v_order, --Optional.  Only used when targeting the ground
+						Queue = 0 --Optional.  Used for queueing up abilities
+			 		}
+ 
+					ExecuteOrderFromTable(newOrder)
+
+					caster:RemoveItem(item)
+					local item = CreateItem("item_armament_39", nil, nil)
+					caster:AddItem(item)
+					
+					break
+				end					
+			end
+		end
 	end
 end
 

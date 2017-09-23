@@ -162,3 +162,7 @@ Add ShowDamage toggle-button in Settings, it can show real damage.
 2 fix the bug that lv2.1 PL's illusion's kill doesnt give player gold
 3 fix sniper's description
 4 lv1 sven's hp nerf from 700 to 600
+
+9.23
+新物品：传送权杖 可以将任意一个友方单位传送到地图上任意地方
+new item: teleport rod. can teleport a friendly unit to any place on the map.
