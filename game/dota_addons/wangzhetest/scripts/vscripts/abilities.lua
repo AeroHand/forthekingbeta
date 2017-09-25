@@ -3102,9 +3102,6 @@ pudgesfood=nil;
 function item_armament_39(keys)
 	local caster = keys.caster
 	local target = keys.target
-	if target:HasAbility("build_base") or target:HasAbility("kexuanmajia") then
-		BTFGeneral:ShowError(caster:GetPlayerOwnerID(),"#CantTarget","General.NoGold")
-	else
 		if (caster:HasItemInInventory("item_armament_39")) then
 			for item_index = 0,5,1 do
 				local item = caster:GetItemInSlot(item_index)
@@ -3121,7 +3118,7 @@ function item_armament_39(keys)
 				end
 			end
 		end
-	end	
+	
 end
 function item_armament_40(keys)
 	local caster = keys.caster

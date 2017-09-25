@@ -8041,8 +8041,18 @@
 		"ItemCost"					"300"
 		"ItemDroppable"				"0"
 		"ItemSellable"				"1"
-
+		"AbilityCastPoint"			"0.1"
 		"AbilityCooldown"			"100"
+		"OnAbilityPhaseStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/abilities.lua"
+				"Function"		"FilterTarget"
+				"Caster"		"CASTER"
+				"TargetUnit"	"TARGET"
+			}
+		}
 		"OnSpellStart"
 		{
 			"RunScript"
