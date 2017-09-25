@@ -14953,7 +14953,7 @@
 		"01"
 		{
 			"var_type"			"FIELD_INTEGER"
-			"chance"			"15"
+			"chance"			"25"
 		}
 		"02"
 		{
@@ -15022,7 +15022,7 @@
 		"01"
 		{
 			"var_type"			"FIELD_INTEGER"
-			"chance"			"30"
+			"chance"			"40"
 		}
 		"02"
 		{
@@ -18538,7 +18538,7 @@
 		"01"
 		{
 			"var_type"			"FIELD_INTEGER"
-			"damage"			"20"
+			"damage"			"35"
 		}
 		"02"
 		{
@@ -18615,7 +18615,7 @@
 		"01"
 		{
 			"var_type"			"FIELD_INTEGER"
-			"damage"			"30"
+			"damage"			"50"
 		}
 		"02"
 		{
@@ -20493,12 +20493,12 @@
 		"01"
 		{
 			"var_type"			"FIELD_INTEGER"
-			"healthregen"		"5"
+			"healthregen"		"6"
 		}
 		"02"
 		{
 			"var_type"			"FIELD_INTEGER"
-			"armor"				"3"
+			"armor"				"1"
 		}
 		"03"
 		{
@@ -20624,12 +20624,12 @@
 		"01"
 		{
 			"var_type"			"FIELD_INTEGER"
-			"healthregen"		"10"
+			"healthregen"		"14"
 		}
 		"02"
 		{
 			"var_type"			"FIELD_INTEGER"
-			"armor"				"6"
+			"armor"				"3"
 		}
 		"03"
 		{
@@ -22716,12 +22716,12 @@
 		"01"
 		{
 			"var_type"			"FIELD_INTEGER"
-			"damage"			"10"
+			"damage"			"15"
 		}
 		"02"
 		{
 			"var_type"			"FIELD_FLOAT"
-			"period"			"0.33"
+			"period"			"0.3"
 		}
 		"03"
 		{
@@ -24224,12 +24224,12 @@
 		"02"
 		{
 			"var_type"				"FIELD_FLOAT"
-			"stuntime"				"1.5"
+			"stuntime"				"2"
 		}
 		"03"
 		{
 			"var_type"				"FIELD_INTEGER"
-			"radius"				"220"
+			"radius"				"300"
 		}
 	}
 	"OnSpellStart"

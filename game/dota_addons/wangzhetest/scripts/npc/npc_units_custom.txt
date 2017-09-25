@@ -6026,7 +6026,7 @@
 	"AttackCapabilities"        "DOTA_UNIT_CAP_MELEE_ATTACK"   //攻击类型 "NO_ATTACK"无  "MELEE_ATTACK" 近战 "RANGED_ATTACK" 远程 射程大于120都算远程
 	"AttackDamageMin"           "33"                         // 最小伤害
 	"AttackDamageMax"           "39"                         // 最大伤害
-	"AttackRate"                "1.9"                       // 攻击间隔
+	"AttackRate"                "1.2"                       // 攻击间隔
 	"ProjectileModel"           ""                          // 投射物，填写特效路径，只有投射物特效才行
 	"ProjectileSpeed"           "900"                       // 投射速率
 	"AttackRange"               "90"                       // 攻击范围
@@ -6148,7 +6148,7 @@
 	"AttackCapabilities"        "DOTA_UNIT_CAP_MELEE_ATTACK"   //攻击类型 "NO_ATTACK"无  "MELEE_ATTACK" 近战 "RANGED_ATTACK" 远程 射程大于120都算远程
 	"AttackDamageMin"           "93"                         // 最小伤害
 	"AttackDamageMax"           "109"                         // 最大伤害
-	"AttackRate"                "1.9"                       // 攻击间隔
+	"AttackRate"                "1.2"                       // 攻击间隔
 	"ProjectileModel"           ""                          // 投射物，填写特效路径，只有投射物特效才行
 	"ProjectileSpeed"           "900"                       // 投射速率
 	"AttackRange"               "90"                       // 攻击范围
@@ -9319,8 +9319,8 @@
 	"Model"                     "models/heroes/drow/drow.vmdl"   // 模型
 		"ModelScale"                 "0.85"
 	"AttackCapabilities"        "DOTA_UNIT_CAP_RANGED_ATTACK"   //攻击类型 "NO_ATTACK"无  "MELEE_ATTACK" 近战 "RANGED_ATTACK" 远程 射程大于120都算远程
-	"AttackDamageMin"           "37"                         // 最小伤害
-	"AttackDamageMax"           "48"                         // 最大伤害
+	"AttackDamageMin"           "42"                         // 最小伤害
+	"AttackDamageMax"           "53"                         // 最大伤害
 	"AttackRate"                "1.35"                       // 攻击间隔
 	"ProjectileModel"           "particles/units/heroes/hero_drow/drow_frost_arrow.vpcf"                          // 投射物，填写特效路径，只有投射物特效才行
 	"ProjectileSpeed"           "900"                       // 投射速率
@@ -11986,6 +11986,16 @@
 	//Inventory
 	"HasInventory"              "0"         // 是否有物品栏
 	//"vscripts"                    "WorldBoss_WuLuo.lua"
+	"Creature"
+	{
+		 "AttachWearables"   
+				{
+					"Wearable1"
+					{
+						"ItemDef"           "611"  
+					}
+				}
+	}
 
 }
 //冥界亚龙
@@ -12082,6 +12092,17 @@
 	//Inventory
 	"HasInventory"              "0"         // 是否有物品栏
 	//"vscripts"                    "WorldBoss_WuLuo.lua"
+
+	"Creature"
+	{
+		 "AttachWearables"   
+				{
+					"Wearable1"
+					{
+						"ItemDef"           "611"  
+					}
+				}
+	}
 
 }
 
@@ -20369,7 +20390,7 @@
 	"Model"                     "models/heroes/windrunner/windrunner.vmdl"   // 模型
 	"ModelScale"                "0.8"
 	"AttackCapabilities"        "DOTA_UNIT_CAP_RANGED_ATTACK"   //攻击类型 
-	"AttackRange"               "760"                       // 攻击范围
+	"AttackRange"               "660"                       // 攻击范围
 	"ProjectileModel"           "particles/units/heroes/hero_windrunner/windrunner_base_attack.vpcf"                          // 投射物	
 	"AttackRate"                "0.7"                       // 攻击间隔
 	"AttackDamageMin"           "17"                         // 最小伤害
@@ -20493,7 +20514,7 @@
 	"Model"                     "models/heroes/windrunner/windrunner.vmdl"   // 模型
 	"ModelScale"                "1"
 	"AttackCapabilities"        "DOTA_UNIT_CAP_RANGED_ATTACK"   //攻击类型 
-	"AttackRange"               "820"                       // 攻击范围
+	"AttackRange"               "720"                       // 攻击范围
 	"ProjectileModel"           "particles/units/heroes/hero_windrunner/windrunner_base_attack.vpcf"                          // 投射物	
 	"AttackRate"                "0.4"                       // 攻击间隔
 	"AttackDamageMin"           "35"                         // 最小伤害
@@ -22822,7 +22843,7 @@
 	"AttackCapabilities"        "DOTA_UNIT_CAP_MELEE_ATTACK"   //攻击类型 
 	"ProjectileSpeed"           "1000"                       // 投射速率
 	"AttackRange"               "150"                       // 攻击范围
-	"AttackRate"                "1.6"                       // 攻击间隔
+	"AttackRate"                "1.5"                       // 攻击间隔
 	"AttackDamageMin"           "26"                         // 最小伤害
 	"AttackDamageMax"           "37"                         // 最大伤害
 	"ArmorPhysical"             "3"         // 基础护甲

@@ -479,6 +479,7 @@ function UnitManager:CreateUnitByBuilding( u_building , s_ability_name)
 		if u_unit:HasAbility("jn_Q7_21") then
 			UnitManager:CreateUnitByBuilding(u_building,"jn_Q7_21")
 			UnitManager:CreateUnitByBuilding(u_building,"jn_Q7_21")
+			UnitManager:CreateUnitByBuilding(u_building,"jn_Q7_21")
 		end
 	end
 	return u_unit

@@ -166,3 +166,31 @@ Add ShowDamage toggle-button in Settings, it can show real damage.
 9.23
 新物品：传送权杖 可以将任意一个友方单位传送到地图上任意地方
 new item: teleport rod. can teleport a friendly unit to any place on the map.
+
+9.24
+1 暂时移除了天辉圣塔
+2 1级光法的技能的生命回复从5提高至6 护甲加成从3降低至1 2级光法生命恢复从10提高至14 护甲加成从6降低至3
+3 所有风行者的射程均降低100
+4 为冥界亚龙添加翅膀
+5 2级重甲米波眩晕几率从15%提高至25% 3级米波从30%提高至40% 江湖劫匪一次出现的数量从3个提高至4个
+6 两种尸王的攻击间隔从1.9s降低至1.2s
+7 1级蓝猫技能伤害从20提高至35 2级蓝猫伤害从30提高至50
+8 1级蓝胖攻击间隔从1.6s降低至1.5s
+9 冰暴射手攻击力提高5点
+10 2级戴泽的小绿球伤害从10提高至15 释放间隔从0.33s降低至0.3s
+11 人马的踩地板范围提高至300 眩晕时间提高至2s
+
+
+
+
+1 temporarily remove laser tower from game
+2 lv1 kotl's buff's hp regen increases from 5 to 6, armor decreases from 3 to 1, lv2 kotl's buff's hp regen increases from 10 to 14, armor decreases fro 6 to 3
+3 all winder ranger's attack range reduce 100
+4 add wings for viper so they are no longer flying worms
+5 lv2 bash meepo's bashing possibility increase from 15% to 25%, lv3 from 30% to 40%, lv3_2 meepo now spawn 4 instead of 3
+6 both undying's attack spd increase from 1.9s to 1.2s
+7 lv1 storm spirit's ability dmg increase from 20 to 35, lv2 from 30 to 50
+8 lv1 orge mage's attack spd increase from 1.6s to 1.5s
+9 split attack drow ranger's attack dmg increase by 5
+10 lv2 dazzle's chaos green dot's dmg increase from 10 to 15 and shooting rate from 0.33s to 0.3s
+11 lv2 centuar's stomp range increase to 300 and stun duration to 2s
