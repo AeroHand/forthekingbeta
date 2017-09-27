@@ -1,10 +1,10 @@
-RoundThinker_i =0
-RoundThinker_wave = 0
-RoundThinker_next = 0
-RoundThinker_lumber_i = 0
-RoundThinker_Period = 38
-RoundThinker_Last_time1 = 0
-RoundThinker_Last_time2 = 0
+RoundThinker_i = RoundThinker_i or 0
+RoundThinker_wave = RoundThinker_wave or 0
+RoundThinker_next = RoundThinker_next or 0
+RoundThinker_lumber_i = RoundThinker_lumber_i or 0
+RoundThinker_Period = RoundThinker_Period or 38
+RoundThinker_Last_time1 = RoundThinker_Last_time1 or 0
+RoundThinker_Last_time2 = RoundThinker_Last_time2 or 0
 function GetRound()
 	return RoundThinker_wave
 end

@@ -11,6 +11,7 @@ require('building')
 require('abilities')
 require('crystalshop')
 require('BossControllable')
+require('PlayerData')
 --攻防
 require('GONGFANG/AandDsystem')
 require('AttacktypeAndDefensetype')
