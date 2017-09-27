@@ -436,7 +436,7 @@ function PlayerData:IsMercenary(hUnit)
 	return b
 end
 --兵种列表
-function PlayerData:
+-- function PlayerData:
 --建筑
 function PlayerData:AddNewBuilding(hUnit)
 	if hUnit == nil or not IsValidEntity(hUnit) then error("hUnit is missing or not a CDOTA_BaseNPC") end
