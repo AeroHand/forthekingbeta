@@ -8676,7 +8676,7 @@
 	"AttackRate"                "1.35"                       // 攻击间隔
 	"ProjectileModel"           "particles/units/heroes/hero_nevermore/nevermore_base_attack.vpcf"                          // 投射物，填写特效路径，只有投射物特效才行
 	"ProjectileSpeed"           "900"                       // 投射速率
-	"AttackRange"               "300"                       // 攻击范围
+	"AttackRange"               "90"                       // 攻击范围
 	// Armor
 	//----------------------------------------------------------------
 	"ArmorPhysical"             "3"         // 基础护甲
@@ -18806,7 +18806,7 @@
 	"AttackDamageMin"           "34"                         // 最小伤害
 	"AttackDamageMax"           "35"                         // 最大伤害
 	"ArmorPhysical"             "3"         // 基础护甲
-	"StatusHealth"              "900"       // 基础生命值
+	"StatusHealth"              "800"       // 基础生命值
 	"BountyGoldMin"             "2"         // 最小金钱奖励
 	"BountyGoldMax"             "2"         // 最大金钱奖励
 	"StatusManaRegen"           "0"         // 魔法恢复速度

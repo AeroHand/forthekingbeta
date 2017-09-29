@@ -2370,7 +2370,7 @@ function CbtfGameMode:OnGameRulesStateChange( keys )
 			--test
 			if not IsValidEntity(PlayerS[i].Hero) then 
 				PlayerS[i].Hero = CreateHeroForPlayer(GetRandomCommanderName(), PlayerResource:GetPlayer(pid))
-				PlayerS[i].Hero.SetControllableByPlayer(pid, true)
+				PlayerS[i].Hero:SetControllableByPlayer(pid, true)
 				--Player:MakeRandomHeroSelection()
 			end
 			local lib_ent = Entities:FindByName(nil, "player_"..tostring(i).."_farmer_4")   --player_i_lib
