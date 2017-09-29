@@ -4525,7 +4525,7 @@
 	
 	"AbilityTextureName" "custom/W3_00"//脥录卤锚 潞脥录录脛脺脥卢脙没
 	"AbilityChannelTime" "1.5"
-	"AbilityGoldCost"         "75" //禄篓路脩陆冒脟庐
+	"AbilityGoldCost"         "65" //禄篓路脩陆冒脟庐
 	"AbilityManaCost"          "1"//禄篓路脩脠脣驴脷
 	"HotKeyOverride"    "W"//驴矛陆脻录眉 
 	"AbilityCastAnimation"	"ACT_DOTA_IDLE"
@@ -4534,7 +4534,7 @@
 		"99"
 		{
 			"var_type"	"FIELD_INTEGER"
-			"GoldCost"	"75"
+			"GoldCost"	"65"
 		}
 	}
 	"OnSpellStart"
@@ -4584,7 +4584,7 @@
 	
 	"AbilityTextureName" "custom/W3_10"//脥录卤锚 潞脥录录脛脺脥卢脙没
 	"AbilityChannelTime" "1.5"
-	"AbilityGoldCost"         "140" //禄篓路脩陆冒脟庐
+	"AbilityGoldCost"         "130" //禄篓路脩陆冒脟庐
 	"AbilityManaCost"          "1"//禄篓路脩脠脣驴脷
 	"HotKeyOverride"    "W"//驴矛陆脻录眉 
 	"AbilityCastAnimation"	"ACT_DOTA_IDLE"
@@ -4593,7 +4593,7 @@
 		"99"
 		{
 			"var_type"	"FIELD_INTEGER"
-			"GoldCost"	"140"
+			"GoldCost"	"130"
 		}
 	}
 	"OnSpellStart"
@@ -4643,7 +4643,7 @@
 	
 	"AbilityTextureName" "custom/W3_20"//脥录卤锚 潞脥录录脛脺脥卢脙没
 	"AbilityChannelTime" "1.5"
-	"AbilityGoldCost"         "160" //禄篓路脩陆冒脟庐
+	"AbilityGoldCost"         "150" //禄篓路脩陆冒脟庐
 	"AbilityManaCost"          "1"//禄篓路脩脠脣驴脷
 	"HotKeyOverride"    "W"//驴矛陆脻录眉 
 	"AbilityCastAnimation"	"ACT_DOTA_IDLE"
@@ -4652,7 +4652,7 @@
 		"99"
 		{
 			"var_type"	"FIELD_INTEGER"
-			"GoldCost"	"160"
+			"GoldCost"	"150"
 		}
 	}
 	"OnSpellStart"
@@ -11842,7 +11842,7 @@
 	
 	"AbilityTextureName" "custom/X8_00"//脥录卤锚 
 	"AbilityChannelTime" "3"
-	"AbilityGoldCost"         "600" //禄篓路脩陆冒脟庐
+	"AbilityGoldCost"         "650" //禄篓路脩陆冒脟庐
 	"AbilityManaCost"          "5"//禄篓路脩脠脣驴脷
 	"HotKeyOverride"    "X"//驴矛陆脻录眉 
 	"AbilityCastAnimation"	"ACT_DOTA_IDLE"
@@ -11856,7 +11856,7 @@
 		"99"
 		{
 			"var_type"	"FIELD_INTEGER"
-			"GoldCost"	"600"//禄篓路脩陆冒脟庐
+			"GoldCost"	"650"//禄篓路脩陆冒脟庐
 		}
 	}
 	"OnSpellStart"
@@ -11906,7 +11906,7 @@
 	
 	"AbilityTextureName" "custom/X8_10"//脥录卤锚 
 	"AbilityChannelTime" "3"
-	"AbilityGoldCost"         "750" //禄篓路脩陆冒脟庐
+	"AbilityGoldCost"         "1100" //禄篓路脩陆冒脟庐
 	"AbilityManaCost"          "4"//禄篓路脩脠脣驴脷
 	"HotKeyOverride"    "X"//驴矛陆脻录眉 
 	"AbilityCastAnimation"	"ACT_DOTA_IDLE"
@@ -13640,12 +13640,12 @@
 		"02"
 		{
 			"var_type"			"FIELD_INTEGER"
-			"maxattackdamage"	"20"
+			"maxattackdamage"	"400"
 		}
 		"03"
 		{
 			"var_type"			"FIELD_INTEGER"
-			"radius"			"400"
+			"radius"			"500"
 		}
 	}
 	"Modifiers"
@@ -18472,17 +18472,17 @@
 		"01"
 		{
 			"var_type"			"FIELD_INTEGER"
-			"maxcount"			"5"
+			"maxcount"			"6"
 		}
 		"02"
 		{
 			"var_type"			"FIELD_INTEGER"
-			"attackdamage"		"2"
+			"attackdamage"		"6"
 		}
 		"03"
 		{
 			"var_type"			"FIELD_INTEGER"
-			"attackspeed"		"2"
+			"attackspeed"		"6"
 		}
 	}
 	"Modifiers"

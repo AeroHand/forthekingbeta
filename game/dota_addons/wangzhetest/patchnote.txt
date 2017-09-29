@@ -194,3 +194,26 @@ new item: teleport rod. can teleport a friendly unit to any place on the map.
 9 split attack drow ranger's attack dmg increase by 5
 10 lv2 dazzle's chaos green dot's dmg increase from 10 to 15 and shooting rate from 0.33s to 0.3s
 11 lv2 centuar's stomp range increase to 300 and stun duration to 2s
+
+
+1 一级屠夫血量从1650降低至1450 价格从600提高至650 二级屠夫血量从2450降低至2250
+2 修复了传送权杖对雕像使用会进入cd的bug
+3 3种小骷髅的价格全部下降10点
+4 狂狼的光环上限从20点提高至400点 范围从400提高至500
+5 深海鱼龙勾结的每个雕像加成从2点攻击提高至6点攻击 从2%攻速提高至6%攻速 最多雕像数量从5个提高至6个
+6 阔剑提供的攻击力从8%/13%/18%提高至8%/16%/24%
+7 鹰歌弓提供的攻击力从10%/15%/20%提高至10%/20%/30%
+8 疯脸提供的攻速从70提高至120
+9 穷鬼盾价格从300降低至250
+
+1 lv1 pudge's hp reduce from 1650 to 1450, price increase from 600 to 650, lv2 pudge's hp reduce from 2450 to 2250
+2 fix the bug that if you use teleport rod to your statue it will goes into cool down
+3 all bone archers price decrease by 10! its skeleton on sale now!
+4 lv3.1 wolf's aura's attack limit increase from 20 to 400, radius increase from 400 to 500
+5 bashing slardar's bonus dmg per statue increase from 2 to 6, attack spd from 2% to 6% and max statue count increase from 5 to 6
+6 broadsword's attack bonus increase from 8%/13%/18% to 8%/16%/24%
+7 eaglesong's attack bonus increase from 10%/15%/20% to 10%/20%/30%
+8 mask of madness' attack spd boost increase from 70 to 120
+9 poorman shield's price decrease from 300 to 250
+
+9.29

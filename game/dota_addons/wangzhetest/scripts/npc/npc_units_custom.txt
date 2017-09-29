@@ -24619,7 +24619,7 @@
 	"AttackDamageMin"           "58"                         // 最小伤害
 	"AttackDamageMax"           "67"                         // 最大伤害
 	"ArmorPhysical"             "3"         // 基础护甲
-	"StatusHealth"              "1650"       // 基础生命值
+	"StatusHealth"              "1450"       // 基础生命值
 	"BountyGoldMin"             "10"         // 最小金钱奖励
 	"BountyGoldMax"             "10"         // 最大金钱奖励
 	"StatusManaRegen"           "5"         // 魔法恢复速度
@@ -24748,7 +24748,7 @@
 	"AttackDamageMin"           "88"                         // 最小伤害
 	"AttackDamageMax"           "107"                         // 最大伤害
 	"ArmorPhysical"             "3"         // 基础护甲
-	"StatusHealth"              "2450"       // 基础生命值
+	"StatusHealth"              "2250"       // 基础生命值
 	"BountyGoldMin"             "10"         // 最小金钱奖励
 	"BountyGoldMax"             "10"         // 最大金钱奖励
 	"StatusManaRegen"           "5"         // 魔法恢复速度
