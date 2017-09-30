@@ -152,13 +152,13 @@
 -- building_tech.t_tech["G5_10"] = {}
 -- building_tech.t_tech["G5_11"] = {}
 
-function building_tech:ApplyTechSkills( u_building )
+function building_tech:ApplyTechSkills(u_building)
 	s_building_name = u_building:GetUnitName()
 	s_tech_name = string.sub(s_building_name, -8, -4)
 	t_building = self.t_tech[s_tech_name]
 	if t_building ~= nil then
 		for k,s_ability_name in pairs(t_building) do
-			AbilityManager:AddAndSet( u_building, s_ability_name )
+			AbilityManager:AddAndSet(u_building, s_ability_name)
 		end
 	end
 	if string.sub(u_building:GetUnitName(),10,10) ~= "X" then
@@ -172,629 +172,583 @@ function building_tech:ApplyTechSkills( u_building )
 
 		end
 	end
-	AbilityManager:AddAndSet( u_building, "build_base" )
+	AbilityManager:AddAndSet(u_building, "build_base")
 	u_building:AddAbility(s_tech_name)
 end
 --original functions
 
 
-function buildbuilding( keys )--建筑完成
-	local old_build = keys.caster
-	local build = keys.target
-	local pid = build:GetPlayerOwnerID()
-	local player = PlayerResource:GetPlayer(pid)--old_build.Player
-	local PlayerPosition = PlayerCalc:GetPlayerPositionByID(pid)
-	-- print("now the building PlayerPosition is  "..PlayerPosition)
+function buildbuilding(keys)--建筑完成
+	-- target	table: 0x002c2278
+	-- caster	table: 0x0026ea90
+	-- caster_entindex	1926
+	-- ScriptFile	scripts/vscripts/building.lua
+	-- Function	buildbuilding
+	-- ability	table: 0x002eea00
+	local old_building = keys.caster
+	local building = keys.target
+	local ability = keys.ability
 
-	local BuildPoint = keys.caster:GetAbsOrigin() 
-	local cost = keys.ability:GetGoldCost(keys.ability:GetLevel() - 1)--keys.GoldCost
-	local food = keys.ability:GetManaCost(keys.ability:GetLevel() - 1)--keys.Food
-	-- print("ManaCost is  "..keys.ability:GetManaCost(1))
-	local money = PlayerResource:GetGold(pid) 
-	local old_sale = old_build:GetContext("Sale")
-	local old_food = old_build:GetContext("Food")
-	local old_score = old_build:GetContext("Score")
-	local FullFood = PlayerS[PlayerPosition].FullFood
-	local CurFood =  PlayerS[PlayerPosition].CurFood + food
-	local hero = PlayerS[PlayerPosition].Hero
-	--创建新的建筑
+	local playerID = building:GetPlayerOwnerID()
+	local player = PlayerResource:GetPlayer(playerID)
+	local playerData = PlayerData:GetPlayerData(playerID)
 
-	--设置控制权和加入表	
-		table.insert(PlayerS[PlayerPosition].NewBuild,build)
+	local buildPoint = old_building:GetAbsOrigin()
+	local cost = ability:GetGoldCost(-1)
+	local food = ability:GetManaCost(-1)
+	local old_sale = old_building:GetContext("Sale")
+	local old_food = old_building:GetContext("Food")
+	local old_score = old_building:GetContext("Score")
 
-	--设置归属玩家和设置贩售金钱
-		--build.Player = player
-		build:SetContextNum("Sale", old_sale + cost, 0)
-		build:SetContextNum("Food", old_food + food, 0)
-		build:SetContextNum("Score", old_score + cost, 0)
+	if keys.hex ~= nil then
+		playerData:Save(keys.hex, true)
+	end
+
+	--加入表处理
+	playerData:RemoveNewBuilding(old_building)
+	playerData:ReplaceBuilding(old_building, building)
+	playerData:AddNewBuilding(building)
+	--设置贩售金钱
+	building:SetContextNum("Sale", old_sale + cost, 0)
+	building:SetContextNum("Food", old_food + food, 0)
+	building:SetContextNum("Score", old_score + cost, 0)
 	--增加升级
-		building_tech:ApplyTechSkills( build )
-	--设置石化效果
-
-		build:SetContextThink(DoUniqueString("build_stonehold"), function() 
-			if IsValidEntity(build) then 
-				if build:IsAlive()  then 
-					build:FindAbilityByName("build_base"):ApplyDataDrivenModifier(build,build,"modifier_buildbase_partic",nil) 
-					end
-				end
-			end
-			, 2.6)
-		--设置建筑占用体积
-		--删除旧的
-
+	building_tech:ApplyTechSkills(building)
 	--兵力增加
-		PlayerS[PlayerPosition].Score = PlayerS[PlayerPosition].Score + cost
-		if PlayerResource:GetTeam(pid) == DOTA_TEAM_BADGUYS then
-			GameRules.RightScore = GameRules.RightScore + cost
-		else
-			GameRules.LeftScore = GameRules.LeftScore + cost
-			--print(GameRules.LeftScore)
-		end
+	playerData:ModifyScore(cost)
+	if PlayerResource:GetTeam(playerID) == DOTA_TEAM_BADGUYS then
+		GameRules.RightScore = GameRules.RightScore + cost
+	else
+		GameRules.LeftScore = GameRules.LeftScore + cost
+	end
+	--单位建筑化
+	building:SetMoveCapability(DOTA_UNIT_CAP_MOVE_NONE)
+	building:SetAttackCapability(DOTA_UNIT_CAP_NO_ATTACK)
+	building:SetBaseManaRegen(60)
+	building:SetBaseHealthRegen(800)
+	local fScale = building:GetModelScale()
+	building:SetModelScale(fScale+0.25)
 
-
-		for item_index = 0,5,1 do
-			local item = hero:GetItemInSlot(item_index)
-			if item then
-				if PlayerS[PlayerPosition].Score >= 880 then
-					if item:GetName() == "item_score_1" then
-						PlayerS[PlayerPosition].ItemNum =  PlayerS[PlayerPosition].ItemNum + 1
-						hero:RemoveItem(item)
-						break
-					end	
-				end
-				if PlayerS[PlayerPosition].Score >= 6000  then
-					if item:GetName() == "item_score_2" then
-						PlayerS[PlayerPosition].ItemNum =  PlayerS[PlayerPosition].ItemNum + 1
-						hero:RemoveItem(item)
-						break
-					end	
-				end
-				if PlayerS[PlayerPosition].Score >= 9000 then
-					if item:GetName() == "item_score_3" then
-						PlayerS[PlayerPosition].ItemNum =  PlayerS[PlayerPosition].ItemNum + 1
-						hero:RemoveItem(item)
-						break
-					end	
-				end
-				if PlayerS[PlayerPosition].Score >= 12000 then
-					if item:GetName() == "item_score_4" then
-						PlayerS[PlayerPosition].ItemNum =  PlayerS[PlayerPosition].ItemNum + 1
-						hero:RemoveItem(item)
-						break
-					end	
+	--设置石化效果
+	building:SetContextThink(DoUniqueString("building_stonehold"),
+		function()
+			if IsValidEntity(building) then
+				if building:IsAlive() then
+					building:FindAbilityByName("build_base"):ApplyDataDrivenModifier(building, building, "modifier_buildbase_partic", nil)
 				end
 			end
 		end
-	--单位建筑化
-		build:SetMoveCapability(DOTA_UNIT_CAP_MOVE_NONE)
-		build:SetAttackCapability(DOTA_UNIT_CAP_NO_ATTACK) 
-		build:SetBaseManaRegen(60)
-		build:SetBaseHealthRegen(800)
-		local f_scale = build:GetModelScale()
-		build:SetModelScale(f_scale+0.25)
-		ResolveNPCPositions(build:GetAbsOrigin(), 64)
-
-	--设置高度
-		local min = GetGroundPosition(BuildPoint,build)
-
-		build:SetOrigin(Vector(BuildPoint.x,BuildPoint.y,min.z+30))
-		EmitSoundOnClient("challenge.success",player)
-		--local f_scale = build:GetModelScale() 
-		--print("this building model scale is "..f_scale)
-		--build:SetModelScale(f_scale+0.6) --待修改
-		--build.FDesc:SetModelScale(f_scale+0.6)
-
+	, 2.6)
+	--设置位置和高度
+	ResolveNPCPositions(building:GetAbsOrigin(), 64)
+	local buildGroundPoint = GetGroundPosition(buildPoint, building)
+	buildGroundPoint.z = buildGroundPoint.z + 30
+	building:SetAbsOrigin(buildGroundPoint)
+	--播放声音
+	EmitSoundOnClient("challenge.success", player)
 end
 
+function conditions(keys)--开始建筑
+	local building = keys.caster
+	local ability = keys.ability
 
-function conditions(keys) --开始建筑
-	
-	local old_build = keys.caster
-	local pid = old_build:GetPlayerOwnerID()
-	local PlayerPosition = PlayerCalc:GetPlayerPositionByID(pid)
-	local money = PlayerResource:GetGold(pid) 
-	local cost = keys.ability:GetGoldCost(keys.ability:GetLevel() - 1)--keys.GoldCost
-	local food = keys.ability:GetManaCost(keys.ability:GetLevel() - 1)--keys.Food
-	local FullFood = PlayerS[PlayerPosition].FullFood
-	--local buildname=keys.ability:GetName();
-	--print(keys.ability:GetAbilityName());
-	PlayerS[PlayerPosition].CurFood = PlayerS[PlayerPosition].CurFood + food  --增加人口
+	local playerID = building:GetPlayerOwnerID()
+	local playerData = PlayerData:GetPlayerData(playerID)
 
-	local CurFood =  PlayerS[PlayerPosition].CurFood
+	local cost = ability:GetGoldCost(-1)
+	local food = ability:GetManaCost(-1)
+	local fullFood = playerData:GetFullFood()
+	local curFood = playerData:GetCurFood()
 
-
-	if (CurFood > FullFood)  then
-		BTFGeneral:ShowError(pid,"#NoEnoughFood","General.NoGold") --人口不足的警告信息
-		old_build:Stop()
+	if (curFood + food) > fullFood then
+		building:Stop()
+		BTFGeneral:ShowError(playerID,"#NoEnoughFood","General.NoGold")--人口不足的警告信息
 	end
-	if (PlayerS[PlayerPosition].Abhere and (keys.ability:GetAbilityName()=="R8_00" or keys.ability:GetAbilityName()=="R8_10")) then
-		BTFGeneral:ShowError(pid,"#NoTowerAfterGushou","") --人口不足的警告信息
-		old_build:Stop()
+	if playerData:IsAdherence() and (ability:GetAbilityName() == "R8_00" or ability:GetAbilityName() == "R8_10") then
+		building:Stop()
+		BTFGeneral:ShowError(playerID,"#NoTowerAfterGushou","")--人口不足的警告信息
+	end
+	if keys.hex ~= nil then
+		if playerData:Load(keys.hex) then
+			building:Stop()
+			BTFGeneral:ShowError(playerID,"#HaveHEX","General.NoGold")
+		end
 	end
 
-	
+	playerData:ModifyGold(-cost, DOTA_ModifyGold_AbilityCost)
+	playerData:ModifyCurFood(food)
 end
 
 function CancelBuild(keys )
-	local old_build = keys.caster
-	local pid = old_build:GetPlayerOwnerID()
-	local PlayerPosition = PlayerCalc:GetPlayerPositionByID(pid)
-	local food = keys.ability:GetManaCost(keys.ability:GetLevel() - 1)--keys.Food
---退还金钱
-	local money = PlayerResource:GetGold(pid) 
-	local cost = keys.ability:GetGoldCost(keys.ability:GetLevel() - 1)--keys.GoldCost
-	PlayerResource:SetGold(pid,money+cost, false)
-	-- print("now backup the money playerid is "..pid)
---退还人口
-	PlayerS[PlayerPosition].CurFood = PlayerS[PlayerPosition].CurFood - food	
+	local building = keys.caster
+	local ability = keys.ability
 
+	local playerID = building:GetPlayerOwnerID()
+	local playerData = PlayerData:GetPlayerData(playerID)
+
+	local cost = ability:GetGoldCost(-1)
+	local food = ability:GetManaCost(-1)
+
+	playerData:ModifyGold(cost, DOTA_ModifyGold_AbilityCost)
+	playerData:ModifyCurFood(-food)
 end
 
 function Xconditions(keys) --开始建筑
-	--DeepPrintTable(keys)
-	local old_build = keys.caster
-	local pid = old_build:GetPlayerOwnerID()
-	local PlayerPosition = PlayerCalc:GetPlayerPositionByID(pid)
-	local money = PlayerResource:GetGold(pid) 
-	local cost = keys.ability:GetGoldCost(keys.ability:GetLevel() - 1)--keys.GoldCost
-	local food = keys.ability:GetManaCost(keys.ability:GetLevel() - 1)--keys.Food
-	local needscore = keys.ability:GetSpecialValueFor("NeedScore")
-	local FullFood = PlayerS[PlayerPosition].FullFood
-	local Score = PlayerS[PlayerPosition].Score
+	local building = keys.caster
+	local ability = keys.ability
 
-	PlayerS[PlayerPosition].CurFood = PlayerS[PlayerPosition].CurFood + food  --增加人口
+	local playerID = building:GetPlayerOwnerID()
+	local playerData = PlayerData:GetPlayerData(playerID)
 
-	local CurFood =  PlayerS[PlayerPosition].CurFood
-	-- print(needscore)
-	-- print(Score)
+	local needScore = ability:GetSpecialValueFor("NeedScore")
+	local cost = ability:GetGoldCost(-1)
+	local food = ability:GetManaCost(-1)
+	local fullFood = playerData:GetFullFood()
+	local curFood = playerData:GetCurFood()
+	local score = playerData:GetScore()
 
-	if (CurFood > FullFood)  then
-		BTFGeneral:ShowError(pid,"#NoEnoughFood","General.NoGold") --人口不足的警告信息
-		old_build:Stop()
+	if (curFood + food) > fullFood then
+		building:Stop()
+		BTFGeneral:ShowError(playerID,"#NoEnoughFood","General.NoGold")--人口不足的警告信息
 	end
-	if (Score < needscore)  then
-		BTFGeneral:ShowError(pid,"#NoEnoughScore"..needscore,"General.NoGold")
-		old_build:Stop()
+	if score < needScore then
+		building:Stop()
+		BTFGeneral:ShowError(playerID,"#NoEnoughScore"..needScore,"General.NoGold")--人口不足的警告信息
 	end
 
-	
+	playerData:ModifyGold(-cost, DOTA_ModifyGold_AbilityCost)
+	playerData:ModifyCurFood(food)
+end
+
+function SaleBuild(keys)
+	local old_building = keys.caster
+	local building = keys.target
+	local ability = keys.ability
+
+	local playerID = building:GetPlayerOwnerID()
+	local player = PlayerResource:GetPlayer(playerID)
+	local playerData = PlayerData:GetPlayerData(playerID)
+
+	local sale = old_building:GetContext("Sale")
+	local food = old_building:GetContext("Food")
+	local score = old_building:GetContext("Score")
+
+	--加入表处理
+	playerData:RemoveNewBuilding(old_building)
+	playerData:ReplaceBuilding(old_building, building)
+	---------------------邪法的系统处理---------------------
+	if old_building:GetUnitName()  == "npc_unit_Q3_2z" then
+		playerData:Save("hex_Q3", false)
+	end
+	---------------------创建新的建筑---------------------
+	for i = 0, 5, 1 do
+		if building:GetItemInSlot(i) then
+			building:RemoveItem(building:GetItemInSlot(i))
+		end
+	end
+
+	local point = building:GetAbsOrigin()
+	local groundPoint = GetGroundPosition(point, building)
+	groundPoint.z = groundPoint.z + 25.15
+	building:SetAbsOrigin(groundPoint)
+
+	building:SetContextNum("Score", 0, 0)
+	building:SetContextNum("Sale", 0, 0)
+	building:SetContextNum("Food", 0, 0)
+
+	playerData:BuildingAddBuildAbility(building)
+	building:SetBaseManaRegen(20)
+	---------------------退还金钱--------------------------------
+	playerData:ModifyGold(sale, DOTA_ModifyGold_Unspecified)
+	---------------------金钱特效--------------------------------
+	SendOverheadEventMessage(player, OVERHEAD_ALERT_GOLD, old_building, sale, player)
+	---------------------退还人口--------------------------------
+	playerData:ModifyCurFood(-food)
+	---------------------退还兵力--------------------------------
+	playerData:ModifyScore(-score)
+	if PlayerResource:GetTeam(playerID) == DOTA_TEAM_BADGUYS then
+		GameRules.RightScore = GameRules.RightScore - score
+	else
+		GameRules.LeftScore = GameRules.LeftScore - score
+	end
 end
 
 function UpTechLevelStart1(keys)
 	local caster = keys.caster
-	local pid = caster:GetPlayerOwnerID() 
-	local PlayerPosition = PlayerCalc:GetPlayerPositionByID(pid)
-	local lumber = PlayerS[PlayerPosition].Lumber
-	local cost_lumber = keys.ability:GetManaCost(keys.ability:GetLevel() - 1)
+	local ability = keys.ability
 
-	if lumber < cost_lumber then
-		BTFGeneral:ShowError(pid,"#NoEnoughLumber","General.NoGold")
+	local playerID = caster:GetPlayerOwnerID()
+	local playerData = PlayerData:GetPlayerData(playerID)
+
+	local crystalCost = ability:GetManaCost(-1)
+	local cost = ability:GetGoldCost(-1)
+	local crystal = playerData:GetCrystal()
+
+	if crystal < crystalCost then
 		caster:Stop()
+		BTFGeneral:ShowError(playerID,"#NoEnoughLumber","General.NoGold")
 	end
-	PlayerS[PlayerPosition].Lumber = PlayerS[PlayerPosition].Lumber - cost_lumber
+
+	playerData:ModifyGold(-cost, DOTA_ModifyGold_AbilityCost)
+	playerData:ModifyCrystal(-crystalCost)
 end
 function UpTechLevelSuccess1(keys)
 	local caster = keys.caster
-	local pid = caster:GetPlayerOwnerID()
-	local PlayerPosition = PlayerCalc:GetPlayerPositionByID(pid)
-	local name = keys.ability:GetAbilityName()
-	local hero = PlayerS[PlayerPosition].Hero
+	local ability = keys.ability
 
-	caster:RemoveAbility(name)
+	local playerID = caster:GetPlayerOwnerID()
+	local playerData = PlayerData:GetPlayerData(playerID)
+
+	local name = ability:GetAbilityName()
+
 	caster:AddAbility("techlevel_2")
 	local ab = caster:FindAbilityByName("techlevel_2")
 	ab:SetLevel(1)
+	caster:SwapAbilities(name, "techlevel_2", false, true)
+	caster:RemoveAbility(name)
 
-	for item_index = 0,5,1 do
-		local item = hero:GetItemInSlot(item_index)
-		if item then
-			if item:GetName() == "item_score_5" then
-				PlayerS[PlayerPosition].ItemNum =  PlayerS[PlayerPosition].ItemNum + 1
-				hero:RemoveItem(item)
-				break
-			end
-		end
-	end
-	PlayerS[PlayerPosition].TechLevel = 1
-	BTFGeneral:ShowError(pid,"#UpTechLevel1","ui.npe_objective_complete")--成功提示
+	playerData:UpgradeTech()
+
+	BTFGeneral:ShowError(playerID,"#UpTechLevel1","ui.npe_objective_complete")--成功提示
 end
 function UpTechLevelCancel1(keys)
 	local caster = keys.caster
-	local pid = caster:GetPlayerOwnerID() 
-	local PlayerPosition = PlayerCalc:GetPlayerPositionByID(pid)
-	local money = PlayerResource:GetGold(pid) 
-	local cost_money = keys.ability:GetGoldCost(keys.ability:GetLevel() - 1)
-	local cost_lumber = keys.ability:GetManaCost(keys.ability:GetLevel() - 1)
-	PlayerS[PlayerPosition].Lumber = PlayerS[PlayerPosition].Lumber + cost_lumber
-	PlayerResource:SetGold(pid,money+cost_money, false)
-	keys.ability:EndCooldown()
+	local ability = keys.ability
+
+	local playerID = caster:GetPlayerOwnerID()
+	local playerData = PlayerData:GetPlayerData(playerID)
+
+	local crystalCost = ability:GetManaCost(-1)
+	local cost = ability:GetGoldCost(-1)
+	local crystal = playerData:GetCrystal()
+
+	ability:EndCooldown()
+
+	playerData:ModifyGold(cost, DOTA_ModifyGold_AbilityCost)
+	playerData:ModifyCrystal(crystalCost)
 end
 
 function UpTechLevelStart2(keys)
 	local caster = keys.caster
-	local pid = caster:GetPlayerOwnerID() 
-	local PlayerPosition = PlayerCalc:GetPlayerPositionByID(pid)
-	local lumber = PlayerS[PlayerPosition].Lumber
-	local cost_lumber = keys.ability:GetManaCost(keys.ability:GetLevel() - 1)
+	local ability = keys.ability
 
-	if lumber < cost_lumber then
-		BTFGeneral:ShowError(pid,"#NoEnoughLumber","General.NoGold")
+	local playerID = caster:GetPlayerOwnerID()
+	local playerData = PlayerData:GetPlayerData(playerID)
+
+	local crystalCost = ability:GetManaCost(-1)
+	local cost = ability:GetGoldCost(-1)
+	local crystal = playerData:GetCrystal()
+
+	if crystal < crystalCost then
 		caster:Stop()
+		BTFGeneral:ShowError(playerID,"#NoEnoughLumber","General.NoGold")
 	end
-	PlayerS[PlayerPosition].Lumber = PlayerS[PlayerPosition].Lumber - cost_lumber
+
+	playerData:ModifyGold(-cost, DOTA_ModifyGold_AbilityCost)
+	playerData:ModifyCrystal(-crystalCost)
 end
 function UpTechLevelSuccess2(keys)
 	local caster = keys.caster
-	local pid = caster:GetPlayerOwnerID()
-	local PlayerPosition = PlayerCalc:GetPlayerPositionByID(pid)
-	local name = keys.ability:GetAbilityName()
-	local hero = PlayerS[PlayerPosition].Hero
+	local ability = keys.ability
 
-	caster:RemoveAbility(name)
+	local playerID = caster:GetPlayerOwnerID()
+	local playerData = PlayerData:GetPlayerData(playerID)
+
+	local name = ability:GetAbilityName()
+
 	caster:AddAbility("legion_nice")
 	local ab = caster:FindAbilityByName("legion_nice")
 	ab:SetLevel(1)
+	caster:SwapAbilities(name, "legion_nice", false, true)
+	caster:RemoveAbility(name)
 
-	for item_index = 0,5,1 do
-		local item = hero:GetItemInSlot(item_index)
-		if item then
-			if item:GetName() == "item_score_6" then
-				PlayerS[PlayerPosition].ItemNum =  PlayerS[PlayerPosition].ItemNum + 1
-				hero:RemoveItem(item)
-				break
-			end
-		end
-	end
-	PlayerS[PlayerPosition].TechLevel = 2
-	BTFGeneral:ShowError(pid,"#UpTechLevel2","ui.npe_objective_complete")--成功提示
+	playerData:UpgradeTech()
+
+	BTFGeneral:ShowError(playerID,"#UpTechLevel2","ui.npe_objective_complete")--成功提示
 end
 function UpTechLevelCancel2(keys)
 	local caster = keys.caster
-	local pid = caster:GetPlayerOwnerID() 
-	local PlayerPosition = PlayerCalc:GetPlayerPositionByID(pid)
-	local money = PlayerResource:GetGold(pid) 
-	local cost_money = keys.ability:GetGoldCost(keys.ability:GetLevel() - 1)
-	local cost_lumber = keys.ability:GetManaCost(keys.ability:GetLevel() - 1)
-	PlayerS[PlayerPosition].Lumber = PlayerS[PlayerPosition].Lumber + cost_lumber
-	PlayerResource:SetGold(pid,money+cost_money, false)
-	keys.ability:EndCooldown()
+	local ability = keys.ability
+
+	local playerID = caster:GetPlayerOwnerID()
+	local playerData = PlayerData:GetPlayerData(playerID)
+
+	local crystalCost = ability:GetManaCost(-1)
+	local cost = ability:GetGoldCost(-1)
+	local crystal = playerData:GetCrystal()
+
+	ability:EndCooldown()
+
+	playerData:ModifyGold(cost, DOTA_ModifyGold_AbilityCost)
+	playerData:ModifyCrystal(crystalCost)
 end
 
 
 function UpFoodStart(keys)
 	local caster = keys.caster
-	local pid = caster:GetPlayerOwnerID() 
-	local PlayerPosition = PlayerCalc:GetPlayerPositionByID(pid)
-	--local pid = player:GetPlayerID()
-	--local pid = PlayerCalc:GetPlayerIndex(player) --把玩家的position的ID转化成counting的ID 
-		--print("now UpFood OwnerPlayerid is "..pid)
-	local FullFood = PlayerS[PlayerPosition].FullFood
-	local money = PlayerResource:GetGold(pid) 
-	local lumber = PlayerS[PlayerPosition].Lumber
+	local ability = keys.ability
 
-	local cost_money = keys.ability:GetGoldCost(keys.ability:GetLevel() - 1)
-	local cost_lumber = keys.ability:GetManaCost(keys.ability:GetLevel() - 1)
-	local name = keys.ability:GetAbilityName()
+	local playerID = caster:GetPlayerOwnerID()
+	local playerData = PlayerData:GetPlayerData(playerID)
+
+	local name = ability:GetAbilityName()
 	local lvnum = string.sub(name,-1,-1)
+	local cost = ability:GetGoldCost(-1)
+	local crystalCost = ability:GetManaCost(-1)
+	local fullFood = playerData:GetFullFood()
+	local crystal = playerData:GetCrystal()
 
-	if FullFood < 288 then
-		if lvnum == "2" and PlayerS[PlayerPosition].TechLevel < 1 then
-			BTFGeneral:ShowError(pid,"#NeedTechLevel1","General.NoGold") --警告信息
+	if fullFood < 288 then
+		if lvnum == "2" and playerData:GetTechLevel() < 1 then
+			BTFGeneral:ShowError(playerID,"#NeedTechLevel1","General.NoGold") --警告信息
 			caster:Stop()
 		end
-		if lvnum == "3" and PlayerS[PlayerPosition].TechLevel < 2 then
-			BTFGeneral:ShowError(pid,"#NeedTechLevel2","General.NoGold") --警告信息
+		if lvnum == "3" and playerData:GetTechLevel() < 2 then
+			BTFGeneral:ShowError(playerID,"#NeedTechLevel2","General.NoGold") --警告信息
 			caster:Stop()
 		end
-		if lumber < cost_lumber then
-			BTFGeneral:ShowError(pid,"#NoEnoughLumber","General.NoGold") --警告信息
+		if crystal < crystalCost then
+			BTFGeneral:ShowError(playerID,"#NoEnoughLumber","General.NoGold") --警告信息
 			caster:Stop()
 		end
-
 	else
-		BTFGeneral:ShowError(pid,"#MaxFullFood","General.NoGold") --警告信息  
+		BTFGeneral:ShowError(playerID,"#MaxFullFood","General.NoGold") --警告信息
 		caster:Stop()
 	end
-	PlayerS[PlayerPosition].Lumber = PlayerS[PlayerPosition].Lumber - cost_lumber
 
+	playerData:ModifyGold(-cost, DOTA_ModifyGold_AbilityCost)
+	playerData:ModifyCrystal(-crystalCost)
 end
 
 function UpFoodSuccess(keys)
 	local caster = keys.caster
-		--local pid = caster:GetPlayerOwnerID() 
-	local pid = caster:GetPlayerOwnerID()
-	local PlayerPosition = PlayerCalc:GetPlayerPositionByID(pid)
-	--local pid = PlayerCalc:GetPlayerIndex(player) --把玩家的position的ID转化成counting的ID 
-	local FullFood = PlayerS[PlayerPosition].FullFood
-	local money = PlayerResource:GetGold(pid) 
-	local lumber = PlayerS[PlayerPosition].Lumber
-	local upfoodcount = keys.upfoodcount
-	local name = keys.ability:GetAbilityName()
-	local lv = keys.ability:GetLevel()
+	local ability = keys.ability
+
+	local playerID = caster:GetPlayerOwnerID()
+	local playerData = PlayerData:GetPlayerData(playerID)
+
+	local addFullFood = keys.upfoodcount
+	local name = ability:GetAbilityName()
+	local lv = ability:GetLevel()
 	local lvnum = string.sub(name,-1,-1)
-	-- print(lv)
-	-- print(name)
+
 	if lv == 7 then
 		if lvnum == "1" then
-			caster:RemoveAbility(name)
 			caster:AddAbility("Up_Food2")
 			local ab = caster:FindAbilityByName("Up_Food2")
 			ab:SetLevel(1)
+			caster:SwapAbilities(name, "Up_Food2", false, true)
+			caster:RemoveAbility(name)
 		end
 		if lvnum == "2" then
-			caster:RemoveAbility(name)
 			caster:AddAbility("Up_Food3")
-			local ab2 = caster:FindAbilityByName("Up_Food3")
-			ab2:SetLevel(1)			
-		end		
+			local ab = caster:FindAbilityByName("Up_Food3")
+			ab:SetLevel(1)
+			caster:SwapAbilities(name, "Up_Food3", false, true)
+			caster:RemoveAbility(name)
+		end
 		if lvnum == "3" then
 
 		end
 	else
-		keys.ability:SetLevel(lv+1)
+		ability:SetLevel(lv+1)
 	end
 
-	PlayerS[PlayerPosition].FullFood = PlayerS[PlayerPosition].FullFood + upfoodcount
-	BTFGeneral:ShowError(pid,"#UpFoodFinish","ui.npe_objective_complete")--成功提示			
+	playerData:ModifyFullFood(addFullFood)
+
+	BTFGeneral:ShowError(playerID,"#UpFoodFinish","ui.npe_objective_complete")--成功提示
 end
 
 
 function UpFoodCancel(keys)
 	local caster = keys.caster
-	local pid = caster:GetPlayerOwnerID() 
-	local PlayerPosition = PlayerCalc:GetPlayerPositionByID(pid)
-	local FullFood = PlayerS[PlayerPosition].FullFood
-	local money = PlayerResource:GetGold(pid) 
-	local lumber = PlayerS[PlayerPosition].Lumber
-	local cost_money = keys.ability:GetGoldCost(keys.ability:GetLevel() - 1)
-	local cost_lumber = keys.ability:GetManaCost(keys.ability:GetLevel() - 1)
-	PlayerS[PlayerPosition].Lumber = PlayerS[PlayerPosition].Lumber + cost_lumber
-	PlayerResource:SetGold(pid,money+cost_money, false)
-	keys.ability:EndCooldown()
+	local ability = keys.ability
 
+	local playerID = caster:GetPlayerOwnerID()
+	local playerData = PlayerData:GetPlayerData(playerID)
+
+	local crystalCost = ability:GetManaCost(-1)
+	local cost = ability:GetGoldCost(-1)
+
+	ability:EndCooldown()
+
+	playerData:ModifyGold(cost, DOTA_ModifyGold_AbilityCost)
+	playerData:ModifyCrystal(crystalCost)
 end
 
 
-function UpTechStart(keys)
+function UpCrystalTechStart(keys)
 	local caster = keys.caster
-	local pid = caster:GetPlayerOwnerID() 
-	local PlayerPosition = PlayerCalc:GetPlayerPositionByID(pid)
-	local Tech = PlayerS[PlayerPosition].Tech
-	local money = PlayerResource:GetGold(pid) 
-	local Score = PlayerS[PlayerPosition].Score
-	local lumber = PlayerS[PlayerPosition].Lumber
-	local cost_money = keys.ability:GetGoldCost(keys.ability:GetLevel() - 1)
-	local cost_lumber = keys.ability:GetManaCost(keys.ability:GetLevel() - 1)
-	local lv = keys.ability:GetLevel()
-	local name = keys.ability:GetAbilityName()
-	local lvnum = string.sub(name,-1,-1)	
+	local ability = keys.ability
 
-	-- print("pid is  "..pid)
+	local playerID = caster:GetPlayerOwnerID()
+	local playerData = PlayerData:GetPlayerData(playerID)
 
-	-- print("money is "..money)
-	if Tech >= 16 then
-		BTFGeneral:ShowError(pid,"#MaxTechLevel","General.NoGold") --警告信息
+	local lv = ability:GetLevel()
+	local name = ability:GetAbilityName()
+	local lvnum = string.sub(name,-1,-1)
+	local cost = ability:GetGoldCost(-1)
+	local crystalCost = ability:GetManaCost(-1)
+
+	local crystalTech = playerData:GetCrystalTech()
+	local tech = playerData:GetTechLevel()
+	local score = playerData:GetScore()
+	local crystal = playerData:GetCrystal()
+
+	if crystalTech >= 16 then
+		BTFGeneral:ShowError(playerID,"#MaxTechLevel","General.NoGold") --警告信息
 		caster:Stop()
 	else
-		if Score <= 2000 then
-			BTFGeneral:ShowError(pid,"#NoEnoughScore2000","General.NoGold") --警告信息	
+		if score < 2000 then
+			BTFGeneral:ShowError(playerID,"#NoEnoughScore2000","General.NoGold") --警告信息
 			caster:Stop()
 		else
-			if lumber < cost_lumber then
-				BTFGeneral:ShowError(pid,"#NoEnoughLumber","General.NoGold") --警告信息
+			if crystal < crystalCost then
+				BTFGeneral:ShowError(playerID,"#NoEnoughLumber","General.NoGold") --警告信息
 				caster:Stop()
 			else
-				if Tech >= 4 and PlayerS[PlayerPosition].TechLevel < 1 then
-					BTFGeneral:ShowError(pid,"#NeedTechLevel1","General.NoGold") --警告信息
+				if crystalTech >= 4 and tech < 1 then
+					BTFGeneral:ShowError(playerID,"#NeedTechLevel1","General.NoGold") --警告信息
 					caster:Stop()
-				end
-				if Tech >= 8 and PlayerS[PlayerPosition].TechLevel < 2 then
-					BTFGeneral:ShowError(pid,"#NeedTechLevel2","General.NoGold") --警告信息
+				elseif crystalTech >= 8 and tech < 2 then
+					BTFGeneral:ShowError(playerID,"#NeedTechLevel2","General.NoGold") --警告信息
 					caster:Stop()
 				end
 			end
 		end
 	end
-	PlayerS[PlayerPosition].Lumber = PlayerS[PlayerPosition].Lumber - cost_lumber
 
-
+	playerData:ModifyGold(-cost, DOTA_ModifyGold_AbilityCost)
+	playerData:ModifyCrystal(-crystalCost)
 end
 
 
 
-function UpTechCancel(keys)
+function UpCrystalTechCancel(keys)
 	local caster = keys.caster
-	local pid = caster:GetPlayerOwnerID() 
-	local PlayerPosition = PlayerCalc:GetPlayerPositionByID(pid)
+	local ability = keys.ability
 
-	local money = PlayerResource:GetGold(pid) 
-	local cost_money = keys.ability:GetGoldCost(keys.ability:GetLevel() - 1)
-	local cost_lumber = keys.ability:GetManaCost(keys.ability:GetLevel() - 1)
-	-- print("TechUP cancel pid is  "..pid)
+	local playerID = caster:GetPlayerOwnerID()
+	local playerData = PlayerData:GetPlayerData(playerID)
 
+	local crystalCost = ability:GetManaCost(-1)
+	local cost = ability:GetGoldCost(-1)
 
-	PlayerS[PlayerPosition].Lumber = PlayerS[PlayerPosition].Lumber + cost_lumber
----------------------退还金钱--------------------------------
-	PlayerResource:SetGold(pid,money+cost_money, false)
-	keys.ability:EndCooldown()
+	ability:EndCooldown()
 
+	playerData:ModifyGold(cost, DOTA_ModifyGold_AbilityCost)
+	playerData:ModifyCrystal(crystalCost)
 end
 
-function UpTechSuccess(keys)
+function UpCrystalTechSuccess(keys)
 	local caster = keys.caster
-	local pid = caster:GetPlayerOwnerID() 
-	local PlayerPosition = PlayerCalc:GetPlayerPositionByID(pid)
-	local FullFood = PlayerS[PlayerPosition].FullFood
-	local Ability = keys.ability
-	local Tech  = PlayerS[PlayerPosition].Tech
-	local name = keys.ability:GetAbilityName()
-	
-			PlayerS[PlayerPosition].Tech = PlayerS[PlayerPosition].Tech+1
+	local ability = keys.ability
 
-	-- print(Tech)
-	Ability:SetLevel(keys.ability:GetLevel()+1)
+	local playerID = caster:GetPlayerOwnerID()
+	local playerData = PlayerData:GetPlayerData(playerID)
 
-	BTFGeneral:ShowError(pid,"#UpTechFinish","ui.npe_badge") --采集效率升级成功
+	local name = ability:GetAbilityName()
+	local lv = ability:GetLevel()
 
-	if PlayerS[PlayerPosition].Tech == 4 then
-			caster:RemoveAbility(name)
-			-- caster:AddAbility("Up_Tech2")
-			-- local ab = caster:FindAbilityByName("Up_Tech2")
-			-- ab:SetLevel(1)
-			AbilityManager:AddAndSet( caster, "Up_Tech3")
-	end
-	if PlayerS[PlayerPosition].Tech == 8 then
-			caster:RemoveAbility(name)
-			-- caster:AddAbility("Up_Tech3")
-			-- local ab = caster:FindAbilityByName("Up_Tech3")
-			-- ab:SetLevel(1)
-			AbilityManager:AddAndSet( caster, "Up_Tech3")
-	end
-
-
-
-end
-
-
-
-
-
-
-function SaleBuild(keys)
-	local sale_build = keys.caster
-	local buildbase = keys.target
-	local pid = buildbase:GetPlayerOwnerID()
-	local player = PlayerResource:GetPlayer(pid)  --sale_build.Player
-	local PlayerPosition = PlayerCalc:GetPlayerPositionByID(pid)
-	local player_money = PlayerResource:GetGold(pid)
-	local p = buildbase:GetAbsOrigin()
-	local sale_money = sale_build:GetContext("Sale")
-	local food = sale_build:GetContext("Food")
-	local score = sale_build:GetContext("Score")
----------------------邪法的系统处理---------------------	
-	if sale_build:GetUnitName()  == "npc_unit_Q3_2z" then
-		PlayerS[PlayerPosition].hex_Q3 = false
-	end
----------------------创建新的建筑---------------------
-	for i=0,5,1 do
-		if buildbase:GetItemInSlot(i) then
-			buildbase:RemoveItem(buildbase:GetItemInSlot(i))
-		end
-	end
-	--buildbase.Player = player
-	buildbase:SetControllableByPlayer(pid, true) 
-	local min = GetGroundPosition(p,buildbase)
-	buildbase:SetOrigin(Vector(p.x,p.y,min.z+ 25.15))
-	buildbase:SetContextNum("Score", 0, 0)
-	buildbase:SetContextNum("Sale", 0, 0)
-	buildbase:SetContextNum("Food", 0, 0)
-	buildbase:SetBaseManaRegen(20)
-	playerstarts:RollBuilds(buildbase) --重设技能
----------------------退还金钱--------------------------------
-	PlayerResource:SetGold(pid,player_money+sale_money, false)
----------------------金钱特效--------------------------------
-	PopupGoldGain(buildbase,math.floor(sale_money))
-	EmitSoundOnClient("General.CoinsBig",player)
----------------------退还人口--------------------------------
-	PlayerS[PlayerPosition].CurFood = PlayerS[PlayerPosition].CurFood - food
----------------------退还兵力--------------------------------
-	PlayerS[PlayerPosition].Score = PlayerS[PlayerPosition].Score - score
-	if PlayerResource:GetTeam(pid) == DOTA_TEAM_BADGUYS then
-		GameRules.RightScore = GameRules.RightScore - score
+	if lv == 4 then
+		caster:AddAbility("Up_Tech2")
+		local ab = caster:FindAbilityByName("Up_Tech2")
+		ab:SetLevel(1)
+		caster:SwapAbilities(name, "Up_Tech2", false, true)
+		caster:RemoveAbility(name)
+	elseif lv == 8 then
+		caster:AddAbility("Up_Tech3")
+		local ab = caster:FindAbilityByName("Up_Tech3")
+		ab:SetLevel(1)
+		caster:SwapAbilities(name, "Up_Tech3", false, true)
+		caster:RemoveAbility(name)
 	else
-		GameRules.LeftScore = GameRules.LeftScore - score
-		-- print(GameRules.LeftScore)
+		ability:SetLevel(lv+1)
 	end
-end
 
+	playerData:UpgradeCrystalTech()
+
+	BTFGeneral:ShowError(playerID,"#UpTechFinish","ui.npe_badge") --采集效率升级成功
+end
 
 
 function UpFarmerStart(keys)
 	local caster = keys.caster
-	local pid = caster:GetPlayerOwnerID() 
-	local PlayerPosition = PlayerCalc:GetPlayerPositionByID(pid)
-	local FarmerNum = PlayerS[PlayerPosition].FarmerNum
-	local money = PlayerResource:GetGold(pid) 
-	local Score = PlayerS[PlayerPosition].Score
-	local CurFood = PlayerS[PlayerPosition].CurFood
-	local FullFood = PlayerS[PlayerPosition].FullFood
+	local ability = keys.ability
 
+	local playerID = caster:GetPlayerOwnerID()
+	local playerData = PlayerData:GetPlayerData(playerID)
 
-PlayerS[PlayerPosition].CurFood = PlayerS[PlayerPosition].CurFood + 1 --增加人口
+	local food = 1
+	local cost = ability:GetGoldCost(-1)
 
-	if	FarmerNum >= 8 then
-		BTFGeneral:ShowError(pid,"#MaxFarmerNum","General.NoGold") --最大采集者数量警告信息
+	local farmerNum = playerData:GetFarmerNumber()
+	local score = playerData:GetScore()
+	local curFood = playerData:GetCurFood()
+	local fullFood = playerData:GetFullFood()
+
+	if	farmerNum >= 8 then
+		BTFGeneral:ShowError(playerID,"#MaxFarmerNum","General.NoGold") --最大采集者数量警告信息
 		caster:Stop() --升级中断
-		PlayerS[PlayerPosition].FarmerNum = 8
 	else
-		if  CurFood + 1 > FullFood  then
-
-			BTFGeneral:ShowError(pid,"#NoEnoughFood","General.NoGold") --人口不足警告信息
+		if (curFood + food) > fullFood then
+			BTFGeneral:ShowError(playerID,"#NoEnoughFood","General.NoGold")--人口不足的警告信息
 			caster:Stop() --升级中断
 		else
-			if FarmerNum < 4 then
-				if Score <600 then
-					BTFGeneral:ShowError(pid,"#NoEnoughScore600","General.NoGold") --兵力不足警告信息
+			if farmerNum < 4 then
+				if score < 600 then
+					BTFGeneral:ShowError(playerID,"#NoEnoughScore600","General.NoGold") --兵力不足警告信息
 					caster:Stop() --升级中断
 				end
 			else
-				if Score <1000 then
-					BTFGeneral:ShowError(pid,"#NoEnoughScore1000","General.NoGold") --兵力不足警告信息
-					caster:Stop() --升级中断	
+				if score < 1000 then
+					BTFGeneral:ShowError(playerID,"#NoEnoughScore1000","General.NoGold") --兵力不足警告信息
+					caster:Stop() --升级中断
 				end
 			end
 		end
-
 	end
 
+	playerData:ModifyGold(-cost, DOTA_ModifyGold_AbilityCost)
+	playerData:ModifyCurFood(food)
 end
-
 
 function UpFarmerCancel(keys)
 	local caster = keys.caster
-	local pid = caster:GetPlayerOwnerID() 
-	local PlayerPosition = PlayerCalc:GetPlayerPositionByID(pid)
-	local FarmerNum = PlayerS[PlayerPosition].FarmerNum
-	local money = PlayerResource:GetGold(pid) 
-	local Score = PlayerS[PlayerPosition].Score
-	local CurFood = PlayerS[PlayerPosition].CurFood
-	local FullFood = PlayerS[PlayerPosition].FullFood
-	local cost = 70
----------------------退还金钱--------------------------------
-	PlayerResource:SetGold(pid,money+cost, false)
----------------------退还人口--------------------------------
-	PlayerS[PlayerPosition].CurFood = PlayerS[PlayerPosition].CurFood - 1
-	keys.ability:EndCooldown()
+	local ability = keys.ability
 
+	local playerID = caster:GetPlayerOwnerID()
+	local playerData = PlayerData:GetPlayerData(playerID)
+
+	local cost = ability:GetGoldCost(-1)
+	local food = ability:GetManaCost(-1)
+
+	ability:EndCooldown()
+
+	playerData:ModifyGold(cost, DOTA_ModifyGold_AbilityCost)
+	playerData:ModifyCurFood(-food)
 end
 
 
 function UpFarmerSuccess(keys)
 	local caster = keys.caster
-	local pid = caster:GetPlayerOwnerID() 
-	local PlayerPosition = PlayerCalc:GetPlayerPositionByID(pid)
-	local FarmerNum = PlayerS[PlayerPosition].FarmerNum
-	local money = PlayerResource:GetGold(pid) 
-	local Score = PlayerS[PlayerPosition].Score
-	local CurFood = PlayerS[PlayerPosition].CurFood
-	local FullFood = PlayerS[PlayerPosition].FullFood
-	local Ability = keys.ability
+	local ability = keys.ability
 
-	Ability:SetLevel(FarmerNum)
+	local playerID = caster:GetPlayerOwnerID()
+	local playerData = PlayerData:GetPlayerData(playerID)
 
-	PlayerS[PlayerPosition].FarmerNum = PlayerS[PlayerPosition].FarmerNum + 1
+	playerData:AddFarmer()
 
-	local farmer_ent = Entities:FindByName(nil, "player_"..tostring(PlayerPosition).."_farmer_"..tostring(FarmerNum+1)) 
-	local farmer = UnitManager:CreateUnitByName("npc_dummy_farmer", farmer_ent:GetAbsOrigin() , false, pid,PlayerResource:GetTeam(pid)) 
-	table.insert(PlayerS[PlayerPosition].Farmer, farmer)
-	BTFGeneral:ShowError(pid,"#UpFarmerFinish","compendium_levelup") --招募完成
+	ability:SetLevel(playerData:GetFarmerNumber())
+
+	BTFGeneral:ShowError(playerID,"#UpFarmerFinish","compendium_levelup") --招募完成
 end
 
 
 --防卡兵
 function fangkabing(keys)
 	--local target = keys.target
-	local caster = keys.caster 
+	local caster = keys.caster
 	local point = keys.target_points[1]
 	local teams = DOTA_UNIT_TARGET_TEAM_BOTH
 	local types = DOTA_UNIT_TARGET_BASIC
@@ -803,23 +757,23 @@ function fangkabing(keys)
 	--获取范围内的单位
 	local group = FindUnitsInRadius(caster:GetTeamNumber(),point,nil,200,teams,types,flags,FIND_UNITS_EVERYWHERE,true)
 		--print("the kabing unit is  ")
-		--print("group:"..#group)	
+		--print("group:"..#group)
 	for i,target in pairs(group) do
 		if target:HasAbility("build_base") == false and target:IsChanneling() == false then --筛除建筑单位
-			local team_number = target:GetTeamNumber() 
+			local team_number = target:GetTeamNumber()
 			local unit_point = target:GetAbsOrigin()
 			--target:AddNewModifier(nil, nil, "modifier_phased", {duration=0.3})
 			if team_number == DOTA_TEAM_GOODGUYS  then
 
 						local attack_to_right = Vector(5120 , unit_point.y,unit_point.z)
-						local Order = 
+						local Order =
 					{                                        --发送攻击指令
-						UnitIndex = target:entindex(), 
+						UnitIndex = target:entindex(),
 						OrderType = DOTA_UNIT_ORDER_ATTACK_MOVE,
-						TargetIndex = nil, 
-						AbilityIndex = 0, 
-						Position = attack_to_right, 
-						Queue = 0 
+						TargetIndex = nil,
+						AbilityIndex = 0,
+						Position = attack_to_right,
+						Queue = 0
 					}
 				ExecuteOrderFromTable(Order)
 				--print("attack to right x is"..attack_to_right.x)
@@ -828,14 +782,14 @@ function fangkabing(keys)
 
 			if team_number ==  DOTA_TEAM_BADGUYS  then
 				local attack_to_left = Vector(-5120 , unit_point.y,unit_point.z)
-				local Order2 = 
+				local Order2 =
 					{                                        --发送攻击指令
-						UnitIndex = target:entindex(), 
+						UnitIndex = target:entindex(),
 						OrderType = DOTA_UNIT_ORDER_ATTACK_MOVE,
-						TargetIndex = nil, 
-						AbilityIndex = 0, 
-						Position = attack_to_left, 
-						Queue = 0 
+						TargetIndex = nil,
+						AbilityIndex = 0,
+						Position = attack_to_left,
+						Queue = 0
 					}
 				ExecuteOrderFromTable(Order2)
 				--print("attack to left x is"..attack_to_left.x)
@@ -847,90 +801,83 @@ end
 
 function ReRollBuildsStart(keys)
 	local caster = keys.caster
-	local pid = caster:GetPlayerOwnerID()
-	local PlayerPosition = PlayerCalc:GetPlayerPositionByID(pid)
-	local ab = keys.ability
-	local lumber = ab:GetManaCost(-1)
+	local ability = keys.ability
 
-	if PlayerS[PlayerPosition].Lumber < lumber then
+	local playerID = caster:GetPlayerOwnerID()
+	local playerData = PlayerData:GetPlayerData(playerID)
+
+	local crystalCost = ability:GetManaCost(-1)
+	local crystal = playerData:GetCrystal()
+
+	if crystal < crystalCost then
 		caster:Stop()--caster:Interrupt()
-		BTFGeneral:ShowError(pid,"#NoEnoughLumber","General.NoGold") --警告信息
+		BTFGeneral:ShowError(playerID,"#NoEnoughLumber","General.NoGold") --警告信息
 	else
-		local build_table = Entities:FindAllByClassnameWithin("npc_dota_creature", PlayerS[PlayerPosition].StartPoint, 3000)
-		for _,build in pairs(build_table) do
-			if IsValidEntity(build) then
-				if build:IsAlive() then
-					if build:GetUnitName() == "npc_dummy_build_base" and build:GetPlayerOwnerID() == pid then
-						ab:ApplyDataDrivenModifier(caster, build, "modifier_rerollbuilds", {})
-					end
+		playerData:LookBuildings(
+			function(n, building)
+				if building:GetUnitName() == "npc_dummy_build_base" and building:GetPlayerOwnerID() == playerID then
+					ability:ApplyDataDrivenModifier(caster, building, "modifier_rerollbuilds", nil)
 				end
 			end
-		end
+		)
 	end
-	PlayerS[PlayerPosition].Lumber = PlayerS[PlayerPosition].Lumber -lumber
+
+	playerData:ModifyCrystal(-crystalCost)
 end
-function GetRandomBuild(s_type,i_old)
-	local random = RandomInt(1, #AllTypes[s_type])
-	while random == i_old do
-		random = RandomInt(1, #AllTypes[s_type])
+function GetRandomBuildingTypeName(s_type,s_old)
+	local random = AllTypes[s_type][RandomInt(1, #AllTypes[s_type])]
+	while random == s_old do
+		random = AllTypes[s_type][RandomInt(1, #AllTypes[s_type])]
 	end
 	return random
 end
 function ReRollBuilds(keys) --(施法单位，指定兵种[nil为所有兵种])
-	local caster = keys.caster 
-	local ab = keys.ability
-	local pid  = caster:GetPlayerOwnerID()
-	local PlayerPosition = PlayerCalc:GetPlayerPositionByID(pid)
+	local caster = keys.caster
+	local ability = keys.ability
+	local buildingType = keys.build_type
 
-	if keys.build_type == nil then
-		--重选全部技能 
-		local BUILD_Q = PlayerS[PlayerPosition].buildtype["Q"] --获取Q旧编号
-		local BUILD_W = PlayerS[PlayerPosition].buildtype["W"] --获取W旧编号
-		local BUILD_E = PlayerS[PlayerPosition].buildtype["E"] --获取E旧编号
-		local BUILD_D = PlayerS[PlayerPosition].buildtype["D"] --获取D旧编号
-		local BUILD_F = PlayerS[PlayerPosition].buildtype["F"] --获取F旧编号
-		local BUILD_G = PlayerS[PlayerPosition].buildtype["G"] --获取G旧编号
-		local BUILD_R = PlayerS[PlayerPosition].buildtype["R"] --获取R旧编号
-		local BUILD_X = PlayerS[PlayerPosition].buildtype["X"] --获取R旧编号
+	local playerID = caster:GetPlayerOwnerID()
+	local playerData = PlayerData:GetPlayerData(playerID)
 
-		PlayerS[PlayerPosition].buildtype["Q"] = GetRandomBuild("Q",BUILD_Q) --设置新编号
-		PlayerS[PlayerPosition].buildtype["W"] = GetRandomBuild("W",BUILD_W) --从W列表里随机 (1,x)
-		PlayerS[PlayerPosition].buildtype["E"] = GetRandomBuild("E",BUILD_E) --从E列表里随机 (1,x)
-		PlayerS[PlayerPosition].buildtype["D"] = GetRandomBuild("D",BUILD_D) --从D列表里随机 (1,x)
-		PlayerS[PlayerPosition].buildtype["F"] = GetRandomBuild("F",BUILD_F) --从F列表里随机 (1,x)
-		PlayerS[PlayerPosition].buildtype["G"] = GetRandomBuild("G",BUILD_G) --从G列表里随机 (1,x)
-		PlayerS[PlayerPosition].buildtype["R"] = GetRandomBuild("R",BUILD_R) --从R列表里随机 (1,x)
-		PlayerS[PlayerPosition].buildtype["X"] = GetRandomBuild("X",BUILD_X) --从X列表里随机 (1,x)
+	if buildingType == nil then
+		--重选全部技能
+		local BUILD_Q = playerData:GetBuildingTypeName("Q") --获取Q旧编号
+		local BUILD_W = playerData:GetBuildingTypeName("W") --获取W旧编号
+		local BUILD_E = playerData:GetBuildingTypeName("E") --获取E旧编号
+		local BUILD_D = playerData:GetBuildingTypeName("D") --获取D旧编号
+		local BUILD_F = playerData:GetBuildingTypeName("F") --获取F旧编号
+		local BUILD_G = playerData:GetBuildingTypeName("G") --获取G旧编号
+		local BUILD_R = playerData:GetBuildingTypeName("R") --获取R旧编号
+		local BUILD_X = playerData:GetBuildingTypeName("X") --获取R旧编号
+
+		playerData:SetBuildingTypeName("Q", GetRandomBuildingTypeName("Q", BUILD_Q))
+		playerData:SetBuildingTypeName("W", GetRandomBuildingTypeName("W", BUILD_W))
+		playerData:SetBuildingTypeName("E", GetRandomBuildingTypeName("E", BUILD_E))
+		playerData:SetBuildingTypeName("D", GetRandomBuildingTypeName("D", BUILD_D))
+		playerData:SetBuildingTypeName("F", GetRandomBuildingTypeName("F", BUILD_F))
+		playerData:SetBuildingTypeName("G", GetRandomBuildingTypeName("G", BUILD_G))
+		playerData:SetBuildingTypeName("R", GetRandomBuildingTypeName("R", BUILD_R))
+		playerData:SetBuildingTypeName("X", GetRandomBuildingTypeName("X", BUILD_X))
 	else
 		--重选指定技能
-		local x = PlayerS[PlayerPosition].buildtype[build_type] --获取旧编号
-		PlayerS[PlayerPosition].buildtype[build_type] = GetRandomBuild(build_type,x) --设置新编号
+		local x = playerData:GetBuildingTypeName(buildingType) --获取旧编号
+		playerData:SetBuildingTypeName(buildingType, GetRandomBuildingTypeName(buildingType, x))
 	end
 	--替换函数
-	local build_table = Entities:FindAllByClassnameWithin("npc_dota_creature", PlayerS[PlayerPosition].StartPoint, 3000)
-	for _,build in pairs(build_table) do
-		if IsValidEntity(build) then
-			if build:IsAlive() then
-				if build:GetUnitName() == "npc_dummy_build_base" and build:GetPlayerOwnerID() == pid then
-					for i=0,15 do
-						local ability = build:GetAbilityByIndex(i)
-						if ability then
-							if ability:GetAbilityName() ~= "kexuanmajia" then
-								build:RemoveAbility(ability:GetAbilityName())
-							end
-						end
-					end
-					playerstarts:RollBuilds(build) --重设技能
-					build:RemoveModifierByName("modifier_rerollbuilds")
-				end
+	playerData:UpdateBuildingsBuildAbility()
+
+	playerData:LookBuildings(
+		function(n, building)
+			if building:GetUnitName() == "npc_dummy_build_base" and building:GetPlayerOwnerID() == playerID then
+				building:RemoveModifierByName("modifier_rerollbuilds")
 			end
 		end
-	end
-	--PlayerS[PlayerPosition].Lumber = PlayerS[PlayerPosition].Lumber - ab:GetManaCost(-1)
-	if ab:GetLevel() < 7 then
+	)
+
+	if ability:GetLevel() < 7 then
 		-- print(_G.test_mode)
 		if not _G.test_mode then
-			ab:SetLevel(ab:GetLevel()+1)
+			ability:SetLevel(ability:GetLevel()+1)
 		end
 	else
 		caster:RemoveAbility("legion_rerollbuilds")
@@ -938,31 +885,33 @@ function ReRollBuilds(keys) --(施法单位，指定兵种[nil为所有兵种])
 end
 function ReRollCancel(keys)
 	local caster = keys.caster
-	local pid = caster:GetPlayerOwnerID()
-	local PlayerPosition = PlayerCalc:GetPlayerPositionByID(pid)
-	local ab = keys.ability
-	local lumber = ab:GetManaCost(-1)
-	local build_table = Entities:FindAllByClassnameWithin("npc_dota_creature", PlayerS[PlayerPosition].StartPoint, 3000)
-	for _,build in pairs(build_table) do
-		if IsValidEntity(build) then
-			if build:IsAlive() then
-				if build:GetUnitName() == "npc_dummy_build_base" and build:GetPlayerOwnerID() == pid then
-					build:RemoveModifierByName("modifier_rerollbuilds")
-				end
+	local ability = keys.ability
+
+	local playerID = caster:GetPlayerOwnerID()
+	local playerData = PlayerData:GetPlayerData(playerID)
+
+	local crystalCost = ability:GetManaCost(-1)
+
+	ability:EndCooldown()
+
+	playerData:LookBuildings(
+		function(n, building)
+			if building:GetUnitName() == "npc_dummy_build_base" and building:GetPlayerOwnerID() == playerID then
+				building:RemoveModifierByName("modifier_rerollbuilds")
 			end
 		end
-	end
-	PlayerS[PlayerPosition].Lumber = PlayerS[PlayerPosition].Lumber +lumber
-	keys.ability:EndCooldown()
+	)
+
+	playerData:ModifyCrystal(crystalCost)
 end
 
 -- function BuyHire(keys)
--- 	DeepPrintTable(keys) 
+-- 	DeepPrintTable(keys)
 -- end
 
 function zhenya(keys)
 	--local target = keys.target
-	local caster = keys.caster 
+	local caster = keys.caster
 	local point = keys.target_points[1]
 	local teams = DOTA_UNIT_TARGET_TEAM_ENEMY
 	local types = DOTA_UNIT_TARGET_BASIC
@@ -979,8 +928,8 @@ function zhenya(keys)
 	--获取范围内的单位
 	local group = FindUnitsInRadius(caster:GetTeamNumber(),point,nil,600,teams,types,flags,FIND_UNITS_EVERYWHERE,true)
 	for i,target in pairs(group) do
-		if IsValidEntity(target) then 
-			if target:IsAlive()  then  
+		if IsValidEntity(target) then
+			if target:IsAlive()  then
 				if target:HasAbility("build_base") == false then --筛除建筑单位
 					target:Kill(keys.ability, keys.caster)
 				end
@@ -989,7 +938,7 @@ function zhenya(keys)
 	end
 	caster:EmitSound("Hero_LegionCommander.Overwhelming.Location")
 	--替换技能
-	--caster:SwapAbilities("legion_zhenya","legion_nice" , false, true) 
+	--caster:SwapAbilities("legion_zhenya","legion_nice" , false, true)
 	caster:RemoveAbility("legion_zhenya")
 	AbilityManager:AddAndSet(caster,"legion_nice")
 end
@@ -998,27 +947,24 @@ end
 function NiCeStart(keys)
 	local caster = keys.caster
 	local target = keys.target
-	local playerid = caster:GetPlayerOwnerID()
+	local playerID = caster:GetPlayerOwnerID()
 
-	--local name = target:GetName() 
-
-	if target:HasItemInInventory("item_Sale_Build")  and target:GetPlayerOwnerID() == playerid then --建筑单位
+	if target:HasItemInInventory("item_Sale_Build") and target:GetPlayerOwnerID() == playerID then --建筑单位
 		-- if string.sub(name,1,10) =="npc_unit_x" then
 		-- 	--提示不能以神授单位雕像作为目标
 		-- 	caster:Stop()
 		-- else
-			-- local ab_lv = target:FindAbilityByName("Sale_Build"):GetLevel() 
+			-- local ab_lv = target:FindAbilityByName("Sale_Build"):GetLevel()
 			-- print("ab lv is "..ab_lv)
 			-- if ab_lv ~= 2 then
 			-- 	--提示 不能以还未出兵的雕像为目标
-			-- 	BTFGeneral:ShowError(playerid,"#CantTarget","General.NoGold")
-			-- 	caster:Stop() 
+			-- 	BTFGeneral:ShowError(playerID,"#CantTarget","General.NoGold")
+			-- 	caster:Stop()
 			-- end
 		-- end
-
 	else
 		--提示必须以雕像作为目标
-		BTFGeneral:ShowError(playerid,"#CantTarget","General.NoGold")
+		BTFGeneral:ShowError(playerID,"#CantTarget","General.NoGold")
 		caster:Stop()
 	end
 
@@ -1026,76 +972,86 @@ end
 
 
 function NiCeSuccess(keys)
-	local sale_build = keys.target
 	local caster = keys.caster
-	local pid = caster:GetPlayerOwnerID() 
-	local player = PlayerResource:GetPlayer(pid)
-	local PlayerPosition = PlayerCalc:GetPlayerPositionByID(pid)
-	local player_money = PlayerResource:GetGold(pid) 
-	local p = sale_build:GetAbsOrigin()
-	local sale_money = sale_build:GetContext("Sale")*2
-	local food = sale_build:GetContext("Food")
-	local score = sale_build:GetContext("Score")
-			-- print(sale_build:GetUnitName())
-	if sale_build:GetUnitName()  == "npc_unit_Q3_2z" then
-		PlayerS[PlayerPosition].hex_Q3 = false
+	local ability = keys.ability
+	local old_building = keys.target
+
+	local playerID = caster:GetPlayerOwnerID()
+	local player = PlayerResource:GetPlayer(playerID)
+	local playerData = PlayerData:GetPlayerData(playerID)
+
+	local food = old_building:GetContext("Food")
+	local score = old_building:GetContext("Score")
+	local sale = score
+
+	if old_building:GetUnitName()  == "npc_unit_Q3_2z" then
+		playerData:Save("hex_Q3", false)
 	end
----------------------创建新的建筑---------------------
-	local buildbase = UnitManager:CreateUnitByName("npc_dummy_build_base",p, false, pid, PlayerResource:GetTeam(pid))
-	buildbase:SetControllableByPlayer(pid, true) 
-	local min = GetGroundPosition(p,buildbase)
-	buildbase:SetOrigin(Vector(p.x,p.y,min.z+ 25.15))
-	buildbase:SetContextNum("Score", 0, 0)
-	buildbase:SetContextNum("Sale", 0, 0)
-	buildbase:SetContextNum("Food", 0, 0)
-	buildbase:SetBaseManaRegen(20)
-	playerstarts:RollBuilds(buildbase) --重设技能
----------------------退还金钱--------------------------------
-	PlayerResource:SetGold(pid,player_money+score, false)
----------------------金钱特效--------------------------------
-    PopupGoldGain(buildbase,math.floor(score))
-	EmitSoundOnClient("General.CoinsBig",player)  
----------------------退还人口--------------------------------
-	PlayerS[PlayerPosition].CurFood = PlayerS[PlayerPosition].CurFood - food
----------------------退还兵力--------------------------------
-	PlayerS[PlayerPosition].Score = PlayerS[PlayerPosition].Score - score
-	sale_build:RemoveSelf()
-	caster:RemoveAbility("legion_nice")
-	if PlayerResource:GetTeam(pid) == DOTA_TEAM_BADGUYS then
+
+	---------------------创建新的建筑---------------------
+	local point = old_building:GetAbsOrigin()
+
+	local building = UnitManager:CreateUnitByName("npc_dummy_build_base", point, false, playerID, PlayerResource:GetTeam(playerID))
+	building:SetControllableByPlayer(playerID, true)
+
+	--加入表处理
+	playerData:RemoveNewBuilding(old_building)
+	playerData:ReplaceBuilding(old_building, building)
+
+	local groundPoint = GetGroundPosition(point, building)
+	groundPoint.z = groundPoint.z + 25.15
+	building:SetAbsOrigin(groundPoint)
+
+	building:SetContextNum("Score", 0, 0)
+	building:SetContextNum("Sale", 0, 0)
+	building:SetContextNum("Food", 0, 0)
+
+	playerData:BuildingAddBuildAbility(building)
+	building:SetBaseManaRegen(20)
+	---------------------退还金钱--------------------------------
+	playerData:ModifyGold(sale, DOTA_ModifyGold_Unspecified)
+	---------------------金钱特效--------------------------------
+	SendOverheadEventMessage(player, OVERHEAD_ALERT_GOLD, old_building, sale, player)
+	---------------------退还人口--------------------------------
+	playerData:ModifyCurFood(-food)
+	---------------------退还兵力--------------------------------
+	playerData:ModifyScore(-score)
+	if PlayerResource:GetTeam(playerID) == DOTA_TEAM_BADGUYS then
 		GameRules.RightScore = GameRules.RightScore - score
 	else
 		GameRules.LeftScore = GameRules.LeftScore - score
 	end
 
+	old_building:RemoveSelf()
+	caster:RemoveAbility("legion_nice")
 end
 
 function gushouStart(keys)
 	local caster = keys.caster
+	local ability = keys.ability
 	local target = keys.target
-	local pid = caster:GetPlayerOwnerID()
-	local PlayerPosition = PlayerCalc:GetPlayerPositionByID(pid)
-	local Score = PlayerS[PlayerPosition].Score
 
-	if target:GetUnitName() ~= "npc_dummy_build_base" or target:GetPlayerOwnerID() ~= pid then
-		BTFGeneral:ShowError(pid,"#CantTarget","General.NoGold")
+	local playerID = caster:GetPlayerOwnerID()
+	local playerData = PlayerData:GetPlayerData(playerID)
+
+	local score = playerData:GetScore()
+
+	if target:GetUnitName() ~= "npc_dummy_build_base" or target:GetPlayerOwnerID() ~= playerID then
+		BTFGeneral:ShowError(playerID,"#CantTarget","General.NoGold")
 		caster:Stop()
 		return
 	end
-	if Score < 5000 then
-		BTFGeneral:ShowError(pid,"#NoEnoughScore5000","General.NoGold")
+
+	if score < 5000 then
+		BTFGeneral:ShowError(playerID,"#NoEnoughScore5000","General.NoGold")
 		caster:Stop()
 		return
 	end
-	local EnemyPlayerPosition
-	local team = PlayerResource:GetTeam(pid)
-	if team == DOTA_TEAM_GOODGUYS then
-		EnemyPlayerPosition = PlayerPosition + 4
-	end
-	if team == DOTA_TEAM_BADGUYS then
-		EnemyPlayerPosition = PlayerPosition - 4
-	end
-	if PlayerS[EnemyPlayerPosition].Abhere then
-		BTFGeneral:ShowError(pid,"#CantGushou","General.NoGold")
+
+	local enemyPlayerPosition = playerData:GetFrontEnemyPlayerPosition()
+	local enemyPlayerData = PlayerData:GetPlayerDataByPosition(enemyPlayerPosition)
+	if enemyPlayerData ~= nil and enemyPlayerData:IsAdherence() then
+		BTFGeneral:ShowError(playerID,"#CantGushou","General.NoGold")
 		caster:Stop()
 		return
 	end
@@ -1103,20 +1059,26 @@ end
 
 function gushou(keys)
 	local caster = keys.caster
-	local target = keys.target
-	local pid = caster:GetPlayerOwnerID()
-	local PlayerPosition = PlayerCalc:GetPlayerPositionByID(pid)
-	local vector = target:GetAbsOrigin()
+	local ability = keys.ability
+	local old_building = keys.target
 
-	PlayerS[PlayerPosition].Abhere = true
-	caster:RemoveAbility(keys.ability:GetAbilityName())
+	local playerID = caster:GetPlayerOwnerID()
+	local playerData = PlayerData:GetPlayerData(playerID)
 
-	local buildbase = UnitManager:CreateUnitByName("npc_dummy_gushoubei",vector, false, pid, PlayerResource:GetTeam(pid))
-	buildbase:SetControllableByPlayer(pid, true)
-	buildbase:SetMoveCapability(DOTA_UNIT_CAP_MOVE_NONE)
-	buildbase:SetAttackCapability(DOTA_UNIT_CAP_NO_ATTACK)
-	target:RemoveSelf()
+	local point = old_building:GetAbsOrigin()
 
+
+	local building = UnitManager:CreateUnitByName("npc_dummy_gushoubei", point, false, playerID, PlayerResource:GetTeam(playerID))
+	building:SetControllableByPlayer(playerID, true)
+	building:SetMoveCapability(DOTA_UNIT_CAP_MOVE_NONE)
+	building:SetAttackCapability(DOTA_UNIT_CAP_NO_ATTACK)
+
+	playerData:ReplaceBuilding(old_building, building)
+
+	playerData:StartAdherence(building)
+
+	old_building:RemoveSelf()
+	caster:RemoveAbility(ability:GetAbilityName())
 end
 
 function gushouCancel(keys)
@@ -1124,77 +1086,61 @@ function gushouCancel(keys)
 end
 
 function RemoveX(keys)
-	local caster = keys.target 
-	local pid  = caster:GetPlayerOwnerID()
-	local PlayerPosition = PlayerCalc:GetPlayerPositionByID(pid)
-	PlayerS[PlayerPosition].BuildTable = {"Q","W","E","D","F","G","R"}
-	--替换函数
-	local build_table = Entities:FindAllByClassnameWithin("npc_dota_creature", PlayerS[PlayerPosition].StartPoint, 3000)
-	for _,build in pairs(build_table) do
-		if IsValidEntity(build) then
-			if build:IsAlive() then
-				if build:GetUnitName() == "npc_dummy_build_base" and build:GetPlayerOwnerID() == pid then
-					for i=0,15 do
-						local ability = build:GetAbilityByIndex(i)
-						if ability then
-							if ability:GetAbilityName() ~= "kexuanmajia" then
-								build:RemoveAbility(ability:GetAbilityName())
-							end
-						end
-					end
-					playerstarts:RollBuilds(build) --重设技能
-				end
-			end
-		end
-	end
+	local caster = keys.target
+	local playerID = caster:GetPlayerOwnerID()
+	local playerData = PlayerData:GetPlayerData(playerID)
+
+	playerData:BuildingsRemoveBuildAbility("X")
 end
 
 function bannaer_remanaStart(keys)
 	local caster = keys.caster
-	local pid = caster:GetPlayerOwnerID() 
-	local PlayerPosition = PlayerCalc:GetPlayerPositionByID(pid)
-	local manaper = caster:GetManaPercent()
-	local Score = PlayerS[PlayerPosition].Score
-	local cost = keys.cost
+	local ability = keys.ability
 
-	if PlayerS[PlayerPosition].Lumber >= cost then
-		if Score <1000 then
-			BTFGeneral:ShowError(pid,"#NoEnoughScore1000","General.NoGold") --兵力不足警告信息
-			caster:Stop() --升级中断	
+	local playerID = caster:GetPlayerOwnerID()
+	local playerData = PlayerData:GetPlayerData(playerID)
+
+	local manaPer = caster:GetManaPercent()
+	local score = playerData:GetScore()
+	local crystalCost = keys.cost
+	local crystal = playerData:GetCrystal()
+
+	if crystal >= crystalCost then
+		if score < 1000 then
+			BTFGeneral:ShowError(playerID,"#NoEnoughScore1000","General.NoGold") --兵力不足警告信息
+			caster:Stop() --升级中断
 		else
-			if manaper == 100 then
-				BTFGeneral:ShowError(pid,"#BannerManaMax","General.NoGold") --魔法已满警告信息
-				caster:Stop() --升级中断	
+			if manaPer == 100 then
+				BTFGeneral:ShowError(playerID,"#BannerManaMax","General.NoGold") --魔法已满警告信息
+				caster:Stop() --升级中断
 			end
 		end
 	else
-			BTFGeneral:ShowError(pid,"#NoEnoughLumber","General.NoGold") --水晶不足警告信息
-			caster:Stop() --升级中断
+		BTFGeneral:ShowError(playerID,"#NoEnoughLumber","General.NoGold") --水晶不足警告信息
+		caster:Stop() --升级中断
 	end
-	PlayerS[PlayerPosition].Lumber = PlayerS[PlayerPosition].Lumber - cost --扣掉水晶	
+
+	playerData:ModifyCrystal(-crystalCost)
 end
 
 function bannaer_remanaCancel(keys)
 	local caster = keys.caster
-	local pid = caster:GetPlayerOwnerID() 
-	local PlayerPosition = PlayerCalc:GetPlayerPositionByID(pid)
-	local FarmerNum = PlayerS[PlayerPosition].FarmerNum
-	local money = PlayerResource:GetGold(pid) 
-	local Score = PlayerS[PlayerPosition].Score
-	local CurFood = PlayerS[PlayerPosition].CurFood
-	local FullFood = PlayerS[PlayerPosition].FullFood
-	local cost = keys.cost
----------------------退还水晶--------------------------------
-	PlayerS[PlayerPosition].Lumber = PlayerS[PlayerPosition].Lumber + cost
----------------------退还CD--------------------------------
-	keys.ability:EndCooldown()
+	local ability = keys.ability
 
+	local playerID = caster:GetPlayerOwnerID()
+	local playerData = PlayerData:GetPlayerData(playerID)
+
+	local crystalCost = keys.cost
+
+	ability:EndCooldown()
+
+	playerData:ModifyCrystal(crystalCost)
 end
 
 
 function bannaer_remanaSuccess(keys)
 	local caster = keys.caster
-	local pid = caster:GetPlayerOwnerID() 
+	local pid = caster:GetPlayerOwnerID()
 	local PlayerPosition = PlayerCalc:GetPlayerPositionByID(pid)
 	local mana = caster:GetMana()
 	caster:SetMana(mana+10)
@@ -1224,9 +1170,9 @@ end
 
 function banner_lvlupCancel(keys)
 	local caster = keys.caster
-	local pid = caster:GetPlayerOwnerID() 
+	local pid = caster:GetPlayerOwnerID()
 	local PlayerPosition = PlayerCalc:GetPlayerPositionByID(pid)
-	local money = PlayerResource:GetGold(pid) 
+	local money = PlayerResource:GetGold(pid)
 	local cost_money = keys.ability:GetGoldCost(keys.ability:GetLevel() - 1)
 ---------------------退还金钱--------------------------------
 	PlayerResource:SetGold(pid,money+cost_money, false)
@@ -1236,7 +1182,7 @@ end
 
 function banner_lvlupSuccess(keys)
 	local caster = keys.caster
-	local pid = caster:GetPlayerOwnerID() 
+	local pid = caster:GetPlayerOwnerID()
 	local PlayerPosition = PlayerCalc:GetPlayerPositionByID(pid)
 	caster:RemoveAbility("banner_lvlup")
 	AbilityManager:AddAndSet(caster,"banner_slow")
@@ -1246,17 +1192,17 @@ end
 
 function liejiu(keys)
 	--local target = keys.target
-	local caster = keys.caster 
+	local caster = keys.caster
 	-- caster:EmitSound("Ability.Ghostship.bell")
 	--替换技能
-	--caster:SwapAbilities("legion_zhenya","legion_nice" , false, true) 
+	--caster:SwapAbilities("legion_zhenya","legion_nice" , false, true)
 	caster:RemoveAbility("legion_liejiu")
 	AbilityManager:AddAndSet(caster,"legion_nice")
 end
 
 function legion_shengli(keys)
 	--local target = keys.target
-	local caster = keys.caster 
+	local caster = keys.caster
 	local duration = keys.Duration
 	local point = keys.target_points[1]
 	local teams = DOTA_UNIT_TARGET_TEAM_FRIENDLY
@@ -1273,8 +1219,8 @@ function legion_shengli(keys)
 	--获取范围内的单位
 	local group = Entities:FindAllByClassnameWithin("npc_dota_creature", point , 1200)
 	for i,target in pairs(group) do
-		if IsValidEntity(target) then 
-			if target:IsAlive()  then  
+		if IsValidEntity(target) then
+			if target:IsAlive()  then
 				if target:HasAbility("build_base") == true and target:GetPlayerOwnerID() == pid and target:GetUnitName() ~= "npc_unit_R8_00_RT" and target:GetUnitName() ~= "npc_unit_R8_10_RT" then
 					local CFunit = UnitManager:CreateUnitByBuilding(target)
 							CFunit:SetMaximumGoldBounty(0)
@@ -1303,132 +1249,4 @@ function legion_shengli(keys)
 	end
 	caster:RemoveAbility("legion_shengli")
 	AbilityManager:AddAndSet(caster,"legion_nice")
-end
-
-
-function hex_conditions(keys) --开始建筑
-	--DeepPrintTable(keys)
-	local old_build = keys.caster
-	local pid = old_build:GetPlayerOwnerID()
-	local PlayerPosition = PlayerCalc:GetPlayerPositionByID(pid)
-	local money = PlayerResource:GetGold(pid) 
-	local cost = keys.ability:GetGoldCost(keys.ability:GetLevel() - 1)--keys.GoldCost
-	local food = keys.ability:GetManaCost(keys.ability:GetLevel() - 1)--keys.Food
-	local FullFood = PlayerS[PlayerPosition].FullFood
-
-	PlayerS[PlayerPosition].CurFood = PlayerS[PlayerPosition].CurFood + food  --增加人口
-
-	local CurFood =  PlayerS[PlayerPosition].CurFood
-
-
-	if PlayerS[PlayerPosition].hex_Q3 == true then
-		BTFGeneral:ShowError(pid,"#HaveHEX","General.NoGold")
-		old_build:Stop()
-	end
-	if (CurFood > FullFood)  then
-		BTFGeneral:ShowError(pid,"#NoEnoughFood","General.NoGold") --人口不足的警告信息
-		old_build:Stop()
-	end
-
-	
-end
-
-function hex_build( keys )--建筑完成
-	local old_build = keys.caster
-	local build = keys.target
-	local pid = build:GetPlayerOwnerID()
-	local player = PlayerResource:GetPlayer(pid)--old_build.Player
-	local PlayerPosition = PlayerCalc:GetPlayerPositionByID(pid)
-	local s_building_name = build:GetUnitName()
-	local s_tech_name = string.sub(s_building_name, -5, -1)
-	local BuildPoint = keys.caster:GetAbsOrigin() 
-	local cost = keys.ability:GetGoldCost(keys.ability:GetLevel() - 1)--keys.GoldCost
-	local food = keys.ability:GetManaCost(keys.ability:GetLevel() - 1)--keys.Food
-	local money = PlayerResource:GetGold(pid) 
-	local old_sale = old_build:GetContext("Sale")
-	local old_food = old_build:GetContext("Food")
-	local old_score = old_build:GetContext("Score")
-	local FullFood = PlayerS[PlayerPosition].FullFood
-	local CurFood =  PlayerS[PlayerPosition].CurFood + food
-	local hero = PlayerS[PlayerPosition].Hero
-	--判断是什么hex
-	if keys.hex == "hex_Q3" then
-		PlayerS[PlayerPosition].hex_Q3 = true
-	end
-	--设置控制权和加入表	
-		table.insert(PlayerS[PlayerPosition].NewBuild,build)
-
-	-- --设置归属玩家和设置贩售金钱
-		--build.Player = player
-		build:SetContextNum("Sale", old_sale + cost, 0)
-		build:SetContextNum("Food", old_food + food, 0)
-		build:SetContextNum("Score", old_score + cost, 0)
-	-- --允许卖出
-		if not build:HasItemInInventory("item_Sale_Build") then
-			if build:GetUnitName() ~= "npc_unit_R8_00_RT" and build:GetUnitName() ~= "npc_unit_R8_10_RT" then
-
-				build:SetHasInventory(true)
-				local item = CreateItem("item_Sale_Build", nil, nil)
-				build:AddItem(item)
-			end
-		end
-
-			build:AddAbility(s_tech_name)
-	--兵力增加
-		PlayerS[PlayerPosition].Score = PlayerS[PlayerPosition].Score + cost
-		if PlayerResource:GetTeam(pid) == DOTA_TEAM_BADGUYS then
-			GameRules.RightScore = GameRules.RightScore + cost
-		else
-			GameRules.LeftScore = GameRules.LeftScore + cost
-		end
-
-
-		for item_index = 0,5,1 do
-			local item = hero:GetItemInSlot(item_index)
-			if item then
-				if PlayerS[PlayerPosition].Score >= 880 then
-					if item:GetName() == "item_score_1" then
-						PlayerS[PlayerPosition].ItemNum =  PlayerS[PlayerPosition].ItemNum + 1
-						hero:RemoveItem(item)
-						break
-					end	
-				end
-				if PlayerS[PlayerPosition].Score >= 6000  then
-					if item:GetName() == "item_score_2" then
-						PlayerS[PlayerPosition].ItemNum =  PlayerS[PlayerPosition].ItemNum + 1
-						hero:RemoveItem(item)
-						break
-					end	
-				end
-				if PlayerS[PlayerPosition].Score >= 9000 then
-					if item:GetName() == "item_score_3" then
-						PlayerS[PlayerPosition].ItemNum =  PlayerS[PlayerPosition].ItemNum + 1
-						hero:RemoveItem(item)
-						break
-					end	
-				end
-				if PlayerS[PlayerPosition].Score >= 12000 then
-					if item:GetName() == "item_score_4" then
-						PlayerS[PlayerPosition].ItemNum =  PlayerS[PlayerPosition].ItemNum + 1
-						hero:RemoveItem(item)
-						break
-					end	
-				end
-			end
-		end
-	--单位建筑化
-		build:SetMoveCapability(DOTA_UNIT_CAP_MOVE_NONE)
-		build:SetAttackCapability(DOTA_UNIT_CAP_NO_ATTACK) 
-		build:SetBaseManaRegen(60)
-		build:SetBaseHealthRegen(800)
-		local f_scale = build:GetModelScale()
-		build:SetModelScale(f_scale+0.25)
-		ResolveNPCPositions(build:GetAbsOrigin(), 64)
-
-	--设置高度
-		local min = GetGroundPosition(BuildPoint,build)
-
-		build:SetOrigin(Vector(BuildPoint.x,BuildPoint.y,min.z+30))
-		EmitSoundOnClient("challenge.success",player)
-
 end

@@ -3,11 +3,11 @@ if playerstarts == nil then
 end
 
 if AllPlayers == nil then
-	AllPlayers={}
+	AllPlayers = {}
 end
 
 if PlayerS == nil then
-	PlayerS={}
+	PlayerS = {}
 end
 
 --可选兵种列表
@@ -246,108 +246,161 @@ building_tech.t_tech["G8_10"] = {}
 building_tech.t_tech["G8_11"] = {}
 
 
-function playerstarts:playertable()
+Portals = Portals or {}
 
-	for i = 1,8,1 do
-	--for _, i in pairs( AllPlayers ) do
-		if PlayerS[i]== nil then
-			PlayerS[i]={}
+function playerstarts:GetPortal(playerPosition)
+	return Portals[playerPosition]
+end
+
+function playerstarts:CreatePortal()
+	if #Portals == 0 then
+		for i = 1, 8, 1 do
+			local team = DOTA_TEAM_GOODGUYS
+			if i > 4 then
+				team = DOTA_TEAM_BADGUYS
+			end
+
+			local portalEnt = Entities:FindByName(nil, "portal"..tostring(i))
+			Portals[i] = CreateUnitByName("npc_dummy_portal", portalEnt:GetAbsOrigin(), false, nil, nil, team)
 		end
-		--设置传送门马甲
-		if i <= 4 then
-			local left_p = Entities:FindByName(nil,"portal"..tostring(i))
-			local por_left = CreateUnitByName("npc_dummy_portal",left_p:GetAbsOrigin(),true, nil, nil,2)
-
-			PlayerS[i].Portal=por_left
-		end
-
-		if i >= 5 then
-			local right_p = Entities:FindByName(nil,"portal"..tostring(i))
-			local por_right = CreateUnitByName("npc_dummy_portal",right_p:GetAbsOrigin(),true, nil, nil,3)
-			PlayerS[i].Portal=por_right
-		end
-
 	end
-
 end
 
 
 function playerstarts:init(hero) --英雄登场之后准备开始运行的函数
 		--print("fst playerID is "..i)i
 				  --local player = PlayerResource:GetPlayer(i)  
-		local playerID = hero:GetPlayerOwnerID()
-		local PlayerPosition = PlayerCalc:GetPlayerPositionByID(playerID)
-		if PlayerS[PlayerPosition].Initialize == nil then
-			PlayerS[PlayerPosition].Initialize = true
-			PlayerS[PlayerPosition].Gold = 700                    --定义初始金钱 700   
-			PlayerS[PlayerPosition].MVP_TotalGold = PlayerS[PlayerPosition].MVP_TotalGold + PlayerS[PlayerPosition].Gold
-			PlayerResource:SetGold(playerID,PlayerS[PlayerPosition].Gold, false) --设置初始金钱   
+		-- local playerID = hero:GetPlayerOwnerID()
+		-- local PlayerPosition = PlayerCalc:GetPlayerPositionByID(playerID)
+		-- if PlayerS[PlayerPosition].Initialize == nil then
+		-- 	PlayerS[PlayerPosition].Initialize = true
+		-- 	PlayerS[PlayerPosition].Gold = 700                    --定义初始金钱 700   
+		-- 	PlayerS[PlayerPosition].MVP_TotalGold = PlayerS[PlayerPosition].MVP_TotalGold + PlayerS[PlayerPosition].Gold
+		-- 	PlayerResource:SetGold(playerID,PlayerS[PlayerPosition].Gold, false) --设置初始金钱   
 
-			--table.insert( AllPlayers, PlayerPosition)                                                         --加入全部玩家队伍       
-			if hero:HasInventory() then
-				for item_index = 1, 6 do
-					local item = CreateItem("item_score_"..item_index, PlayerS[PlayerPosition].Hero,PlayerS[PlayerPosition].Hero)
-					hero:AddItem(item)
-				end
-			end
+		-- 	--table.insert( AllPlayers, PlayerPosition)                                                         --加入全部玩家队伍       
+		-- 	if hero:HasInventory() then
+		-- 		for item_index = 1, 6 do
+		-- 			local item = CreateItem("item_score_"..item_index, PlayerS[PlayerPosition].Hero,PlayerS[PlayerPosition].Hero)
+		-- 			hero:AddItem(item)
+		-- 		end
+		-- 	end
 
-			local ent =  Entities:FindAllByName("player"..tostring(PlayerPosition)) --这里返回一个表
-			--print("Spawn BuildBase Done")
-			PlayerS[PlayerPosition].BuildBase = {}                                                              --设置初始的地基
-			--print("playerID is  "..player:GetPlayerID() )
-			PlayerS[PlayerPosition].buildtype = {}
-			for k,supertype in pairs(PlayerS[PlayerPosition].BuildTable) do
-				PlayerS[PlayerPosition].buildtype[supertype] = RandomInt(1, #AllTypes[supertype])
-			end
-			--设置测试兵种
-			if _G.test_mode then
-				-- PlayerS[PlayerPosition].buildtype["Q"]=3
-				PlayerS[PlayerPosition].buildtype["W"]=5
-				-- PlayerS[PlayerPosition].buildtype["E"]=1
-				-- PlayerS[PlayerPosition].buildtype["D"]=7
-				PlayerS[PlayerPosition].buildtype["F"]=2
-				-- PlayerS[PlayerPosition].buildtype["G"]=7
-				-- PlayerS[PlayerPosition].buildtype["R"]=7
-				-- PlayerS[PlayerPosition].buildtype["X"]=6
-			end
+		-- 	local ent =  Entities:FindAllByName("player"..tostring(PlayerPosition)) --这里返回一个表
+		-- 	--print("Spawn BuildBase Done")
+		-- 	PlayerS[PlayerPosition].BuildBase = {}                                                              --设置初始的地基
+		-- 	--print("playerID is  "..player:GetPlayerID() )
+		-- 	PlayerS[PlayerPosition].buildtype = {}
+		-- 	for k,supertype in pairs(PlayerS[PlayerPosition].BuildTable) do
+		-- 		PlayerS[PlayerPosition].buildtype[supertype] = RandomInt(1, #AllTypes[supertype])
+		-- 	end
+		-- 	--设置测试兵种
+		-- 	if _G.test_mode then
+		-- 		-- PlayerS[PlayerPosition].buildtype["Q"]=3
+		-- 		PlayerS[PlayerPosition].buildtype["W"]=5
+		-- 		-- PlayerS[PlayerPosition].buildtype["E"]=1
+		-- 		-- PlayerS[PlayerPosition].buildtype["D"]=7
+		-- 		PlayerS[PlayerPosition].buildtype["F"]=2
+		-- 		-- PlayerS[PlayerPosition].buildtype["G"]=7
+		-- 		-- PlayerS[PlayerPosition].buildtype["R"]=7
+		-- 		-- PlayerS[PlayerPosition].buildtype["X"]=6
+		-- 	end
 
-			for x,v in pairs (ent) do
+		-- 	for x,v in pairs (ent) do
 
-				local p = v:GetAbsOrigin()
-				local buildbase = UnitManager:CreateUnitByName("npc_dummy_build_base", p, false, playerID,PlayerResource:GetTeam(playerID)) --地基单位
-				print(buildbase)
-				local min = GetGroundPosition(p,buildbase)
-				table.insert(PlayerS[PlayerPosition].Build, buildbase)
-				--buildbase:SetOwner(hero) 
-				buildbase:SetControllableByPlayer(playerID, true)
-				--print(buildbase:GetPlayerOwnerID() )
+		-- 		local p = v:GetAbsOrigin()
+		-- 		local buildbase = UnitManager:CreateUnitByName("npc_dummy_build_base", p, false, playerID,PlayerResource:GetTeam(playerID)) --地基单位
+		-- 		-- print(buildbase)
+		-- 		local min = GetGroundPosition(p,buildbase)
+		-- 		table.insert(PlayerS[PlayerPosition].Build, buildbase)
+		-- 		--buildbase:SetOwner(hero) 
+		-- 		buildbase:SetControllableByPlayer(playerID, true)
+		-- 		--print(buildbase:GetPlayerOwnerID() )
 
-				--buildbase.Player = player --设置地基的player
-				buildbase:SetContextNum("Score", 0, 0)
-				buildbase:SetContextNum("Sale", 0, 0)
-				buildbase:SetContextNum("Food", 0, 0)
-				--local fake = CreateUnitByName("npc_dummy_build_fake", p, false, nil, nil,PlayerResource:GetTeam(playerID)) --假地基 装饰用
-				--if PlayerResource:GetTeam(playerID) == DOTA_TEAM_GOODGUYS then
-					--AbilityManager:AddAndSet( fake, "effect_build_left" )
-				--else
-					--AbilityManager:AddAndSet( fake, "effect_build_right" )
-				--end
+		-- 		--buildbase.Player = player --设置地基的player
+		-- 		buildbase:SetContextNum("Score", 0, 0)
+		-- 		buildbase:SetContextNum("Sale", 0, 0)
+		-- 		buildbase:SetContextNum("Food", 0, 0)
+		-- 		--local fake = CreateUnitByName("npc_dummy_build_fake", p, false, nil, nil,PlayerResource:GetTeam(playerID)) --假地基 装饰用
+		-- 		--if PlayerResource:GetTeam(playerID) == DOTA_TEAM_GOODGUYS then
+		-- 			--AbilityManager:AddAndSet( fake, "effect_build_left" )
+		-- 		--else
+		-- 			--AbilityManager:AddAndSet( fake, "effect_build_right" )
+		-- 		--end
 
-				buildbase:SetOrigin(Vector(min.x,min.y,min.z+ 25.15))
-				--fake:SetOrigin(Vector(min.x,min.y,min.z+ 25.15))
+		-- 		buildbase:SetOrigin(Vector(min.x,min.y,min.z+ 25.15))
+		-- 		--fake:SetOrigin(Vector(min.x,min.y,min.z+ 25.15))
 
 
 
-				playerstarts:RollBuilds(buildbase) -- （地基单位；重选哪种兵种,nil为全选；是否reroll）
-				hero:FindAbilityByName("legion_rerollbuilds"):ApplyDataDrivenModifier(hero, buildbase, "modifier_rerollbuilds", {Duration=35})
+		-- 		playerstarts:RollBuilds(buildbase) -- （地基单位；重选哪种兵种,nil为全选；是否reroll）
+		-- 		hero:FindAbilityByName("legion_rerollbuilds"):ApplyDataDrivenModifier(hero, buildbase, "modifier_rerollbuilds", {Duration=35})
 
 					
-			end
+		-- 	end
 
-			local farmer_ent = Entities:FindByName(nil, "player_"..tostring(PlayerPosition).."_farmer_1") 
-			local farmer = UnitManager:CreateUnitByName("npc_dummy_farmer", farmer_ent:GetAbsOrigin() , false, playerID,PlayerResource:GetTeam(playerID)) 
-			table.insert(PlayerS[PlayerPosition].Farmer, farmer)
+		-- 	local farmer_ent = Entities:FindByName(nil, "player_"..tostring(PlayerPosition).."_farmer_1") 
+		-- 	local farmer = UnitManager:CreateUnitByName("npc_dummy_farmer", farmer_ent:GetAbsOrigin() , false, playerID,PlayerResource:GetTeam(playerID)) 
+		-- 	table.insert(PlayerS[PlayerPosition].Farmer, farmer)
+		-- end
+
+	local playerID = hero:GetPlayerOwnerID()
+	local playerData = PlayerData:GetPlayerData(playerID)
+
+	GameRules:GetGameModeEntity():SetContextThink(DoUniqueString("telepor_later"), function() FindClearSpaceForUnit(hero, playerData:GetStartPoint(), true) end, 0.1)--传送到开始点
+
+	PlayerResource:SetCameraTarget(playerID, hero)--锁定并移动镜头
+	GameRules:GetGameModeEntity():SetContextThink(DoUniqueString("camera_later"), function() PlayerResource:SetCameraTarget(playerID, nil) end, 2)--2秒后解锁
+
+	hero:SetAbilityPoints(0)--取消技能点
+
+	for i = 0, 23 do
+		local ability = hero:GetAbilityByIndex(i)
+		if ability ~= nil then
+			if string.find(ability:GetAbilityName(), "special_bonus_") then
+				hero:RemoveAbility(ability:GetAbilityName())
+			end
+			ability:SetLevel(1)
 		end
+	end
+
+	if hero:HasInventory() then
+		for item_index = 1, 6 do
+			local item = CreateItem("item_score_"..item_index, hero, hero)
+			hero:AddItem(item)
+		end
+	end
+
+	if _G.test_mode then
+		-- playerData:SetBuildingTypeName("Q", "Q3_00")
+		playerData:SetBuildingTypeName("W", "W5_00")
+		-- playerData:SetBuildingTypeName("E", "E1_00")
+		-- playerData:SetBuildingTypeName("D", "D7_00")
+		playerData:SetBuildingTypeName("F", "F2_00")
+		-- playerData:SetBuildingTypeName("G", "G7_00")
+		-- playerData:SetBuildingTypeName("R", "R7_00")
+		-- playerData:SetBuildingTypeName("X", "X6_00")
+	end
+
+	local ent = Entities:FindAllByName("player"..tostring(playerData:GetPlayerPosition()))
+	for k,v in pairs(ent) do
+		local point = v:GetAbsOrigin()
+
+		local baseBuilding = UnitManager:CreateUnitByName("npc_dummy_build_base", point, false, playerID, PlayerResource:GetTeam(playerID))
+
+		baseBuilding:SetControllableByPlayer(playerID, true)
+
+		local groundPoint = GetGroundPosition(point, baseBuilding)
+		groundPoint.z = groundPoint.z + 25.15
+		baseBuilding:SetAbsOrigin(groundPoint)
+
+		baseBuilding:SetContextNum("Score", 0, 0)
+		baseBuilding:SetContextNum("Sale", 0, 0)
+		baseBuilding:SetContextNum("Food", 0, 0)
+
+		playerData:AddBuilding(baseBuilding)
+	end
+	playerData:UpdateBuildingsBuildAbility()
 end
 
 function playerstarts:PrintAll()

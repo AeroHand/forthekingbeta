@@ -15,6 +15,8 @@ require('PlayerData')
 --攻防
 require('GONGFANG/AandDsystem')
 require('AttacktypeAndDefensetype')
+--预设
+require('js_config')
 -- 传送函数
 --require('CHUANSONG/teleport')
 

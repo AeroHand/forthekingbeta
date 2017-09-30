@@ -638,8 +638,8 @@ end
 function jn_Q3_20z(keys)
 	local caster = keys.caster
 	local duration = keys.Duration
-	local PlayerPosition = PlayerCalc:GetPlayerPositionByID(caster:GetPlayerOwnerID())
-	if PlayerS[PlayerPosition].hex_Q3 == true then
+	local playerData = PlayerData:GetPlayerData(caster:GetPlayerOwnerID())
+	if playerData:Load("hex_Q3") == true then
 		local last_time = GameRules:GetGameTime()
 		local crazy = CreateUnitByName(caster:GetUnitName(), caster:GetOrigin(), true, caster, caster, caster:GetTeamNumber())
 		UnitManager:SummonUnit(caster,crazy)
@@ -978,7 +978,7 @@ function jn_E2_10a(keys)
 	local caster = keys.caster
 	local ab = keys.ability
 	if keys.Mode == 1 then
-		local hero = PlayerS[PlayerCalc:GetPlayerPositionByID(caster:GetPlayerOwnerID())].Hero
+		local hero = PlayerData:GetPlayerData(caster:GetPlayerOwnerID()):GetHero()
 		hero.jn_E2_10a_Vector=caster:GetOrigin()
 		keys.ability:ApplyDataDrivenModifier(hero, hero, "modifier_jn_E2_10a", nil)
 	end
@@ -1049,7 +1049,7 @@ function jn_G2_11(keys)
 	local ab = keys.ability
 	local target = keys.unit
 	if not HasLabel(target,"SummonUnit") then
-		local hero = PlayerS[PlayerCalc:GetPlayerPositionByID(caster:GetPlayerOwnerID())].Hero
+		local hero = PlayerData:GetPlayerData(caster:GetPlayerOwnerID()):GetHero()
 		local egg = CreateUnitByName("npc_unit_G2_1b_MC", caster:GetOrigin(), true, caster, caster, caster:GetTeamNumber())
 		egg:AddNewModifier(nil, nil, "modifier_phased", {})
 		local last_time = GameRules:GetGameTime()
@@ -1665,9 +1665,10 @@ function jn_F7_00(keys)
 	if target:GetUnitName() ~= "npc_unit_huweidui_left_BZ" and target:GetUnitName() ~= "npc_unit_huweidui_right_BZ" then
 		local bounty = target:GetGoldBounty()
 		if bounty ~= 0 then
-			local PlayerPosition = PlayerCalc:GetPlayerPositionByID(caster:GetPlayerOwnerID())
-			PlayerResource:SetGold(caster:GetPlayerOwnerID(), PlayerResource:GetGold(caster:GetPlayerOwnerID())+bounty, false)
-			PlayerS[PlayerPosition].MVP_TotalGold = PlayerS[PlayerPosition].MVP_TotalGold + bounty
+			local playerData = PlayerData:GetPlayerData(caster:GetPlayerOwnerID())
+
+			playerData:ModifyGold(bounty, DOTA_ModifyGold_CreepKill)
+
 			local particleId = ParticleManager:CreateParticleForTeam("particles/units/heroes/hero_alchemist/alchemist_lasthit_msg_gold.vpcf", PATTACH_ABSORIGIN_FOLLOW, caster, caster:GetTeam())
 			local presymbol = 0
 			local digits = 0

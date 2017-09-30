@@ -5,14 +5,17 @@ PlayerData = PlayerData or class(
 		--ID,位置
 		PlayerID = -1,
 		PlayerPosition = -1,
+		FrontEnemyPosition = -1,
 		StartPoint = nil,
+		EndPoint = nil,
+		MercenaryPoint = nil,
 		--英雄
 		Hero = nil,
 		--金钱，收入
 		Gold = 0,
 		BaseIncome = 0,
 		Income = 0,
-		--水晶，科技，农民
+		--水晶，水晶科技，农民
 		Crystal = 0,
 		CrystalTech = 0,
 		FarmerNum = 0,
@@ -20,6 +23,8 @@ PlayerData = PlayerData or class(
 		--食物
 		CurFood = 0,
 		FullFood = 0,
+		--科技
+		Tech = 0,
 		--兵力
 		Score = 0,
 		--军备
@@ -29,20 +34,38 @@ PlayerData = PlayerData or class(
 		Mercenaries = {},
 		NewMercenaries = {},
 		--兵种列表
-		Q = "",
-		W = "",
-		E = "",
-		D = "",
-		F = "",
-		G = "",
-		R = "",
-		X = "",
-		List = {"Q","W","E","D","F","G","R","X"},
+		BuildingTypeList = {
+			Q = "",
+			W = "",
+			E = "",
+			D = "",
+			F = "",
+			G = "",
+			R = "",
+			X = "",
+		},
+		RemovedBuildingType = {
+			Q = false,
+			W = false,
+			E = false,
+			D = false,
+			F = false,
+			G = false,
+			R = false,
+			X = false,
+		},
+		--科技建筑
+		TechBuilding = nil,
+		FoodBuilding = nil,
+		BannerBuilding = nil,
 		--建筑
 		Buildings = {},
 		NewBuildings = {},
 		--部队
 		Soliders = {},
+		--固守
+		Adherence = false,
+		AdherenceStele = nil,
 		--强化
 		ADLevel = 0,
 		HLevel = 0,
@@ -61,8 +84,11 @@ PlayerData = PlayerData or class(
 		MVP_Kills = 0,
 		MVP_TotalCrystal = 0,
 		MVP_TotalGold = 0,
+		--离开
+		IsAbandonState = false,
+		AbandonRound = 0,
 		--设置
-		ShowDamageMessage = false,
+		ShowDamage = false,
 	}
 , nil, nil)
 
@@ -86,8 +112,8 @@ end
 --遍历玩家数据实例
 function PlayerData:Look(fCallback)
 	if fCallback == nil or type(fCallback) ~= "function" then error("fCallback is missing or not a function") end
-	for playerID, data in pairs(PlayerData.t) do
-		if fCallback(playerID, data) == true then
+	for playerID, playerData in pairs(PlayerData.t) do
+		if fCallback(playerID, playerData) == true then
 			return true
 		end
 	end
@@ -98,11 +124,13 @@ function PlayerData:GetPlayerData(iPlayerID)
 end
 --通过玩家位置获取玩家数据实例
 function PlayerData:GetPlayerDataByPosition(iPlayerPosition)
+	if iPlayerPosition == nil then return nil end
+
 	local result = nil
 	PlayerData:Look(
-		function(playerID, data)
-			if data.PlayerPosition == iPlayerPosition then
-				result = data
+		function(playerID, playerData)
+			if playerData:GetPlayerPosition() == iPlayerPosition then
+				result = playerData
 				return true
 			end
 		end
@@ -123,6 +151,8 @@ function PlayerData:constructor(iPlayerID)
 	self:SetPlayerID(iPlayerID)
 
 	self:GetRankingFromServer()
+
+	self:InitStartBuildingTypeList()
 
 	self.entityKilledIndex = ListenToGameEvent("entity_killed", Dynamic_Wrap(PlayerData, "OnEntityKilled"), self)
 end
@@ -169,15 +199,33 @@ function PlayerData:SetPlayerID(iPlayerID)
 	self:UpdateNetTable()
 end
 function PlayerData:GetPlayerID()
-	return PlayerData.t[iPlayerID]
+	return self.PlayerID
 end
 --玩家位置
 function PlayerData:SetPlayerPosition(iPlayerPosition)
 	self.PlayerPosition = iPlayerPosition
+	self.FrontEnemyPlayerPosition = self.PlayerPosition + 4
+
+	local team = DOTA_TEAM_GOODGUYS
+
+	if self.PlayerPosition > 4 then
+		self.FrontEnemyPlayerPosition = self.FrontEnemyPlayerPosition - 8
+		team = DOTA_TEAM_BADGUYS
+	end
 
 	local startEnt = Entities:FindByName(nil, "portal"..tostring(self.PlayerPosition))
 	if startEnt ~= nil then
 		self.StartPoint = startEnt:GetAbsOrigin()
+	end
+
+	local endEnt = Entities:FindByName(nil, "portal"..tostring(self.FrontEnemyPlayerPosition))
+	if endEnt ~= nil then
+		self.EndPoint = endEnt:GetAbsOrigin()
+	end
+
+	local merEnt = Entities:FindByName(nil, "hire_"..tostring(self.PlayerPosition))
+	if merEnt ~= nil then
+		self.MercenaryPoint = merEnt:GetAbsOrigin()
 	end
 
 	self:UpdateNetTable()
@@ -185,21 +233,44 @@ end
 function PlayerData:GetPlayerPosition()
 	return self.PlayerPosition
 end
+function PlayerData:GetFrontEnemyPlayerPosition()
+	return self.FrontEnemyPlayerPosition
+end
 function PlayerData:GetStartPoint()
 	return self.StartPoint
+end
+function PlayerData:GetEndPoint()
+	return self.EndPoint
+end
+function PlayerData:MercenaryPoint()
+	return self.MercenaryPoint
+end
+--英雄
+function PlayerData:SetHero(hHero)
+	if hHero == nil or not IsValidEntity(hHero) then error("hHero is missing or not a CDOTA_BaseNPC_Hero") end
+
+	self.Hero = hHero
+
+	self:UpdateNetTable()
+end
+function PlayerData:GetHero()
+	return self.Hero
 end
 --金钱
 function PlayerData:SetGold(iGold)
 	self.Gold = iGold
+
 	PlayerResource:SetGold(self.PlayerID, iGold, false)
 
 	self:UpdateNetTable()
 end
 function PlayerData:ModifyGold(iGoldChange, nReason)
-	self.Gold = self.Gold + iGoldChange
-	PlayerData:ModifyGold(self.PlayerID, iGoldChange, false, nReason)
+	self:SetGold(self.Gold + iGoldChange)
+	
+	nReason = nReason or DOTA_ModifyGold_Unspecified
 
-	self:UpdateNetTable()
+	--增加总计
+	self:IncrementTotalGold(math.min(0, iGoldChange))
 end
 function PlayerData:GetGold()
 	return self.Gold
@@ -239,21 +310,17 @@ function PlayerData:SetCrystal(iCrystal)
 	self:UpdateNetTable()
 end
 function PlayerData:ModifyCrystal(iCrystalChange)
-	self.Crystal = self.Crystal + iCrystalChange
+	self:SetCrystal(self.Crystal + iCrystalChange)
 
-	self:UpdateNetTable()
+	--增加总计
+	self:IncrementTotalCrystal(math.min(0, iCrystalChange))
 end
 function PlayerData:GetCrystal()
 	return self.Crystal
 end
 --水晶科技
-function PlayerData:SetCrystalTech(iCrystalTech)
-	self.CrystalTech = iCrystalTech
-
-	self:UpdateNetTable()
-end
-function PlayerData:ModifyCrystalTech(iCrystalTechChange)
-	self.CrystalTech = self.CrystalTech + iCrystalTechChange
+function PlayerData:UpgradeCrystalTech()
+	self.CrystalTech = self.CrystalTech + 1
 
 	self:UpdateNetTable()
 end
@@ -285,6 +352,16 @@ function PlayerData:RemoveFarmer(iFarmerNum)
 
 	self:UpdateNetTable()
 end
+function PlayerData:LookFarmer(fCallback)
+	if fCallback == nil or type(fCallback) ~= "function" then error("fCallback is missing or not a function") end
+
+	for k, v in pairs(self.Farmers) do
+		if fCallback(k, v) == true then
+			return true
+		end
+	end
+	return
+end
 function PlayerData:GetFarmerNumber()
 	return self.FarmerNum
 end
@@ -315,6 +392,26 @@ end
 function PlayerData:GetFullFood()
 	return self.FullFood
 end
+--科技
+function PlayerData:UpgradeTech()
+	self.Tech = self.Tech + 1
+
+	for item_index = 0, 5, 1 do
+		local item = self.Hero:GetItemInSlot(item_index)
+		if item then
+			if self.Tech >= 1 and item:GetName() == "item_score_5" then
+				self.Hero:RemoveItem(item)
+			elseif self.Tech >= 2 and item:GetName() == "item_score_5" then
+				self.Hero:RemoveItem(item)
+			end
+		end
+	end
+
+	self:UpdateNetTable()
+end
+function PlayerData:GetTechLevel()
+	return self.Tech
+end
 --兵力
 function PlayerData:SetScore(iScore)
 	self.Score = iScore
@@ -323,6 +420,21 @@ function PlayerData:SetScore(iScore)
 end
 function PlayerData:ModifyScore(iScoreChange)
 	self.Score = self.Score + iScoreChange
+
+	for item_index = 0, 5, 1 do
+		local item = self.Hero:GetItemInSlot(item_index)
+		if item then
+			if self.Score >= 880 and item:GetName() == "item_score_1" then
+				self.Hero:RemoveItem(item)
+			elseif self.Score >= 6000 and item:GetName() == "item_score_2" then
+				self.Hero:RemoveItem(item)
+			elseif self.Score >= 9000 and item:GetName() == "item_score_3" then
+				self.Hero:RemoveItem(item)
+			elseif self.Score >= 12000 and item:GetName() == "item_score_4" then
+				self.Hero:RemoveItem(item)
+			end
+		end
+	end
 
 	self:UpdateNetTable()
 end
@@ -351,13 +463,18 @@ end
 function PlayerData:AddNewMercenary(hUnit)
 	if hUnit == nil or not IsValidEntity(hUnit) then error("hUnit is missing or not a CDOTA_BaseNPC") end
 
-	table.insert(self.NewMercenaries, hUnit)
-	table.insert(self.Mercenaries, hUnit)
+	table.insert(self.NewMercenaries, hUnit:entindex())
 
 	self:UpdateNetTable()
 end
-function PlayerData:NewMercenariesCharge()
-	self.NewMercenaries = {}
+function PlayerData:RemoveNewMercenary(hUnit)
+	if hUnit == nil or not IsValidEntity(hUnit) then error("hUnit is missing or not a CDOTA_BaseNPC") end
+
+	for i = #self.NewMercenaries, 1, -1 do
+		if self.NewMercenaries[i] == hUnit:entindex() then
+			table.remove(self.NewMercenaries, i)
+		end
+	end
 
 	self:UpdateNetTable()
 end
@@ -365,45 +482,16 @@ function PlayerData:LookNewMercenaries(fCallback)
 	if fCallback == nil or type(fCallback) ~= "function" then error("fCallback is missing or not a function") end
 
 	for k, v in pairs(self.NewMercenaries) do
-		if fCallback(k, v) == true then
+		if fCallback(k, EntIndexToHScript(v)) == true then
 			return true
 		end
 	end
 	return
 end
-function PlayerData:LookMercenaries(fCallback)
-	if fCallback == nil or type(fCallback) ~= "function" then error("fCallback is missing or not a function") end
-
-	for k, v in pairs(self.Mercenaries) do
-		if fCallback(k, v) == true then
-			return true
-		end
-	end
-	return
-end
-function PlayerData:RemoveMercenary(hUnit)
-	if hUnit == nil or not IsValidEntity(hUnit) then error("hUnit is missing or not a CDOTA_BaseNPC") end
-
-	for i = #self.NewMercenaries, 1, -1 do
-		if self.NewMercenaries[i] == hUnit then
-			table.remove(self.NewMercenaries, i)
-		end
-	end
-	for i = #self.Mercenaries, 1, -1 do
-		if self.Mercenaries[i] == hUnit then
-			table.remove(self.Mercenaries, i)
-		end
-	end
+function PlayerData:NewMercenariesCharge()
+	self.NewMercenaries = {}
 
 	self:UpdateNetTable()
-end
-function PlayerData:SetMercenaryRoad(iMercenaryRoad)
-	self.MercenaryRoad = iMercenaryRoad
-
-	self:UpdateNetTable()
-end
-function PlayerData:GetMercenaryRoad()
-	return self.MercenaryRoad
 end
 function PlayerData:IsNewMercenary(hUnit)
 	if hUnit == nil or not IsValidEntity(hUnit) then error("hUnit is missing or not a CDOTA_BaseNPC") end
@@ -420,6 +508,34 @@ function PlayerData:IsNewMercenary(hUnit)
 	)
 	return b
 end
+function PlayerData:AddMercenary(hUnit)
+	if hUnit == nil or not IsValidEntity(hUnit) then error("hUnit is missing or not a CDOTA_BaseNPC") end
+
+	table.insert(self.Mercenaries, hUnit:entindex())
+
+	self:UpdateNetTable()
+end
+function PlayerData:RemoveMercenary(hUnit)
+	if hUnit == nil or not IsValidEntity(hUnit) then error("hUnit is missing or not a CDOTA_BaseNPC") end
+
+	for i = #self.Mercenaries, 1, -1 do
+		if self.Mercenaries[i] == hUnit:entindex() then
+			table.remove(self.Mercenaries, i)
+		end
+	end
+
+	self:UpdateNetTable()
+end
+function PlayerData:LookMercenaries(fCallback)
+	if fCallback == nil or type(fCallback) ~= "function" then error("fCallback is missing or not a function") end
+
+	for k, v in pairs(self.Mercenaries) do
+		if fCallback(k, EntIndexToHScript(v)) == true then
+			return true
+		end
+	end
+	return
+end
 function PlayerData:IsMercenary(hUnit)
 	if hUnit == nil or not IsValidEntity(hUnit) then error("hUnit is missing or not a CDOTA_BaseNPC") end
 
@@ -435,14 +551,130 @@ function PlayerData:IsMercenary(hUnit)
 	)
 	return b
 end
+function PlayerData:SetMercenaryRoad(iMercenaryRoad)
+	self.MercenaryRoad = iMercenaryRoad
+
+	self:UpdateNetTable()
+end
+function PlayerData:GetMercenaryRoad()
+	return self.MercenaryRoad
+end
 --兵种列表
--- function PlayerData:
+function PlayerData:InitStartBuildingTypeList()
+	for type,name in pairs(self.BuildingTypeList) do
+		self.BuildingTypeList[type] = AllTypes[type][RandomInt(1, #AllTypes[type])]
+	end
+
+	self:UpdateNetTable()
+end
+function PlayerData:SetBuildingTypeName(sType, sName)
+	for n,name in pairs(AllTypes[sType]) do
+		if name == sName then
+			self.BuildingTypeList[sType] = sName
+			self:UpdateNetTable()
+			return true
+		end
+	end
+	return false
+end
+function PlayerData:GetBuildingTypeName(sType)
+	if sType == nil or type(sType) ~= "string" then error("sType is missing or not a string") end
+
+	return self.BuildingTypeList[sType]
+end
+function PlayerData:BuildingAddBuildAbility(hUnit)
+	if hUnit == nil or not IsValidEntity(hUnit) then error("hUnit is missing or not a CDOTA_BaseNPC") end
+
+	if not self.RemovedBuildingType["Q"] then
+		AbilityManager:AddAndSet(hUnit, self.BuildingTypeList["Q"])
+	end
+	if not self.RemovedBuildingType["W"] then
+		AbilityManager:AddAndSet(hUnit, self.BuildingTypeList["W"])
+	end
+	if not self.RemovedBuildingType["E"] then
+		AbilityManager:AddAndSet(hUnit, self.BuildingTypeList["E"])
+	end
+	if not self.RemovedBuildingType["D"] then
+		AbilityManager:AddAndSet(hUnit, self.BuildingTypeList["D"])
+	end
+	if not self.RemovedBuildingType["F"] then
+		AbilityManager:AddAndSet(hUnit, self.BuildingTypeList["F"])
+	end
+	if not self.RemovedBuildingType["G"] then
+		AbilityManager:AddAndSet(hUnit, self.BuildingTypeList["G"])
+	end
+	if not self.RemovedBuildingType["R"] then
+		AbilityManager:AddAndSet(hUnit, self.BuildingTypeList["R"])
+	end
+	if not self.RemovedBuildingType["X"] then
+		AbilityManager:AddAndSet(hUnit, self.BuildingTypeList["X"])
+	end
+end
+function PlayerData:UpdateBuildingsBuildAbility()
+	self:LookBuildings(
+		function(n, building)
+			if building:GetUnitName() == "npc_dummy_build_base" and building:GetPlayerOwnerID() == self.PlayerID then
+				for i = 0,15 do
+					local ability = building:GetAbilityByIndex(i)
+					if ability then
+						if ability:GetAbilityName() ~= "kexuanmajia" then
+							building:RemoveAbility(ability:GetAbilityName())
+						end
+					end
+				end
+				self:BuildingAddBuildAbility(building)
+			end
+		end
+	)
+end
+function PlayerData:BuildingsRemoveBuildAbility(sType)
+	self.RemovedBuildingType[sType] = true
+	self:LookBuildings(
+		function(n, building)
+			if building:GetUnitName() == "npc_dummy_build_base" and building:GetPlayerOwnerID() == self.PlayerID then
+				building:RemoveAbility(self:GetBuildingType(sType))
+			end
+		end
+	)
+
+	self:UpdateNetTable()
+end
+--科技建筑
+function PlayerData:SetTechBuilding(hUnit)
+	if hUnit == nil or not IsValidEntity(hUnit) then error("hUnit is missing or not a CDOTA_BaseNPC") end
+
+	self.TechBuilding = hUnit
+
+	self:UpdateNetTable()
+end
+function PlayerData:GetTechBuilding(hUnit)
+	return self.TechBuilding
+end
+function PlayerData:SetFoodBuilding(hUnit)
+	if hUnit == nil or not IsValidEntity(hUnit) then error("hUnit is missing or not a CDOTA_BaseNPC") end
+
+	self.FoodBuilding = hUnit
+
+	self:UpdateNetTable()
+end
+function PlayerData:GetFoodBuilding(hUnit)
+	return self.FoodBuilding
+end
+function PlayerData:SetBannerBuilding(hUnit)
+	if hUnit == nil or not IsValidEntity(hUnit) then error("hUnit is missing or not a CDOTA_BaseNPC") end
+
+	self.BannerBuilding = hUnit
+
+	self:UpdateNetTable()
+end
+function PlayerData:GetBannerBuilding(hUnit)
+	return self.BannerBuilding
+end
 --建筑
 function PlayerData:AddNewBuilding(hUnit)
 	if hUnit == nil or not IsValidEntity(hUnit) then error("hUnit is missing or not a CDOTA_BaseNPC") end
 
-	table.insert(self.NewBuildings, hUnit)
-	table.insert(self.Buildings, hUnit)
+	table.insert(self.NewBuildings, hUnit:entindex())
 
 	self:UpdateNetTable()
 end
@@ -455,33 +687,18 @@ function PlayerData:LookNewBuildings(fCallback)
 	if fCallback == nil or type(fCallback) ~= "function" then error("fCallback is missing or not a function") end
 
 	for k, v in pairs(self.NewBuildings) do
-		if fCallback(k, v) == true then
+		if fCallback(k, EntIndexToHScript(v)) == true then
 			return true
 		end
 	end
 	return
 end
-function PlayerData:LookBuildings(fCallback)
-	if fCallback == nil or type(fCallback) ~= "function" then error("fCallback is missing or not a function") end
-
-	for k, v in pairs(self.Buildings) do
-		if fCallback(k, v) == true then
-			return true
-		end
-	end
-	return
-end
-function PlayerData:RemoveBuilding(hUnit)
+function PlayerData:RemoveNewBuilding(hUnit)
 	if hUnit == nil or not IsValidEntity(hUnit) then error("hUnit is missing or not a CDOTA_BaseNPC") end
 
 	for i = #self.NewBuildings, 1, -1 do
-		if self.NewBuildings[i] == hUnit then
+		if self.NewBuildings[i] == hUnit:entindex() then
 			table.remove(self.NewBuildings, i)
-		end
-	end
-	for i = #self.Buildings, 1, -1 do
-		if self.Buildings[i] == hUnit then
-			table.remove(self.Buildings, i)
 		end
 	end
 
@@ -502,6 +719,23 @@ function PlayerData:IsNewBuilding(hUnit)
 	)
 	return b
 end
+function PlayerData:AddBuilding(hUnit)
+	if hUnit == nil or not IsValidEntity(hUnit) then error("hUnit is missing or not a CDOTA_BaseNPC") end
+
+	table.insert(self.Buildings, hUnit:entindex())
+
+	self:UpdateNetTable()
+end
+function PlayerData:LookBuildings(fCallback)
+	if fCallback == nil or type(fCallback) ~= "function" then error("fCallback is missing or not a function") end
+
+	for k, v in pairs(self.Buildings) do
+		if fCallback(k, EntIndexToHScript(v)) == true then
+			return true
+		end
+	end
+	return
+end
 function PlayerData:IsBuilding(hUnit)
 	if hUnit == nil or not IsValidEntity(hUnit) then error("hUnit is missing or not a CDOTA_BaseNPC") end
 
@@ -517,11 +751,21 @@ function PlayerData:IsBuilding(hUnit)
 	)
 	return b
 end
+function PlayerData:ReplaceBuilding(hOld, hUnit)
+	if hUnit == nil or not IsValidEntity(hUnit) then error("hUnit is missing or not a CDOTA_BaseNPC") end
+
+	for k, v in pairs(self.Buildings) do
+		if v == hOld:entindex() then
+			self.Buildings[k] = hUnit:entindex()
+			self:UpdateNetTable()
+		end
+	end
+end
 --部队
 function PlayerData:AddSolider(hUnit)
 	if hUnit == nil or not IsValidEntity(hUnit) then error("hUnit is missing or not a CDOTA_BaseNPC") end
 
-	table.insert(self.Soliders, hUnit)
+	table.insert(self.Soliders, hUnit:entindex())
 
 	self:UpdateNetTable()
 end
@@ -529,7 +773,7 @@ function PlayerData:RemoveSolider(hUnit)
 	if hUnit == nil or not IsValidEntity(hUnit) then error("hUnit is missing or not a CDOTA_BaseNPC") end
 
 	for i = #self.Soliders, 1, -1 do
-		if self.Soliders[i] == hUnit then
+		if self.Soliders[i] == hUnit:entindex() then
 			table.remove(self.Soliders, i)
 		end
 	end
@@ -540,7 +784,7 @@ function PlayerData:LookSoliders(fCallback)
 	if fCallback == nil or type(fCallback) ~= "function" then error("fCallback is missing or not a function") end
 
 	for k, v in pairs(self.Soliders) do
-		if fCallback(k, v) == true then
+		if fCallback(k, EntIndexToHScript(v)) == true then
 			return true
 		end
 	end
@@ -560,6 +804,17 @@ function PlayerData:IsSolider(hUnit)
 		end
 	)
 	return b
+end
+--固守
+function PlayerData:StartAdherence(hAdherenceStele)
+	self.AdherenceStele = hAdherenceStele
+	self.Adherence = true
+end
+function PlayerData:IsAdherence()
+	return self.Adherence
+end
+function PlayerData:GetAdherenceStele()
+	return self.AdherenceStele
 end
 --强化
 function PlayerData:UpgradeADLevel(iLevel)
@@ -669,13 +924,34 @@ function PlayerData:IncrementTotalGold(iTG)
 end
 --设置
 function PlayerData:ShowDamageMessage(bFlag)
-	self.ShowDamageMessage = bFlag
+	self.ShowDamage = bFlag
 
 	self:UpdateNetTable()
+end
+function PlayerData:IsShowDamageMessage()
+	return self.ShowDamage
+end
+function PlayerData:Abandon()
+	self.IsAbandonState = true
+	self.AbandonRound = GetRound()
+end
+function PlayerData:IsAbandon()
+	return self.IsAbandonState
 end
 --事件
 function PlayerData:OnEntityKilled(events)
 	local killed_unit = EntIndexToHScript(events.entindex_killed)
+	local killing_unit = EntIndexToHScript(events.entindex_attacker)
+
+	if killing_unit and killed_unit then
+		local killed_player = killed_unit:GetPlayerOwnerID()
+		local killing_player = killing_unit:GetPlayerOwnerID()
+		if killing_player ~= -1 and killed_player ~= -1 then
+			if not HasLabel(killed_unit, "SummonUnit") then
+				self:IncrementKills()
+			end
+		end
+	end
 
 	if killed_unit ~= nil then
 		if self:IsSolider(killed_unit) then
@@ -691,6 +967,7 @@ function PlayerData:UpdateNetTable()
 	local t = {}
 
 	t.PlayerPosition = self.PlayerPosition
+	t.FrontEnemyPosition = self.FrontEnemyPosition
 
 	t.Gold = self.Gold
 	t.BaseIncome = self.BaseIncome
@@ -707,6 +984,8 @@ function PlayerData:UpdateNetTable()
 	t.CurFood = self.CurFood
 	t.FullFood = self.FullFood
 
+	t.Tech = self.Tech
+
 	t.Score = self.Score
 
 	t.ArmsValue = self.ArmsValue
@@ -721,19 +1000,18 @@ function PlayerData:UpdateNetTable()
 		t.NewMercenaries[k] = v:entindex()
 	end
 
-	t.Buildings = {}
-	for k,v in pairs(self.Buildings) do
-		t.Buildings[k] = v:entindex()
-	end
-	t.NewBuildings = {}
-	for k,v in pairs(self.NewBuildings) do
-		t.NewBuildings[k] = v:entindex()
-	end
+	t.BuildingTypeList = self.BuildingTypeList
+	t.RemovedBuildingType = self.RemovedBuildingType
 
-	t.Soliders = {}
-	for k,v in pairs(self.Soliders) do
-		t.Soliders[k] = v:entindex()
-	end
+	if self.TechBuilding ~= nil then t.TechBuilding = self.TechBuilding:entindex() end
+	if self.FoodBuilding ~= nil then t.FoodBuilding = self.FoodBuilding:entindex() end
+	if self.BannerBuilding ~= nil then t.BannerBuilding = self.BannerBuilding:entindex() end
+	t.Buildings = self.Buildings
+	t.NewBuildings = self.NewBuildings
+
+	t.Soliders = self.Soliders
+
+	t.Adherence = self.Adherence
 
 	t.ADLevel = self.ADLevel
 	t.HLevel = self.HLevel
@@ -751,6 +1029,9 @@ function PlayerData:UpdateNetTable()
 	t.MVP_Kills = self.MVP_Kills
 	t.MVP_TotalCrystal = self.MVP_TotalCrystal
 	t.MVP_TotalGold = self.MVP_TotalGold
+
+	t.IsAbandonState = self.IsAbandonState
+	t.AbandonRound = self.AbandonRound
 
 	t.ShowDamageMessage = self.ShowDamageMessage
 

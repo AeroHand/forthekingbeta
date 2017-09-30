@@ -77,33 +77,37 @@ function FoodHideTooltip()
 {
 	$.DispatchEvent( "DOTAHideTitleTextTooltip",$("#Food"));
 }
-function GetStatesByLua(data)
+function UpdateData(tableName, keyName, table)
 {
-	Ps_Gold=data.gold;
-	Ps_Crystal=data.crystal;
-	Ps_BaseIncome=data.baseincome;
-	Ps_Income=data.income;
-	Ps_Score=data.score;
-	Ps_Worker=data.woker;
-	Ps_Tech=data.tech;
-	Ps_Food_count=data.food_count;
-	Ps_Food_max=data.food_max;
-	Ps_Ranking_level=data.ranking_level;
-	Ps_Ranking_appellation=data.ranking_appellation;
-	Ps_Ranking_score=data.ranking_score;
-	Ps_Ranking_rank=data.ranking_rank;
-	$("#Gold_count").text = Ps_Gold;
-	$("#Crystal_count").text = Ps_Crystal;
-	$("#Income_count").text = Ps_Income+Ps_BaseIncome;
-	$("#Score_count").text = Ps_Score;
-	$("#Worker_count").text = Ps_Worker;
-	$("#Tech_count").text = Ps_Tech;
-	$("#Food_count").text = Ps_Food_count;
-	$("#Food_max").text = Ps_Food_max;
-	$("#LevelNumber").text = Ps_Ranking_level;
-	$("#RankingAppellation").text = $.Localize("#ranking_level_appellation_"+Ps_Ranking_appellation);
-	$("#RankingScore").text = $.Localize("#Ranking_score")+Ps_Ranking_score;
-	$("#Rank").text = $.Localize("#Ranking_rank")+Ps_Ranking_rank;
+	if (keyName == ("Player_"+Players.GetLocalPlayer()))
+	{
+		var playerData = table;
+		Ps_Gold = playerData.Gold;
+		Ps_Crystal = playerData.Crystal;
+		Ps_BaseIncome = playerData.BaseIncome;
+		Ps_Income = playerData.Income;
+		Ps_Score = playerData.Score;
+		Ps_Worker = playerData.FarmerNum;
+		Ps_Tech = playerData.CrystalTech;
+		Ps_Food_count = playerData.CurFood;
+		Ps_Food_max = playerData.FullFood;
+		Ps_Ranking_level = playerData.RankingLevel;
+		Ps_Ranking_appellation = playerData.RankingAppellation;
+		Ps_Ranking_score = playerData.RankingScore;
+		Ps_Ranking_rank = playerData.RankingRank;
+		$("#Gold_count").text = Ps_Gold;
+		$("#Crystal_count").text = Ps_Crystal;
+		$("#Income_count").text = Ps_Income+Ps_BaseIncome;
+		$("#Score_count").text = Ps_Score;
+		$("#Worker_count").text = Ps_Worker;
+		$("#Tech_count").text = Ps_Tech;
+		$("#Food_count").text = Ps_Food_count;
+		$("#Food_max").text = Ps_Food_max;
+		$("#LevelNumber").text = Ps_Ranking_level;
+		$("#RankingAppellation").text = $.Localize("#ranking_level_appellation_"+Ps_Ranking_appellation);
+		$("#RankingScore").text = $.Localize("#Ranking_score")+Ps_Ranking_score;
+		$("#Rank").text = $.Localize("#Ranking_rank")+Ps_Ranking_rank;
+	}
 }
 function ChangeSelectedUnit(data)
 {
@@ -112,9 +116,9 @@ function ChangeSelectedUnit(data)
 }
 (function()
 {
-	var playerid = Players.GetLocalPlayer();
-	var steam_id = Game.GetPlayerInfo(playerid).player_steamid;
-	GameEvents.SendCustomGameEventToServer("get_rank_state", {steamid:steam_id});
+	// var playerid = Players.GetLocalPlayer();
+	// var steam_id = Game.GetPlayerInfo(playerid).player_steamid;
+	// GameEvents.SendCustomGameEventToServer("get_rank_state", {steamid:steam_id});
 	// $.AsyncWebRequest( 'http://121.40.172.247:8080/ftk/ranking/get?player_id='+steam_id+'&hehe='+Math.random(), 
 	// {
 	// 	type: 'GET',
@@ -134,7 +138,7 @@ function ChangeSelectedUnit(data)
 	// 		}
 	// 	}
 	// });
-	GameEvents.Subscribe("updateplayerstates", GetStatesByLua);
+	CustomNetTables.SubscribeNetTableListener("PlayerData", UpdateData);
 	GameEvents.Subscribe( "dota_player_update_selected_unit", ChangeSelectedUnit );
 	GameEvents.Subscribe( "dota_player_update_query_unit", ChangeSelectedUnit );
 })();

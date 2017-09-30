@@ -13,15 +13,14 @@ require('require_everything')
 require('UNITS/king')
 
 _G.test_mode = true
-_G.Rank_mode = true
-_G.MaxPlayerCount = 6
-_G.FirstBlood = false
+_G.Rank_mode = _G.Rank_mode or true
+_G.MaxPlayerCount = _G.MaxPlayerCount or 6
+_G.FirstBlood = _G.FirstBlood or false
 _G.WinnerTeam = DOTA_TEAM_GOODGUYS
-_G.Match_id = 0
+_G.Match_id = _G.Match_id or 0
 _G.Vesion = "v1.11"
-_G.PlayerCount = 0
+_G.PlayerCount = _G.PlayerCount or 0
 wushuang = require('md5')
-json = require('dkjson')
 
 -------------------------------------------------------------------------------------------------------------------
 local function PrecacheSound(sound, context )
@@ -1416,30 +1415,35 @@ function CbtfGameMode:InitGameMode()
 	ListenToGameEvent("dota_unit_event", Dynamic_Wrap(CbtfGameMode, "OnEvent"), self) 	--???
 	ListenToGameEvent('player_disconnect', Dynamic_Wrap(CbtfGameMode, 'OnPlayerDisconnect'), self)
 	ListenToGameEvent("player_reconnected", Dynamic_Wrap(CbtfGameMode, "OnPlayerReconnected" ), self ) --玩家重连事件
+	ListenToGameEvent("player_connect_full", Dynamic_Wrap(CbtfGameMode, "OnPlayerConnectFull"), self)
 	-- ListenToGameEvent("entity_hurt", Dynamic_Wrap(CbtfGameMode, "OnEntityHurt"), self) --伤害事件
 --添加伤害事件
 
 	CustomGameEventManager:RegisterListener("item_purchased", ItemPurchased)
 	CustomGameEventManager:RegisterListener("boss_levelup", BossLevelup)
 	CustomGameEventManager:RegisterListener("set_boss_controllable", SetBossControllableEvent)
-	CustomGameEventManager:RegisterListener("get_rank_state", GetPlayerRankState)
 	CustomGameEventManager:RegisterListener("reroll", Reroll)
 	CustomGameEventManager:RegisterListener("update_player_settings", UpdatePlayerSettings)
 
 	GameRules:GetGameModeEntity():SetExecuteOrderFilter( Dynamic_Wrap( CbtfGameMode, "ExecuteOrderFilter" ), self )
 	GameRules:GetGameModeEntity():SetDamageFilter( Dynamic_Wrap( CbtfGameMode, "DamageFilter" ),self)
 	GameRules:GetGameModeEntity():SetModifyGoldFilter( Dynamic_Wrap( CbtfGameMode, "ModifyGoldFilter" ),self)
-
 end
+
+function CbtfGameMode:OnPlayerConnectFull(keys)
+	PlayerData(keys.PlayerID)
+end
+
 function CbtfGameMode:OnPlayerDisconnect( keys )
 	GameRules:GetGameModeEntity():SetContextThink("abandon",
 		function()
-			for _,PlayerPosition in pairs(AllPlayers) do
-				if not PlayerS[PlayerPosition].Abandon and PlayerResource:GetConnectionState(PlayerCalc:GetPlayerIDByPosition(PlayerPosition)) == DOTA_CONNECTION_STATE_ABANDONED then
-					PlayerS[PlayerPosition].Abandon = true
-					PlayerS[PlayerPosition].AbandonRound = GetRound()
+			PlayerData:Look(
+				function(playerID, playerData)
+					if not playerData:IsAbandon() and PlayerResource:GetConnectionState(playerID) == DOTA_CONNECTION_STATE_ABANDONED then
+						playerData:Abandon()
+					end
 				end
-			end
+			)
 			return 1
 		end
 	,1)
@@ -1454,92 +1458,62 @@ function CbtfGameMode:ModifyGoldFilter( filterTable )
 	-- reliable
 	-- player_id_const
 	-- gold
-	if filterTable.reason_const == 13 and filterTable.gold > 0 then
-		local PlayerPosition = PlayerCalc:GetPlayerPositionByID(filterTable.player_id_const)
-		if PlayerPosition then
-			PlayerS[PlayerPosition].MVP_TotalGold = PlayerS[PlayerPosition].MVP_TotalGold + filterTable.gold
-		end
+	local playerData = PlayerData:GetPlayerData(filterTable.player_id_const)
+	if playerData ~= nil then
+		playerData:ModifyGold(filterTable.gold, filterTable.reason_const)
 	end
-
-	-- if filterTable.reason_const == 6 and filterTable.gold > 0 then
-	-- 	local PlayerPosition = PlayerCalc:GetPlayerPositionByID(filterTable.player_id_const)
-	-- 	if PlayerPosition then
-	-- 		if PlayerS[PlayerPosition].Lumber < 100 then
-	-- 		BTFGeneral:ShowError(hero:GetPlayerOwnerID(),"#OnlyCommanderCanTakeArmaments","General.NoGold") --警告信息
-	-- 		return false
-	-- 		end
-	-- 	end
-	-- end
 
 	return true
 end
 
 function UpdatePlayerSettings(index,keys)
-	local pid = keys.PlayerID
-	local PlayerPosition = PlayerCalc:GetPlayerPositionByID(pid)
+	local playerID = keys.PlayerID
+	local playerData = PlayerData:GetPlayerData(playerID)
 
 	if keys.show_damage_message then
-		PlayerS[PlayerPosition].show_damage_message = (keys.show_damage_message == 1)
+		playerData:ShowDamageMessage((keys.show_damage_message == 1))
 	end
 end
 
 function Reroll(index,keys)
 	local pid = keys.PlayerID
-	local PlayerPosition = PlayerCalc:GetPlayerPositionByID(pid)
+	local playerData = PlayerData:GetPlayerData(pid)
 	--重选全部技能 
-	local BUILD_Q = PlayerS[PlayerPosition].buildtype["Q"] --获取Q旧编号
-	local BUILD_W = PlayerS[PlayerPosition].buildtype["W"] --获取W旧编号
-	local BUILD_E = PlayerS[PlayerPosition].buildtype["E"] --获取E旧编号
-	local BUILD_D = PlayerS[PlayerPosition].buildtype["D"] --获取D旧编号
-	local BUILD_F = PlayerS[PlayerPosition].buildtype["F"] --获取F旧编号
-	local BUILD_G = PlayerS[PlayerPosition].buildtype["G"] --获取G旧编号
-	local BUILD_R = PlayerS[PlayerPosition].buildtype["R"] --获取R旧编号
-	local BUILD_X = PlayerS[PlayerPosition].buildtype["X"] --获取R旧编号
+	local BUILD_Q = playerData:GetBuildingTypeName("Q") --获取Q旧编号
+	local BUILD_W = playerData:GetBuildingTypeName("W") --获取W旧编号
+	local BUILD_E = playerData:GetBuildingTypeName("E") --获取E旧编号
+	local BUILD_D = playerData:GetBuildingTypeName("D") --获取D旧编号
+	local BUILD_F = playerData:GetBuildingTypeName("F") --获取F旧编号
+	local BUILD_G = playerData:GetBuildingTypeName("G") --获取G旧编号
+	local BUILD_R = playerData:GetBuildingTypeName("R") --获取R旧编号
+	local BUILD_X = playerData:GetBuildingTypeName("X") --获取R旧编号
 
 	if keys.Q == 1 then
-		PlayerS[PlayerPosition].buildtype["Q"] = GetRandomBuild("Q",BUILD_Q) --设置新编号
+		playerData:SetBuildingTypeName("Q", GetRandomBuildingTypeName("Q", BUILD_Q))
 	end
 	if keys.W == 1 then
-		PlayerS[PlayerPosition].buildtype["W"] = GetRandomBuild("W",BUILD_W) --从W列表里随机 (1,x)
+		playerData:SetBuildingTypeName("W", GetRandomBuildingTypeName("W", BUILD_W))
 	end
 	if keys.E == 1 then
-		PlayerS[PlayerPosition].buildtype["E"] = GetRandomBuild("E",BUILD_E) --从E列表里随机 (1,x)
+		playerData:SetBuildingTypeName("E", GetRandomBuildingTypeName("E", BUILD_E))
 	end
 	if keys.D == 1 then
-		PlayerS[PlayerPosition].buildtype["D"] = GetRandomBuild("D",BUILD_D) --从D列表里随机 (1,x)
+		playerData:SetBuildingTypeName("D", GetRandomBuildingTypeName("D", BUILD_D))
 	end
 	if keys.F == 1 then
-		PlayerS[PlayerPosition].buildtype["F"] = GetRandomBuild("F",BUILD_F) --从F列表里随机 (1,x)
+		playerData:SetBuildingTypeName("F", GetRandomBuildingTypeName("F", BUILD_F))
 	end
 	if keys.G == 1 then
-		PlayerS[PlayerPosition].buildtype["G"] = GetRandomBuild("G",BUILD_G) --从G列表里随机 (1,x)
+		playerData:SetBuildingTypeName("G", GetRandomBuildingTypeName("G", BUILD_G))
 	end
 	if keys.R == 1 then
-		PlayerS[PlayerPosition].buildtype["R"] = GetRandomBuild("R",BUILD_R) --从R列表里随机 (1,x)
+		playerData:SetBuildingTypeName("R", GetRandomBuildingTypeName("R", BUILD_Q))
 	end
 	if keys.X == 1 then
-		PlayerS[PlayerPosition].buildtype["X"] = GetRandomBuild("X",BUILD_X) --从X列表里随机 (1,x)
+		playerData:SetBuildingTypeName("X", GetRandomBuildingTypeName("X", BUILD_Q))
 	end
 	--替换函数
-	local build_table = Entities:FindAllByClassnameWithin("npc_dota_creature", PlayerS[PlayerPosition].StartPoint, 3000)
-	for _,build in pairs(build_table) do
-		if IsValidEntity(build) then
-			if build:IsAlive() then
-				if build:GetUnitName() == "npc_dummy_build_base" and build:GetPlayerOwnerID() == pid then
-					for i=0,15 do
-						local ability = build:GetAbilityByIndex(i)
-						if ability then
-							if ability:GetAbilityName() ~= "kexuanmajia" then
-								build:RemoveAbility(ability:GetAbilityName())
-							end
-						end
-					end
-					playerstarts:RollBuilds(build) --重设技能
-					build:RemoveModifierByName("modifier_rerollbuilds")
-				end
-			end
-		end
-	end
+	playerData:UpdateBuildingsBuildAbility()
 end
 function GetPlayerLevelAndAppellation(score,rank,per)
 	local level = 101 - math.ceil((per or 1)*100)
@@ -1576,28 +1550,7 @@ function GetPlayerLevelAndAppellation(score,rank,per)
 	end
 	return level,appellation
 end
-function GetPlayerRankState(index,keys)
-	local pid = keys.PlayerID
-	local PlayerPosition = PlayerCalc:GetPlayerPositionByID(pid)
-	PlayerS[PlayerPosition].steamid = keys.steamid
-	local url = "http://www.dota2rpg.com/game_wz1/wz_get_ladderpoints.php?playerid="..keys.steamid.."&hehe="..math.random()
-	local req = CreateHTTPRequestScriptVM("GET", url)
-	req:Send(
-		function (result)
-			local keys = json.decode(result.Body)
-			if keys then
-				if keys.err ~= 1300 then
-					local playerrank = tonumber(keys.rank)
-					PlayerS[PlayerPosition].ranking_score = keys.score
-					PlayerS[PlayerPosition].ranking_rank = playerrank
-					PlayerS[PlayerPosition].ranking_total = keys.total
-					PlayerS[PlayerPosition].ranking_per = keys.per
-					PlayerS[PlayerPosition].ranking_level,PlayerS[PlayerPosition].ranking_appellation = GetPlayerLevelAndAppellation(keys.score,playerrank,keys.per)
-				end
-			end
-		end
-	)
-end
+
 --游戏结束传递信息到UI
 function ComputeAndSendPlayerStates()
 	if GetRound() < 10 then
@@ -1696,12 +1649,12 @@ function ComputeAndSendPlayerStates()
 			end
 			rank_add_score[i] = rank_basic_score_s + rank_extra_score + math.abs(rank_extra_score)*rank_level_coefficient
 			if PlayerS[i].steamid then
-				local match_id = _G.Match_id .. string.sub(tostring(PlayerS[i].steamid),-10,-1)
+				local match_id = _G.Match_id
 				-- print("match_id: "..match_id)
 				local url= "http://www.dota2rpg.com/game_wz1/wz_set_ladderpoints.php?"
 				url = url .. "playerid=" .. PlayerS[i].steamid
 				url = url .. "&points=" .. rank_add_score[i]
-				url = url .. "&match_id=" .. match_id
+				url = url .. "&match_id=" .. _G.Match_id
 				url = url .. "&wu_shuang=" .. wushuang.sumhexa(match_id)
 				url = url .. "&hehe=" .. RandomInt(1000, 9999)
 				local req = CreateHTTPRequestScriptVM("GET", url)
@@ -1821,12 +1774,10 @@ function CbtfGameMode:DamageFilter( filterTable )
 				local damaged_hero
 				local source_hero
 				if damaged_unit:GetPlayerOwnerID() ~= -1 then
-					local PlayerPosition = PlayerCalc:GetPlayerPositionByID(damaged_unit:GetPlayerOwnerID())
-					damaged_hero = PlayerS[PlayerPosition].Hero
+					damaged_hero = PlayerData:GetPlayerData(damaged_unit:GetPlayerOwnerID()):GetHero()
 				end
 				if source_unit:GetPlayerOwnerID() ~= -1 then
-					local PlayerPosition = PlayerCalc:GetPlayerPositionByID(source_unit:GetPlayerOwnerID())
-					source_hero = PlayerS[PlayerPosition].Hero
+					source_hero = PlayerData:GetPlayerData(source_unit:GetPlayerOwnerID()):GetHero()
 				end
 				--吸血技能
 				local lifesteal = 0--总
@@ -1899,18 +1850,18 @@ function CbtfGameMode:DamageFilter( filterTable )
 			end
 			if damaged_unit == king_left or damaged_unit == king_right then
 				if source_unit:GetPlayerOwnerID() ~= -1 then
-					local PlayerPosition = PlayerCalc:GetPlayerPositionByID(source_unit:GetPlayerOwnerID())
-					PlayerS[PlayerPosition].MVP_DamageToKing = PlayerS[PlayerPosition].MVP_DamageToKing + filterTable.damage
+					PlayerData:GetPlayerData(source_unit:GetPlayerOwnerID()):IncrementDamageToKing(filterTable.damage)
 				end
 			end
 		end
 		if PlayerResource:IsValidPlayer(source_unit:GetPlayerOwnerID()) then
-			for _, PlayerPosition in pairs(AllPlayers) do
-				local pid = PlayerCalc:GetPlayerIDByPosition(PlayerPosition)
-				if PlayerResource:IsValidPlayer(pid) and PlayerS[PlayerPosition].show_damage_message == true then
-					SendOverheadEventMessage(PlayerResource:GetPlayer(pid), OVERHEAD_ALERT_DAMAGE, damaged_unit, filterTable.damage, nil)
+			PlayerData:Look(
+				function(playerID, playerData)
+					if PlayerResource:IsValidPlayer(playerID) and playerData:IsShowDamageMessage() == true then
+						SendOverheadEventMessage(PlayerResource:GetPlayer(playerID), OVERHEAD_ALERT_DAMAGE, damaged_unit, filterTable.damage, nil)
+					end
 				end
-			end
+			)
 		end
 	end
 	return true
@@ -2257,6 +2208,7 @@ function CbtfGameMode:ExecuteOrderFilter( filterTable )
 			BTFGeneral:ShowError(hero:GetPlayerOwnerID(),"#OnlyCommanderCanTakeArmaments","General.NoGold") --警告信息
 			return false
 		end
+
 		local itemname_levelup = levelupitemtable[filterTable.entindex_ability] or ""
 		local itemname_s = ItemName[filterTable.entindex_ability] or ""
 		if not hero:HasItemInInventory(itemname_levelup) then
@@ -2276,44 +2228,46 @@ function CbtfGameMode:ExecuteOrderFilter( filterTable )
 				end
 			end
 		end
-		local heroPlayerPosition = PlayerCalc:GetPlayerPositionByID(hero:GetPlayerOwnerID())
-		local i = 1
-		local iMax = 4
-		if hero:GetTeamNumber() == DOTA_TEAM_BADGUYS then
-			i = 5
-			iMax = 8
-		end
-		for PlayerPosition=i,iMax,1 do
-			if PlayerS[PlayerPosition].Hero and PlayerPosition ~= heroPlayerPosition then
-				for i=0,5,1 do
-					local item = PlayerS[PlayerPosition].Hero:GetItemInSlot(i)
-					if item then
-						if LevelItemName[item:GetName()] == itemname_s then
-							BTFGeneral:ShowError(hero:GetPlayerOwnerID(),"#TeamHasArmaments","General.NoGold") --警告信息
-							return false
+
+		--队伍判断
+		local teamHasArmaments = false
+		PlayerData:Look(
+			function(playerID, playerData)
+				if PlayerResource:GetTeam(playerID) == hero:GetTeamNumber() and playerID ~= hero:GetPlayerOwnerID() then
+					local _hero = playerData:GetHero()
+					for i = 0, 5, 1 do
+						local item = _hero:GetItemInSlot(i)
+						if item then
+							if LevelItemName[item:GetName()] == itemname_s then
+								teamHasArmaments = true
+								return true
+							end
 						end
 					end
 				end
 			end
+		)
+		if teamHasArmaments then
+			BTFGeneral:ShowError(hero:GetPlayerOwnerID(),"#TeamHasArmaments","General.NoGold") --警告信息
+			return false
 		end
 	end
 	--卖出军备判断
 	if filterTable.order_type == 17 then
 
 		local hero = EntIndexToHScript(filterTable.units["0"])
-		local PlayerPosition = PlayerCalc:GetPlayerPositionByID(hero:GetPlayerOwnerID())
+		local playerData = PlayerData:GetPlayerData(hero:GetPlayerOwnerID())
 		if not IsCommander(hero) then
 			BTFGeneral:ShowError(hero:GetPlayerOwnerID(),"#OnlyCommanderCanTakeArmaments","General.NoGold") --警告信息
 			return false
 		end
 
-		if PlayerPosition then
-			if PlayerS[PlayerPosition].Lumber < 300 then
+		if playerData then
+			if playerData:GetCrystal() < 300 then
 				BTFGeneral:ShowError(hero:GetPlayerOwnerID(),"#SellItemLumberEnough","General.NoGold") --警告信息
 				return false
 			else
-				PlayerS[PlayerPosition].Lumber = PlayerS[PlayerPosition].Lumber - 300
-				return true
+				playerData:ModifyCrystal(-300)
 			end
 		end
 	end
@@ -2322,17 +2276,13 @@ function CbtfGameMode:ExecuteOrderFilter( filterTable )
 end
 --触发事件 游戏规则改变
 function CbtfGameMode:OnGameRulesStateChange( keys )
-	-- print("OnGameRulesStateChange")
-	-- DeepPrintTable(keys)    --详细打印传递进来的表
 	--获取游戏进度
 	local newState = GameRules:State_Get()
-	if newState==DOTA_GAMERULES_STATE_INIT then
-	--初始化
-		runTable()
-	elseif newState==DOTA_GAMERULES_STATE_HERO_SELECTION then
+	if newState == DOTA_GAMERULES_STATE_INIT then
+	elseif newState == DOTA_GAMERULES_STATE_HERO_SELECTION then
 	--开始选择英雄
-		_G.PlayerCount = PlayerResource:GetPlayerCountForTeam(DOTA_TEAM_GOODGUYS)+PlayerResource:GetPlayerCountForTeam(DOTA_TEAM_BADGUYS)
-		if _G.PlayerCount<4 then
+		_G.PlayerCount = PlayerResource:GetPlayerCountForTeam(DOTA_TEAM_GOODGUYS) + PlayerResource:GetPlayerCountForTeam(DOTA_TEAM_BADGUYS)
+		if _G.PlayerCount < 4 then
 			_G.Rank_mode = false
 		end
 		local PlayerPosition1 = 0
@@ -2359,124 +2309,106 @@ function CbtfGameMode:OnGameRulesStateChange( keys )
 	elseif newState==DOTA_GAMERULES_STATE_PRE_GAME then
 	--游戏准备
 		--GameRules:SendCustomMessage("#ConfirmList", -1, 0)
-		playerstarts:playertable()
+		playerstarts:CreatePortal()
 	elseif newState == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
 	--游戏开始
-		_G.Match_id = RandomInt(100000000, 999999999)
+		_G.Match_id = GameRules:GetMatchID()
 		-- print(_G.Match_id)
-		for _, i in pairs( AllPlayers ) do
-			local pid = PlayerS[i].playerid
-			--local Player = PlayerResource:GetPlayer(pid)
-			--test
-			if not IsValidEntity(PlayerS[i].Hero) then 
-				PlayerS[i].Hero = CreateHeroForPlayer(GetRandomCommanderName(), PlayerResource:GetPlayer(pid))
-				PlayerS[i].Hero.SetControllableByPlayer(pid, true)
-				--Player:MakeRandomHeroSelection()
-			end
-			local lib_ent = Entities:FindByName(nil, "player_"..tostring(i).."_farmer_4")   --player_i_lib
-			PlayerS[i].Lib = UnitManager:CreateUnitByName("npc_dummy_lib", lib_ent:GetAbsOrigin() , false, pid, PlayerResource:GetTeam(pid)) 
-			PlayerS[i].Lib:SetControllableByPlayer(pid, true)
-			PlayerS[i].Lib:SetContextThink(DoUniqueString("lib"),
-				function()
-					PlayerS[i].Lib:SetOwner(PlayerS[i].Hero)
-					PlayerS[i].Lib:SetControllableByPlayer(pid, true)
-					return 2
+		PlayerData:Look(
+			function(playerID, playerData)
+				local playerPosition = playerData:GetPlayerPosition()
+
+				if playerData:GetHero() == nil and PlayerResource:IsValidPlayer(playerID) then
+					local hero = CreateHeroForPlayer(GetRandomCommanderName(), PlayerResource:GetPlayer(playerID))
+					hero:SetControllableByPlayer(playerID, true)
+					playerData:SetHero(hero)
 				end
-			,2)
 
-			local pig_ent = Entities:FindByName(nil, "player_"..tostring(i).."_farmer_3")   --player_i_lib
-			PlayerS[i].Pig = UnitManager:CreateUnitByName("npc_dummy_pig", pig_ent:GetAbsOrigin() , false, pid, PlayerResource:GetTeam(pid)) 
-			PlayerS[i].Pig:SetControllableByPlayer(pid, true)
-			PlayerS[i].Pig:SetContextThink(DoUniqueString("pig"),
-				function()
-					PlayerS[i].Pig:SetOwner(PlayerS[i].Hero)
-					PlayerS[i].Pig:SetControllableByPlayer(pid, true)
-					return 2
+				local ent = Entities:FindByName(nil, "player_"..tostring(playerPosition).."_farmer_4")
+				local techBuilding = UnitManager:CreateUnitByName("npc_dummy_lib", ent:GetAbsOrigin(), false, playerID, PlayerResource:GetTeam(playerID))
+				techBuilding:SetControllableByPlayer(playerID, true)
+				playerData:SetTechBuilding(techBuilding)
+
+				local ent = Entities:FindByName(nil, "player_"..tostring(playerPosition).."_farmer_3")
+				local foodBuilding = UnitManager:CreateUnitByName("npc_dummy_pig", ent:GetAbsOrigin(), false, playerID, PlayerResource:GetTeam(playerID))
+				foodBuilding:SetControllableByPlayer(playerID, true)
+				playerData:SetFoodBuilding(foodBuilding)
+
+				local ent = Entities:FindByName(nil, "player_"..tostring(playerPosition).."_farmer_2")
+				local bannerBuilding = UnitManager:CreateUnitByName("npc_dummy_banner", ent:GetAbsOrigin(), false, playerID, PlayerResource:GetTeam(playerID))
+				bannerBuilding:SetControllableByPlayer(playerID, true)
+				if PlayerResource:GetTeam(playerID) == DOTA_TEAM_BADGUYS then
+					bannerBuilding:SetOriginalModel("models/props_teams/banner_dire_small.vmdl") 
 				end
-			,2)
+				playerData:SetBannerBuilding(bannerBuilding)
 
-			local banner_ent = Entities:FindByName(nil, "player_"..tostring(i).."_farmer_2")   --player_i_lib
-			PlayerS[i].Banner = UnitManager:CreateUnitByName("npc_dummy_banner", banner_ent:GetAbsOrigin() , false, pid, PlayerResource:GetTeam(pid)) 
-			PlayerS[i].Banner:SetControllableByPlayer(pid, true)
-			if PlayerS[i].Hero:GetTeamNumber() == DOTA_TEAM_BADGUYS then
-				PlayerS[i].Banner:SetOriginalModel("models/props_teams/banner_dire_small.vmdl") 
+				playerData:LookBuildings(
+					function(n, building)
+						building:SetBaseManaRegen(20)
+					end
+				)
 			end
-			PlayerS[i].Banner:SetContextThink(DoUniqueString("banner"),
-				function()
-					PlayerS[i].Banner:SetOwner(PlayerS[i].Hero)
-					PlayerS[i].Banner:SetControllableByPlayer(pid, true)
-					return 2
-				end
-			,2)
-
-			for x,v in pairs (PlayerS[i].Build) do
-				v:SetBaseManaRegen(20)
-			end
-
-		end
-		-- print("Player game begin")  --玩家开始游戏
+		)
 		-- 计时器
 		local last_time = GameRules:GetGameTime()
 		SetLastTime(GameRules:GetGameTime(),1)
 		SetLastTime(GameRules:GetGameTime(),2)
 		GameRules:GetGameModeEntity():SetContextThink("GlobalThink",
 			function()
-				if IsServer() then
-					if GameRules:State_Get() == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS or GameRules:State_Get() == DOTA_GAMERULES_STATE_PRE_GAME then
-						local now = GameRules:GetGameTime()
-						CustomGameEventManager:Send_ServerToAllClients("updateroundprogressbar",{time=now-last_time,period=RoundThinker_Period})
-						RoundThinker(now)
-						if now - last_time >= RoundThinker_Period then
-							last_time = now
-							EmitGlobalSound("Tutorial.Quest.complete_01") -- game_sounds_music_tutorial中的音乐
-							local team1_win = true
-							local team2_win = true
-							local is_all_abandoned = true
-							local playercount = 0
-							for _, PlayerPosition in pairs(AllPlayers) do
-								local pid = PlayerCalc:GetPlayerIDByPosition(PlayerPosition)
-								if PlayerResource:GetConnectionState(pid) == DOTA_CONNECTION_STATE_ABANDONED then
+				if GameRules:State_Get() == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS or GameRules:State_Get() == DOTA_GAMERULES_STATE_PRE_GAME then
+					local now = GameRules:GetGameTime()
+					CustomGameEventManager:Send_ServerToAllClients("updateroundprogressbar",{time=now-last_time,period=RoundThinker_Period})
+					RoundThinker(now)
+					if now - last_time >= RoundThinker_Period then
+						last_time = now
+						EmitGlobalSound("Tutorial.Quest.complete_01") -- game_sounds_music_tutorial中的音乐
+						local team1_win = true
+						local team2_win = true
+						local is_all_abandoned = true
+						local playercount = 0
+						
+						PlayerData:Look(
+							function(playerID, playerData)
+								if PlayerResource:GetConnectionState(playerID) == DOTA_CONNECTION_STATE_ABANDONED then
 									if GetRound == 10 then
 										_G.Rank_mode = false
 									end
 								else
 									playercount = playercount + 1
 									is_all_abandoned = false
-									if PlayerResource:GetTeam(pid) == DOTA_TEAM_GOODGUYS then
+									if PlayerResource:GetTeam(playerID) == DOTA_TEAM_GOODGUYS then
 										team2_win = false
 									end
-									if PlayerResource:GetTeam(pid) == DOTA_TEAM_BADGUYS then
+									if PlayerResource:GetTeam(playerID) == DOTA_TEAM_BADGUYS then
 										team1_win = false
 									end
 								end
 							end
-							if _G.PlayerCount == playercount then
-								team1_win = false
-								team2_win = false
-								is_all_abandoned = false
-							end
-							GameRules:GetGameModeEntity():SetContextThink(DoUniqueString("abandon_game"), 
-								function()
-									if is_all_abandoned then
-										_G.Rank_mode = false
-									end
-									if team1_win then
-							    		king_right:RemoveModifierByName('modifier_never_dead')
-										king_right:Kill(nil,king_left)
-										--GameRules:SendCustomMessage("#EnemyAbandonedLumiWin", -1, 0)
-									end
-									if team2_win then
-							    		king_left:RemoveModifierByName('modifier_never_dead')
-										king_left:Kill(nil,king_right)
-										--GameRules:SendCustomMessage("#EnemyAbandonedDarkWin", -1, 0)
-									end
-									return nil
-								end
-							, 15)
+						)
+						if _G.PlayerCount == playercount then
+							team1_win = false
+							team2_win = false
+							is_all_abandoned = false
 						end
-					elseif GameRules:State_Get() >= DOTA_GAMERULES_STATE_POST_GAME then
-						return nil
+						GameRules:GetGameModeEntity():SetContextThink(DoUniqueString("abandon_game"), 
+							function()
+								if is_all_abandoned then
+									_G.Rank_mode = false
+								end
+								if team1_win then
+									king_right:RemoveModifierByName('modifier_never_dead')
+									king_right:Kill(nil, king_left)
+								end
+								if team2_win then
+									king_left:RemoveModifierByName('modifier_never_dead')
+									king_left:Kill(nil, king_right)
+								end
+								return nil
+							end
+						, 15)
 					end
+				elseif GameRules:State_Get() >= DOTA_GAMERULES_STATE_POST_GAME then
+					return nil
 				end
 				return 0.05
 			end
@@ -2498,46 +2430,18 @@ function CbtfGameMode:OnNPCSpawned( keys )
 
 	--是英雄的话 传送到开始点
 	if trigger_unit:IsRealHero() == true then
-		--trigger_unit.Player=player
-		local pid = trigger_unit:GetPlayerOwnerID()
-		print("testpid"..pid)
-		local PlayerPosition = PlayerCalc:GetPlayerPositionByID(pid)
-		-- print("The player ID of that hero is " .. tostring(pid))
-		PlayerS[PlayerPosition].Hero=trigger_unit
+		local hero = trigger_unit
+		local playerID = hero:GetPlayerOwnerID()
+		local playerData = PlayerData:GetPlayerData(playerID)
+
+		playerData:SetHero(hero)
 
 		if not CustomMessage then
 			CustomMessage = true
-			ShowCustomHeaderMessage("#SelectTime", pid, PlayerS[PlayerPosition].Hero:entindex(), 5)
+			ShowCustomHeaderMessage("#SelectTime", playerID, hero:entindex(), 5)
 		end
-		-- CustomUI:DynamicHud_Create(pid,"crystalshop","file://{resources}/layout/custom_game/crystalshop.xml",nil)
-		-- CustomUI:DynamicHud_Create(pid,"playerstates","file://{resources}/layout/custom_game/playerstates.xml",nil)
-		-- CustomUI:DynamicHud_Create(pid,"showmessage","file://{resources}/layout/custom_game/showmessage.xml",nil)
 
-		playerstarts:init(trigger_unit)
-		GameRules:GetGameModeEntity():SetContextThink(DoUniqueString("telepor_later"), function() FindClearSpaceForUnit(trigger_unit, PlayerS[PlayerPosition].StartPoint, true) end, 0.1)--传送到开始点
-		PlayerS[PlayerPosition].Hero = trigger_unit				--传递参数给玩家表
-		PlayerResource:SetCameraTarget(pid, trigger_unit) --锁定并移动镜头 	
-		GameRules:GetGameModeEntity():SetContextThink(DoUniqueString("camera_later"), function() PlayerResource:SetCameraTarget(pid, nil)  end, 2)--2秒后解锁
-		
-		trigger_unit:SetAbilityPoints(0)                --取消技能点   
-		--local j=0
-		-- for j = 0,15,1 do
-		-- 	local temp=trigger_unit:GetAbilityByIndex(j) --获取技能实体
-
-		-- 	if temp then
-		-- 		temp:SetLevel(1)                     --设置技能等级
-		-- 	end
-
-		-- end
-		for i = 0, 23 do
-			local ability = trigger_unit:GetAbilityByIndex(i)
-			if ability ~= nil then
-				if string.find(ability:GetAbilityName(), "special_bonus_") then
-					trigger_unit:RemoveAbility(ability:GetAbilityName())
-				end
-				ability:SetLevel(1)
-			end
-		end		
+		playerstarts:init(hero)
 	end
 end
 
@@ -2580,16 +2484,6 @@ function CbtfGameMode:OnEntityKilled(keys)
 	local killed_unit = EntIndexToHScript( keys.entindex_killed )
 	local killing_unit = EntIndexToHScript( keys.entindex_attacker )
 
-	if killing_unit and killed_unit then
-		local killed_player = killed_unit:GetPlayerOwnerID()
-		local killing_player = killing_unit:GetPlayerOwnerID()
-		if killing_player ~= -1 and killed_player ~= -1 then
-			if not HasLabel(killed_unit,"SummonUnit") then
-				local PlayerPosition = PlayerCalc:GetPlayerPositionByID(killing_player)
-				PlayerS[PlayerPosition].MVP_KillCount = PlayerS[PlayerPosition].MVP_KillCount + 1
-			end
-		end
-	end
 	if killed_unit == king_left then
 		GameWinner(DOTA_TEAM_BADGUYS)
 	end
@@ -2610,166 +2504,181 @@ end
 
 --记分牌
 function CbtfGameMode:UpdateScoreboard()
-	if IsServer() then
-		for _, PlayerPosition in pairs( AllPlayers ) do
-			local pid = PlayerCalc:GetPlayerIDByPosition(PlayerPosition)
-			PlayerS[PlayerPosition].Gold = PlayerResource:GetGold(pid)  --金币绑定
+	-- if IsServer() then
+	-- 	for _, PlayerPosition in pairs( AllPlayers ) do
+	-- 		local pid = PlayerCalc:GetPlayerIDByPosition(PlayerPosition)
+	-- 		PlayerS[PlayerPosition].Gold = PlayerResource:GetGold(pid)  --金币绑定
 
-			local hero = PlayerS[PlayerPosition].Hero
-			if hero then
-				PlayerS[PlayerPosition].Arms = 0
-				for i=0,5,1 do
-					local item = hero:GetItemInSlot(i)
-					if item then
-						PlayerS[PlayerPosition].Arms = PlayerS[PlayerPosition].Arms + item:GetCost()
-					end
-				end
-			end
+	-- 		local hero = PlayerS[PlayerPosition].Hero
+	-- 		if hero then
+	-- 			PlayerS[PlayerPosition].Arms = 0
+	-- 			for i=0,5,1 do
+	-- 				local item = hero:GetItemInSlot(i)
+	-- 				if item then
+	-- 					PlayerS[PlayerPosition].Arms = PlayerS[PlayerPosition].Arms + item:GetCost()
+	-- 				end
+	-- 			end
+	-- 		end
 
-			local GoldNum = PlayerS[PlayerPosition].Gold
-			local LumberNum = PlayerS[PlayerPosition].Lumber
-			local CurFoodNum = PlayerS[PlayerPosition].CurFood
-			local FullFoodNum = PlayerS[PlayerPosition].FullFood
-			local TechNum = PlayerS[PlayerPosition].Tech
-			local FarmerNum = PlayerS[PlayerPosition].FarmerNum
-			local ScoreNum = PlayerS[PlayerPosition].Score
-			local BaseIncomeNum = PlayerS[PlayerPosition].BaseIncome
-			local IncomeNum = PlayerS[PlayerPosition].Income
-			local ArmsNum = PlayerS[PlayerPosition].Arms
-			local ADLevel = PlayerS[PlayerPosition].ADLevel
-			local HLevel = PlayerS[PlayerPosition].HLevel
-			local HRLevel = PlayerS[PlayerPosition].HRLevel
+	-- 		local GoldNum = PlayerS[PlayerPosition].Gold
+	-- 		local LumberNum = PlayerS[PlayerPosition].Lumber
+	-- 		local CurFoodNum = PlayerS[PlayerPosition].CurFood
+	-- 		local FullFoodNum = PlayerS[PlayerPosition].FullFood
+	-- 		local TechNum = PlayerS[PlayerPosition].Tech
+	-- 		local FarmerNum = PlayerS[PlayerPosition].FarmerNum
+	-- 		local ScoreNum = PlayerS[PlayerPosition].Score
+	-- 		local BaseIncomeNum = PlayerS[PlayerPosition].BaseIncome
+	-- 		local IncomeNum = PlayerS[PlayerPosition].Income
+	-- 		local ArmsNum = PlayerS[PlayerPosition].Arms
+	-- 		local ADLevel = PlayerS[PlayerPosition].ADLevel
+	-- 		local HLevel = PlayerS[PlayerPosition].HLevel
+	-- 		local HRLevel = PlayerS[PlayerPosition].HRLevel
 
 
-			local BossADLevel = 0
-			local BossHLevel = 0
-			local BossHRLevel = 0
-			if king_left and king_right then
-				if PlayerResource:GetTeam(pid) == DOTA_TEAM_GOODGUYS then
-					BossADLevel = king_left:GetContext("attackdamagelevel")
-					BossHLevel = king_left:GetContext("healthlevel")
-					BossHRLevel = king_left:GetContext("healthregenlevel")
-				else
-					BossADLevel = king_right:GetContext("attackdamagelevel")
-					BossHLevel = king_right:GetContext("healthlevel")
-					BossHRLevel = king_right:GetContext("healthregenlevel")
-				end
-			end
-			if PlayerResource:IsValidPlayer(pid) then
-				local player = PlayerResource:GetPlayer(pid)
-				if IsValidEntity(player) then
-					CustomGameEventManager:Send_ServerToPlayer(player, "updateplayerstates",{
-						gold=GoldNum,
-						crystal=LumberNum,
-						baseincome=BaseIncomeNum,
-						income=IncomeNum,
-						score=ScoreNum,
-						woker=FarmerNum,
-						tech=TechNum,
-						food_count=CurFoodNum,
-						food_max=FullFoodNum,
-						ranking_level=PlayerS[PlayerPosition].ranking_level,
-						ranking_appellation=PlayerS[PlayerPosition].ranking_appellation,
-						ranking_score=PlayerS[PlayerPosition].ranking_score,
-						ranking_rank=PlayerS[PlayerPosition].ranking_rank,
-						bossadlevel=BossADLevel,
-						bosshlevel=BossHLevel,
-						bosshrlevel=BossHRLevel,
-					})--传递数据到玩家面板，更新玩家数据
-				end
-			end
-			CustomGameEventManager:Send_ServerToAllClients("updateflyoutscoreboard",{
-				position=PlayerPosition,
-				playerid=pid,
-				income=IncomeNum+BaseIncomeNum,
-				score=ScoreNum,
-				woker=FarmerNum,
-				tech=TechNum,
-				armaments=ArmsNum,
-				ranking_level=PlayerS[PlayerPosition].ranking_level,
-				ranking_appellation=PlayerS[PlayerPosition].ranking_appellation,
-				showtoother=(GetRound()>=8),
-				playerteam=PlayerResource:GetTeam(pid),
-				adlevel=ADLevel,
-				hlevel=HLevel,
-				hrlevel=HRLevel,
-				bossbool=(king_left and king_right),
-				boss1=king_left:GetEntityIndex(),
-				bosslife1=GameRules.LeftLife,
-				boss2=king_right:GetEntityIndex(),
-				bosslife2=GameRules.RightLife,
-			})--传递数据到积分板，更新玩家数据
-		end
-		CustomGameEventManager:Send_ServerToAllClients("updateround",{round=GetRound()})
-	end
+	-- 		local BossADLevel = 0
+	-- 		local BossHLevel = 0
+	-- 		local BossHRLevel = 0
+	-- 		if king_left and king_right then
+	-- 			if PlayerResource:GetTeam(pid) == DOTA_TEAM_GOODGUYS then
+	-- 				BossADLevel = king_left:GetContext("attackdamagelevel")
+	-- 				BossHLevel = king_left:GetContext("healthlevel")
+	-- 				BossHRLevel = king_left:GetContext("healthregenlevel")
+	-- 			else
+	-- 				BossADLevel = king_right:GetContext("attackdamagelevel")
+	-- 				BossHLevel = king_right:GetContext("healthlevel")
+	-- 				BossHRLevel = king_right:GetContext("healthregenlevel")
+	-- 			end
+	-- 		end
+	-- 		if PlayerResource:IsValidPlayer(pid) then
+	-- 			local player = PlayerResource:GetPlayer(pid)
+	-- 			if IsValidEntity(player) then
+	-- 				CustomGameEventManager:Send_ServerToPlayer(player, "updateplayerstates",{
+	-- 					gold=GoldNum,
+	-- 					crystal=LumberNum,
+	-- 					baseincome=BaseIncomeNum,
+	-- 					income=IncomeNum,
+	-- 					score=ScoreNum,
+	-- 					woker=FarmerNum,
+	-- 					tech=TechNum,
+	-- 					food_count=CurFoodNum,
+	-- 					food_max=FullFoodNum,
+	-- 					ranking_level=PlayerS[PlayerPosition].ranking_level,
+	-- 					ranking_appellation=PlayerS[PlayerPosition].ranking_appellation,
+	-- 					ranking_score=PlayerS[PlayerPosition].ranking_score,
+	-- 					ranking_rank=PlayerS[PlayerPosition].ranking_rank,
+	-- 					bossadlevel=BossADLevel,
+	-- 					bosshlevel=BossHLevel,
+	-- 					bosshrlevel=BossHRLevel,
+	-- 				})--传递数据到玩家面板，更新玩家数据
+	-- 			end
+	-- 		end
+	-- 		CustomGameEventManager:Send_ServerToAllClients("updateflyoutscoreboard",{
+	-- 			position=PlayerPosition,
+	-- 			playerid=pid,
+	-- 			income=IncomeNum+BaseIncomeNum,
+	-- 			score=ScoreNum,
+	-- 			woker=FarmerNum,
+	-- 			tech=TechNum,
+	-- 			armaments=ArmsNum,
+	-- 			ranking_level=PlayerS[PlayerPosition].ranking_level,
+	-- 			ranking_appellation=PlayerS[PlayerPosition].ranking_appellation,
+	-- 			showtoother=(GetRound()>=8),
+	-- 			playerteam=PlayerResource:GetTeam(pid),
+	-- 			adlevel=ADLevel,
+	-- 			hlevel=HLevel,
+	-- 			hrlevel=HRLevel,
+	-- 			bossbool=(king_left and king_right),
+	-- 			boss1=king_left:GetEntityIndex(),
+	-- 			bosslife1=GameRules.LeftLife,
+	-- 			boss2=king_right:GetEntityIndex(),
+	-- 			bosslife2=GameRules.RightLife,
+	-- 		})--传递数据到积分板，更新玩家数据
+	-- 	end
+	-- 	CustomGameEventManager:Send_ServerToAllClients("updateround",{round=GetRound()})
+	-- end
 end	
 --初始化玩家
 function CbtfGameMode:InitPlayer(PlayerID,PlayerPosition)
-	PlayerCalc:SetPlayerIDPosition(PlayerID,PlayerPosition)
-	if PlayerS[PlayerPosition] == nil then--用位置来代替玩家ID
-		PlayerS[PlayerPosition] = {}
-		PlayerS[PlayerPosition].playerid = PlayerID
-		table.insert( AllPlayers, PlayerPosition)                                                         --加入全部玩家队伍
+	-- PlayerCalc:SetPlayerIDPosition(PlayerID,PlayerPosition)
+	-- if PlayerS[PlayerPosition] == nil then--用位置来代替玩家ID
+	-- 	PlayerS[PlayerPosition] = {}
+	-- 	PlayerS[PlayerPosition].playerid = PlayerID
+	-- 	table.insert( AllPlayers, PlayerPosition)                                                         --加入全部玩家队伍
 
-		local start_ent = Entities:FindByName(nil,"portal"..tostring(PlayerPosition))
-		local start_point = start_ent:GetAbsOrigin() 
+	-- 	local start_ent = Entities:FindByName(nil,"portal"..tostring(PlayerPosition))
+	-- 	local start_point = start_ent:GetAbsOrigin() 
 									  
-		PlayerS[PlayerPosition].StartPoint = start_point  
+	-- 	PlayerS[PlayerPosition].StartPoint = start_point  
 
-		PlayerS[PlayerPosition].Lumber = 0                 --定义初始木材  0
-		PlayerS[PlayerPosition].CurFood = 1                      --初始当前人口1
-		PlayerS[PlayerPosition].FullFood = 16                     --初始最大人口16            每次提升8
-		PlayerS[PlayerPosition].FarmerNum = 1                    --初始采集者数量 1         最多为8
-		PlayerS[PlayerPosition].Tech = 0                         --初始采集科技等级        最多为8
-		PlayerS[PlayerPosition].Score = 0                     --初始兵力
-		PlayerS[PlayerPosition].BaseIncome = 100                 --初始基础收入
-		PlayerS[PlayerPosition].Income = 0                       --初始额外收入
-		PlayerS[PlayerPosition].Arms = 0 						--初始军备
-						  --print(PlayerS[PlayerPosition].Gold)
-						  --print("player"..tostring(i).." gold is  "..PlayerS[PlayerPosition].Gold)
-		PlayerS[PlayerPosition].HireRoad = PlayerPosition 				--玩家默认的雇佣兵进攻路线
-		PlayerS[PlayerPosition].Unit = {}                                                                          --玩家单位 
-		PlayerS[PlayerPosition].Farmer = {}                                                                        --玩家采集者单位
-		PlayerS[PlayerPosition].Build = {}                                                                         --玩家的建筑
-		PlayerS[PlayerPosition].NewBuild = {}                                                                      --未出兵的建筑
-		PlayerS[PlayerPosition].Hire = {}                                                                          --玩家的佣兵
-		PlayerS[PlayerPosition].NewHire = {}
-		PlayerS[PlayerPosition].ItemNum = 0                                                                        --可拥有道具数量
-		PlayerS[PlayerPosition].Abhere = false                                                                     --固守状态
-		PlayerS[PlayerPosition].BuildTable = {"Q","W","E","D","F","G","R","X"}
-		PlayerS[PlayerPosition].TechLevel = 0                                                                      --科技等级
+	-- 	PlayerS[PlayerPosition].Lumber = 0                 --定义初始木材  0
+	-- 	PlayerS[PlayerPosition].CurFood = 1                      --初始当前人口1
+	-- 	PlayerS[PlayerPosition].FullFood = 16                     --初始最大人口16            每次提升8
+	-- 	PlayerS[PlayerPosition].FarmerNum = 1                    --初始采集者数量 1         最多为8
+	-- 	PlayerS[PlayerPosition].Tech = 0                         --初始采集科技等级        最多为8
+	-- 	PlayerS[PlayerPosition].Score = 0                     --初始兵力
+	-- 	PlayerS[PlayerPosition].BaseIncome = 100                 --初始基础收入
+	-- 	PlayerS[PlayerPosition].Income = 0                       --初始额外收入
+	-- 	PlayerS[PlayerPosition].Arms = 0 						--初始军备
+	-- 					  --print(PlayerS[PlayerPosition].Gold)
+	-- 					  --print("player"..tostring(i).." gold is  "..PlayerS[PlayerPosition].Gold)
+	-- 	PlayerS[PlayerPosition].HireRoad = PlayerPosition 				--玩家默认的雇佣兵进攻路线
+	-- 	PlayerS[PlayerPosition].Unit = {}                                                                          --玩家单位 
+	-- 	PlayerS[PlayerPosition].Farmer = {}                                                                        --玩家采集者单位
+	-- 	PlayerS[PlayerPosition].Build = {}                                                                         --玩家的建筑
+	-- 	PlayerS[PlayerPosition].NewBuild = {}                                                                      --未出兵的建筑
+	-- 	PlayerS[PlayerPosition].Hire = {}                                                                          --玩家的佣兵
+	-- 	PlayerS[PlayerPosition].NewHire = {}
+	-- 	PlayerS[PlayerPosition].ItemNum = 0                                                                        --可拥有道具数量
+	-- 	PlayerS[PlayerPosition].Abhere = false                                                                     --固守状态
+	-- 	PlayerS[PlayerPosition].BuildTable = {"Q","W","E","D","F","G","R","X"}
+	-- 	PlayerS[PlayerPosition].TechLevel = 0                                                                      --科技等级
 
-		PlayerS[PlayerPosition].ADLevel = 0 		                                                               --王攻击强化等级
-		PlayerS[PlayerPosition].HLevel = 0 		                                                                   --王生命强化等级
-		PlayerS[PlayerPosition].HRLevel = 0 		                                                               --王回复强化等级
+	-- 	PlayerS[PlayerPosition].ADLevel = 0 		                                                               --王攻击强化等级
+	-- 	PlayerS[PlayerPosition].HLevel = 0 		                                                                   --王生命强化等级
+	-- 	PlayerS[PlayerPosition].HRLevel = 0 		                                                               --王回复强化等级
 		
-		PlayerS[PlayerPosition].ranking_score = 0
-		PlayerS[PlayerPosition].ranking_rank = 0
-		PlayerS[PlayerPosition].ranking_total = 0
-		PlayerS[PlayerPosition].ranking_per = 100
-		PlayerS[PlayerPosition].ranking_level = 1
-		PlayerS[PlayerPosition].ranking_appellation = 1
-		--MVP系统
-		PlayerS[PlayerPosition].MVP_DamageToKing = 0						--对王的伤害量
-		PlayerS[PlayerPosition].MVP_BreakGold = 0							--突破总奖励
-		PlayerS[PlayerPosition].MVP_KillCount = 0								--击杀
-		PlayerS[PlayerPosition].MVP_TotalLumer = 0							--总水晶
-		PlayerS[PlayerPosition].MVP_TotalGold = 0							--总金钱
+	-- 	PlayerS[PlayerPosition].ranking_score = 0
+	-- 	PlayerS[PlayerPosition].ranking_rank = 0
+	-- 	PlayerS[PlayerPosition].ranking_total = 0
+	-- 	PlayerS[PlayerPosition].ranking_per = 100
+	-- 	PlayerS[PlayerPosition].ranking_level = 1
+	-- 	PlayerS[PlayerPosition].ranking_appellation = 1
+	-- 	--MVP系统
+	-- 	PlayerS[PlayerPosition].MVP_DamageToKing = 0						--对王的伤害量
+	-- 	PlayerS[PlayerPosition].MVP_BreakGold = 0							--突破总奖励
+	-- 	PlayerS[PlayerPosition].MVP_KillCount = 0								--击杀
+	-- 	PlayerS[PlayerPosition].MVP_TotalLumer = 0							--总水晶
+	-- 	PlayerS[PlayerPosition].MVP_TotalGold = 0							--总金钱
 
-		PlayerS[PlayerPosition].Abandon = false
-		PlayerS[PlayerPosition].AbandonRound = 0
-		--HEX系统
-		PlayerS[PlayerPosition].hex_Q3 = false
+	-- 	PlayerS[PlayerPosition].Abandon = false
+	-- 	PlayerS[PlayerPosition].AbandonRound = 0
+	-- 	--HEX系统
+	-- 	PlayerS[PlayerPosition].hex_Q3 = false
 
-		--玩家设置
-		PlayerS[PlayerPosition].show_damage_message = false					--显示真实伤害
-		--测试模式
-		if _G.test_mode then
-			PlayerS[PlayerPosition].Lumber = 10000
-			PlayerS[PlayerPosition].Score = 20000
-		end
-	end
+	-- 	--玩家设置
+	-- 	PlayerS[PlayerPosition].show_damage_message = false					--显示真实伤害
+	-- 	--测试模式
+	-- 	if _G.test_mode then
+	-- 		PlayerS[PlayerPosition].Lumber = 10000
+	-- 		PlayerS[PlayerPosition].Score = 20000
+	-- 	end
+	-- end
 
+	local playerData = PlayerData:GetPlayerData(PlayerID)
+	playerData:SetPlayerPosition(PlayerPosition)
+	playerData:ModifyGold(99999)
+	playerData:ModifyCrystal(99999)
+	playerData:SetScore(99999)
+	playerData:SetIncome(100, true)
+	playerData:SetIncome(0, false)
+	playerData:AddFarmer()
+	playerData:SetCurFood(1)
+	playerData:SetFullFood(16)
+
+	playerData:IncrementTotalGold(700)
+
+	--自定义数据
+	playerData:Save("hex_Q3", false)
 end
 
 
@@ -2779,16 +2688,12 @@ function CbtfGameMode:OnPlayerReconnected(keys)
 	local nReconnectedPlayerID = keys.PlayerID
 	if GameRules:State_Get() >= DOTA_GAMERULES_STATE_HERO_SELECTION then --判断是否进入了游戏
 		-- print("Reconnected Player is "..keys.PlayerID)
-		local PlayerPosition = PlayerCalc:GetPlayerPositionByID(nReconnectedPlayerID)
-		if not PlayerS[PlayerPosition].Hero then
-			PlayerS[PlayerPosition].Hero = CreateHeroForPlayer(GetRandomCommanderName(), PlayerResource:GetPlayer(nReconnectedPlayerID))
-		else
-			-- CustomUI:DynamicHud_Create(nReconnectedPlayerID,"crystalshop","file://{resources}/layout/custom_game/crystalshop.xml",nil)
-			-- CustomUI:DynamicHud_Create(nReconnectedPlayerID,"playerstates","file://{resources}/layout/custom_game/playerstates.xml",nil)
-			-- CustomUI:DynamicHud_Create(nReconnectedPlayerID,"showmessage","file://{resources}/layout/custom_game/showmessage.xml",nil)
+		local playerData = PlayerData:GetPlayerData(nReconnectedPlayerID)
+		if playerData:GetHero() == nil then
+			local hero = CreateHeroForPlayer(GetRandomCommanderName(), PlayerResource:GetPlayer(nReconnectedPlayerID))
+			hero:SetControllableByPlayer(nReconnectedPlayerID, true)
+			playerData:SetHero(hero)
 		end
-
-		PlayerS[PlayerPosition].show_damage_message = false					--显示真实伤害
 
 		GameRules:GetGameModeEntity():SetContextThink(DoUniqueString("OnPlayerReconnected"),
 			function()
@@ -2863,69 +2768,3 @@ end
 		DZ 重甲  DS中甲  DW轻甲 DC城甲 DB无甲 DH英雄
 
 ]]
-	function runTable() 
-
-	AandD_table = 	table_new(1) 
-				{ 
-						BZ = 0.9,
-						BS = 1.3,
-						BW = 0.8,
-						BC = 0.9,
-						BB = 1,
-						BH = 0.85,
-						PZ = 0.8,
-						PS = 1,
-						PW = 1.3,
-						PC = 0.8,
-						PB = 1,
-						PH = 0.85,
-						MZ = 1.3,
-						MS = 0.8,
-						MW = 1.1,
-						MC = 0.7,
-						MB = 1,
-						MH = 0.85,
-						SZ = 0.9,
-						SS = 0.9,
-						SW = 0.8,
-						SC = 1.3,
-						SB = 1,
-						SH = 0.85,
-						LZ = 1.1,
-						LS = 1.1,
-						LW = 1.1,
-						LC = 1.1,
-						LB = 1.1,
-						LH = 1.1,
-						HZ = 1,
-						HS = 1,
-						HW = 1,
-						HC = 1,
-						HB = 1,
-						HH = 1,
-				}
-				  
-				rawset(_G, 'AandD_table', AandD_table) --声明全局变量
-				
-		-- print(AandD_table)
-
-
-		--if AllTypes == nil then
-			--AllTypes = { Q={},W={},E={},"D"={},"F"={},"R"={} }
-		--	AllTypes = {}
-		--end
-		--	AllTypes = {
-		--				Q={},
-		--				W={},
-		--				}		
-			--AllTypes["Q"] = {}
-			--AllTypes["W"] = {}
-
-
-	--AllTypes["Q"][1] = "Q1_00"
-
-		--AllTypes["W"][1] = "W1_00"
-		--rawset(_G, 'AllTypes', AllTypes) --声明全局变量
-		--print(getmetatable(_G).__index)
-		--print(getmetatable(_ENV).__newindex)
-		end

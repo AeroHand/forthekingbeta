@@ -19,18 +19,18 @@ function RoundThinker(now)
 	--------------------------采集--周期7秒----------------------------------------
 	if now - RoundThinker_Last_time2 >= 7 then
 		RoundThinker_Last_time2 = now
-		for _, PlayerPosition in pairs( AllPlayers ) do
-			local Lumber = PlayerS[PlayerPosition].Lumber
-			local Tech = PlayerS[PlayerPosition].Tech
-			local Farmer = PlayerS[PlayerPosition].FarmerNum
-			if Lumber and Tech and Farmer then
-				PlayerS[PlayerPosition].Lumber  =  Lumber + Farmer*(2+Tech)
-				PlayerS[PlayerPosition].MVP_TotalLumer  =  PlayerS[PlayerPosition].MVP_TotalLumer + Farmer*(2+Tech)
-				for __,farmer in pairs (PlayerS[PlayerPosition].Farmer) do
-					PopupHealing(farmer, 2+Tech)
-				end
+		PlayerData:Look(
+			function(playerID, playerData)
+				local earnCrystalPer = 2 + playerData:GetCrystalTech()
+				local nFarmerNum = playerData:GetFarmerNumber()
+				playerData:LookFarmer(
+					function(n, farmer)
+						SendOverheadEventMessage(PlayerResource:GetPlayer(playerID), OVERHEAD_ALERT_HEAL, farmer, earnCrystalPer, nil)
+					end
+				)
+				playerData:ModifyCrystal(earnCrystalPer*nFarmerNum)
 			end
-		end
+		)
 	end
 	---------------------------回合开始------------------------------------
 	if now - RoundThinker_Last_time1  >= RoundThinker_Period then
@@ -64,27 +64,17 @@ function RoundThinker(now)
 			AbilityManager:AddAndSet(king_left,"jn_king_70_left")
 			AbilityManager:AddAndSet(king_right,"jn_king_70_right")
 		end
-		for _, PlayerPosition in pairs( AllPlayers ) do
-			--print("Now make a round of player " .. tostring(pid))
-			local pid = PlayerCalc:GetPlayerIDByPosition(PlayerPosition)
-			local Gold = PlayerResource:GetGold(pid) 
-			local Lumber = PlayerS[PlayerPosition].Lumber
-			local CurFood = PlayerS[PlayerPosition].CurFood
-			local FullFood = PlayerS[PlayerPosition].FullFood
-			local Tech = PlayerS[PlayerPosition].Tech
-			local Farmer = PlayerS[PlayerPosition].FarmerNum
-			local Score = PlayerS[PlayerPosition].Score
-			local BaseIncome = PlayerS[PlayerPosition].BaseIncome
-			local Income = PlayerS[PlayerPosition].Income
-			local Portal_point = PlayerS[PlayerPosition].StartPoint
-			-----------------------设置售价为半价----------------------------------
-			for __, newb in pairs( PlayerS[PlayerPosition].NewBuild ) do
-					--print(newb.Sale)
-				if IsValidEntity(newb) then
-					if newb:IsAlive()  then
-						newb:SetContextNum("Sale", newb:GetContext("Score")/2 , 0)
-						for i=0,5,1 do
-							local item = newb:GetItemInSlot(i)
+		PlayerData:Look(
+			function(playerID, playerData)
+				local player = PlayerResource:GetPlayer(playerID)
+				local startPoint = playerData:GetStartPoint()
+				local endPoint = playerData:GetEndPoint()
+				-----------------------设置售价为半价----------------------------------
+				playerData:LookNewBuildings(
+					function(n, newBuilding)
+						newBuilding:SetContextNum("Sale", newBuilding:GetContext("Score")/2 , 0)
+						for i = 0, 5, 1 do
+							local item = newBuilding:GetItemInSlot(i)
 							if item then
 								if item:GetName() == "item_Sale_Build" then
 									item:SetLevel(2)
@@ -92,95 +82,80 @@ function RoundThinker(now)
 							end
 						end
 					end
-				end
-			end
-			PlayerS[PlayerPosition].NewBuild={}
-			--------------------------收入------------------------------------------
-			PlayerResource:SetGold(pid,Gold + BaseIncome + Income, false)
-			PlayerS[PlayerPosition].MVP_TotalGold = PlayerS[PlayerPosition].MVP_TotalGold + BaseIncome + Income
-			PopupGoldGain(PlayerS[PlayerPosition].Hero,BaseIncome)
-			if Income ~= 0 then
-				PopupGoldGain(PlayerS[PlayerPosition].Hero,Income)
-			end
-			PlayerS[PlayerPosition].BaseIncome = BaseIncome + 3
-			--------------------------收入------------------------------------------
-			if PlayerS[PlayerPosition].Abandon then
-				local gold = PlayerResource:GetGold(pid)
-				local lumber = PlayerS[PlayerPosition].Lumber
-				local pps = {}
-				for _, OtherPlayerPosition in pairs( AllPlayers ) do
-					if PlayerCalc:GetPlayerIDByPosition(OtherPlayerPosition) ~= pid and not PlayerS[OtherPlayerPosition].Abandon then
-						if PlayerResource:GetTeam(PlayerCalc:GetPlayerIDByPosition(OtherPlayerPosition)) == PlayerResource:GetTeam(pid) then
-							table.insert(pps,OtherPlayerPosition)
-						end
-					end
-				end
-				if #pps > 0 then
-					gold = gold - (gold % #pps)
-					lumber = lumber - (lumber % #pps)
-					PlayerResource:SetGold(pid, PlayerResource:GetGold(pid) - gold, false)
-					PlayerS[PlayerPosition].Lumber = PlayerS[PlayerPosition].Lumber - lumber
-					for v,OtherPlayerPosition in pairs(pps) do
-						local Otherpid = PlayerCalc:GetPlayerIDByPosition(OtherPlayerPosition)
-						PlayerResource:SetGold(Otherpid, PlayerResource:GetGold(Otherpid) + (lumber/#pps), false)
-						PlayerS[OtherPlayerPosition].Lumber = PlayerS[OtherPlayerPosition].Lumber + (lumber/#pps)
-					end
-				end
-			end
-			--------------------------佣兵------------------------------------------
-
-			local last_time = GameRules:GetGameTime()
-			GameRules:GetGameModeEntity():SetContextThink(DoUniqueString("HireUnit"),
-				function()
-					local now = GameRules:GetGameTime()
-					if now - last_time >= 1 then
-						for __, newh in pairs( PlayerS[PlayerPosition].NewHire ) do
-							FindClearSpaceForUnit(newh, Portal_point, true)  --完成传送
-							newh:RemoveAbility( "kexuanmajia" )
-							newh:RemoveModifierByName("modifier_kexuanmajia")
-							local OrderPoint
-							if PlayerPosition <= 4 then
-								OrderPoint=Vector(8500,0,0)+Portal_point
-							else
-								OrderPoint=Vector(-8500,0,0)+Portal_point
+				)
+				playerData:NewBuildingsCharge()
+				--------------------------收入----------------------------------------
+				playerData:ModifyGold(playerData:GetAllIncome())
+				SendOverheadEventMessage(player, OVERHEAD_ALERT_GOLD, playerData:GetHero(), playerData:GetAllIncome(), player)
+				playerData:ModifyIncome(3, true)
+				--------------------------离开玩家收入---------------------------------
+				if playerData:IsAbandon() then
+					local otherPlayerDatas = {}
+					PlayerData:Look(
+						function(_playerID, _playerData)
+							if not _playerData:IsAbandon() and playerID ~= _playerID and PlayerResource:GetTeam(playerID) == PlayerResource:GetTeam(_playerID) then
+								table.insert(otherPlayerDatas, _playerData)
 							end
-							OrderPoint.x = math.min(OrderPoint.x,5120)
-							OrderPoint.x = math.max(OrderPoint.x,-5120)
-
-							--trigger.activator:MoveToPositionAggressive(point2)
-							local newOrder = {                                        --发送攻击指令
-								UnitIndex = newh:entindex(), 
-								OrderType = DOTA_UNIT_ORDER_ATTACK_MOVE,
-								TargetIndex = nil, --Optional.  Only used when targeting units
-								AbilityIndex = 0, --Optional.  Only used when casting abilities
-								Position = OrderPoint, --Optional.  Only used when targeting the ground
-								Queue = 0 --Optional.  Used for queueing up abilities
-							}
-
-							ExecuteOrderFromTable(newOrder)
 						end
-						PlayerS[PlayerPosition].NewHire={}
-						return nil
-					end
-					return 0
-				end
-			, 0)
+					)
+					if #otherPlayerDatas > 0 then
+						local gold = playerData:GetGold()
+						local crystal = playerData:GetCrystal()
+						gold = gold - (gold % #otherPlayerDatas)
+						crystal = crystal - (crystal % #otherPlayerDatas)
 
-			--------------------------冲锋------------------------------------------
-			EmitGlobalSound("legion_commander_legcom_attack_15")
-			EmitGlobalSound("Loot_Drop_Stinger_Ancient")--播放音效
+						local goldPer = gold / #otherPlayerDatas
+						local crystalPer = crystal / #otherPlayerDatas
 
-			local build_table = Entities:FindAllByClassnameWithin("npc_dota_creature", Portal_point , 3000)
-			for _,build in pairs(build_table) do
-				if IsValidEntity(build) then
-					if build:IsAlive() == true and build:GetUnitName() ~= "npc_unit_Q3_2z" and build:GetUnitName() ~= "npc_unit_R8_00_RT" and build:GetUnitName() ~= "npc_unit_R8_10_RT" then
-						if build:HasAbility("build_base") and build:GetPlayerOwnerID() == pid then
-							local CFunit = UnitManager:CreateUnitByBuilding( build )
+						playerData:ModifyGold(-gold)
+						playerData:ModifyCrystal(-crystal)
+
+						for _,_playerData in pairs(otherPlayerDatas) do
+							_playerData:ModifyGold(goldPer)
+							_playerData:ModifyCrystal(crystalPer)
 						end
 					end
 				end
+				--------------------------佣兵----------------------------------------
+				local next_time = GameRules:GetGameTime() + 1
+				GameRules:GetGameModeEntity():SetContextThink(DoUniqueString("MercenariesCharge"),
+					function()
+						if GameRules:GetGameTime() >= next_time then
+							playerData:LookNewMercenaries(
+								function(n, newMercenary)
+									newMercenary:RemoveAbility("kexuanmajia")
+									newMercenary:RemoveModifierByName("modifier_kexuanmajia")
+									FindClearSpaceForUnit(newMercenary, startPoint, true)  --完成传送
+
+									local OrderPoint = newMercenary:GetAbsOrigin()
+									OrderPoint.x = endPoint.x
+									ExecuteOrderFromTable({
+										UnitIndex = newMercenary:entindex(), 
+										OrderType = DOTA_UNIT_ORDER_ATTACK_MOVE,
+										Position = OrderPoint,
+									})
+								end
+							)
+							playerData:NewMercenariesCharge()
+							return nil
+						end
+						return 0
+					end
+				, 0)
+				--------------------------冲锋----------------------------------------
+				EmitGlobalSound("legion_commander_legcom_attack_15")
+				EmitGlobalSound("Loot_Drop_Stinger_Ancient")--播放音效
+				playerData:LookBuildings(
+					function(n, building)
+						if building:HasAbility("build_base") and building:GetPlayerOwnerID() == playerID then
+							if building:GetUnitName() ~= "npc_unit_Q3_2z" and building:GetUnitName() ~= "npc_unit_R8_00_RT" and building:GetUnitName() ~= "npc_unit_R8_10_RT" then
+								local unit = UnitManager:CreateUnitByBuilding(building)
+							end
+						end
+					end
+				)
 			end
-		end
+		)
 		--------------------------护卫队------------------------------------------
 		if RoundThinker_wave <= 100 then
 			for left = 1,9 do --左边护卫队
