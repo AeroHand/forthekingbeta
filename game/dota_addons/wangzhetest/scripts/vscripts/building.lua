@@ -152,28 +152,28 @@
 -- building_tech.t_tech["G5_10"] = {}
 -- building_tech.t_tech["G5_11"] = {}
 
-function building_tech:ApplyTechSkills(u_building)
-	s_building_name = u_building:GetUnitName()
-	s_tech_name = string.sub(s_building_name, -8, -4)
-	t_building = self.t_tech[s_tech_name]
-	if t_building ~= nil then
-		for k,s_ability_name in pairs(t_building) do
-			AbilityManager:AddAndSet(u_building, s_ability_name)
+function building_tech:ApplyTechSkills(building)
+	local buildingName = building:GetUnitName()
+	local techName = string.sub(buildingName, -8, -4)
+	local buildingAbilities = self.t_tech[techName]
+	if buildingAbilities ~= nil then
+		for k,abilityName in pairs(buildingAbilities) do
+			AbilityManager:AddAndSet(building, abilityName)
 		end
 	end
-	if string.sub(u_building:GetUnitName(),10,10) ~= "X" then
-		if not u_building:HasItemInInventory("item_Sale_Build") then
-			if u_building:GetUnitName() ~= "npc_unit_R8_00_RT" and u_building:GetUnitName() ~= "npc_unit_R8_10_RT" then
+	if string.sub(buildingName,10,10) ~= "X" then
+		if not building:HasItemInInventory("item_Sale_Build") then
+			if buildingName ~= "npc_unit_R8_00_RT" and buildingName ~= "npc_unit_R8_10_RT" then
 
-				u_building:SetHasInventory(true)
+				building:SetHasInventory(true)
 				local item = CreateItem("item_Sale_Build", nil, nil)
-				u_building:AddItem(item)
+				building:AddItem(item)
 			end
 
 		end
 	end
-	AbilityManager:AddAndSet(u_building, "build_base")
-	u_building:AddAbility(s_tech_name)
+	AbilityManager:AddAndSet(building, "build_base")
+	building:AddAbility(techName)
 end
 --original functions
 
@@ -216,11 +216,6 @@ function buildbuilding(keys)--建筑完成
 	building_tech:ApplyTechSkills(building)
 	--兵力增加
 	playerData:ModifyScore(cost)
-	if PlayerResource:GetTeam(playerID) == DOTA_TEAM_BADGUYS then
-		GameRules.RightScore = GameRules.RightScore + cost
-	else
-		GameRules.LeftScore = GameRules.LeftScore + cost
-	end
 	--单位建筑化
 	building:SetMoveCapability(DOTA_UNIT_CAP_MOVE_NONE)
 	building:SetAttackCapability(DOTA_UNIT_CAP_NO_ATTACK)
@@ -337,7 +332,7 @@ function SaleBuild(keys)
 	playerData:RemoveNewBuilding(old_building)
 	playerData:ReplaceBuilding(old_building, building)
 	---------------------邪法的系统处理---------------------
-	if old_building:GetUnitName()  == "npc_unit_Q3_2z" then
+	if old_building:GetUnitName()  == "npc_unit_Q3_2z_BB" then
 		playerData:Save("hex_Q3", false)
 	end
 	---------------------创建新的建筑---------------------
@@ -366,11 +361,6 @@ function SaleBuild(keys)
 	playerData:ModifyCurFood(-food)
 	---------------------退还兵力--------------------------------
 	playerData:ModifyScore(-score)
-	if PlayerResource:GetTeam(playerID) == DOTA_TEAM_BADGUYS then
-		GameRules.RightScore = GameRules.RightScore - score
-	else
-		GameRules.LeftScore = GameRules.LeftScore - score
-	end
 end
 
 function UpTechLevelStart1(keys)
@@ -875,8 +865,8 @@ function ReRollBuilds(keys) --(施法单位，指定兵种[nil为所有兵种])
 	)
 
 	if ability:GetLevel() < 7 then
-		-- print(_G.test_mode)
-		if not _G.test_mode then
+		-- print(Game:IsTestMode())
+		if not Game:IsTestMode() then
 			ability:SetLevel(ability:GetLevel()+1)
 		end
 	else
@@ -984,7 +974,7 @@ function NiCeSuccess(keys)
 	local score = old_building:GetContext("Score")
 	local sale = score
 
-	if old_building:GetUnitName()  == "npc_unit_Q3_2z" then
+	if old_building:GetUnitName()  == "npc_unit_Q3_2z_BB" then
 		playerData:Save("hex_Q3", false)
 	end
 
@@ -1016,11 +1006,6 @@ function NiCeSuccess(keys)
 	playerData:ModifyCurFood(-food)
 	---------------------退还兵力--------------------------------
 	playerData:ModifyScore(-score)
-	if PlayerResource:GetTeam(playerID) == DOTA_TEAM_BADGUYS then
-		GameRules.RightScore = GameRules.RightScore - score
-	else
-		GameRules.LeftScore = GameRules.LeftScore - score
-	end
 
 	old_building:RemoveSelf()
 	caster:RemoveAbility("legion_nice")

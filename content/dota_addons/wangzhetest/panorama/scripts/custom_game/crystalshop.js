@@ -43,41 +43,6 @@ function OnCrystalShopButtonPressed()
 function OnCrystalShopButtonReleased()
 {
 }
-// Camera yaw smoothing.
-var g_Distance = 0;
-var g_targetDistance = 0;
-var g_MaxDistance = 800;
-var g_MinDistance = 0;
-function smoothCameraDistance()
-{
-	$.Schedule( 1.0/30.0, smoothCameraDistance );
-
-	g_targetDistance = Math.max(Math.min(g_targetDistance,g_MaxDistance),g_MinDistance);
-	g_Distance = Math.max(Math.min(g_Distance,g_MaxDistance),g_MinDistance);
-
-	var minStep = 1;
-	var delta = ( g_targetDistance - g_Distance );
-	if ( Math.abs( delta ) < minStep )
-	{
-		g_Distance = g_targetDistance;
-	}
-	else
-	{
-		var step = delta * 0.3;
-		if ( Math.abs( step ) < minStep )
-		{
-			if ( delta > 0 )
-				step = minStep;
-			else
-				step = -minStep;
-		}
-		g_Distance += step;
-	}
-
-	GameUI.SetCameraDistance( 1134 + g_Distance );
-	return;
-}
-
 
 // Main mouse event callback
 GameUI.SetMouseCallback(
@@ -105,15 +70,6 @@ function( eventName, arg )
 
 	return CONTINUE_PROCESSING_EVENT;
 });
-// GameUI.SetCameraPitchMax( 0 );
-// GameUI.SetCameraPitchMin( 0 );
-Game.AddCommand( "+CrystalShop", OnCrystalShopButtonPressed, "", 0 );
-Game.AddCommand( "-CrystalShop", OnCrystalShopButtonReleased, "", 0 );
-//onmouseover="AbilityShowTooltip()"
-//onmouseout="AbilityHideTooltip()"
-//onactivate="ActivateAbility()"
-//ondblclick="DoubleClickAbility()"
-//oncontextmenu="RightClickAbility()"
 
 var m_HireShopPanels = [];
 var m_HireShopPanelsCount = 0;
@@ -172,12 +128,33 @@ function UpdateBossLevelUpPanel()
 	$.GetContextPanel().SetHasClass("max_level3", (hrlevel>=20));
 	$.Schedule(0.1,UpdateBossLevelUpPanel);
 }
-function UpdateLevel(data)
+function UpdateBossLevel(tableName, keyName, table)
 {
-	Lumber=data.crystal;
-	adlevel=data.bossadlevel;
-	hlevel=data.bosshlevel;
-	hrlevel=data.bosshrlevel;
+	if (keyName == "info")
+	{
+		if (Players.GetTeam(Players.GetLocalPlayer()) == DOTATeam_t.DOTA_TEAM_GOODGUYS)
+		{
+			adlevel = table.leftADLevel;
+			hlevel = table.leftHLevel;
+			hrlevel = table.leftHRLevel;
+		}
+		else if (Players.GetTeam(Players.GetLocalPlayer()) == DOTATeam_t.DOTA_TEAM_BADGUYS)
+		{
+			adlevel = table.rightADLevel;
+			hlevel = table.rightHLevel;
+			hrlevel = table.rightHRLevel;
+		}
+	}
+	UpdateBossLevelUpPanel();
+}
+function UpdateCrystal(tableName, keyName, table)
+{
+	if (keyName == ("Player_"+Players.GetLocalPlayer()))
+	{
+		var playerData = table;
+		Lumber = playerData.Crystal;
+	}
+	UpdateBossLevelUpPanel();
 }
 function HireSuccess(data)
 {
@@ -197,7 +174,6 @@ function ChangeWay()
 	if (wayid == "hire_way1") way = 1;
 	if (wayid == "hire_way2") way = 2;
 	if (wayid == "hire_way3") way = 3;
-	if (wayid == "hire_way4") way = 4;
 	for ( var i = 1; i <= m_HireShopPanelsCount; ++i )
 	{
 		var HireShop = m_HireShopPanels[i];
@@ -311,6 +287,13 @@ function ChangeWay()
 	$.GetContextPanel().SetHasClass("Russian", ($.Language()=="russian"));
 	GameEvents.Subscribe("HireSuccess", HireSuccess);
 	GameEvents.Subscribe("GeneralSuccess", GeneralSuccess);
-	GameEvents.Subscribe("updateplayerstates", UpdateLevel);
-})();
 
+	UpdateBossLevel("Game", "info", CustomNetTables.GetTableValue("Game", "info"));
+	UpdateCrystal("PlayerData", "Player_"+Players.GetLocalPlayer(), CustomNetTables.GetTableValue("PlayerData", "Player_"+Players.GetLocalPlayer()));
+
+	CustomNetTables.SubscribeNetTableListener("Game", UpdateBossLevel);
+	CustomNetTables.SubscribeNetTableListener("PlayerData", UpdateCrystal);
+
+	Game.AddCommand( "+CrystalShop", OnCrystalShopButtonPressed, "", 0 );
+	Game.AddCommand( "-CrystalShop", OnCrystalShopButtonReleased, "", 0 );
+})();

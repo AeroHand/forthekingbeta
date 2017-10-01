@@ -118,16 +118,20 @@ function SetItemState(ItemName,ItemGoldCost,ItemLumberCost,ItemNeedScore,ItemInc
 	RestockItem();
 	m_way=0;
 }
-function GetStatesByLua(data)
+function UpdateData(tableName, keyName, table)
 {
-	m_Gold=data.gold;
-	m_Crystal=data.crystal;
-	m_Income=data.income;
-	m_Score=data.score;
-	m_Worker_count=data.woker_count;
-	m_Worker_max=data.woker_max;
-	m_Food_count=data.food_count;
-	m_Food_max=data.food_max;
+	if (keyName == ("Player_"+Players.GetLocalPlayer()))
+	{
+		var playerData = table;
+		m_Gold = playerData.Gold;
+		m_Crystal = playerData.Crystal;
+		m_Income = playerData.BaseIncome+playerData.Income;
+		m_Score = playerData.Score;
+		m_Worker_count = playerData.FarmerNum;
+		m_Worker_max = 8;
+		m_Food_count = playerData.CurFood;
+		m_Food_max = playerData.FullFood;
+	}
 }
 
 (function()
@@ -136,7 +140,7 @@ function GetStatesByLua(data)
 	$.GetContextPanel().DecreaseItemStock = DecreaseItemStock;
 	$.GetContextPanel().SetWay = SetWay;
 
-
-	GameEvents.Subscribe("updateplayerstates", GetStatesByLua);
+	UpdateData("PlayerData", "Player_"+Players.GetLocalPlayer(), CustomNetTables.GetTableValue("PlayerData", "Player_"+Players.GetLocalPlayer()));
+	CustomNetTables.SubscribeNetTableListener("PlayerData", UpdateData);
 	UpdateItem();
 })();

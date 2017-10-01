@@ -295,7 +295,7 @@ function playerstarts:init(hero) --英雄登场之后准备开始运行的函数
 		-- 		PlayerS[PlayerPosition].buildtype[supertype] = RandomInt(1, #AllTypes[supertype])
 		-- 	end
 		-- 	--设置测试兵种
-		-- 	if _G.test_mode then
+		-- 	if Game:IsTestMode() then
 		-- 		-- PlayerS[PlayerPosition].buildtype["Q"]=3
 		-- 		PlayerS[PlayerPosition].buildtype["W"]=5
 		-- 		-- PlayerS[PlayerPosition].buildtype["E"]=1
@@ -371,8 +371,8 @@ function playerstarts:init(hero) --英雄登场之后准备开始运行的函数
 		end
 	end
 
-	if _G.test_mode then
-		-- playerData:SetBuildingTypeName("Q", "Q3_00")
+	if Game:IsTestMode() then
+		playerData:SetBuildingTypeName("Q", "Q3_00")
 		playerData:SetBuildingTypeName("W", "W5_00")
 		-- playerData:SetBuildingTypeName("E", "E1_00")
 		-- playerData:SetBuildingTypeName("D", "D7_00")

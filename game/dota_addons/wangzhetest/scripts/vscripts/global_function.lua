@@ -608,7 +608,7 @@ function UnitManager:CreateGeneral(i_playerID,s_item)
 	local u_unit = UnitManager:CreateUnitByName( s_unit_name,v_unit_point, true, i_playerID, i_teamnumber)
 	local attack_type_name = UnitManager:GetAttackTypeFromName( s_unit_name )
 	local defend_type_name = UnitManager:GetDefendTypeFromName( s_unit_name )
-	CreateAandDSystem(u_unit,attack_type_name,defend_type_name)
+	CreateAandDSystem(u_unit, attack_type_name, defend_type_name)
 	if s_item == "general_1" then
 		if i_teamnumber == DOTA_TEAM_GOODGUYS then
 			AbilityManager:AddAndSet( u_unit, "jn_king_20_left" )

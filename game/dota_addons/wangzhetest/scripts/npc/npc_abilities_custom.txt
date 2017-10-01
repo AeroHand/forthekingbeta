@@ -1190,7 +1190,7 @@
 				"IsBuff"			"1"
 				"IsDebuff"			"0"
 				"IsStunDebuff"		"0"
-				"EffectName"		"particles/items2_fx/rod_of_atos.vpcf"
+				"EffectName"		"particles/items2_fx/rod_of_atos_debuff.vpcf"
 				"EffectAttachType"	"follow_origin"
 				"Properties"
 				{
@@ -12153,7 +12153,7 @@
 	{
 		"ReplaceUnit"
 		{
-			"UnitName"      "npc_unit_Q3_2z"
+			"UnitName"      "npc_unit_Q3_2z_BB"
 			"Target"        "CASTER"
 			"OnSpawn"
 			{

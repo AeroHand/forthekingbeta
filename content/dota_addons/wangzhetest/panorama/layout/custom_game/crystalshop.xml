@@ -72,7 +72,6 @@
 							<Label text="#way1" id="hire_way1"/>
 							<Label text="#way2" id="hire_way2"/>
 							<Label text="#way3" id="hire_way3"/>
-							<Label text="#way4" id="hire_way4"/>
 						</DropDown>
 					</Panel>
 					<Panel id="hireshop_items">

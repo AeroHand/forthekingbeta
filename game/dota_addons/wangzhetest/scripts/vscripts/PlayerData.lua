@@ -242,7 +242,7 @@ end
 function PlayerData:GetEndPoint()
 	return self.EndPoint
 end
-function PlayerData:MercenaryPoint()
+function PlayerData:GetMercenaryPoint()
 	return self.MercenaryPoint
 end
 --英雄
@@ -270,7 +270,7 @@ function PlayerData:ModifyGold(iGoldChange, nReason)
 	nReason = nReason or DOTA_ModifyGold_Unspecified
 
 	--增加总计
-	self:IncrementTotalGold(math.min(0, iGoldChange))
+	self:IncrementTotalGold(math.max(0, iGoldChange))
 end
 function PlayerData:GetGold()
 	return self.Gold
@@ -313,7 +313,7 @@ function PlayerData:ModifyCrystal(iCrystalChange)
 	self:SetCrystal(self.Crystal + iCrystalChange)
 
 	--增加总计
-	self:IncrementTotalCrystal(math.min(0, iCrystalChange))
+	self:IncrementTotalCrystal(math.max(0, iCrystalChange))
 end
 function PlayerData:GetCrystal()
 	return self.Crystal
@@ -367,12 +367,12 @@ function PlayerData:GetFarmerNumber()
 end
 --食物
 function PlayerData:SetCurFood(iCurFood)
-	self.CurFood = math.min(iCurFood, self.FullFood)
+	self.CurFood = iCurFood
 
 	self:UpdateNetTable()
 end
 function PlayerData:ModifyCurFood(iCurFoodChange)
-	self.CurFood = math.min(self.CurFood + iCurFoodChange, self.FullFood)
+	self.CurFood = self.CurFood + iCurFoodChange
 
 	self:UpdateNetTable()
 end
@@ -420,6 +420,12 @@ function PlayerData:SetScore(iScore)
 end
 function PlayerData:ModifyScore(iScoreChange)
 	self.Score = self.Score + iScoreChange
+
+	if PlayerResource:GetTeam(self.PlayerID) == DOTA_TEAM_GOODGUYS then
+		Game:ModifyLeftScore(iScoreChange)
+	elseif PlayerResource:GetTeam(self.PlayerID) == DOTA_TEAM_BADGUYS then
+		Game:ModifyRightScore(iScoreChange)
+	end
 
 	for item_index = 0, 5, 1 do
 		local item = self.Hero:GetItemInSlot(item_index)
@@ -632,7 +638,7 @@ function PlayerData:BuildingsRemoveBuildAbility(sType)
 	self:LookBuildings(
 		function(n, building)
 			if building:GetUnitName() == "npc_dummy_build_base" and building:GetPlayerOwnerID() == self.PlayerID then
-				building:RemoveAbility(self:GetBuildingType(sType))
+				building:RemoveAbility(self:GetBuildingTypeName(sType))
 			end
 		end
 	)
@@ -895,32 +901,65 @@ function PlayerData:GetRankingFromServer()
 		end
 	)
 end
+function PlayerData:GetSteamID()
+	return self.SteamID
+end
+function PlayerData:GetRankingScore()
+	return self.RankingScore
+end
+function PlayerData:GetRankingRank()
+	return self.RankingRank
+end
+function PlayerData:GetRankingTotal()
+	return self.RankingTotal
+end
+function PlayerData:GetRankingPer()
+	return self.RankingPer
+end
+function PlayerData:GetRankingLevel()
+	return self.RankingLevel
+end
+function PlayerData:GetRankingAppellation()
+	return self.RankingAppellation
+end
 --MVP
 function PlayerData:IncrementDamageToKing(iDTK)
 	iDTK = iDTK or 0
 
 	self.MVP_DamageToKing = self.MVP_DamageToKing + iDTK
 end
+function PlayerData:GetDamageToKing()
+	return self.MVP_DamageToKing
+end
 function PlayerData:IncrementBreakGold(iBG)
 	iBG = iBG or 0
 
 	self.MVP_BreakGold = self.MVP_BreakGold + iBG
 end
+function PlayerData:GetBreakGold()
+	return self.MVP_BreakGold
+end
 function PlayerData:IncrementKills()
 	self.MVP_Kills = self.MVP_Kills + 1
 end
-function PlayerData:IncrementKillCount()
-	self.MVP_Kills = self.MVP_Kills + 1
+function PlayerData:GetKills()
+	return self.MVP_Kills
 end
 function PlayerData:IncrementTotalCrystal(iTC)
 	iTC = iTC or 0
 
 	self.MVP_TotalCrystal = self.MVP_TotalCrystal + iTC
 end
+function PlayerData:GetTotalCrystal()
+	return self.MVP_TotalCrystal
+end
 function PlayerData:IncrementTotalGold(iTG)
 	iTG = iTG or 0
 
 	self.MVP_TotalGold = self.MVP_TotalGold + iTG
+end
+function PlayerData:GetTotalGold()
+	return self.MVP_TotalGold
 end
 --设置
 function PlayerData:ShowDamageMessage(bFlag)
@@ -937,6 +976,9 @@ function PlayerData:Abandon()
 end
 function PlayerData:IsAbandon()
 	return self.IsAbandonState
+end
+function PlayerData:GetAbandonRound()
+	return self.AbandonRound
 end
 --事件
 function PlayerData:OnEntityKilled(events)
@@ -991,14 +1033,8 @@ function PlayerData:UpdateNetTable()
 	t.ArmsValue = self.ArmsValue
 
 	t.MercenaryRoad = self.MercenaryRoad
-	t.Mercenaries = {}
-	for k,v in pairs(self.Mercenaries) do
-		t.Mercenaries[k] = v:entindex()
-	end
-	t.NewMercenaries = {}
-	for k,v in pairs(self.NewMercenaries) do
-		t.NewMercenaries[k] = v:entindex()
-	end
+	t.Mercenaries = self.Mercenaries
+	t.NewMercenaries = self.NewMercenaries
 
 	t.BuildingTypeList = self.BuildingTypeList
 	t.RemovedBuildingType = self.RemovedBuildingType
@@ -1017,6 +1053,7 @@ function PlayerData:UpdateNetTable()
 	t.HLevel = self.HLevel
 	t.HRLevel = self.HRLevel
 
+	t.SteamID = tostring(self.SteamID)
 	t.RankingScore = self.RankingScore
 	t.RankingRank = self.RankingRank
 	t.RankingTotal = self.RankingTotal

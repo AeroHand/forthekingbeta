@@ -1,24 +1,8 @@
-RoundThinker_i = RoundThinker_i or 0
-RoundThinker_wave = RoundThinker_wave or 0
-RoundThinker_next = RoundThinker_next or 0
-RoundThinker_lumber_i = RoundThinker_lumber_i or 0
-RoundThinker_Period = RoundThinker_Period or 38
-RoundThinker_Last_time1 = RoundThinker_Last_time1 or 0
-RoundThinker_Last_time2 = RoundThinker_Last_time2 or 0
-function GetRound()
-	return RoundThinker_wave
-end
-function SetLastTime(time,mode)
-	if mode == 1 then
-		RoundThinker_Last_time1 = time
-	elseif mode == 2 then
-		RoundThinker_Last_time2 = time
-	end
-end
 function RoundThinker(now)
 	--------------------------采集--周期7秒----------------------------------------
-	if now - RoundThinker_Last_time2 >= 7 then
-		RoundThinker_Last_time2 = now
+	if now >= Game:GetNextEarnCrystalTime() then
+		Game:SetNextEarnCrystalTime(now + Game:GetEarnCrystalTime())
+
 		PlayerData:Look(
 			function(playerID, playerData)
 				local earnCrystalPer = 2 + playerData:GetCrystalTech()
@@ -33,37 +17,91 @@ function RoundThinker(now)
 		)
 	end
 	---------------------------回合开始------------------------------------
-	if now - RoundThinker_Last_time1  >= RoundThinker_Period then
-		RoundThinker_Last_time1 = now
-		RoundThinker_wave = RoundThinker_wave + 1
-		if RoundThinker_wave == 10 then
-			AbilityManager:AddAndSet(king_left,"jn_king_10")
-			AbilityManager:AddAndSet(king_right,"jn_king_10")
+	if now >= Game:GetNextRoundTime() then
+		Game:SetNextRoundTime(now + Game:GetRoundTime())
+
+		local round = Game:GetRound() + 1
+		Game:SetRound(round)
+
+		EmitGlobalSound("Tutorial.Quest.complete_01")
+
+		local rightKing = Game:GetRightKing()
+		local leftKing = Game:GetLeftKing()
+
+		--------------------------离线判断------------------------------------------
+		local team1Win = true
+		local team2Win = true
+		local isAllAbandoned = true
+		local playerCount = 0
+		PlayerData:Look(
+			function(playerID, playerData)
+				if PlayerResource:GetConnectionState(playerID) == DOTA_CONNECTION_STATE_ABANDONED then
+					if Game:GetRound() <= 10 then
+						Game:RankMode(false)
+					end
+				else
+					playerCount = playerCount + 1
+					isAllAbandoned = false
+					if PlayerResource:GetTeam(playerID) == DOTA_TEAM_GOODGUYS then
+						team2Win = false
+					end
+					if PlayerResource:GetTeam(playerID) == DOTA_TEAM_BADGUYS then
+						team1Win = false
+					end
+				end
+			end
+		)
+		if Game:GetPlayerCount() == playerCount then
+			team1Win = false
+			team2Win = false
+			isAllAbandoned = false
 		end
-		if RoundThinker_wave == 20 then
-			AbilityManager:AddAndSet(king_left,"jn_king_20_left")
-			AbilityManager:AddAndSet(king_right,"jn_king_20_right")
+		GameRules:GetGameModeEntity():SetContextThink(DoUniqueString("abandon_game"),
+			function()
+				if isAllAbandoned then
+					Game:RankMode(false)
+				end
+				if team1Win then
+					rightKing:RemoveModifierByName('modifier_never_dead')
+					rightKing:Kill(nil, rightKing)
+				end
+				if team2Win then
+					leftKing:RemoveModifierByName('modifier_never_dead')
+					leftKing:Kill(nil, leftKing)
+				end
+				return nil
+			end
+		, 15)
+		--------------------------王的技能------------------------------------------
+		if round == 10 then
+			AbilityManager:AddAndSet(leftKing,"jn_king_10")
+			AbilityManager:AddAndSet(rightKing,"jn_king_10")
 		end
-		if RoundThinker_wave == 30 then
-			AbilityManager:AddAndSet(king_left,"jn_king_30_left")
-			AbilityManager:AddAndSet(king_right,"jn_king_30_right")
+		if round == 20 then
+			AbilityManager:AddAndSet(leftKing,"jn_king_20_left")
+			AbilityManager:AddAndSet(rightKing,"jn_king_20_right")
 		end
-		if RoundThinker_wave == 40 then
-			AbilityManager:AddAndSet(king_left,"jn_king_40")
-			AbilityManager:AddAndSet(king_right,"jn_king_40")
+		if round == 30 then
+			AbilityManager:AddAndSet(leftKing,"jn_king_30_left")
+			AbilityManager:AddAndSet(rightKing,"jn_king_30_right")
 		end
-		if RoundThinker_wave == 50 then
-			AbilityManager:AddAndSet(king_left,"jn_king_50")
-			AbilityManager:AddAndSet(king_right,"jn_king_50")
+		if round == 40 then
+			AbilityManager:AddAndSet(leftKing,"jn_king_40")
+			AbilityManager:AddAndSet(rightKing,"jn_king_40")
 		end
-		if RoundThinker_wave == 60 then
-			AbilityManager:AddAndSet(king_left,"jn_king_60")
-			AbilityManager:AddAndSet(king_right,"jn_king_60")
+		if round == 50 then
+			AbilityManager:AddAndSet(leftKing,"jn_king_50")
+			AbilityManager:AddAndSet(rightKing,"jn_king_50")
 		end
-		if RoundThinker_wave == 70 then
-			AbilityManager:AddAndSet(king_left,"jn_king_70_left")
-			AbilityManager:AddAndSet(king_right,"jn_king_70_right")
+		if round == 60 then
+			AbilityManager:AddAndSet(leftKing,"jn_king_60")
+			AbilityManager:AddAndSet(rightKing,"jn_king_60")
 		end
+		if round == 70 then
+			AbilityManager:AddAndSet(leftKing,"jn_king_70_left")
+			AbilityManager:AddAndSet(rightKing,"jn_king_70_right")
+		end
+		--------------------------玩家------------------------------------------
 		PlayerData:Look(
 			function(playerID, playerData)
 				local player = PlayerResource:GetPlayer(playerID)
@@ -157,15 +195,15 @@ function RoundThinker(now)
 			end
 		)
 		--------------------------护卫队------------------------------------------
-		if RoundThinker_wave <= 100 then
+		if round <= 100 then
 			for left = 1,9 do --左边护卫队
 				local leftHwd = CreateUnitByName("npc_unit_huweidui_left_BZ",Vector(-4160,20,265),false,nil,nil,DOTA_TEAM_GOODGUYS)
 				CreateAandDSystem(leftHwd,"B","Z")
 				--随着时间强化
-				leftHwd:SetBaseDamageMin(RoundThinker_wave+5)
-				leftHwd:SetBaseDamageMax(RoundThinker_wave+5)
-				leftHwd:SetBaseMaxHealth(100+10*RoundThinker_wave)
-	    		--leftHwd:SetHealth(100+10*RoundThinker_wave)
+				leftHwd:SetBaseDamageMin(round+5)
+				leftHwd:SetBaseDamageMax(round+5)
+				leftHwd:SetBaseMaxHealth(100+10*round)
+	    		--leftHwd:SetHealth(100+10*round)
 				local Order = 
 				{                                        --发送攻击指令
 					UnitIndex = leftHwd:entindex(), 
@@ -182,10 +220,10 @@ function RoundThinker(now)
 				local rightHwd = CreateUnitByName("npc_unit_huweidui_right_BZ",Vector(4160,20,265),false,nil,nil,DOTA_TEAM_BADGUYS)
 				CreateAandDSystem(rightHwd,"B","Z")
 				--随着时间强化
-				rightHwd:SetBaseDamageMin(RoundThinker_wave+5)
-				rightHwd:SetBaseDamageMax(RoundThinker_wave+5)
-				rightHwd:SetBaseMaxHealth(100+10*RoundThinker_wave)
-				--print("hp is "..100+10*RoundThinker_wave)
+				rightHwd:SetBaseDamageMin(round+5)
+				rightHwd:SetBaseDamageMax(round+5)
+				rightHwd:SetBaseMaxHealth(100+10*round)
+				--print("hp is "..100+10*round)
 				local Order = 
 				{                                        --发送攻击指令
 					UnitIndex = rightHwd:entindex(), 

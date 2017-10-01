@@ -33,6 +33,7 @@ function ShowMessage(data)
 		last = Game.GetGameTime();
 		time = 0.15;
 		mode = 1;
+		// GameEvents.SendEventClientSide("dota_hud_error_message", {"splitscreenplayer":Players.GetLocalPlayer(), "reason":80, "message":$.Localize(data.Message)});
 	}
 	Game.EmitSound(data.SoundName);
 }

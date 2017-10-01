@@ -41,12 +41,27 @@ function EndGame(data)
 			winningTeamLogo.BLoadLayout( logo_xml, false, false );
 		}
 	}
-	var count = data.playercount;
-	for (var i = 1; i <= count; i++)
+	
+	var playerIDs = Game.GetAllPlayerIDs();
+	playerIDs.sort(
+		function(playerID, _playerID)
+		{
+			var playerData = CustomNetTables.GetTableValue("PlayerData", "Player_"+playerID);
+			var playerPosition = playerData.PlayerPosition;
+			var _playerData = CustomNetTables.GetTableValue("PlayerData", "Player_"+_playerID);
+			var _playerPosition = _playerData.PlayerPosition;
+			return playerPosition - _playerPosition;
+		}
+	)
+	for (var i = 0; i < playerIDs.length; i++)
 	{
+		var playerID = playerIDs[i];
+		var playerData = CustomNetTables.GetTableValue("PlayerData", "Player_"+playerID);
+		var playerPosition = playerData.PlayerPosition;
+
 		var Panel;
 		var damagetoking_team;
-		if (data.team[i] == DOTATeam_t.DOTA_TEAM_GOODGUYS)
+		if (Players.GetTeam(playerID) == DOTATeam_t.DOTA_TEAM_GOODGUYS)
 		{
 			Panel = $("#Team1");
 			damagetoking_team = data.damagetoking1;
@@ -60,27 +75,29 @@ function EndGame(data)
 		{
 			var CPanel = $.CreatePanel( "Panel", Panel, "" );
 			CPanel.BLoadLayout( "file://{resources}/layout/custom_game/end_screen_player.xml", false, false );
-			CPanel.SetHasClass("badguys", (data.playerposition[i] > 4));
-			CPanel.GetChild(1).GetChild(0).steamid = data.steamid[i];
-			CPanel.GetChild(1).GetChild(1).GetChild(0).text = Players.GetPlayerName(data.playerid[i]);
-			CPanel.GetChild(1).GetChild(1).GetChild(1).text = $.Localize("#Level")+data.rankinglevel[i]+" "+$.Localize("#ranking_level_appellation_"+data.rankingappellation[i]);
+
+			CPanel.position = playerPosition;
+			CPanel.SetHasClass("badguys", (playerPosition > 4));
+			CPanel.GetChild(1).GetChild(0).steamid = playerData.SteamID;
+			CPanel.GetChild(1).GetChild(1).GetChild(0).text = Players.GetPlayerName(playerID);
+			CPanel.GetChild(1).GetChild(1).GetChild(1).text = $.Localize("#Level")+playerData.RankingLevel+" "+$.Localize("#ranking_level_appellation_"+playerData.RankingAppellation);
 			if (damagetoking_team == 0)
 			{
 				CPanel.GetChild(2).text = "0%";
 			}
 			else
 			{
-				CPanel.GetChild(2).text = Math.round((data.damagetoking[i]/damagetoking_team)*100)+"%";
+				CPanel.GetChild(2).text = Math.round((playerData.MVP_DamageToKing/damagetoking_team)*100)+"%";
 			}
-			CPanel.GetChild(3).text = data.breakgold[i];
-			CPanel.GetChild(4).text = data.killcount[i];
-			CPanel.GetChild(5).text = data.score[i];
-			CPanel.GetChild(6).text = data.gold[i];
-			CPanel.GetChild(7).text = data.lumber[i];
-			CPanel.GetChild(8).text = data.income[i];
-			CPanel.GetChild(9).text = data.armaments[i];
-			CPanel.GetChild(10).SetImage(GetStarImage(count,data.mvp[i]));
-			if (data.mvpplayerposition == data.playerposition[i])
+			CPanel.GetChild(3).text = playerData.MVP_BreakGold;
+			CPanel.GetChild(4).text = playerData.MVP_Kills;
+			CPanel.GetChild(5).text = playerData.Score;
+			CPanel.GetChild(6).text = playerData.MVP_TotalGold;
+			CPanel.GetChild(7).text = playerData.MVP_TotalCrystal;
+			CPanel.GetChild(8).text = playerData.BaseIncome+playerData.Income;
+			CPanel.GetChild(9).text = playerData.ArmsValue;
+			CPanel.GetChild(10).SetImage(GetStarImage(playerIDs.length,data.mvp[playerID]));
+			if (data.mvpplayerposition == playerPosition)
 			{
 				CPanel.GetChild(0).SetImage("file://{images}/custom_game/EndScreen/MVP.psd");
 			}
@@ -89,22 +106,86 @@ function EndGame(data)
 				$.GetContextPanel().SetHasClass("rank_mode", true);
 				var rank_sign = "+";
 				CPanel.GetChild(11).style.color = "#00ff00";
-				if (data.rankingaddscore[i] < 0)
+				if (data.rankingaddscore[playerID] < 0)
 				{
 					rank_sign = "-";
 					CPanel.GetChild(11).style.color = "#ff0000";
 				}
-				if (Players.GetLocalPlayer() == data.playerid[i] || Players.IsSpectator(Players.GetLocalPlayer()))
+				if (Players.GetLocalPlayer() == playerID || Players.IsSpectator(Players.GetLocalPlayer()))
 				{
-					CPanel.GetChild(11).text = data.rankingscore[i]+"("+rank_sign+Math.abs(data.rankingaddscore[i])+")";
+					CPanel.GetChild(11).text = playerData.RankingScore+"("+rank_sign+Math.abs(data.rankingaddscore[playerID])+")";
 				}
 				else
 				{
-					CPanel.GetChild(11).text = rank_sign+Math.abs(data.rankingaddscore[i]);
+					CPanel.GetChild(11).text = rank_sign+Math.abs(data.rankingaddscore[playerID]);
 				}
 			}
 		}
 	}
+	// var count = data.playercount;
+	// for (var i = 1; i <= count; i++)
+	// {
+	// 	var Panel;
+	// 	var damagetoking_team;
+	// 	if (data.team[i] == DOTATeam_t.DOTA_TEAM_GOODGUYS)
+	// 	{
+	// 		Panel = $("#Team1");
+	// 		damagetoking_team = data.damagetoking1;
+	// 	}
+	// 	else
+	// 	{
+	// 		Panel = $("#Team2");
+	// 		damagetoking_team = data.damagetoking2;
+	// 	}
+	// 	if (Panel.GetChildCount()<=4)
+	// 	{
+	// 		var CPanel = $.CreatePanel( "Panel", Panel, "" );
+	// 		CPanel.BLoadLayout( "file://{resources}/layout/custom_game/end_screen_player.xml", false, false );
+	// 		CPanel.SetHasClass("badguys", (data.playerposition[i] > 4));
+	// 		CPanel.GetChild(1).GetChild(0).steamid = data.steamid[i];
+	// 		CPanel.GetChild(1).GetChild(1).GetChild(0).text = Players.GetPlayerName(data.playerid[i]);
+	// 		CPanel.GetChild(1).GetChild(1).GetChild(1).text = $.Localize("#Level")+data.rankinglevel[i]+" "+$.Localize("#ranking_level_appellation_"+data.rankingappellation[i]);
+	// 		if (damagetoking_team == 0)
+	// 		{
+	// 			CPanel.GetChild(2).text = "0%";
+	// 		}
+	// 		else
+	// 		{
+	// 			CPanel.GetChild(2).text = Math.round((data.damagetoking[i]/damagetoking_team)*100)+"%";
+	// 		}
+	// 		CPanel.GetChild(3).text = data.breakgold[i];
+	// 		CPanel.GetChild(4).text = data.killcount[i];
+	// 		CPanel.GetChild(5).text = data.score[i];
+	// 		CPanel.GetChild(6).text = data.gold[i];
+	// 		CPanel.GetChild(7).text = data.lumber[i];
+	// 		CPanel.GetChild(8).text = data.income[i];
+	// 		CPanel.GetChild(9).text = data.armaments[i];
+	// 		CPanel.GetChild(10).SetImage(GetStarImage(count,data.mvp[i]));
+	// 		if (data.mvpplayerposition == data.playerposition[i])
+	// 		{
+	// 			CPanel.GetChild(0).SetImage("file://{images}/custom_game/EndScreen/MVP.psd");
+	// 		}
+	// 		if (data.rank_mode)
+	// 		{
+	// 			$.GetContextPanel().SetHasClass("rank_mode", true);
+	// 			var rank_sign = "+";
+	// 			CPanel.GetChild(11).style.color = "#00ff00";
+	// 			if (data.rankingaddscore[i] < 0)
+	// 			{
+	// 				rank_sign = "-";
+	// 				CPanel.GetChild(11).style.color = "#ff0000";
+	// 			}
+	// 			if (Players.GetLocalPlayer() == data.playerid[i] || Players.IsSpectator(Players.GetLocalPlayer()))
+	// 			{
+	// 				CPanel.GetChild(11).text = data.rankingscore[i]+"("+rank_sign+Math.abs(data.rankingaddscore[i])+")";
+	// 			}
+	// 			else
+	// 			{
+	// 				CPanel.GetChild(11).text = rank_sign+Math.abs(data.rankingaddscore[i]);
+	// 			}
+	// 		}
+	// 	}
+	// }
 }
 (function()
 {

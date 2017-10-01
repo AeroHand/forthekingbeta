@@ -23574,7 +23574,7 @@
 
 }
 //邪法碑
-	"npc_unit_Q3_2z"
+	"npc_unit_Q3_2z_BB"
 {
 	"BaseClass"                 "npc_dota_creature"     // 单位继承的类，这个类有很多，一般我们用npc_dota_creature
 	"Model"                     "models/heroes/phantom_assassin/arcana_tombstone.vmdl"//"models/heroes/pedestal/pedestal_1.vmdl"
@@ -23618,7 +23618,7 @@
 	"Ability5"                  ""          // 技能 5.
 	"Ability6"                  ""          // 技能 6
 	"Ability7"                  ""          // 技能 7 -最高就显示6个技能，后面添加的技能将不显示
-	"Ability8"                  "kexuanmajia"          // 技能 8 -最高就显示6个技能，后面添加的技能将不显示
+	"Ability8"                  ""          // 技能 8 -最高就显示6个技能，后面添加的技能将不显示
 	"AbilityLayout"             "4"          // 技能槽数量，最低4个，最高为6个，技能不多默认即可
  
 	// Attack

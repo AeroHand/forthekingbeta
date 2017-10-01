@@ -138,6 +138,7 @@ function ChangeSelectedUnit(data)
 	// 		}
 	// 	}
 	// });
+	UpdateData("PlayerData", "Player_"+Players.GetLocalPlayer(), CustomNetTables.GetTableValue("PlayerData", "Player_"+Players.GetLocalPlayer()));
 	CustomNetTables.SubscribeNetTableListener("PlayerData", UpdateData);
 	GameEvents.Subscribe( "dota_player_update_selected_unit", ChangeSelectedUnit );
 	GameEvents.Subscribe( "dota_player_update_query_unit", ChangeSelectedUnit );

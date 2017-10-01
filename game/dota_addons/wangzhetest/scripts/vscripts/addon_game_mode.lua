@@ -12,14 +12,7 @@ end
 require('require_everything')
 require('UNITS/king')
 
-_G.test_mode = true
-_G.Rank_mode = _G.Rank_mode or true
-_G.MaxPlayerCount = _G.MaxPlayerCount or 6
-_G.FirstBlood = _G.FirstBlood or false
-_G.WinnerTeam = DOTA_TEAM_GOODGUYS
-_G.Match_id = _G.Match_id or 0
 _G.Vesion = "v1.11"
-_G.PlayerCount = _G.PlayerCount or 0
 wushuang = require('md5')
 
 -------------------------------------------------------------------------------------------------------------------
@@ -39,7 +32,7 @@ local function PrecacheModel(model, context )
 	PrecacheResource( "model", model, context )
 end
 --------------------------------------------------------------------- ----------------------------------------------
- 
+
 -------------------------------------------------------------------------------------------------------------------
 
 --预载入--------
@@ -60,7 +53,7 @@ function PrecacheEveryThingFromKV( context )
 		{"model", "models/courier/frull/frull_courier_flying.vmdl"},
 		{"model", "models/items/courier/gnomepig/gnomepig_flying.vmdl"},
 
-		
+
 		--left king
 		{"model", "models/heroes/chen/chen.vmdl"},
 		{"model", "models/items/chen/squareskystaff_weapon/squareskystaff_weapon.vmdl"},
@@ -106,7 +99,7 @@ function PrecacheEveryThingFromKV( context )
 
 
 		--Q1 21
-		
+
 		{"model", "models/items/sven/belt_of_tielong/belt_of_tielong.vmdl"},
 		{"model", "models/items/sven/breath_of_tielong/breath_of_tielong.vmdl"},
 		{"model", "models/items/sven/gauntlet_of_tielong/gauntlet_of_tielong.vmdl"},
@@ -212,7 +205,7 @@ function PrecacheEveryThingFromKV( context )
 		{"model", "models/heroes/sniper/headitem.vmdl"},
 		{"model", "models/heroes/sniper/shoulder.vmdl"},
 		{"model", "models/heroes/sniper/weapon.vmdl"},
-		--W1 10	
+		--W1 10
 		{"model", "models/items/sniper/sharpshooter_stache/sharpshooter_stache.vmdl"},
 		{"model", "models/items/sniper/killstealer/killstealer.vmdl"},
 		{"model", "models/items/sniper/sharpshooter_shoulder/sharpshooter_shoulder.vmdl"},
@@ -237,7 +230,7 @@ function PrecacheEveryThingFromKV( context )
 		{"model", "models/items/techies/bigshot/bigshot_squee_costume.vmdl"},
 		{"model", "models/items/techies/bigshot/bigshot_barrel.vmdl"},
 		{"model", "models/items/techies/bigshot/bigshot.vmdl"},
-		
+
 		--W2 00  models/heroes/huskar/huskar.vmdl
 		{"model", "models/heroes/huskar/huskar_spear.vmdl"},--268
 		{"model", "models/heroes/huskar/huskar_dagger.vmdl"},--269
@@ -330,7 +323,7 @@ function PrecacheEveryThingFromKV( context )
 		{"model", "models/heroes/tiny_01/tiny_01_left_arm.vmdl"},--495
 		{"model", "models/heroes/tiny_01/tiny_01_right_arm.vmdl"},--496
 
-		--E1 10  
+		--E1 10
 		{"model", "models/items/tiny/scarletquarry_arms/scarletquarry_arms.vmdl"},--6886
 		{"model", "models/items/tiny/scarletquarry_offhand/scarletquarry_offhand.vmdl"},--6998
 		{"model", "models/items/tiny/scarletquarry_head/scarletquarry_head.vmdl"},--6999
@@ -403,7 +396,7 @@ function PrecacheEveryThingFromKV( context )
 		{"model", "models/items/nerubian_assassin/nyx_dusky_misc/nyx_dusky_misc.vmdl"},--5569
 		{"model", "models/items/nerubian_assassin/nyx_dusky_weapon/nyx_dusky_weapon.vmdl"},--5570
 
-		--E6 10	
+		--E6 10
 		{"model", "models/items/nerubian_assassin/spines_of_the_predator/spines_of_the_predator.vmdl"},--5201
 		{"model", "models/items/nerubian_assassin/mind_piercer_of_the_predator/mind_piercer_of_the_predator.vmdl"},--5202
 		{"model", "models/items/nerubian_assassin/preyfinders_of_the_predator/preyfinders_of_the_predator.vmdl"},--5203
@@ -413,7 +406,7 @@ function PrecacheEveryThingFromKV( context )
 		{"model", "models/items/broodmother/abdomen_of_perception/abdomen_of_perception.vmdl"},--5854
 		{"model", "models/items/broodmother/crown_of_perception/crown_of_perception.vmdl"}, --5891
 		{"model", "models/items/broodmother/legs_of_perception/legs_of_perception.vmdl"}, --5892
-		
+
 		--E6 1a  models/heroes/broodmother/spiderling.vmdl
 
 		--D1 00 models/heroes/storm_spirit/storm_spirit.vmdl
@@ -444,7 +437,7 @@ function PrecacheEveryThingFromKV( context )
 		--D3 00 D3 10 models/heroes/zuus/zuus.vmdl
 		{"model","models/items/zeus/lightning_weapon/zuus_lightning_weapon.vmdl"}, --5412
 		--D4 00  models/heroes/nevermore/nevermore.vmdl
-		
+
 		--D4 10  models/heroes/shadow_fiend/shadow_fiend.vmdl
 		{"model","models/heroes/shadow_fiend/shadow_fiend_head.vmdl"},--387
 		{"model","models/heroes/shadow_fiend/shadow_fiend_shoulders.vmdl"},--486
@@ -1058,7 +1051,7 @@ function PrecacheEveryThingFromKV( context )
 	}
 
 
-		 
+
 	-- print("loading shiping")
 	local t=#zr;
 	for i=1,t do
@@ -1079,7 +1072,7 @@ function PrecacheEverythingFromTable( context, kvtable)
 				PrecacheResource( "particle",  value, context)
 				-- print("PRECACHE PARTICLE RESOURCE", value)
 			end
-			if string.find(value, "vmdl") then 	
+			if string.find(value, "vmdl") then
 				PrecacheResource( "model",  value, context)
 				-- print("PRECACHE MODEL RESOURCE", value)
 			end
@@ -1088,7 +1081,7 @@ function PrecacheEverythingFromTable( context, kvtable)
 				-- print("PRECACHE SOUND RESOURCE", value)
 			end
 		end
-	end	   
+	end
 end
 
 --技能特效预载表
@@ -1313,7 +1306,7 @@ SoundTabel={
 }
 
 function Precache( context )
-	print("BEGIN TO PRECACHE RESOURCE")
+	-- print("BEGIN TO PRECACHE RESOURCE")
 	local time = GameRules:GetGameTime()
 
 	PrecacheEveryThingFromKV( context )
@@ -1330,7 +1323,7 @@ function Precache( context )
 	end
 
 	time = time - GameRules:GetGameTime()
-	print("DONE PRECACHEING IN:"..tostring(time).."Seconds")
+	-- print("DONE PRECACHEING IN:"..tostring(time).."Seconds")
 end
 
 
@@ -1390,8 +1383,12 @@ function CbtfGameMode:InitGameMode()
 	Convars:SetInt("dota_render_y_inset", 0)
 	-- Convars:GetBool("sv_cheats")
 
+	Game:TestMode(true)
+	Game:RankMode(true)
+	Game:SetMatchID(GameRules:GetMatchID())
+
 	--设置游戏准备时间
-	if _G.test_mode then
+	if Game:IsTestMode() then
 		GameRules:SetStartingGold(999999)
 		GameRules:SetPreGameTime(5)
 	else
@@ -1400,7 +1397,7 @@ function CbtfGameMode:InitGameMode()
 	end
 	GameRules:SetCustomGameEndDelay(1)
 	--重复选择英雄
-	GameRules:SetSameHeroSelectionEnabled(true)    
+	GameRules:SetSameHeroSelectionEnabled(true)
 
 	--取消自动增加金钱
 	GameRules:SetGoldPerTick(0)
@@ -1478,7 +1475,7 @@ end
 function Reroll(index,keys)
 	local pid = keys.PlayerID
 	local playerData = PlayerData:GetPlayerData(pid)
-	--重选全部技能 
+	--重选全部技能
 	local BUILD_Q = playerData:GetBuildingTypeName("Q") --获取Q旧编号
 	local BUILD_W = playerData:GetBuildingTypeName("W") --获取W旧编号
 	local BUILD_E = playerData:GetBuildingTypeName("E") --获取E旧编号
@@ -1515,51 +1512,16 @@ function Reroll(index,keys)
 	--替换函数
 	playerData:UpdateBuildingsBuildAbility()
 end
-function GetPlayerLevelAndAppellation(score,rank,per)
-	local level = 101 - math.ceil((per or 1)*100)
-	-- print("%%level "..level)
-	-- print("%%per "..per)
-	-- print("%%rank "..rank)
-	if score == 0 then
-		level = 1
-	end
-	if (rank or 99999) <= 50 then
-		level = 101
-	end
-	local appellation = 0
-	if level == 1 then
-		appellation = 1
-	elseif level >=  2 and level < 30 then
-		appellation = 2
-	elseif level >= 30 and level < 50 then
-		appellation = 3
-	elseif level >= 50 and level < 70 then
-		appellation = 4
-	elseif level >= 70 and level < 80 then
-		appellation = 5
-	elseif level >= 80 and level < 90 then
-		appellation = 6
-	elseif level >= 90 and level < 96 then
-		appellation = 7
-	elseif level >= 96 and level < 101 then
-		appellation = 8
-	elseif level == 100 then
-		appellation = 9
-	elseif level == 101 then
-		appellation = 10
-	end
-	return level,appellation
-end
-
 --游戏结束传递信息到UI
 function ComputeAndSendPlayerStates()
-	if GetRound() < 10 then
-		_G.Rank_mode = false
+	if Game:GetRound() < 10 then
+		Game:RankMode(false)
 	end
-	if _G.test_mode then
-		_G.Rank_mode = false
+	if Game:IsTestMode() then
+		Game:RankMode(true)
 	end
-	local count = #AllPlayers
+
+	local count = Game:GetPlayerCount()
 	local damagetoking_rank = {}
 	local killcount_rank = {}
 	local breakgold_rank = {}
@@ -1578,154 +1540,135 @@ function ComputeAndSendPlayerStates()
 	local rank_extra_score_seed = 2
 	local rank_basic_score = 20
 	local lastmvp = 0
-	for _,i in pairs(AllPlayers) do
-		damagetoking_rank[i] = 1
-		killcount_rank[i] = 1
-		breakgold_rank[i] = 1
-		score_rank[i] = 1
-		income_rank[i] = 1
-		armaments_rank[i] = 1
-		for __,n in pairs(AllPlayers) do
-			if PlayerS[n].MVP_DamageToKing > PlayerS[i].MVP_DamageToKing then
-				damagetoking_rank[i] = damagetoking_rank[i] + 1
+
+	PlayerData:Look(
+		function(playerID, playerData)
+			local playerPosition = playerData:GetPlayerPosition()
+
+			damagetoking_rank[playerPosition] = 1
+			damagetoking_rank[playerPosition] = 1
+			killcount_rank[playerPosition] = 1
+			breakgold_rank[playerPosition] = 1
+			score_rank[playerPosition] = 1
+			income_rank[playerPosition] = 1
+			armaments_rank[playerPosition] = 1
+			PlayerData:Look(
+				function(_playerID, _playerData)
+					local _playerPosition = _playerData:GetPlayerPosition()
+					if _playerData:GetDamageToKing() > playerData:GetDamageToKing() then
+						damagetoking_rank[playerPosition] = damagetoking_rank[playerPosition] + 1
+					end
+					if _playerData:GetKills() > playerData:GetKills() then
+						killcount_rank[playerPosition] = killcount_rank[playerPosition] + 1
+					end
+					if _playerData:GetBreakGold() > playerData:GetBreakGold() then
+						breakgold_rank[playerPosition] = breakgold_rank[playerPosition] + 1
+					end
+					if _playerData:GetScore() > playerData:GetScore() then
+						score_rank[playerPosition] = score_rank[playerPosition] + 1
+					end
+					if _playerData:GetAllIncome() > playerData:GetAllIncome() then
+						income_rank[playerPosition] = income_rank[playerPosition] + 1
+					end
+					if _playerData:GetArmsValue() > playerData:GetArmsValue() then
+						armaments_rank[playerPosition] = armaments_rank[playerPosition] + 1
+					end
+				end
+			)
+			MVP[playerPosition] = (count-damagetoking_rank[playerPosition])*11 + (count-killcount_rank[playerPosition])*8 + (count-breakgold_rank[playerPosition])*5 + (count-score_rank[playerPosition])*7 + (count-income_rank[playerPosition])*4 + (count-armaments_rank[playerPosition])*4
+			if playerPosition <= 4 then
+				damagetoking_team1 = damagetoking_team1 + playerData:GetDamageToKing()
+				team1_level = team1_level + playerData:GetRankingLevel()
 			end
-			if PlayerS[n].MVP_KillCount > PlayerS[i].MVP_KillCount then
-				killcount_rank[i] = killcount_rank[i] + 1
-			end
-			if PlayerS[n].MVP_BreakGold > PlayerS[i].MVP_BreakGold then
-				breakgold_rank[i] = breakgold_rank[i] + 1
-			end
-			if PlayerS[n].Score > PlayerS[i].Score then
-				score_rank[i] = score_rank[i] + 1
-			end
-			if PlayerS[n].Income > PlayerS[i].Income then
-				income_rank[i] = income_rank[i] + 1
-			end
-			if PlayerS[n].Arms > PlayerS[i].Arms then
-				armaments_rank[i] = armaments_rank[i] + 1
+			if playerPosition > 4 then
+				damagetoking_team2 = damagetoking_team2 + playerData:GetDamageToKing()
+				team2_level = team2_level + playerData:GetRankingLevel()
 			end
 		end
-		MVP[i] = (count-damagetoking_rank[i])*11 + (count-killcount_rank[i])*8 + (count-breakgold_rank[i])*5 + (count-score_rank[i])*7 + (count-income_rank[i])*4 + (count-armaments_rank[i])*4
-		if i <= 4 then
-			damagetoking_team1 = damagetoking_team1 + PlayerS[i].MVP_DamageToKing
-			team1_level = team1_level + PlayerS[i].ranking_level
-		end
-		if i > 4 then
-			damagetoking_team2 = damagetoking_team2 + PlayerS[i].MVP_DamageToKing
-			team2_level = team2_level + PlayerS[i].ranking_level
-		end
-	end
+	)
 	team1_level = team1_level/(count/2)
 	team2_level = team2_level/(count/2)
-	for _,i in pairs(AllPlayers) do
-		MVP_rank[i] = 1;
-		for __,n in pairs(AllPlayers) do
-			if MVP[n] > MVP[i] then
-				MVP_rank[i] = MVP_rank[i] + 1
-			end
-		end
-		if PlayerResource:GetTeam(PlayerS[i].playerid) == _G.WinnerTeam then
-			if lastmvp <= MVP[i] then
-				lastmvp = MVP[i]
-				MVP_PlayerPosition = i
-			end
-		end
-		if _G.Rank_mode then
-			local rank_basic_score_s
-			if PlayerResource:GetTeam(PlayerS[i].playerid) == _G.WinnerTeam then
-				rank_basic_score_s = rank_basic_score + 6
-			else
-				rank_basic_score_s = -rank_basic_score
-			end
-			if PlayerS[i].Abandon and GetRound() - PlayerS[i].AbandonRound > 1 then
-				rank_basic_score_s = rank_basic_score_s - 20
-			end
-			local rank_extra_score = (count/2 - MVP_rank[i]) * rank_extra_score_seed
-			local rank_level_coefficient
-			if i <= 4 then
-				rank_level_coefficient = (team2_level-PlayerS[i].ranking_level)*rank_level_seed
-			else
-				rank_level_coefficient = (team1_level-PlayerS[i].ranking_level)*rank_level_seed
-			end
-			rank_add_score[i] = rank_basic_score_s + rank_extra_score + math.abs(rank_extra_score)*rank_level_coefficient
-			if PlayerS[i].steamid then
-				local match_id = _G.Match_id
-				-- print("match_id: "..match_id)
-				local url= "http://www.dota2rpg.com/game_wz1/wz_set_ladderpoints.php?"
-				url = url .. "playerid=" .. PlayerS[i].steamid
-				url = url .. "&points=" .. rank_add_score[i]
-				url = url .. "&match_id=" .. _G.Match_id
-				url = url .. "&wu_shuang=" .. wushuang.sumhexa(match_id)
-				url = url .. "&hehe=" .. RandomInt(1000, 9999)
-				local req = CreateHTTPRequestScriptVM("GET", url)
-				req:Send(
-					function (result)
+	PlayerData:Look(
+		function(playerID, playerData)
+			local playerPosition = playerData:GetPlayerPosition()
+
+			MVP_rank[playerPosition] = 1
+
+			PlayerData:Look(
+				function(_playerID, _playerData)
+					local _playerPosition = _playerData:GetPlayerPosition()
+					if MVP[_playerPosition] > MVP[playerPosition] then
+						MVP_rank[playerPosition] = MVP_rank[playerPosition] + 1
 					end
-				)
+				end
+			)
+			if PlayerResource:GetTeam(playerID) == Game:GetWinnerTeam() then
+				if lastmvp <= MVP[playerPosition] then
+					lastmvp = MVP[playerPosition]
+					MVP_PlayerPosition = playerPosition
+				end
+			end
+			if Game:IsRankMode() then
+				local rank_basic_score_s
+				if PlayerResource:GetTeam(playerID) == Game:GetWinnerTeam() then
+					rank_basic_score_s = rank_basic_score + 6
+				else
+					rank_basic_score_s = -rank_basic_score
+				end
+				if playerData:IsAbandon() and Game:GetRound() - playerData:GetAbandonRound() > 1 then
+					rank_basic_score_s = rank_basic_score_s - 20
+				end
+				local rank_extra_score = (count/2 - MVP_rank[playerPosition]) * rank_extra_score_seed
+				local rank_level_coefficient
+				if playerPosition <= 4 then
+					rank_level_coefficient = (team2_level-playerData:GetRankingLevel())*rank_level_seed
+				else
+					rank_level_coefficient = (team1_level-playerData:GetRankingLevel())*rank_level_seed
+				end
+				rank_add_score[playerPosition] = rank_basic_score_s + rank_extra_score + math.abs(rank_extra_score)*rank_level_coefficient
+				if playerData:GetSteamID() then
+					local match_id = tostring(Game:GetMatchID())
+					-- print("match_id: "..match_id)
+					local url= "http://www.dota2rpg.com/game_wz1/wz_set_ladderpoints.php?"
+					url = url .. "playerid=" .. tostring(playerData:GetSteamID())
+					url = url .. "&points=" .. rank_add_score[playerPosition]
+					url = url .. "&match_id=" .. Game:GetMatchID()
+					url = url .. "&wu_shuang=" .. wushuang.sumhexa(match_id)
+					url = url .. "&hehe=" .. RandomInt(1000, 9999)
+					local req = CreateHTTPRequestScriptVM("GET", url)
+					req:Send(
+						function (result)
+						end
+					)
+					print(url)
+				end
 			end
 		end
-	end
+	)
+
 	--传递数据
-	local playerpositiontable={}
-	local playeridtable={}
-	local damagetokingtable={}
-	local breakgoldtable={}
-	local killcounttable={}
-	local scoretable={}
-	local goldtable={}
-	local lumbertable={}
-	local incometable={}
-	local armamentstable={}
-	local mvptable={}
-	local rankingscoretable={}
-	local rankingleveltable={}
-	local rankingappellationtable={}
-	local rankingaddscoretable={}
-	local steamidtable={}
-	local teamtable={}
-	for _, PlayerPosition in pairs( AllPlayers ) do
-		table.insert(playerpositiontable,PlayerPosition)
-		table.insert(playeridtable,PlayerS[PlayerPosition].playerid)
-		table.insert(damagetokingtable,PlayerS[PlayerPosition].MVP_DamageToKing)
-		table.insert(breakgoldtable,PlayerS[PlayerPosition].MVP_BreakGold)
-		table.insert(killcounttable,PlayerS[PlayerPosition].MVP_KillCount)
-		table.insert(scoretable,PlayerS[PlayerPosition].Score)
-		table.insert(goldtable,PlayerS[PlayerPosition].MVP_TotalGold)
-		table.insert(lumbertable,PlayerS[PlayerPosition].MVP_TotalLumer)
-		table.insert(incometable,PlayerS[PlayerPosition].Income)
-		table.insert(armamentstable,PlayerS[PlayerPosition].Arms)
-		table.insert(mvptable,MVP[PlayerPosition])
-		table.insert(rankingscoretable,PlayerS[PlayerPosition].ranking_score)
-		table.insert(rankingleveltable,PlayerS[PlayerPosition].ranking_level)
-		table.insert(rankingappellationtable,PlayerS[PlayerPosition].ranking_appellation)
-		table.insert(rankingaddscoretable,Round(rank_add_score[PlayerPosition],1))
-		table.insert(steamidtable,PlayerS[PlayerPosition].steamid)
-		table.insert(teamtable,PlayerResource:GetTeam(PlayerS[PlayerPosition].playerid))
-	end
-	CustomGameEventManager:Send_ServerToAllClients("end_screen_player_states",{
-		playercount=_G.PlayerCount,
-		playerposition=playerpositiontable,
-		playerid=playeridtable,
-		damagetoking=damagetokingtable,
-		breakgold=breakgoldtable,
-		killcount=killcounttable,
-		score=scoretable,
-		gold=goldtable,
-		lumber=lumbertable,
-		income=incometable,
-		armaments=armamentstable,
-		mvp=mvptable,
-		rankingscore=rankingscoretable,
-		rankinglevel=rankingleveltable,
-		rankingappellation=rankingappellationtable,
-		rankingaddscore=rankingaddscoretable,
-		steamid=steamidtable,
-		team=teamtable,
-		mvpplayerposition=MVP_PlayerPosition,
-		damagetoking1=damagetoking_team1,
-		damagetoking2=damagetoking_team2,
-		rank_mode=_G.Rank_mode,
-	})
+	local playeridtable = {}
+	local mvptable = {}
+	local rankingaddscoretable = {}
+	PlayerData:Look(
+		function(playerID, playerData)
+			local playerPosition = playerData:GetPlayerPosition()
+
+			playeridtable[playerPosition] = playerID
+			mvptable[playerID] = MVP[playerPosition]
+			rankingaddscoretable[playerID] = Round(rank_add_score[playerPosition], 1)
+		end
+	)
+	CustomGameEventManager:Send_ServerToAllClients("end_screen_player_states", 
+		{
+			mvp = mvptable,
+			rankingaddscore = rankingaddscoretable,
+			mvpplayerposition = MVP_PlayerPosition,
+			damagetoking1 = damagetoking_team1,
+			damagetoking2 = damagetoking_team2,
+			rank_mode = Game:IsRankMode(),
+		}
+	)
 end
 --DamageFilter
 function CbtfGameMode:DamageFilter( filterTable )
@@ -1848,7 +1791,7 @@ function CbtfGameMode:DamageFilter( filterTable )
 					DamageManager:SpellDamage( damaged_unit, source_unit, pure_damage*0.10)
 				end
 			end
-			if damaged_unit == king_left or damaged_unit == king_right then
+			if damaged_unit == Game:GetLeftKing() or damaged_unit == Game:GetRightKing() then
 				if source_unit:GetPlayerOwnerID() ~= -1 then
 					PlayerData:GetPlayerData(source_unit:GetPlayerOwnerID()):IncrementDamageToKing(filterTable.damage)
 				end
@@ -2278,42 +2221,41 @@ end
 function CbtfGameMode:OnGameRulesStateChange( keys )
 	--获取游戏进度
 	local newState = GameRules:State_Get()
-	if newState == DOTA_GAMERULES_STATE_INIT then
-	elseif newState == DOTA_GAMERULES_STATE_HERO_SELECTION then
-	--开始选择英雄
-		_G.PlayerCount = PlayerResource:GetPlayerCountForTeam(DOTA_TEAM_GOODGUYS) + PlayerResource:GetPlayerCountForTeam(DOTA_TEAM_BADGUYS)
-		if _G.PlayerCount < 4 then
-			_G.Rank_mode = false
+	if newState == DOTA_GAMERULES_STATE_HERO_SELECTION then
+		--开始选择英雄
+		Game:SetLeftPlayerCount(PlayerResource:GetPlayerCountForTeam(DOTA_TEAM_GOODGUYS))
+		Game:SetRightPlayerCount(PlayerResource:GetPlayerCountForTeam(DOTA_TEAM_BADGUYS))
+
+		local playerCount = Game:GetPlayerCount()
+		if playerCount < 4 then
+			Game:RankMode(false)
 		end
 		local PlayerPosition1 = 0
 		local PlayerPosition2 = 4
-		for i=0,_G.PlayerCount-1 do
+		for i = 0, playerCount-1, 1 do
 			if PlayerResource:GetTeam(i) == DOTA_TEAM_GOODGUYS then
 				PlayerPosition1 = PlayerPosition1 + 1--位置1-4
-				CbtfGameMode:InitPlayer(i,PlayerPosition1)
+				CbtfGameMode:InitPlayer(i, PlayerPosition1)
 			end
 			if PlayerResource:GetTeam(i) == DOTA_TEAM_BADGUYS then
 				PlayerPosition2 = PlayerPosition2 + 1--位置5-8
-				CbtfGameMode:InitPlayer(i,PlayerPosition2)
+				CbtfGameMode:InitPlayer(i, PlayerPosition2)
 			end
 		end
-		GameRules.LeftPlayerCount = PlayerResource:GetPlayerCountForTeam(DOTA_TEAM_GOODGUYS)
-		GameRules.RightPlayerCount = PlayerResource:GetPlayerCountForTeam(DOTA_TEAM_BADGUYS)
-		GameRules.LeftLife = math.ceil(_G.PlayerCount/2) 
-		GameRules.RightLife = GameRules.LeftLife
-		chushihua:SpawnBuildBase() --刷王和地基等物体
-		-- print(GameRules.LeftLife)
-	--总兵力默认
-		GameRules.LeftScore = 0
-		GameRules.RightScore = 0 
-	elseif newState==DOTA_GAMERULES_STATE_PRE_GAME then
-	--游戏准备
-		--GameRules:SendCustomMessage("#ConfirmList", -1, 0)
+
+		local initLife = math.max(Game:GetLeftPlayerCount(), Game:GetRightPlayerCount())
+		Game:ModifyLeftLife(initLife)
+		Game:ModifyRightLife(initLife)
+
+		Game:SetRoundTime(38)
+		Game:SetEarnCrystalTime(7)
+		--刷王和地基等物体
+		chushihua:SpawnBuildBase()
+	elseif newState == DOTA_GAMERULES_STATE_PRE_GAME then
+		--游戏准备
 		playerstarts:CreatePortal()
 	elseif newState == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
-	--游戏开始
-		_G.Match_id = GameRules:GetMatchID()
-		-- print(_G.Match_id)
+		--游戏开始
 		PlayerData:Look(
 			function(playerID, playerData)
 				local playerPosition = playerData:GetPlayerPosition()
@@ -2338,7 +2280,7 @@ function CbtfGameMode:OnGameRulesStateChange( keys )
 				local bannerBuilding = UnitManager:CreateUnitByName("npc_dummy_banner", ent:GetAbsOrigin(), false, playerID, PlayerResource:GetTeam(playerID))
 				bannerBuilding:SetControllableByPlayer(playerID, true)
 				if PlayerResource:GetTeam(playerID) == DOTA_TEAM_BADGUYS then
-					bannerBuilding:SetOriginalModel("models/props_teams/banner_dire_small.vmdl") 
+					bannerBuilding:SetOriginalModel("models/props_teams/banner_dire_small.vmdl")
 				end
 				playerData:SetBannerBuilding(bannerBuilding)
 
@@ -2349,77 +2291,28 @@ function CbtfGameMode:OnGameRulesStateChange( keys )
 				)
 			end
 		)
-		-- 计时器
-		local last_time = GameRules:GetGameTime()
-		SetLastTime(GameRules:GetGameTime(),1)
-		SetLastTime(GameRules:GetGameTime(),2)
+
+		--计时器
+		Game:SetNextRoundTime(GameRules:GetGameTime() + Game:GetRoundTime())
+		Game:SetNextEarnCrystalTime(GameRules:GetGameTime() + Game:GetEarnCrystalTime())
 		GameRules:GetGameModeEntity():SetContextThink("GlobalThink",
 			function()
-				if GameRules:State_Get() == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS or GameRules:State_Get() == DOTA_GAMERULES_STATE_PRE_GAME then
-					local now = GameRules:GetGameTime()
-					CustomGameEventManager:Send_ServerToAllClients("updateroundprogressbar",{time=now-last_time,period=RoundThinker_Period})
-					RoundThinker(now)
-					if now - last_time >= RoundThinker_Period then
-						last_time = now
-						EmitGlobalSound("Tutorial.Quest.complete_01") -- game_sounds_music_tutorial中的音乐
-						local team1_win = true
-						local team2_win = true
-						local is_all_abandoned = true
-						local playercount = 0
-						
-						PlayerData:Look(
-							function(playerID, playerData)
-								if PlayerResource:GetConnectionState(playerID) == DOTA_CONNECTION_STATE_ABANDONED then
-									if GetRound == 10 then
-										_G.Rank_mode = false
-									end
-								else
-									playercount = playercount + 1
-									is_all_abandoned = false
-									if PlayerResource:GetTeam(playerID) == DOTA_TEAM_GOODGUYS then
-										team2_win = false
-									end
-									if PlayerResource:GetTeam(playerID) == DOTA_TEAM_BADGUYS then
-										team1_win = false
-									end
-								end
-							end
-						)
-						if _G.PlayerCount == playercount then
-							team1_win = false
-							team2_win = false
-							is_all_abandoned = false
-						end
-						GameRules:GetGameModeEntity():SetContextThink(DoUniqueString("abandon_game"), 
-							function()
-								if is_all_abandoned then
-									_G.Rank_mode = false
-								end
-								if team1_win then
-									king_right:RemoveModifierByName('modifier_never_dead')
-									king_right:Kill(nil, king_left)
-								end
-								if team2_win then
-									king_left:RemoveModifierByName('modifier_never_dead')
-									king_left:Kill(nil, king_right)
-								end
-								return nil
-							end
-						, 15)
-					end
-				elseif GameRules:State_Get() >= DOTA_GAMERULES_STATE_POST_GAME then
+				local now = GameRules:GetGameTime()
+				RoundThinker(now)
+
+				if GameRules:State_Get() >= DOTA_GAMERULES_STATE_POST_GAME then
 					return nil
 				end
-				return 0.05
+				return 0
 			end
-		,0.05)
+		,0)
 	end
 end
 CustomMessage = false
 --触发事件 单位重生和创建
 function CbtfGameMode:OnNPCSpawned( keys )
 	local trigger_unit = EntIndexToHScript(keys.entindex)
-	local trigger_unit_team_number = trigger_unit:GetTeamNumber() 
+	local trigger_unit_team_number = trigger_unit:GetTeamNumber()
 	--设置新生单位的朝向
 	if trigger_unit_team_number == DOTA_TEAM_GOODGUYS then
 		trigger_unit:SetForwardVector((Vector(2000,0,0) - Vector(-2000,0,0)):Normalized())--朝右
@@ -2447,12 +2340,12 @@ end
 
 function GameWinner(winner_team)
 	local king
-	_G.WinnerTeam = winner_team
+	Game:SetWinnerTeam(winner_team)
 	if winner_team == DOTA_TEAM_GOODGUYS then
-		king = king_right
+		king = Game:GetRightKing()
 	end
 	if winner_team == DOTA_TEAM_BADGUYS then
-		king = king_left
+		king = Game:GetLeftKing()
 	end
 	GameRules:SetGameWinner(winner_team)
 	for _, i in pairs( AllPlayers ) do
@@ -2484,10 +2377,10 @@ function CbtfGameMode:OnEntityKilled(keys)
 	local killed_unit = EntIndexToHScript( keys.entindex_killed )
 	local killing_unit = EntIndexToHScript( keys.entindex_attacker )
 
-	if killed_unit == king_left then
+	if killed_unit == Game:GetLeftKing() then
 		GameWinner(DOTA_TEAM_BADGUYS)
 	end
-	if killed_unit == king_right then
+	if killed_unit == Game:GetRightKing() then
 		GameWinner(DOTA_TEAM_GOODGUYS)
 	end
 	if killed_unit then
@@ -2596,7 +2489,7 @@ function CbtfGameMode:UpdateScoreboard()
 	-- 	end
 	-- 	CustomGameEventManager:Send_ServerToAllClients("updateround",{round=GetRound()})
 	-- end
-end	
+end
 --初始化玩家
 function CbtfGameMode:InitPlayer(PlayerID,PlayerPosition)
 	-- PlayerCalc:SetPlayerIDPosition(PlayerID,PlayerPosition)
@@ -2606,9 +2499,9 @@ function CbtfGameMode:InitPlayer(PlayerID,PlayerPosition)
 	-- 	table.insert( AllPlayers, PlayerPosition)                                                         --加入全部玩家队伍
 
 	-- 	local start_ent = Entities:FindByName(nil,"portal"..tostring(PlayerPosition))
-	-- 	local start_point = start_ent:GetAbsOrigin() 
-									  
-	-- 	PlayerS[PlayerPosition].StartPoint = start_point  
+	-- 	local start_point = start_ent:GetAbsOrigin()
+
+	-- 	PlayerS[PlayerPosition].StartPoint = start_point
 
 	-- 	PlayerS[PlayerPosition].Lumber = 0                 --定义初始木材  0
 	-- 	PlayerS[PlayerPosition].CurFood = 1                      --初始当前人口1
@@ -2622,7 +2515,7 @@ function CbtfGameMode:InitPlayer(PlayerID,PlayerPosition)
 	-- 					  --print(PlayerS[PlayerPosition].Gold)
 	-- 					  --print("player"..tostring(i).." gold is  "..PlayerS[PlayerPosition].Gold)
 	-- 	PlayerS[PlayerPosition].HireRoad = PlayerPosition 				--玩家默认的雇佣兵进攻路线
-	-- 	PlayerS[PlayerPosition].Unit = {}                                                                          --玩家单位 
+	-- 	PlayerS[PlayerPosition].Unit = {}                                                                          --玩家单位
 	-- 	PlayerS[PlayerPosition].Farmer = {}                                                                        --玩家采集者单位
 	-- 	PlayerS[PlayerPosition].Build = {}                                                                         --玩家的建筑
 	-- 	PlayerS[PlayerPosition].NewBuild = {}                                                                      --未出兵的建筑
@@ -2636,7 +2529,7 @@ function CbtfGameMode:InitPlayer(PlayerID,PlayerPosition)
 	-- 	PlayerS[PlayerPosition].ADLevel = 0 		                                                               --王攻击强化等级
 	-- 	PlayerS[PlayerPosition].HLevel = 0 		                                                                   --王生命强化等级
 	-- 	PlayerS[PlayerPosition].HRLevel = 0 		                                                               --王回复强化等级
-		
+
 	-- 	PlayerS[PlayerPosition].ranking_score = 0
 	-- 	PlayerS[PlayerPosition].ranking_rank = 0
 	-- 	PlayerS[PlayerPosition].ranking_total = 0
@@ -2658,7 +2551,7 @@ function CbtfGameMode:InitPlayer(PlayerID,PlayerPosition)
 	-- 	--玩家设置
 	-- 	PlayerS[PlayerPosition].show_damage_message = false					--显示真实伤害
 	-- 	--测试模式
-	-- 	if _G.test_mode then
+	-- 	if Game:IsTestMode() then
 	-- 		PlayerS[PlayerPosition].Lumber = 10000
 	-- 		PlayerS[PlayerPosition].Score = 20000
 	-- 	end
@@ -2723,7 +2616,7 @@ function CbtfGameMode:OnPlayerReconnected(keys)
 			end
 		, 2)
 
-		PlayerResource:SetCameraTarget(nReconnectedPlayerID, nil) --解锁镜头 	
+		PlayerResource:SetCameraTarget(nReconnectedPlayerID, nil) --解锁镜头
 	end
 end
 

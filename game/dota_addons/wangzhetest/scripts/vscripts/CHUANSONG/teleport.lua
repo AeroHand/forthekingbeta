@@ -14,8 +14,8 @@ function BreakGold(unit)
 			local portal = playerstarts:GetPortal(enemyPlayerPosition)
 			if enemyPlayerData ~= nil then
 				local enemyPlayerID = enemyPlayerData:GetPlayerID()
-				if frontEnemyPlayerData:IsAdherence() then
-					frontEnemyPlayerData:ModifyGold(bounty)
+				if enemyPlayerData:IsAdherence() then
+					enemyPlayerData:ModifyGold(bounty)
 					SendOverheadEventMessage(PlayerResource:GetPlayer(enemyPlayerID), OVERHEAD_ALERT_GOLD, portal, bounty, player)
 				end
 			end
@@ -26,10 +26,11 @@ function BreakGold(unit)
 		unit:SetHealth(unit:GetHealth()*0.05)
 	end
 
-	if _G.FirstBlood == false and not UnitManager:IsHire(unit) and not HasLabel(unit, "SummonUnit") then
-		local bounty = 28
-		_G.FirstBlood = true
+	if Game:GetFirstBloodPlayerID() == -1 and not UnitManager:IsHire(unit) and not HasLabel(unit, "SummonUnit") then
+		Game:SetFirstBloodPlayerID(playerID)
 		EmitGlobalSound("announcer_killing_spree_announcer_1stblood_01")
+
+		local bounty = 28
 		PlayerData:Look(
 			function(_playerID, _playerData)
 				if PlayerResource:GetTeam(playerID) == PlayerResource:GetTeam(_playerID) then
