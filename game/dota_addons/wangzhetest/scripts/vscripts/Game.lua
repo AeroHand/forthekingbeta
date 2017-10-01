@@ -181,8 +181,8 @@ end
 function Game:GetRightLife()
 	return self.info.rightLife
 end
-function Game:SetLeftADLevel(iLevel)
-	self.info.leftADLevel = iLevel
+function Game:SetRightADLevel(iLevel)
+	self.info.rightADLevel = iLevel
 
 	self:UpdateGame()
 end

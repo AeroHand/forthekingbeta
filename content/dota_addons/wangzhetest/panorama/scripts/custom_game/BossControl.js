@@ -5,6 +5,10 @@ function BossControl()
 	var unit = Players.GetLocalPlayerPortraitUnit();
 	if (unit == m_LeftKing || unit == m_RightKing) GameEvents.SendCustomGameEventToServer("set_boss_controllable",{});
 }
+function SetBossControllable(data)
+{
+
+}
 (function()
 {
 	var info = CustomNetTables.GetTableValue("Game", "info");
@@ -13,4 +17,6 @@ function BossControl()
 
 	GameEvents.Subscribe("dota_player_update_selected_unit", BossControl);
 	GameEvents.Subscribe("dota_player_update_query_unit", BossControl);
+
+	GameEvents.Subscribe("updatebosscontrollable", SetBossControllable);
 })();
