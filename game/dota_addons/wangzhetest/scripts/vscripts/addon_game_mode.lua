@@ -1383,7 +1383,7 @@ function CbtfGameMode:InitGameMode()
 	Convars:SetInt("dota_render_y_inset", 0)
 	-- Convars:GetBool("sv_cheats")
 
-	Game:TestMode(true)
+	Game:TestMode(false)
 	Game:RankMode(true)
 	Game:SetMatchID(GameRules:GetMatchID())
 
@@ -1404,6 +1404,8 @@ function CbtfGameMode:InitGameMode()
 	GameRules:SetGoldTickTime(999999)
 	--设置选择英雄的时间
 	GameRules:SetHeroSelectionTime(30)
+	GameRules:SetShowcaseTime(0)
+	GameRules:SetStrategyTime(0)
 
 	--监听游戏
 	ListenToGameEvent("game_rules_state_change", Dynamic_Wrap(CbtfGameMode,"OnGameRulesStateChange"), self) --规则改变
@@ -2262,7 +2264,6 @@ function CbtfGameMode:OnGameRulesStateChange( keys )
 
 				if playerData:GetHero() == nil and PlayerResource:IsValidPlayer(playerID) then
 					local hero = CreateHeroForPlayer(GetRandomCommanderName(), PlayerResource:GetPlayer(playerID))
-					hero:SetControllableByPlayer(playerID, true)
 					playerData:SetHero(hero)
 				end
 
@@ -2559,9 +2560,9 @@ function CbtfGameMode:InitPlayer(PlayerID,PlayerPosition)
 
 	local playerData = PlayerData:GetPlayerData(PlayerID)
 	playerData:SetPlayerPosition(PlayerPosition)
-	playerData:ModifyGold(99999)
-	playerData:ModifyCrystal(99999)
-	playerData:SetScore(99999)
+	playerData:ModifyGold(700)
+	playerData:ModifyCrystal(0)
+	playerData:SetScore(0)
 	playerData:SetIncome(100, true)
 	playerData:SetIncome(0, false)
 	playerData:AddFarmer()
@@ -2578,13 +2579,12 @@ end
 --玩家重连
 function CbtfGameMode:OnPlayerReconnected(keys)
 	--DeepPrintTable(keys)    --详细打印传递进来的表
-	local nReconnectedPlayerID = keys.PlayerID
+	local playerID = keys.PlayerID
 	if GameRules:State_Get() >= DOTA_GAMERULES_STATE_HERO_SELECTION then --判断是否进入了游戏
 		-- print("Reconnected Player is "..keys.PlayerID)
-		local playerData = PlayerData:GetPlayerData(nReconnectedPlayerID)
-		if playerData:GetHero() == nil then
-			local hero = CreateHeroForPlayer(GetRandomCommanderName(), PlayerResource:GetPlayer(nReconnectedPlayerID))
-			hero:SetControllableByPlayer(nReconnectedPlayerID, true)
+		local playerData = PlayerData:GetPlayerData(playerID)
+		if playerData:GetHero() == nil and PlayerResource:IsValidPlayer(playerID) then
+			local hero = CreateHeroForPlayer(GetRandomCommanderName(), PlayerResource:GetPlayer(playerID))
 			playerData:SetHero(hero)
 		end
 
@@ -2616,7 +2616,7 @@ function CbtfGameMode:OnPlayerReconnected(keys)
 			end
 		, 2)
 
-		PlayerResource:SetCameraTarget(nReconnectedPlayerID, nil) --解锁镜头
+		PlayerResource:SetCameraTarget(playerID, nil) --解锁镜头
 	end
 end
 
