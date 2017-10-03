@@ -2264,6 +2264,7 @@ function CbtfGameMode:OnGameRulesStateChange( keys )
 
 				if playerData:GetHero() == nil and PlayerResource:IsValidPlayer(playerID) then
 					local hero = CreateHeroForPlayer(GetRandomCommanderName(), PlayerResource:GetPlayer(playerID))
+					hero:SetControllableByPlayer(playerID, true)
 					playerData:SetHero(hero)
 				end
 
@@ -2585,6 +2586,7 @@ function CbtfGameMode:OnPlayerReconnected(keys)
 		local playerData = PlayerData:GetPlayerData(playerID)
 		if playerData:GetHero() == nil and PlayerResource:IsValidPlayer(playerID) then
 			local hero = CreateHeroForPlayer(GetRandomCommanderName(), PlayerResource:GetPlayer(playerID))
+			hero:SetControllableByPlayer(playerID, true)
 			playerData:SetHero(hero)
 		end
 
