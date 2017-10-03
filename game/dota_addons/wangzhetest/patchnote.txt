@@ -220,13 +220,13 @@ new item: teleport rod. can teleport a friendly unit to any place on the map.
 1 修复了玩家在选英雄时不选而使用系统随机的英雄开始游戏后无法建造的bug
 2 修复了尸王的介绍里的攻速
 3 2级屠夫价格从1100降低至900 (上次更新时误将其改成了1100)
-4 江湖劫匪的血量削弱100点
+4 江湖劫匪的血量削弱100点 技能描述更新
 5 1级小强的反弹光环范围从300增加至500 2级小强的光环范围从300增加至700
 6 1级影魔的攻击范围从300降低至90 价格从325降低至275
 
 1 fix the bug that if player start the game without picking a hero, he won't be able to build anything with the system randomed hero, now he can
 2 fix undying's tooltip for atk spd
 3 lv2 pudge's price adjust from 1100 to 900 (it was mistakely changed to 1100 last patch without noticing anyone, sry for that)
-4 lv3.2 meepo's hp nerf from 900 to 800
+4 lv3.2 meepo's hp nerf from 900 to 800, fix the tooltip
 5 lv1 nyx' aura range increase from 300 to 500 lv2.1 nyx' aura range increase from 300 to 700
 6 lv1 shadow fiend's atk range decrease from 300 to 90, price decrease from 325 to 275
