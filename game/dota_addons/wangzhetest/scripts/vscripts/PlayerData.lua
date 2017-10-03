@@ -1,4 +1,62 @@
-PlayerData = PlayerData or class(
+PlayerData = PlayerData or class({})
+
+PlayerData.t = PlayerData.t or {}
+
+--[[
+PlayerData的API
+即通过使用PlayerData为传参调用
+例子：
+	local playerData = PlayerData:GetPlayerData(0) --获取玩家ID为0的玩家数据实例
+]]--
+
+--获取所有的玩家数据实例
+function PlayerData:GetAllPlayerData()
+	local t = {}
+	for k, v in pairs(PlayerData.t) do
+		t[k] = v
+	end
+	return t
+end
+--遍历玩家数据实例
+function PlayerData:Look(fCallback)
+	if fCallback == nil or type(fCallback) ~= "function" then error("fCallback is missing or not a function") end
+	for playerID, playerData in pairs(PlayerData.t) do
+		if fCallback(playerID, playerData) == true then
+			return true
+		end
+	end
+end
+--获取玩家数据实例
+function PlayerData:GetPlayerData(iPlayerID)
+	return PlayerData.t[iPlayerID]
+end
+--通过玩家位置获取玩家数据实例
+function PlayerData:GetPlayerDataByPosition(iPlayerPosition)
+	if iPlayerPosition == nil then return nil end
+
+	local result = nil
+	PlayerData:Look(
+		function(playerID, playerData)
+			if playerData:GetPlayerPosition() == iPlayerPosition then
+				result = playerData
+				return true
+			end
+		end
+	)
+	return result
+end
+
+--[[
+实例的method
+即通过使用创建的玩家数据实例为传参调用
+例子：
+	local playerData = PlayerData(0) --构建玩家ID为0的数据实例
+	playerData:RemoveSelf() --删除该实例
+]]--
+
+--构建实例
+function PlayerData:constructor(iPlayerID)
+	local def = 
 	{
 		--非UI非特定的数据储存表，例如hex_Q3
 		Special = {},
@@ -90,64 +148,11 @@ PlayerData = PlayerData or class(
 		--设置
 		ShowDamage = false,
 	}
-, nil, nil)
 
-PlayerData.t = PlayerData.t or {}
-
---[[
-PlayerData的API
-即通过使用PlayerData为传参调用
-例子：
-	local playerData = PlayerData:GetPlayerData(0) --获取玩家ID为0的玩家数据实例
-]]--
-
---获取所有的玩家数据实例
-function PlayerData:GetAllPlayerData()
-	local t = {}
-	for k, v in pairs(PlayerData.t) do
-		t[k] = v
+	for k,v in pairs(def) do
+		self[k] = v
 	end
-	return t
-end
---遍历玩家数据实例
-function PlayerData:Look(fCallback)
-	if fCallback == nil or type(fCallback) ~= "function" then error("fCallback is missing or not a function") end
-	for playerID, playerData in pairs(PlayerData.t) do
-		if fCallback(playerID, playerData) == true then
-			return true
-		end
-	end
-end
---获取玩家数据实例
-function PlayerData:GetPlayerData(iPlayerID)
-	return PlayerData.t[iPlayerID]
-end
---通过玩家位置获取玩家数据实例
-function PlayerData:GetPlayerDataByPosition(iPlayerPosition)
-	if iPlayerPosition == nil then return nil end
 
-	local result = nil
-	PlayerData:Look(
-		function(playerID, playerData)
-			if playerData:GetPlayerPosition() == iPlayerPosition then
-				result = playerData
-				return true
-			end
-		end
-	)
-	return result
-end
-
---[[
-实例的method
-即通过使用创建的玩家数据实例为传参调用
-例子：
-	local playerData = PlayerData(0) --构建玩家ID为0的数据实例
-	playerData:RemoveSelf() --删除该实例
-]]--
-
---构建实例
-function PlayerData:constructor(iPlayerID)
 	self:SetPlayerID(iPlayerID)
 
 	self:GetRankingFromServer()
