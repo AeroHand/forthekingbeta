@@ -161,7 +161,7 @@ function UpdateBossLevel()
 
 function UpdataBossHealth()
 {
-	$.Schedule(0, UpdataBossHealth);
+	$.Schedule(1/30, UpdataBossHealth);
 
 	var healthpercent = ((Entities.GetHealth(m_LeftKing)/Entities.GetMaxHealth(m_LeftKing))*98.034);
 	$("#BossHealth1").style.width = healthpercent+"%";

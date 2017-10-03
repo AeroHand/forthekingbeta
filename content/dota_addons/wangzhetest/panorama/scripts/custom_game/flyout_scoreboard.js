@@ -47,7 +47,7 @@ function UpdatePlayer()
 function UpdateFlyoutScoreboard()
 {
 	UpdatePlayer();
-	$.Schedule(0, UpdateFlyoutScoreboard);
+	$.Schedule(1/30, UpdateFlyoutScoreboard);
 }
 function FlyoutScoreboardButtonShowTooltip()
 {

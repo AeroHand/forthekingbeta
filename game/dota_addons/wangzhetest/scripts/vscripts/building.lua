@@ -711,7 +711,7 @@ function UpFarmerCancel(keys)
 	local playerData = PlayerData:GetPlayerData(playerID)
 
 	local cost = ability:GetGoldCost(-1)
-	local food = ability:GetManaCost(-1)
+	local food = 1
 
 	ability:EndCooldown()
 
