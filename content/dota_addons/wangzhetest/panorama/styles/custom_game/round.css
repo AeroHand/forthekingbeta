@@ -86,7 +86,6 @@
 			background-repeat: no-repeat;
 			background-position: 0% 50%;
 
-			transition-duration: 0s;
 			transition-property: width, background-size;
 			transition-timing-function: ease-in-out;
 		}

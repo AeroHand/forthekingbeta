@@ -93,6 +93,13 @@ function UpdateData(tableName, keyName, table)
 	}
 	UpdatePlayer();
 }
+function UpdateRound(tableName, keyName, table)
+{
+	if (keyName == "info")
+	{
+		m_ShowToEnemy = table.round >= 8;
+	}
+}
 (function()
 {
 	m_HasPlayer[1]=false;
@@ -106,7 +113,11 @@ function UpdateData(tableName, keyName, table)
 
 	$.GetContextPanel().SetHasClass("Russian", ($.Language()=="russian"));
 
+
+	UpdateRound("Game", "info", CustomNetTables.GetTableValue("Game", "info"));
 	UpdateData();
+
+	CustomNetTables.SubscribeNetTableListener("Game", UpdateRound);
 	CustomNetTables.SubscribeNetTableListener("PlayerData", UpdateData);
 
 	GameUI.SetDefaultUIEnabled( DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_HEROES, false );
