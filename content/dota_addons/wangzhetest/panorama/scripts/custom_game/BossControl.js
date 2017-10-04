@@ -1,16 +1,44 @@
-var m_LeftKing = -1;
-var m_RightKing = -1;
+var boss_left_controllable = -1;
+var boss_right_controllable = -1;
+var playerteam = [];
+function BossControlShowTooltip()
+{
+	var str = $.Localize("#BossControler");
+	if (playerteam[Players.GetLocalPlayer()]==DOTATeam_t.DOTA_TEAM_GOODGUYS) str=str+":"+Players.GetPlayerName(boss_left_controllable);
+	if (playerteam[Players.GetLocalPlayer()]==DOTATeam_t.DOTA_TEAM_BADGUYS) str=str+":"+Players.GetPlayerName(boss_right_controllable);
+	str = str.replace(/'/g,"\\'");
+	$.DispatchEvent("DOTAShowTextTooltip",$("#BossControlButton_Label"),str);
+}
+
+function BossControlHideTooltip()
+{
+	$.DispatchEvent("DOTAHideTextTooltip",$("#BossControlButton_Label"));
+}
+function SetBossControllable(data)
+{
+	if (data.team == DOTATeam_t.DOTA_TEAM_GOODGUYS)
+		boss_left_controllable=data.player;
+	if (data.team == DOTATeam_t.DOTA_TEAM_BADGUYS)
+		boss_right_controllable=data.player;
+	if (Players.GetLocalPlayer()==data.player)
+	{
+		BossControlHideTooltip();
+		BossControlShowTooltip();
+	}
+}
+
 function BossControl()
 {
-	var unit = Players.GetLocalPlayerPortraitUnit();
-	if (unit == m_LeftKing || unit == m_RightKing) GameEvents.SendCustomGameEventToServer("set_boss_controllable",{});
+	GameEvents.SendCustomGameEventToServer("set_boss_controllable",{});
+	GameEvents.SendCustomGameEventToServer("opentop",{});
+}
+function UpdatePlayerTeam(data)
+{
+	playerteam[data.playerid] = data.playerteam;
 }
 (function()
 {
-	var info = CustomNetTables.GetTableValue("Game", "info");
-	m_LeftKing = info.leftKing;
-	m_RightKing = info.rightKing;
-
-	GameEvents.Subscribe("dota_player_update_selected_unit", BossControl);
-	GameEvents.Subscribe("dota_player_update_query_unit", BossControl);
+	$.GetContextPanel().SetHasClass("Russian", ($.Language()=="russian"));
+	GameEvents.Subscribe("updateflyoutscoreboard", UpdatePlayerTeam);
+	GameEvents.Subscribe("updatebosscontrollable", SetBossControllable);
 })();

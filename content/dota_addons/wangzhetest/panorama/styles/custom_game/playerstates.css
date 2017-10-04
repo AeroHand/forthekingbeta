@@ -10,7 +10,7 @@
 	horizontal-align: right;
 	height: 80px;
 	width: 80px;
-	background-image: url(file://{images}/custom_game/PlayerStates/GameInfo.png);
+	background-image: url(file://{images}/custom_game/PlayerStates/GameInfo.psd);
 	background-size: 100%;
 	z-index: 1;
 }
@@ -112,7 +112,7 @@
 		height: 40px;
 		margin-bottom: 130px;
 		margin-right: 100px;
-		background-image: url(file://{images}/custom_game/PlayerStates/NumberBg.png);
+		background-image: url(file://{images}/custom_game/PlayerStates/NumberBg.psd);
 		background-size: 100%;
 		tooltip-position: top;
 		tooltip-body-position: 50% 50%;
@@ -129,7 +129,7 @@
 			vertical-align: center;
 			height: 28px;
 			width: 32px;
-			background-image: url(file://{images}/custom_game/PlayerStates/Crystal.png);
+			background-image: url(file://{images}/custom_game/PlayerStates/Crystal.psd);
 			background-size: 100%;
 			margin-left: 10px;
 		}
@@ -145,7 +145,7 @@
 		width: 125px;
 		height: 40px;
 		margin-left: 125px;
-		background-image: url(file://{images}/custom_game/PlayerStates/NumberBg.png);
+		background-image: url(file://{images}/custom_game/PlayerStates/NumberBg.psd);
 		background-size: 100%;
 		tooltip-position: top;
 		tooltip-body-position: 50% 50%;
@@ -162,7 +162,7 @@
 			vertical-align: center;
 			height: 28px;
 			width: 32px;
-			background-image: url(file://{images}/custom_game/PlayerStates/Income.png);
+			background-image: url(file://{images}/custom_game/PlayerStates/Income.psd);
 			background-size: 100%;
 			margin-left: 10px;
 		}
@@ -178,7 +178,7 @@
 		width: 250px;
 		height: 40px;
 		margin-top: 75px;
-		background-image: url(file://{images}/custom_game/PlayerStates/NumberBg.png);
+		background-image: url(file://{images}/custom_game/PlayerStates/NumberBg.psd);
 		background-size: 100%;
 		tooltip-position: top;
 		tooltip-body-position: 50% 50%;
@@ -195,7 +195,7 @@
 			vertical-align: center;
 			height: 28px;
 			width: 32px;
-			background-image: url(file://{images}/custom_game/PlayerStates/Score.png);
+			background-image: url(file://{images}/custom_game/PlayerStates/Score.psd);
 			background-size: 100%;
 			margin-left: 10px;
 		}
@@ -211,7 +211,7 @@
 		width: 125px;
 		height: 40px;
 		margin-top: 35px;
-		background-image: url(file://{images}/custom_game/PlayerStates/NumberBg.png);
+		background-image: url(file://{images}/custom_game/PlayerStates/NumberBg.psd);
 		background-size: 100%;
 		tooltip-position: top;
 		tooltip-body-position: 50% 50%;
@@ -234,7 +234,7 @@
 			vertical-align: center;
 			height: 28px;
 			width: 32px;
-			background-image: url(file://{images}/custom_game/PlayerStates/Worker.png);
+			background-image: url(file://{images}/custom_game/PlayerStates/Worker.psd);
 			background-size: 100%;
 			margin-left: 10px;
 		}
@@ -262,7 +262,7 @@
 		height: 40px;
 		margin-top: 35px;
 		margin-left: 125px;
-		background-image: url(file://{images}/custom_game/PlayerStates/NumberBg.png);
+		background-image: url(file://{images}/custom_game/PlayerStates/NumberBg.psd);
 		background-size: 100%;
 		tooltip-position: top;
 		tooltip-body-position: 50% 50%;
@@ -279,7 +279,7 @@
 			vertical-align: center;
 			height: 28px;
 			width: 32px;
-			background-image: url(file://{images}/custom_game/PlayerStates/Food.png);
+			background-image: url(file://{images}/custom_game/PlayerStates/Food.psd);
 			background-size: 100%;
 			margin-left: 10px;
 		}
@@ -307,7 +307,7 @@
 		height: 40px;
 		margin-top: 120px;
 		margin-right: 100px;
-		background-image: url(file://{images}/custom_game/PlayerStates/NumberBg.png);
+		background-image: url(file://{images}/custom_game/PlayerStates/NumberBg.psd);
 		background-size: 100%;
 	}
 		.Gold_number

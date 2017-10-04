@@ -12,8 +12,16 @@ end
 require('require_everything')
 require('UNITS/king')
 
+_G.test_mode = false
+_G.Rank_mode = true
+_G.MaxPlayerCount = 6
+_G.FirstBlood = false
+_G.WinnerTeam = DOTA_TEAM_GOODGUYS
+_G.Match_id = 0
 _G.Vesion = "v1.11"
+_G.PlayerCount = 0
 wushuang = require('md5')
+json = require('dkjson')
 
 -------------------------------------------------------------------------------------------------------------------
 local function PrecacheSound(sound, context )
@@ -32,7 +40,7 @@ local function PrecacheModel(model, context )
 	PrecacheResource( "model", model, context )
 end
 --------------------------------------------------------------------- ----------------------------------------------
-
+ 
 -------------------------------------------------------------------------------------------------------------------
 
 --预载入--------
@@ -47,1011 +55,1011 @@ function PrecacheEveryThingFromKV( context )
 		end
 	end
 	local zr={
-		--dummy
-
-		{"model", "models/items/pedestals/pedestal_2/pedestal_2.vmdl"},
-		{"model", "models/courier/frull/frull_courier_flying.vmdl"},
-		{"model", "models/items/courier/gnomepig/gnomepig_flying.vmdl"},
-
-
-		--left king
-		{"model", "models/heroes/chen/chen.vmdl"},
-		{"model", "models/items/chen/squareskystaff_weapon/squareskystaff_weapon.vmdl"},
-		{"model", "models/items/chen/weapon_navi/weapon_navi.vmdl"},
-		{"model", "models/items/chen/armor_navi/armor_navi.vmdl"},
-		{"model", "models/items/chen/arms_navi/arms_navi.vmdl"},
-		{"model", "models/items/chen/head_navi/head_navi.vmdl"},
-		{"model", "models/items/chen/mount_navi_new/mount_navi_new.vmdl"},
-		{"model", "models/items/chen/shoulder_navi/shoulder_navi.vmdl"},
-		{"model", "models/items/chen/neck_desert/neck_desert.vmdl"},
-		{"model", "models/items/chen/desert_gale_shoulder_plate/desert_gale_shoulder_plate.vmdl"},
-
-		--right king
-		{"model", "models/heroes/abaddon/abaddon.vmdl"},
-		{"model", "models/items/abaddon/netherax_nightmare_of_the_mist/netherax_nightmare_of_the_mist.vmdl"},
-		{"model", "models/items/abaddon/alliance_abba_back/alliance_abba_back.vmdl"},
-		{"model", "models/items/abaddon/alliance_abba_head/alliance_abba_head.vmdl"},
-		{"model", "models/items/abaddon/mistblade/mistblade.vmdl"},
-		{"model", "models/items/abaddon/alliance_abba_shoulder/alliance_abba_shoulder.vmdl"},
-
-
-		--Q1 00
-		{"model", "models/heroes/sven/sven_belt.vmdl"},
-		{"model", "models/heroes/sven/sven_gauntlet.vmdl"},
-		{"model", "models/heroes/sven/sven_mask.vmdl"},
-		{"model", "models/heroes/sven/sven_shoulder.vmdl"},
-		{"model", "models/heroes/sven/sven_sword.vmdl"},
-
-		--Q1 10
-		{"model", "models/items/sven/mono_militis_head.vmdl"},
-		{"model", "models/items/sven/mono_militis_shoulder.vmdl"},
-		{"model", "models/items/sven/mono_militis_weapon.vmdl"},
-		{"particle", "particles/base_attacks/ranged_badguy_explosion.vpcf"},
-
-		--Q1 20
-		{"model", "models/items/sven/ceremonialtassetsofthemyrmidon/ceremonialtassetsofthemyrmidon.vmdl"},
-		{"model", "models/items/sven/sven_ceremonialarmbladesofthemyrmidon/sven_ceremonialarmbladesofthemyrmidon.vmdl"},
-		{"model", "models/items/sven/sven_ceremonialgreathelmofthemyrmidon/sven_ceremonialgreathelmofthemyrmidon.vmdl"},
-		{"model", "models/items/sven/sven_ceremonialshieldbladeofthemyrmidon/sven_ceremonialshieldbladeofthemyrmidon.vmdl"},
-		{"model", "models/items/sven/sven_ceremonialshoulderbladesofthemyrmidon/sven_ceremonialshoulderbladesofthemyrmidon.vmdl"},
-		{"particle", "particles/zjz_units/q1_20_skill02.vpcf"},
-		{"particle", "particles/units/heroes/hero_sven/sven_gods_strength_hero_effect.vpcf"},
-
-
-		--Q1 21
-
-		{"model", "models/items/sven/belt_of_tielong/belt_of_tielong.vmdl"},
-		{"model", "models/items/sven/breath_of_tielong/breath_of_tielong.vmdl"},
-		{"model", "models/items/sven/gauntlet_of_tielong/gauntlet_of_tielong.vmdl"},
-		{"model", "models/items/sven/helmet_of_tielong/helmet_of_tielong.vmdl"},
-		{"model", "models/items/sven/pauldron_of_tielong/pauldron_of_tielong.vmdl"},
-
-		--Q2 00
-		--"models/heroes/lycan/lycan.vmdl"},,
-		{"model", "models/heroes/lycan/lycan_blades.vmdl"},--206
-		{"model", "models/heroes/lycan/lycan_head.vmdl"},	--207
-		{"model", "models/heroes/lycan/lycan_armor.vmdl"}, --208
-		{"model", "models/heroes/lycan/lycan_fur.vmdl"},--209
-		{"model", "models/heroes/lycan/lycan_belt.vmdl"}, --210
-
-		--Q2 10
-		{"model", "models/items/lycan/armor_royal/armor_royal.vmdl"},--4974
-		{"model", "models/items/lycan/belt_alpha/belt_alpha.vmdl"},--4975
-		{"model", "models/items/lycan/clawsy_greatg/clawsy_greatg.vmdl"},--4976
-		{"model", "models/items/lycan/shoulder_alpha/shoulder_alpha.vmdl"},--4977
-		{"model", "models/items/lycan/head_alpha/head_alpha.vmdl"},--4978
-
-		--Q2 20
-		{"model", "models/items/lycan/sanguinemoon_armor/sanguinemoon_armor.vmdl"}, --4859
-		{"model", "models/items/lycan/sanguinemoon_shoulder/sanguinemoon_shoulder.vmdl"},--4860
-		{"model", "models/items/lycan/sanguinemoon_weapon/sanguinemoon_weapon.vmdl"}, --4861
-		{"model", "models/items/lycan/sanguinemoon_belt/sanguinemoon_belt.vmdl"},--4862
-		{"model", "models/items/lycan/sanguinemoon_head/sanguinemoon_head.vmdl"}, --4863
-
-		--Q2 21
-		--"models/items/lycan/ultimate/thegreatcalamityti4/thegreatcalamityti4.vmdl"},,
-		--Q2 1a 幼狼
-		--"models/items/lycan/wolves/alpha_summon_01/alpha_summon_01.vmdl"},,
-		--Q2 2a 野狼
-		--"models/heroes/lycan/summon_wolves.vmdl"},,
-
-		--Q3 00
-		--"models/heroes/life_stealer/life_stealer.vmdl"},,
-		--Q3 10
-		{"model", "models/items/lifestealer/ravenous_head/ravenous_head.vmdl"},--6260
-		{"model", "models/items/lifestealer/ravenous_arms/ravenous_arms.vmdl"},--6261
-		{"model", "models/items/lifestealer/ravenous_belt/ravenous_belt.vmdl"},--6262
-		{"model", "models/items/lifestealer/ravenous_back/ravenous_back.vmdl"},--6263
-		--Q3 20
-		{"model", "models/items/lifestealer/redrage_head/redrage_head.vmdl"},--6318
-		{"model", "models/items/lifestealer/redrage_belt/redrage_belt.vmdl"},--6319
-		{"model", "models/items/lifestealer/redrage_battlewings/redrage_battlewings.vmdl"},--6320
-		{"model", "models/items/lifestealer/redrage_bracers/redrage_bracers.vmdl"},--6321
-
-		--Q4 00
-		--"models/heroes/faceless_void/faceless_void.vmdl"},,
-		{"model", "models/heroes/faceless_void/faceless_void_weapon.vmdl"},--15
-		{"model", "models/heroes/faceless_void/faceless_void_head.vmdl"},--90
-		{"model", "models/heroes/faceless_void/faceless_void_shoulder.vmdl"},--91
-		{"model", "models/heroes/faceless_void/faceless_void_bracer.vmdl"},--92
-		{"model", "models/heroes/faceless_void/faceless_void_belt.vmdl"},--93
-
-		--Q4 10
-		{"model", "models/items/faceless_void/acolyte_belt/acolyte_belt.vmdl"},--5059
-		{"model", "models/items/faceless_void/acolyte_cowl/acolyte_cowl.vmdl"},--5060
-		{"model", "models/items/faceless_void/acolyte_gauntlet/acolyte_gauntlet.vmdl"},--5061
-		{"model", "models/items/faceless_void/acolyte_mace/acolyte_mace.vmdl"},--5062
-		{"model", "models/items/faceless_void/acolyte_hood/acolyte_hood.vmdl"},--5063
-
-		--Q4 20
-		{"model", "models/items/faceless_void/timelord_bracers/timelord_bracers.vmdl"},--5861
-		{"model", "models/items/faceless_void/timelord_head/timelord_head.vmdl"},--5868
-		{"model", "models/items/faceless_void/timelord_shoulders/timelord_shoulders.vmdl"},--5896
-		{"model", "models/items/faceless_void/timelord_skirt/timelord_skirt.vmdl"},--5897
-		{"model", "models/items/faceless_void/timelord_weapon/timelord_weapon.vmdl"},--5898
-
-		--Q5 00
-		{"model", "models/items/slark/deep_warden_scimitar/deep_warden_scimitar.vmdl"},--5261
-		{"model", "models/items/slark/deep_warden_pauldron/deep_warden_pauldron.vmdl"},--5262
-		{"model", "models/items/slark/deep_warden_bracer/deep_warden_bracer.vmdl"},--5263
-		{"model", "models/items/slark/deep_warden_cape/deep_warden_cape.vmdl"},--5264
-		{"model", "models/items/slark/deep_warden_hood/deep_warden_hood.vmdl"},--5265
-
-		--Q5 10
-		{"model", "models/items/slark/deepscoundrel_arms/deepscoundrel_arms.vmdl"},--6417
-		{"model", "models/items/slark/deepscoundrel_back/deepscoundrel_back.vmdl"},--6418
-		{"model", "models/items/slark/deepscoundrel_weapon/deepscoundrel_weapon.vmdl"},--6419
-		{"model", "models/items/slark/deepscoundrel_shoulder/deepscoundrel_shoulder.vmdl"},--6420
-		{"model", "models/items/slark/deepscoundrel_head/deepscoundrel_head.vmdl"},--6421
-
-		--Q5 20
-		{"model", "models/items/slark/dark_reef_arms/dark_reef_arms.vmdl"},--7710
-		{"model", "models/items/slark/dark_reef_back/dark_reef_back.vmdl"},--7711
-		{"model", "models/items/slark/dark_reef_head/dark_reef_head.vmdl"},--7712
-		{"model", "models/items/slark/dark_reef_shoulders/dark_reef_shoulders.vmdl"},--7713
-		{"model", "models/items/slark/dark_reef_weapon/dark_reef_weapon.vmdl"},--7714
-
-		--Q5 21
-		{"model", "models/items/slark/oceanconquerer_back/oceanconquerer_back.vmdl"},--6383
-		{"model", "models/items/slark/oceanconquerer_shoulder/oceanconquerer_shoulder.vmdl"},--6392
-		{"model", "models/items/slark/oceanconquerer_head/oceanconquerer_head.vmdl"},--6405
-		{"model", "models/items/slark/oceanconquerer_arms/oceanconquerer_arms.vmdl"},--6406
-		{"model", "models/items/slark/oceanconquerer_weapon/oceanconquerer_weapon.vmdl"},--6407
-
-		--W1 00
-		--{"model", "models/heroes/sniper/sniper.vmdl"},
-		{"model", "models/heroes/sniper/bracer.vmdl"},
-		{"model", "models/heroes/sniper/cape.vmdl"},
-		{"model", "models/heroes/sniper/headitem.vmdl"},
-		{"model", "models/heroes/sniper/shoulder.vmdl"},
-		{"model", "models/heroes/sniper/weapon.vmdl"},
-		--W1 10
-		{"model", "models/items/sniper/sharpshooter_stache/sharpshooter_stache.vmdl"},
-		{"model", "models/items/sniper/killstealer/killstealer.vmdl"},
-		{"model", "models/items/sniper/sharpshooter_shoulder/sharpshooter_shoulder.vmdl"},
-		{"model", "models/items/sniper/sharpshooter_cloak/sharpshooter_cloak.vmdl"},
-		{"model", "models/items/sniper/sharpshooter_arms/sharpshooter_arms.vmdl"},
-		--W1 11
-		--{"model", "models/heroes/techies/techies.vmdl"},
-		{"model", "models/heroes/techies/techies_barrel.vmdl"},
-		{"model", "models/heroes/techies/techies_spleen_weapon.vmdl"},
-		{"model", "models/heroes/techies/techies_cart.vmdl"},
-		{"model", "models/heroes/techies/techies_spleen_costume.vmdl"},
-		{"model", "models/heroes/techies/techies_squee_costume.vmdl"},
-		--W1 20
-		{"model", "models/items/sniper/wildwest_weapon/wildwest_weapon.vmdl"},
-		{"model", "models/items/sniper/wildwest_head/wildwest_head.vmdl"},
-		{"model", "models/items/sniper/wildwest_back/wildwest_back.vmdl"},
-		{"model", "models/items/sniper/wildwest_shoulders/wildwest_shoulders.vmdl"},
-		{"model", "models/items/sniper/wildwest_arms/wildwest_arms.vmdl"},
-		--W1 21
-		{"model", "models/items/techies/bigshot/bigshot.vmdl"},
-		{"model", "models/items/techies/bigshot/bigshot_spleen_costume.vmdl"},
-		{"model", "models/items/techies/bigshot/bigshot_squee_costume.vmdl"},
-		{"model", "models/items/techies/bigshot/bigshot_barrel.vmdl"},
-		{"model", "models/items/techies/bigshot/bigshot.vmdl"},
-
-		--W2 00  models/heroes/huskar/huskar.vmdl
-		{"model", "models/heroes/huskar/huskar_spear.vmdl"},--268
-		{"model", "models/heroes/huskar/huskar_dagger.vmdl"},--269
-		{"model", "models/heroes/huskar/huskar_helmet.vmdl"},--270
-		{"model", "models/heroes/huskar/huskar_shoulder.vmdl"},--271
-		{"model", "models/heroes/huskar/huskar_bracer.vmdl"},--272
-
-		--W2 10
-		{"model", "models/items/huskar/sacred_bones_offhand_weapon/sacred_bones_offhand_weapon.vmdl"}, --4906
-		{"model", "models/items/huskar/sacred_bones_shoulder/sacred_bones_shoulder.vmdl"}, --4907
-		{"model", "models/items/huskar/sacred_bones_arms/sacred_bones_arms.vmdl"}, --4908
-		{"model", "models/items/huskar/sacred_bones_helmet/sacred_bones_helmet.vmdl"},--4909
-		{"model", "models/items/huskar/sacred_bones_spear/sacred_bones_spear.vmdl"}, --4910
-
-		--W2 20
-		{"model", "models/items/huskar/obsidian_claw_of_the_jaguar_arms/obsidian_claw_of_the_jaguar_arms.vmdl"}, --4299
-		{"model", "models/items/huskar/obsidian_claw_of_the_jaguar_helmet/obsidian_claw_of_the_jaguar_helmet.vmdl"},--4300
-		{"model", "models/items/huskar/obsidian_claw_of_the_jaguar_shoulder/obsidian_claw_of_the_jaguar_shoulder.vmdl"},--4301
-		{"model", "models/items/huskar/obsidian_blade_spear/obsidian_blade_spear.vmdl"},--4748
-		{"model", "models/items/huskar/obsidian_claw_of_the_jaguar_dagger/obsidian_claw_of_the_jaguar_dagger.vmdl"},--4749
-
-		--W3 00 models/heroes/clinkz/clinkz.vmdl
-		{"model", "models/heroes/clinkz/clinkz_head.vmdl"}, --56 通用
-		{"model", "models/heroes/clinkz/clinkz_bow.vmdl"},  --57
-		{"model", "models/heroes/clinkz/clinkz_pads.vmdl"},  --58
-		{"model", "models/heroes/clinkz/clinkz_back.vmdl"},  --59
-		{"model", "models/heroes/clinkz/clinkz_horns.vmdl"}, --60
-		{"model", "models/heroes/clinkz/clinkz_gloves.vmdl"}, --61
-
-		--W3 10
-		{"model", "models/items/clinkz/clinkz_weapon_goc/clinkz_weapon_goc.vmdl"},--4741
-		{"model", "models/items/clinkz/clinkz_shoulders_goc/clinkz_shoulders_goc.vmdl"},--4742
-		{"model", "models/items/clinkz/clinkz_helmet01_goc/clinkz_helmet01_goc.vmdl"},--4971
-		{"model", "models/items/clinkz/clinkz_hands_goc/clinkz_hands_goc.vmdl"},--4972
-		{"model", "models/items/clinkz/clinkz_back_goc/clinkz_back_goc.vmdl"},--4973
-
-		--W3 20
-		{"model", "models/items/clinkz/lost_viking_back/lost_viking_back.vmdl"},--5151
-		{"model", "models/items/clinkz/lost_viking_bow/lost_viking_bow.vmdl"},--5152
-		{"model", "models/items/clinkz/lost_viking_gauntlet/lost_viking_gauntlet.vmdl"},--5153
-		{"model", "models/items/clinkz/lost_viking_helmet/lost_viking_helmet.vmdl"},--5154
-		{"model", "models/items/clinkz/lost_viking_shoulder/lost_viking_shoulder.vmdl"},--5155
-
-		--W4 00 models/heroes/lanaya/lanaya.vmdl
-		{"model", "models/heroes/lanaya/lanaya_hair.vmdl"},--173
-		{"model", "models/heroes/lanaya/lanaya_cowl_shoulder.vmdl"},--174
-		{"model", "models/heroes/lanaya/lanaya_bracers_skirt.vmdl"},--175
-
-		--W4 10
-		{"model", "models/items/lanaya/thiefscholar_girdle/thiefscholar_girdle.vmdl"}, --4695
-		{"model", "models/items/lanaya/thiefscholar_coiffure/thiefscholar_coiffure.vmdl"},--4696
-		{"model", "models/items/lanaya/thiefscholar_shoulder/thiefscholar_shoulder.vmdl"},--4697
-
-		--W4 20
-		{"model", "models/items/lanaya/ta_ns_shoulder/ta_ns_shoulder.vmdl"},--4668
-		{"model", "models/items/lanaya/ta_ns_armor/ta_ns_armor.vmdl"},--4669
-		{"model", "models/items/lanaya/ta_ns_head/ta_ns_head.vmdl"},--4670
-
-		--W5 00 models/heroes/shadowshaman/shadowshaman.vmdl
-		{"model", "models/heroes/shadowshaman/head.vmdl"},--251  通用
-		{"model", "models/items/shadowshaman/shades_weapon/shades_weapon.vmdl"},--6197
-		{"model", "models/items/shadowshaman/shades_offhand/shades_offhand.vmdl"},--6198
-		{"model", "models/items/shadowshaman/shades_belt/shades_belt.vmdl"},--6206
-		{"model", "models/items/shadowshaman/shades_arms/shades_arms.vmdl"},--6309
-		{"model", "models/items/shadowshaman/shades_head/shades_head.vmdl"}, --6310
-
-		--W5 10
-		{"model", "models/items/shadowshaman/vagabond_pack/vagabond_pack.vmdl"}, --4412
-		{"model", "models/items/shadowshaman/vagabond_wand/vagabond_wand.vmdl"},--4416
-		{"model", "models/items/shadowshaman/vagabond_hat/vagabond_hat.vmdl"},--4417
-		{"model", "models/items/shadowshaman/vagabond_drink/vagabond_drink.vmdl"},--4419
-
-		--W5 20
-		{"model", "models/items/shadowshaman/tangki_offhand/tangki_offhand.vmdl"},--6814
-		{"model", "models/items/shadowshaman/tangki_weapon/tangki_weapon.vmdl"},--6816
-		{"model", "models/items/shadowshaman/tangki_arms/tangki_arms.vmdl"},--6817
-		{"model", "models/items/shadowshaman/tangki_belt/tangki_belt.vmdl"},--6818
-		{"model", "models/items/shadowshaman/tangki_head/tangki_head.vmdl"},--6819
-
-		--W5 21
-		{"model", "models/items/shadowshaman/eki_bukaw_bracers/eki_bukaw_bracers.vmdl"},--5501
-		{"model", "models/items/shadowshaman/records_of_the_eki_bukaw/records_of_the_eki_bukaw.vmdl"},--5500
-		{"model", "models/items/shadowshaman/eki_bukaw_wand__offhand/eki_bukaw_wand__offhand.vmdl"},--5503
-		{"model", "models/items/shadowshaman/eki_bukaw_wand/eki_bukaw_wand.vmdl"},--5504
-		{"model", "models/items/shadowshaman/visage_of_eki_bukaw/visage_of_eki_bukaw.vmdl"},--5548
-
-		--E1 00 models/heroes/tiny_02/tiny_02.vmdl
-		{"model", "models/heroes/tiny_01/tiny_01_body.vmdl"},--494
-		{"model", "models/heroes/tiny_01/tiny_01_head.vmdl"},--493
-		{"model", "models/heroes/tiny_01/tiny_01_left_arm.vmdl"},--495
-		{"model", "models/heroes/tiny_01/tiny_01_right_arm.vmdl"},--496
-
-		--E1 10
-		{"model", "models/items/tiny/scarletquarry_arms/scarletquarry_arms.vmdl"},--6886
-		{"model", "models/items/tiny/scarletquarry_offhand/scarletquarry_offhand.vmdl"},--6998
-		{"model", "models/items/tiny/scarletquarry_head/scarletquarry_head.vmdl"},--6999
-		{"model", "models/items/tiny/scarletquarry_armor/scarletquarry_armor.vmdl"},--7000
-
-
-		--E2 00 models/heroes/undying/undying.vmdl
-		{"model", "models/heroes/undying/undying_helmet.vmdl"}, --392
-		{"model", "models/heroes/undying/undying_armor.vmdl"}, --393
-
-		--E2 10 models/heroes/undying/undying_flesh_golem.vmdl
-
-		--E2 1a models/heroes/undying/undying_minion.vmdl
-
-		--E3 00 models/heroes/wraith_king/wraith_king.vmdl
-		{"model", "models/heroes/wraith_king/wraith_king_chest.vmdl"}, --500 通用
-		{"model", "models/items/wraith_king/eternal_arms/eternal_arms.vmdl"},--6171
-		{"model", "models/items/wraith_king/eternal_back/eternal_back.vmdl"}, --6172
-		{"model", "models/items/wraith_king/eternal_blade/eternal_blade.vmdl"}, --6173
-		{"model", "models/items/wraith_king/eternal_head/eternal_head.vmdl"},--6174
-		{"model", "models/items/wraith_king/eternal_shoulder/eternal_shoulder.vmdl"},--6175
-
-		--E3 10
-		{"model", "models/items/wraith_king/regalia_of_the_wraith_lord_back/regalia_of_the_wraith_lord_back.vmdl"},--5052
-		{"model", "models/items/wraith_king/regalia_of_the_wraith_lord_sword/regalia_of_the_wraith_lord_sword.vmdl"},--5053
-		{"model", "models/items/wraith_king/regalia_of_the_wraith_lord_bracers/regalia_of_the_wraith_lord_bracers.vmdl"},--5054
-		{"model", "models/items/wraith_king/regalia_of_the_wraith_lord_helmet/regalia_of_the_wraith_lord_helmet.vmdl"},--5055
-		{"model", "models/items/wraith_king/regalia_of_the_wraith_lord_shoulder/regalia_of_the_wraith_lord_shoulder.vmdl"},--5056
-
-		--E4 00 models/heroes/shredder/shredder.vmdl
-		{"model", "models/heroes/shredder/shredder_driver_hat.vmdl"},--386
-		{"model", "models/heroes/shredder/shredder_chainsaw.vmdl"},--388(注意不连贯)
-		{"model", "models/heroes/shredder/shredder_shoulders.vmdl"},--389
-		{"model", "models/heroes/shredder/shredder_body.vmdl"},--390
-		{"model", "models/heroes/shredder/shredder_armor.vmdl"},--401
-		{"model", "models/heroes/shredder/shredder_hook.vmdl"},--402
-
-		--E4 10
-		{"model", "models/items/shredder/timberthaw_armor/timberthaw_armor.vmdl"},--6519
-		{"model", "models/items/shredder/timberthaw_weapon/timberthaw_weapon.vmdl"},--6520
-		{"model", "models/items/shredder/timberthaw_head/timberthaw_head.vmdl"},--6521
-		{"model", "models/items/shredder/timberthaw_offhand/timberthaw_offhand.vmdl"},--6522
-		{"model", "models/items/shredder/timberthaw_shoulder/timberthaw_shoulder.vmdl"},--6523
-		{"model", "models/items/shredder/timberthaw_back/timberthaw_back.vmdl"},--6524
-
-		--E5 00 models/heroes/chaos_knight/chaos_knight.vmdl
-		{"model", "models/items/chaos_knight/chaos_legion_mount/chaos_legion_mount.vmdl"},--5980
-		{"model", "models/items/chaos_knight/chaos_legion_drapes/chaos_legion_drapes.vmdl"},--5981
-		{"model", "models/items/chaos_knight/chaos_legion_helm/chaos_legion_helm.vmdl"},--5982
-		{"model", "models/items/chaos_knight/chaos_legion_shield/chaos_legion_shield.vmdl"},--5983
-		{"model", "models/items/chaos_knight/chaos_legion_weapon/chaos_legion_weapon.vmdl"},--5984
-
-		--E5 10
-		{"model", "models/items/chaos_knight/ck_esp_blade/ck_esp_blade.vmdl"},--5518
-		{"model", "models/items/chaos_knight/ck_esp_helm/ck_esp_helm.vmdl"},--5519
-		{"model", "models/items/chaos_knight/ck_esp_mount/ck_esp_mount.vmdl"},--5520
-		{"model", "models/items/chaos_knight/ck_esp_shield/ck_esp_shield.vmdl"},--5521
-		{"model", "models/items/chaos_knight/ck_esp_shoulder/ck_esp_shoulder.vmdl"},--5522
-
-		--E5 11
-		{"model", "models/items/chaos_knight/rising_chaos_blade/rising_chaos_blade.vmdl"},--5921
-		{"model", "models/items/chaos_knight/rising_chaos_helm/rising_chaos_helm.vmdl"},--5922
-		{"model", "models/items/chaos_knight/rising_chaos_spaulders/rising_chaos_spaulders.vmdl"},--5923
-		{"model", "models/items/chaos_knight/rising_chaos_steed/rising_chaos_steed.vmdl"},--5924
-		{"model", "models/items/chaos_knight/rising_chaos_shield/rising_chaos_shield.vmdl"},--5925
-
-		--E6 00 models/heroes/nerubian_assassin/nerubian_assassin.vmdl
-		{"model", "models/items/nerubian_assassin/nyx_dusky_back/nyx_dusky_back.vmdl"},--5567
-		{"model", "models/items/nerubian_assassin/nyx_dusky_head/nyx_dusky_head.vmdl"},--5568
-		{"model", "models/items/nerubian_assassin/nyx_dusky_misc/nyx_dusky_misc.vmdl"},--5569
-		{"model", "models/items/nerubian_assassin/nyx_dusky_weapon/nyx_dusky_weapon.vmdl"},--5570
-
-		--E6 10
-		{"model", "models/items/nerubian_assassin/spines_of_the_predator/spines_of_the_predator.vmdl"},--5201
-		{"model", "models/items/nerubian_assassin/mind_piercer_of_the_predator/mind_piercer_of_the_predator.vmdl"},--5202
-		{"model", "models/items/nerubian_assassin/preyfinders_of_the_predator/preyfinders_of_the_predator.vmdl"},--5203
-		{"model", "models/items/nerubian_assassin/blades_of_the_predator/blades_of_the_predator.vmdl"},--5204
-
-		--E6 11 models/heroes/broodmother/broodmother.vmdl (和E6 10模型不一样)
-		{"model", "models/items/broodmother/abdomen_of_perception/abdomen_of_perception.vmdl"},--5854
-		{"model", "models/items/broodmother/crown_of_perception/crown_of_perception.vmdl"}, --5891
-		{"model", "models/items/broodmother/legs_of_perception/legs_of_perception.vmdl"}, --5892
-
-		--E6 1a  models/heroes/broodmother/spiderling.vmdl
-
-		--D1 00 models/heroes/storm_spirit/storm_spirit.vmdl
-		{"model", "models/items/storm_spirit/festive_dress_of_good_fortune/festive_dress_of_good_fortune.vmdl"}, --6019
-		{"model", "models/items/storm_spirit/ornate_hat_of_good_fortune/ornate_hat_of_good_fortune.vmdl"},--6022
-		{"model", "models/items/storm_spirit/scale_pauldrons_of_good_fortune/scale_pauldrons_of_good_fortune.vmdl"},--6023
-
-		--D1 10
-		{"model", "models/items/storm_spirit/heavenlygeneral_armor/heavenlygeneral_armor.vmdl"},--6168
-		{"model", "models/items/storm_spirit/heavenlygeneral_hat/heavenlygeneral_hat.vmdl"},--6169
-		{"model","models/items/storm_spirit/heavenlygeneral_shoulders/heavenlygeneral_shoulders.vmdl"},--6170
-
-		--D2 00 models/heroes/earth_spirit/earth_spirit.vmdl
-		{"model","models/heroes/earth_spirit/earth_spirit_head.vmdl"},--482 通用
-		{"model","models/items/earth_spirit/demon_stone_bracers/demon_stone_bracers.vmdl"},--6002
-		{"model","models/items/earth_spirit/demon_stone_belt/demon_stone_belt.vmdl"},--6003
-		{"model","models/items/earth_spirit/demon_stone_hair/demon_stone_hair.vmdl"}, --6004
-		{"model","models/items/earth_spirit/demon_stone_necklace/demon_stone_necklace.vmdl"}, --6005
-		{"model","models/items/earth_spirit/demon_stone_weapon/demon_stone_weapon.vmdl"}, --6006
-
-		--D2 10
-		{"model","models/items/earth_spirit/vanquishing_demons_arms/vanquishing_demons_arms.vmdl"},--6432
-		{"model","models/items/earth_spirit/vanquishing_demons_belt/vanquishing_demons_belt.vmdl"},--6433
-		{"model","models/items/earth_spirit/vanquishing_demons_helmet/vanquishing_demons_helmet.vmdl"},--6434
-		{"model","models/items/earth_spirit/vanquishing_demons_neck/vanquishing_demons_neck.vmdl"},--6435
-		{"model","models/items/earth_spirit/vanquishing_demons_weapon/vanquishing_demons_weapon.vmdl"},--6436
-
-		--D3 00 D3 10 models/heroes/zuus/zuus.vmdl
-		{"model","models/items/zeus/lightning_weapon/zuus_lightning_weapon.vmdl"}, --5412
-		--D4 00  models/heroes/nevermore/nevermore.vmdl
-
-		--D4 10  models/heroes/shadow_fiend/shadow_fiend.vmdl
-		{"model","models/heroes/shadow_fiend/shadow_fiend_head.vmdl"},--387
-		{"model","models/heroes/shadow_fiend/shadow_fiend_shoulders.vmdl"},--486
-		{"model","models/heroes/shadow_fiend/shadow_fiend_arms.vmdl"},--488
-
-		--D5 00 models/heroes/medusa/medusa.vmdl
-		{"model","models/heroes/medusa/medusa_bow.vmdl"},--381
-		{"model","models/heroes/medusa/medusa_veil.vmdl"},--382
-		{"model","models/heroes/medusa/medusa_torso.vmdl"},--383
-		{"model","models/heroes/medusa/medusa_arms.vmdl"},--384
-			{"model","models/heroes/medusa/medusa_tail.vmdl"},--385
-
-		--D5 10
-		{"model","models/items/medusa/forsaken_beauty_arms/forsaken_beauty_arms.vmdl"},--5004
-		{"model","models/items/medusa/forsaken_beauty_bow/forsaken_beauty_bow.vmdl"},--5005
-		{"model","models/items/medusa/forsaken_beauty_chest/forsaken_beauty_chest.vmdl"},--5006
-		{"model","models/items/medusa/forsaken_beauty_head/forsaken_beauty_head.vmdl"},--5007
-		{"model","models/items/medusa/forsaken_beauty_tail/forsaken_beauty_tail.vmdl"},--5008
-
-		--D6 00 models/heroes/drow/drow.vmdl
-		{"model","models/items/drow/gauntlets_of_the_boreal_watch/gauntlets_of_the_boreal_watch.vmdl"},--5194
-		{"model","models/items/drow/legplates_of_the_boreal_watch/legplates_of_the_boreal_watch.vmdl"},--5195
-		{"model","models/items/drow/longbow_of_the_boreal_watch/longbow_of_the_boreal_watch.vmdl"},--5196
-		{"model","models/items/drow/cowl_of_the_boreal_watch/cowl_of_the_boreal_watch.vmdl"},--5197
-		{"model","models/items/drow/pauldrons_of_the_boreal_watch/pauldrons_of_the_boreal_watch.vmdl"},--5198
-		{"model","models/items/drow/quiver_of_the_boreal_watch/quiver_of_the_boreal_watch.vmdl"},--5199
-		{"model","models/items/drow/cloak_of_the_boreal_watch/cloak_of_the_boreal_watch.vmdl"},--5120
-
-		--D6 10
-		{"model","models/items/drow/drow_sentinel_bow/drow_sentinel_bow.vmdl"},--5883
-		{"model","models/items/drow/drow_sentinel_helm/drow_sentinel_helm.vmdl"},--5974
-		{"model","models/items/drow/drow_sentintel_legs/drow_sentintel_legs.vmdl"},--5975
-		{"model","models/items/drow/drow_sentinel_quiver/drow_sentinel_quiver.vmdl"},--5979
-		{"model","models/items/drow/drow_sentinel_shoulders/drow_sentinel_shoulders.vmdl"},--5985
-		{"model","models/items/drow/drow_sentinel_gloves/drow_sentinel_gloves.vmdl"},--5986
-		{"model","models/items/drow/drow_sentinel_cloak/drow_sentinel_cloak.vmdl"},--5989
-
-		--D6 20
-		{"model","models/items/drow/black_wind_head/black_wind_head.vmdl"},--6552
-		{"model","models/items/drow/black_wind_arms/black_wind_arms.vmdl"},--6553
-		{"model","models/items/drow/black_wind_shoulders/black_wind_shoulders.vmdl"},--6554
-		{"model","models/items/drow/black_wind_legs/black_wind_legs.vmdl"},--6555
-		{"model","models/items/drow/black_wind_weapon/black_wind_weapon.vmdl"},--6556
-		{"model","models/items/drow/black_wind_quiver/black_wind_quiver.vmdl"},--6557
-		{"model","models/items/drow/black_wind_back/black_wind_back.vmdl"},--6558
-
-		--F1 00
-		{"model","models/items/keeper_of_the_light/northlight_stag_mount/northlight_stag_mount.vmdl"},--5773
-		{"model","models/items/keeper_of_the_light/northlight_staff/northlight_staff.vmdl"},--5772
-		{"model","models/items/keeper_of_the_light/northlight_head/northlight_head.vmdl"},--5771
-		{"model","models/items/keeper_of_the_light/northlight_belt/northlight_belt.vmdl"},--5770
-		{"model","models/items/keeper_of_the_light/northlight_armor/northlight_armor.vmdl"},--5769
-
-		--F1 10
-		{"model","models/items/keeper_of_the_light/horse_roehringods/horse_roehringods.vmdl"},--4867
-		{"model","models/items/keeper_of_the_light/weapon_staffgods/weapon_staffgods.vmdl"},--4865
-		{"model","models/items/keeper_of_the_light/head_hoodgodsv3/head_hoodgodsv3.vmdl"},--4868
-		{"model","models/items/keeper_of_the_light/belt_skirtgodsv2/belt_skirtgodsv2.vmdl"},--4866
-		{"model","models/items/keeper_of_the_light/armor_armorgodsv3/armor_armorgodsv3.vmdl"},--4864
-
-		--F1 20
-		{"model","models/items/keeper_of_the_light/cradle_of_lights_mount/cradle_of_lights_mount.vmdl"},--7676
-		{"model","models/items/keeper_of_the_light/cradle_of_lights_weapon/cradle_of_lights_weapon.vmdl"},--7677
-		{"model","models/items/keeper_of_the_light/cradle_of_lights_head/cradle_of_lights_head.vmdl"},--7679
-		{"model","models/items/keeper_of_the_light/cradle_of_lights_belt/cradle_of_lights_belt.vmdl"},--7678
-		{"model","models/items/keeper_of_the_light/cradle_of_lights_armor/cradle_of_lights_armor.vmdl"},--7675
-
-		--F2  00
-		{"model","models/items/lich/imperialists_mana_chamber/imperialists_mana_chamber.vmdl"},--7065
-		{"model","models/items/lich/imperialists_guardian_lions/imperialists_guardian_lions.vmdl"},--7064
-		{"model","models/items/lich/imperialists_runed_bracers/imperialists_runed_bracers.vmdl"},--7066
-		{"model","models/items/lich/imperialists_cape_of_the_twin_dragons/imperialists_cape_of_the_twin_dragons.vmdl"},--6949
-		{"model","models/items/lich/imperialists_frost_biter/imperialists_frost_biter.vmdl"},--7063
-
-		--F2  10
-		{"model","models/items/lich/the_deadwinter_sash/the_deadwinter_sash.vmdl"},--4853
-		{"model","models/items/lich/the_deadwinter_head/the_deadwinter_head.vmdl"},--4851
-		{"model","models/items/lich/the_deadwinter_arms/the_deadwinter_arms.vmdl"},--4854
-		{"model","models/items/lich/the_deadwinter_back/the_deadwinter_back.vmdl"},--4852
-
-		--F3 00
-		{"model","models/items/witchdoctor/tale_tellers_hairhat.vmdl"},--4254
-		{"model","models/items/witchdoctor/tale_tellers_poncho.vmdl"},--4253
-		{"model","models/items/witchdoctor/tale_tellers_dress.vmdl"},--4251
-		{"model","models/items/witchdoctor/witchstaff_weapon/witchstaff_weapon.vmdl"}, --6577
-		{"model","models/items/witchdoctor/tale_tellers_drum.vmdl"},--4252
-
-		--F3 10
-		{"model","models/items/witchdoctor/purplenightmare_head/purplenightmare_head.vmdl"},--6954
-		{"model","models/items/witchdoctor/purplenightmare_shoulder/purplenightmare_shoulder.vmdl"},--6951
-		{"model","models/items/witchdoctor/purplenightmare_belt/purplenightmare_belt.vmdl"},--6955
-		{"model","models/items/witchdoctor/purplenightmare_weapon/purplenightmare_weapon.vmdl"},--6956
-		{"model","models/items/witchdoctor/purplenightmare_back/purplenightmare_back.vmdl"},--6953
-
-		--F3 11
-		{"model","models/items/witchdoctor/voodoo_skullmask.vmdl"},--4222
-		{"model","models/heroes/witchdoctor/witchdoctor_bag.vmdl"},--95
-		{"model","models/items/witchdoctor/voodoo_belt.vmdl"},--4096
-		{"model","models/items/witchdoctor/voodo_staff.vmdl"},--4221
-		{"model","models/items/witchdoctor/voodoo_backpack.vmdl"},--4220
-
-		--F4 00
-		{"model","models/items/necrolyte/heretic_weapon/heretic_weapon.vmdl"}, --6379
-		{"model","models/items/necrolyte/heretic_head/heretic_head.vmdl"},--6377
-		{"model","models/items/necrolyte/heretic_hood/heretic_hood.vmdl"},--6378
-		{"model","models/items/necrolyte/heretic_shoulder/heretic_shoulder.vmdl"},--6380
-
-		--F4 10
-		{"model","models/items/necrolyte/necronub_scythe/necronub_scythe.vmdl"},--7132
-		{"model","models/items/necrolyte/necronub_head/necronub_head.vmdl"},--6291
-		{"model","models/items/necrolyte/necronub_top/necronub_top.vmdl"},--7083
-		{"model","models/items/necrolyte/necronub_wings/necronub_wings.vmdl"},--7124
-
-		--F4 11
-		{"model","models/items/necrolyte/immemorial_emperor_weapon/immemorial_emperor_weapon.vmdl"},--6054
-		{"model","models/items/necrolyte/immemorial_emperor_beard/immemorial_emperor_beard.vmdl"},--6051
-		{"model","models/items/necrolyte/immemorial_emperor_head/immemorial_emperor_head.vmdl"},--6052
-		{"model","models/items/necrolyte/immemorial_emperor_shoulder/immemorial_emperor_shoulder.vmdl"},--6053
-
-		--F5 00
-		{"model","models/items/vengefulspirit/banished_princess_head/banished_princess_head.vmdl"},--6516
-		{"model","models/items/vengefulspirit/banished_princess_weapon/banished_princess_weapon.vmdl"},--6518
-		{"model","models/items/vengefulspirit/banished_princess_cape/banished_princess_cape.vmdl"},--6515
-		{"model","models/items/vengefulspirit/banished_princess_legs/banished_princess_legs.vmdl"},--6517
-
-		-- --F5 10
-		-- {"model","models/items/vengefulspirit/fallenprincess_head/fallenprincess_head.vmdl"},--6256
-		-- {"model","models/items/vengefulspirit/fallenprincess_weapon/fallenprincess_weapon.vmdl"},--6258
-		-- {"model","models/items/vengefulspirit/fallenprincess_shoulders/fallenprincess_shoulders.vmdl"},--6257
-		-- {"model","models/items/vengefulspirit/fallenprincess_legs/fallenprincess_legs.vmdl"},--6259
-		--F5 10
-		{"model","models/items/vengefulspirit/huangs_umbra_head/huangs_umbra_head.vmdl"}, --7797
-		{"model","models/items/vengefulspirit/huangs_umbra_weapon/huangs_umbra_weapon.vmdl"},--7798
-		{"model","models/items/vengefulspirit/huangs_umbra_shoulders/huangs_umbra_shoulders.vmdl"}, --7799
-		{"model","models/items/vengefulspirit/huangs_umbra_skirt/huangs_umbra_skirt.vmdl"},--7796
-		--R1 00
-		{"model","models/items/puck/mischievous_back/mischievous_back.vmdl"}, --6166
-		{"model","models/items/puck/mischievous_tail/mischievous_tail.vmdl"},--6165
-		{"model","models/items/puck/mischievous_head/mischievous_head.vmdl"},--6167
-
-		--R1 10
-		{"model","models/items/puck/reminiscence_wings/reminiscence_wings.vmdl"}, --6711
-		{"model","models/items/puck/reminiscence_tail/reminiscence_tail.vmdl"},--6710
-		{"model","models/items/puck/reminiscence_head/reminiscence_head.vmdl"}, --6709
-
-		--R1 11
-		{"model","models/items/puck/mysticcoils_wings/mysticcoils_wings.vmdl"}, --6177
-		{"model","models/items/puck/mysticcoils_tail/mysticcoils_tail.vmdl"},--6176
-		{"model","models/items/puck/mysticcoils_antennae/mysticcoils_antennae.vmdl"},--6178
-
-		--R3 00
-		{"model","models/heroes/winterwyvern/winterwyvern_backitem.vmdl"}, --552
-		{"model","models/heroes/winterwyvern/winterwyvern_crown.vmdl"},--551
-
-		--R5 00
-		{"model","models/items/obsidian_destroyer/head_arcanef/head_arcanef.vmdl"}, --4641
-		{"model","models/items/obsidian_destroyer/armor_bacon/armor_bacon.vmdl"},--4586
-		{"model","models/items/obsidian_destroyer/weapon_arcane_obliva/weapon_arcane_obliva.vmdl"},--4642
-		{"model","models/items/obsidian_destroyer/back_baconator_d/back_baconator_d.vmdl"},--4587
-		{"model","models/heroes/obsidian_destroyer/obsidian_destroyer_head.vmdl"},--226
-
-		--R5 10
-		{"model","models/items/obsidian_destroyer/dragon_forged_staff/dragon_forged_staff.vmdl"}, --5210
-		{"model","models/items/obsidian_destroyer/dragon_forged_wings/dragon_forged_wings.vmdl"},--5211
-		{"model","models/heroes/obsidian_destroyer/obsidian_destroyer_head.vmdl"},--226
-		{"model","models/items/obsidian_destroyer/dragon_forged_stare/dragon_forged_stare.vmdl"},--5209
-		{"model","models/items/obsidian_destroyer/dragon_forged_armor/dragon_forged_armor.vmdl"},--5208
-
-
-		--hire 12
-		{"model","models/items/doom/eleven_curses__belt/eleven_curses__belt.vmdl"}, --4634
-		{"model","models/items/doom/eleven_curses__bracer/eleven_curses__bracer.vmdl"}, --4627
-		{"model","models/items/doom/eleven_curses__head/eleven_curses__head.vmdl"},  --4624
-		{"model","models/items/doom/eleven_curses__shoulder/eleven_curses__shoulder.vmdl"},  --4639
-		{"model","models/items/doom/eleven_curses__tail/eleven_curses__tail.vmdl"},  --4620
-		{"model","models/items/doom/eleven_curses__wings/eleven_curses__wings.vmdl"},  --4631
-		{"model","models/items/doom/eleven_curses__sword/eleven_curses__sword.vmdl"},  --4623
-
-		--D7 00
-		{"model","models/heroes/tuskarr/tusk_weapon.vmdl"},--417
-		{"model","models/heroes/tuskarr/tusk_hat.vmdl"},--415
-		{"model","models/heroes/tuskarr/tusk_fish_basket.vmdl"},--418
-		{"model","models/heroes/tuskarr/tusk_horns.vmdl"},--416
-		{"model","models/heroes/tuskarr/tusk_cowl.vmdl"},--414
-		{"model","models/heroes/tuskarr/tusk_armor_glove.vmdl"},--413
-
-
-		--D7 10
-		{"model","models/items/tuskarr/onizaphk_ahunter_armsv2/onizaphk_ahunter_armsv2.vmdl"}, --4499
-		{"model","models/items/tuskarr/onizaphk_ahunter_back/onizaphk_ahunter_back.vmdl"},--4498
-		{"model","models/items/tuskarr/onizaphk_ahunter_head/onizaphk_ahunter_head.vmdl"},--4460
-		{"model","models/items/tuskarr/onizaphk_ahunter_neck/onizaphk_ahunter_neck.vmdl"},--4441
-		{"model","models/items/tuskarr/onizaphk_ahunter_shoulder/onizaphk_ahunter_shoulder.vmdl"},--4123
-		{"model","models/items/tuskarr/onizaphk_ahunter_weapon/onizaphk_ahunter_weapon.vmdl"},--4097
-
-		--D7 11
-		{"model","models/items/tuskarr/glaciomarine_arm/glaciomarine_arm.vmdl"},--9010
-		{"model","models/items/tuskarr/glaciomarine_back/glaciomarine_back.vmdl"},--9011
-		{"model","models/items/tuskarr/glaciomarine_head/glaciomarine_head.vmdl"},--9007
-		{"model","models/items/tuskarr/glaciomarine_neck/glaciomarine_neck.vmdl"},--9008
-		{"model","models/items/tuskarr/glaciomarine_shoulder/glaciomarine_shoulder.vmdl"},--9012
-		{"model","models/items/tuskarr/glaciomarine_weapon/glaciomarine_weapon.vmdl"},--9009
-
-		--Q6 00
-		{"model","models/heroes/luna/luna_head.vmdl"},--453
-		{"model","models/heroes/luna/luna_mount.vmdl"},--452
-		{"model","models/heroes/luna/luna_shoulder.vmdl"},--451
-		{"model","models/heroes/luna/luna_shield.vmdl"},--449
-		{"model","models/heroes/luna/luna_helmet.vmdl"},--450
-		{"model","models/heroes/luna/luna_weapon.vmdl"},--448
-
-		--Q6 10
-		{"model","models/items/luna/selemenes_eclipse_helm/selemenes_eclipse_helm.vmdl"},--7701
-		{"model","models/items/luna/selemenes_eclipse_mount/selemenes_eclipse_mount.vmdl"},--7703
-		{"model","models/items/luna/selemenes_eclipse_shield/selemenes_eclipse_shield.vmdl"},--7700
-		{"model","models/items/luna/selemenes_eclipse_shoulders/selemenes_eclipse_shoulders.vmdl"},--7702
-		{"model","models/items/luna/selemenes_eclipse_weapon/selemenes_eclipse_weapon.vmdl"},--7699
-
-		--Q6 20
-		{"model","models/items/luna/lucent_epaulets/lucent_epaulets.vmdl"},--5944
-		{"model","models/items/luna/lucent_glaive/lucent_glaive.vmdl"},--5945
-		{"model","models/items/luna/lucent_guard/lucent_guard.vmdl"},--5946
-		{"model","models/items/luna/lucent_head/lucent_head.vmdl"},--5948
-		{"model","models/items/luna/lucent_mount/lucent_mount.vmdl"},--5947
-
-		--Q6 21
-		{"model","models/items/mirana/crescent_bow/crescent_bow.vmdl"},--6658
-		{"model","models/items/mirana/crescent_back/crescent_back.vmdl"},--6657
-		{"model","models/items/mirana/crescent_bracers/crescent_bracers.vmdl"},--6659
-		{"model","models/items/mirana/crescent_hair/crescent_hair.vmdl"},--6660
-		{"model","models/items/mirana/crescent_mount/crescent_mount.vmdl"},--6661
-		{"model","models/items/mirana/crescent_quiver/crescent_quiver.vmdl"},--6662
-		{"model","models/items/mirana/crescent_shoulder/crescent_shoulder.vmdl"},--6663
-
-		--General 1
-		{"model","models/items/legion_commander/battlefield_weapon/battlefield_weapon.vmdl"},--6827
-		{"model","models/items/legion_commander/battlefield_head/battlefield_head.vmdl"},--6861
-		{"model","models/items/legion_commander/battlefield_back/battlefield_back.vmdl"},--6829
-		{"model","models/items/legion_commander/battlefield_shoulder/battlefield_shoulder.vmdl"},--6828
-		{"model","models/items/legion_commander/battlefield_arms/battlefield_arms.vmdl"},--6834
-
-		--General 2
-		{"model","models/items/legion_commander/immortalspride_weapon/immortalspride_weapon.vmdl"},--6995
-		{"model","models/items/legion_commander/immortalspride_head/immortalspride_head.vmdl"},--6994
-		{"model","models/items/legion_commander/immortalspride_back/immortalspride_back.vmdl"},--6909
-		{"model","models/items/legion_commander/immortalspride_shoulder/immortalspride_shoulder.vmdl"},--7008
-		{"model","models/items/legion_commander/immortalspride_arms/immortalspride_arms.vmdl"},--6910
-
-		--General 3
-		{"model","models/items/legion_commander/spear_of_the_dragon_guard/spear_of_the_dragon_guard.vmdl"},--6035
-		{"model","models/items/legion_commander/plume_of_the_dragon_guard/plume_of_the_dragon_guard.vmdl"},--6031
-		{"model","models/items/legion_commander/twin_dragon_banner/twin_dragon_banner.vmdl"},--6034
-		{"model","models/items/legion_commander/scales_of_the_dragon_guard/scales_of_the_dragon_guard.vmdl"},--6032
-		{"model","models/items/legion_commander/armlet_of_the_dragon_guard/armlet_of_the_dragon_guard.vmdl"},--6033
-
-		--General 4
-		{"model","models/items/legion_commander/valkyrie_weapon/valkyrie_weapon.vmdl"},--6244
-		{"model","models/items/legion_commander/valkyrie_head/valkyrie_head.vmdl"},--6243
-		{"model","models/items/legion_commander/valkyrie_back/valkyrie_back.vmdl"},--6242
-		{"model","models/items/legion_commander/valkyrie_shoulder/valkyrie_shoulder.vmdl"},--6240
-		{"model","models/items/legion_commander/valkyrie_arms/valkyrie_arms.vmdl"},--6241
-
-		--General 5
-		{"model","models/items/legion_commander/errant_spear/errant_spear.vmdl"},--7224
-		{"model","models/items/legion_commander/errant_cowl/errant_cowl.vmdl"},--7222
-		{"model","models/items/legion_commander/errant_standards/errant_standards.vmdl"},--7221
-		{"model","models/items/legion_commander/errant_pauldrons/errant_pauldrons.vmdl"},--7223
-		{"model","models/items/legion_commander/errant_bracers/errant_bracers.vmdl"},--7220
-
-		--General 6
-		{"model","models/items/legion_commander/stonehall_weapon/stonehall_weapon.vmdl"},--5890
-		{"model","models/items/legion_commander/stonehall_head/stonehall_head.vmdl"},--5887
-		{"model","models/items/legion_commander/stonehall_back/stonehall_back.vmdl"},--5886
-		{"model","models/items/legion_commander/stonehall_shoulder/stonehall_shoulder.vmdl"},--5889
-		{"model","models/items/legion_commander/stonehall_arms/stonehall_arms.vmdl"},--5885
-
-		--F6 00
-		{"model","models/items/crystal_maiden/warden_icewrack_arms/warden_icewrack_arms.vmdl"},--9324
-		{"model","models/items/crystal_maiden/warden_icewrack_back/warden_icewrack_back.vmdl"},--9325
-		{"model","models/items/crystal_maiden/warden_icewrack_head/warden_icewrack_head.vmdl"},--9327
-		{"model","models/items/crystal_maiden/warden_icewrack_shoulder/warden_icewrack_shoulder.vmdl"},--9326
-		{"model","models/items/crystal_maiden/warden_icewrack_staff/warden_icewrack_staff.vmdl"},--9328
-		--F6 10
-		{"model","models/items/crystal_maiden/crystalline_comet_weapon/crystalline_comet_weapon.vmdl"},--6769
-		{"model","models/items/crystal_maiden/belle_arms_bracers/belle_arms_bracers.vmdl"},--4420
-		{"model","models/items/crystal_maiden/belle_head_hair/belle_head_hair.vmdl"},--4540
-		{"model","models/items/crystal_maiden/belle_shoulders/belle_shoulders.vmdl"},--4389
-		{"model","models/items/crystal_maiden/polarisbelle_cape/polarisbelle_cape.vmdl"},--4386
-		--F6 11
-		{"model","models/heroes/crystal_maiden/crystal_maiden_arcana_back.vmdl"},--7385
-		{"model","models/items/crystal_maiden/frostbringer_hair/frostbringer_hair.vmdl"},--8456
-		{"model","models/items/crystal_maiden/frostbringer_shoulders/frostbringer_shoulders.vmdl"},--8450
-		{"model","models/items/crystal_maiden/frostbringer_sleeves/frostbringer_sleeves.vmdl"},--8448
-		{"model","models/items/crystal_maiden/frostbringer_staff/frostbringer_staff.vmdl"},--8449
-		--E7 00
-		{"model","models/items/slardar/royal_guard_armplates/royal_guard_armplates.vmdl"},--5071
-		{"model","models/items/slardar/royal_guard_skullguard/royal_guard_skullguard.vmdl"},--5073
-		{"model","models/items/slardar/royal_guard_spine/royal_guard_spine.vmdl"},--5072
-		{"model","models/items/slardar/royal_guard_trident/royal_guard_trident.vmdl"},--5074
-		--E7 10
-		{"model","models/items/slardar/sea_devil_back/sea_devil_back.vmdl"},--8133
-		{"model","models/items/slardar/sea_devil_bracers/sea_devil_bracers.vmdl"},--7857
-		{"model","models/items/slardar/sea_devil_head/sea_devil_head.vmdl"},--7858
-		{"model","models/items/slardar/sea_devil_weapon/sea_devil_weapon.vmdl"},--7859
-		--E7 11
-		{"model","models/items/slardar/sea_dragon_arm/sea_dragon_arm.vmdl"},--4923
-		{"model","models/items/slardar/sea_dragon_back/sea_dragon_back.vmdl"},--4924
-		{"model","models/items/slardar/sea_dragon_helmet/sea_dragon_helmet.vmdl"},--4922
-		{"model","models/items/slardar/sea_dragon_weapon/sea_dragon_weapon.vmdl"},--4921
-
-		--G5 00
-		{"model","models/items/centaur/warstomp_weapon/warstomp_weapon.vmdl"},--6311
-		{"model","models/items/centaur/warstomp_head/warstomp_head.vmdl"},--6210
-		{"model","models/items/centaur/warstomp_armor/warstomp_armor.vmdl"},--6312
-		{"model","models/items/centaur/warstomp_belt/warstomp_belt.vmdl"},--6211
-		{"model","models/items/centaur/warstomp_arms/warstomp_arms.vmdl"},--6207
-		{"model","models/items/centaur/warstomp_back/warstomp_back.vmdl"},--6209
-		{"model","models/items/centaur/warstomp_tail/warstomp_tail.vmdl"},--6208
-
-		--G5 10
-		{"model","models/items/centaur/dc_weaponbsk/dc_weaponbsk.vmdl"},--6500
-		{"model","models/items/centaur/dc_headitembsrk/dc_headitembsrk.vmdl"},--6497
-		{"model","models/items/centaur/dc_shoulderbsrk/dc_shoulderbsrk.vmdl"},--6494
-		{"model","models/items/centaur/dc_beltbsrk/dc_beltbsrk.vmdl"},--6495
-		{"model","models/items/centaur/dc_armsbsrk/dc_armsbsrk.vmdl"},--6496
-		{"model","models/items/centaur/dc_shieldbsrk/dc_shieldbsrk.vmdl"},--6889
-		{"model","models/items/centaur/dc_tailbsrk/dc_tailbsrk.vmdl"},--6498
-
-		--G5 11
-		{"model","models/items/centaur/warlordofhell_weapon/warlordofhell_weapon.vmdl"},--6962
-		{"model","models/items/centaur/warlordofhell_head/warlordofhell_head.vmdl"},--6958
-		{"model","models/items/centaur/warlordofhell_shoulder/warlordofhell_shoulder.vmdl"},--6961
-		{"model","models/items/centaur/warlordofhell_belt/warlordofhell_belt.vmdl"},--6960
-		{"model","models/items/centaur/warlordofhell_arms/warlordofhell_arms.vmdl"},--6959
-		{"model","models/items/centaur/warlordofhell_back/warlordofhell_back.vmdl"},--6964
-		{"model","models/items/centaur/warlordofhell_tail/warlordofhell_tail.vmdl"},--6963
-
-		--Q7 00
-		{"model","models/heroes/meepo/meepo_weapon.vmdl"},--104
-		{"model","models/heroes/meepo/hood.vmdl"},--296
-		{"model","models/heroes/meepo/shoulders.vmdl"},--298
-		{"model","models/heroes/meepo/pack.vmdl"},--297
-		{"model","models/heroes/meepo/bracers.vmdl"},--299
-		{"model","models/heroes/meepo/tail.vmdl"},--300
-
-		--Q7 10
-		{"model","models/items/meepo/riftshadow_roamer_pan/riftshadow_roamer_pan.vmdl"},--4423
-		{"model","models/items/meepo/riftshadow_roamer_hat/riftshadow_roamer_hat.vmdl"},--4427
-		{"model","models/items/meepo/riftshadow_roamer_vest/riftshadow_roamer_vest.vmdl"},--4421
-		{"model","models/items/meepo/riftshadow_roamer_pack/riftshadow_roamer_pack.vmdl"},--4344
-		{"model","models/items/meepo/riftshadow_roamer_gloves/riftshadow_roamer_gloves.vmdl"},--4434
-		--300
-
-		--Q7 20
-		{"model","models/items/meepo/dosa_weapon/dosa_weapon.vmdl"},--6230
-		{"model","models/items/meepo/dosa_hat/dosa_hat.vmdl"},--6238
-		{"model","models/items/meepo/dosa_shoulder/dosa_shoulder.vmdl"},--6228
-		{"model","models/items/meepo/dosa_back/dosa_back.vmdl"},--6237
-		{"model","models/items/dark_seer/gombangdae_arms/gombangdae_arms.vmdl"},--6231
-		{"model","models/items/meepo/dosa_tail/dosa_tail.vmdl"},--6229
-
-		--Q7 21
-		{"model","models/items/meepo/meepo_skeletonkey_sword/meepo_skeletonkey_sword.vmdl"},--4912
-		{"model","models/items/meepo/meepo_skeletonkey_bandana/meepo_skeletonkey_bandana.vmdl"},--4911
-		{"model","models/items/meepo/meeposksh/meeposksh.vmdl"},--4914
-		{"model","models/items/meepo/meeposkback/meeposkback.vmdl"},--4913
-		--299
-		--300
-		--W6 00
-		{"model","models/items/phantom_assassin/carreau_weapon/carreau_weapon.vmdl"},--7113
-		{"model","models/items/phantom_assassin/carreau_head/carreau_head.vmdl"},--7117
-		{"model","models/items/phantom_assassin/carreau_shoulder/carreau_shoulder.vmdl"},--7116
-		{"model","models/items/phantom_assassin/carreau_back/carreau_back.vmdl"},--7114
-		{"model","models/items/phantom_assassin/carreau_belt/carreau_belt.vmdl"},--7115
-
-		--W6 10
-		{"model","models/items/phantom_assassin/dark_wraith_weapon/dark_wraith_weapon.vmdl"},--5354
-		{"model","models/items/phantom_assassin/dark_wraith_helmet/dark_wraith_helmet.vmdl"},--5352
-		{"model","models/items/phantom_assassin/dark_wraith_shoulder/dark_wraith_shoulder.vmdl"},--5353
-		{"model","models/items/phantom_assassin/dark_wraith_back/dark_wraith_back.vmdl"},--5350
-		{"model","models/items/phantom_assassin/dark_wraith_belt/dark_wraith_belt.vmdl"},--5351
-
-		--W6 20
-		{"model","models/items/phantom_assassin/kiss_of_crows_weapon/kiss_of_crows_weapon.vmdl"},--8138
-		{"model","models/items/phantom_assassin/kiss_of_crows_head/kiss_of_crows_head.vmdl"},--8139
-		{"model","models/items/phantom_assassin/kiss_of_crows_shoulders/kiss_of_crows_shoulders.vmdl"},--8140
-		{"model","models/items/phantom_assassin/kiss_of_crows_back/kiss_of_crows_back.vmdl"},--8137
-		{"model","models/items/phantom_assassin/kiss_of_crows_belt/kiss_of_crows_belt.vmdl"},--8136
-
-		--W6 21
-		{"model","models/items/phantom_assassin/raiment_of_the_sacred_blossom_head/raiment_of_the_sacred_blossom_head.vmdl"},--8015
-		{"model","models/items/phantom_assassin/raiment_of_the_sacred_blossom_shoulder/raiment_of_the_sacred_blossom_shoulder.vmdl"},--8012
-		{"model","models/items/phantom_assassin/raiment_of_the_sacred_blossom_back/raiment_of_the_sacred_blossom_back.vmdl"},--8014
-		{"model","models/items/phantom_assassin/raiment_of_the_sacred_blossom_belt/raiment_of_the_sacred_blossom_belt.vmdl"},--8013
-		{"model","models/heroes/phantom_assassin/pa_arcana_weapons.vmdl"},--7247
-
-		--W7 00
-		{"model","models/heroes/enchantress/enchantress_weapon.vmdl"},--290
-		{"model","models/heroes/enchantress/enchantress_dress.vmdl"},--288
-		{"model","models/heroes/enchantress/enchantress_bracers.vmdl"},--289
-		{"model","models/heroes/enchantress/enchantress_hair.vmdl"},--287
-		{"model","models/heroes/enchantress/enchantress_weapon.vmdl"},--290
-
-		--W7 10
-		{"model","models/items/enchantress/anuxi_wldkin_weapon2/anuxi_wldkin_weapon2.vmdl"},--4785
-		{"model","models/items/enchantress/anuxi_wldkin_hair2/anuxi_wldkin_hair2.vmdl"},--4786
-		{"model","models/items/enchantress/anuxi_wldkin_dress2/anuxi_wldkin_dress2.vmdl"},--4787
-		{"model","models/items/enchantress/anuxi_wildkin_neck/anuxi_wildkin_neck.vmdl"},--4678
-		{"model","models/items/enchantress/anuxi_wildkin_arm/anuxi_wildkin_arm.vmdl"},--4676
-
-		--W7 20
-		{"model","models/items/enchantress/anuxi_summer_spear/anuxi_summer_spear.vmdl"},--5021
-		{"model","models/items/enchantress/anuxi_summer_head/anuxi_summer_head.vmdl"},--5024
-		{"model","models/items/enchantress/anuxi_summer_skirt/anuxi_summer_skirt.vmdl"},--5022
-		{"model","models/items/enchantress/anuxi_summer_shoulder/anuxi_summer_shoulder.vmdl"},--5023
-		{"model","models/items/enchantress/anuxi_summer_arms/anuxi_summer_arms.vmdl"},--5025
-
-		--E3 00
-		{"model","models/items/ursa/wraps_of_the_radiant_protector/wraps_of_the_radiant_protector.vmdl"},--5893
-		{"model","models/items/ursa/belt_of_radiant_protector/belt_of_radiant_protector.vmdl"},--5888
-		{"model","models/items/ursa/mark_of_the_radiant_protector/mark_of_the_radiant_protector.vmdl"},--5894
-		{"model","models/items/ursa/braids_of_the_radiant_protector/braids_of_the_radiant_protector.vmdl"},--5893
-
-		--E3 10
-		{"model","models/items/ursa/ursa_cryo_arms/ursa_cryo_arms.vmdl"},--5805
-		{"model","models/items/ursa/ursa_cryo_belt/ursa_cryo_belt.vmdl"},--5808
-		{"model","models/items/ursa/ursa_cryo_back/ursa_cryo_back.vmdl"},--5807
-		{"model","models/items/ursa/ursa_cryo_head/ursa_cryo_head.vmdl"},--5550
-
-		--E3 11
-		{"model","models/items/ursa/fierce_heart_weapon/fierce_heart_weapon.vmdl"},--7654
-		{"model","models/items/ursa/fierce_heart_arms/fierce_heart_arms.vmdl"},--7651
-		{"model","models/items/ursa/fierce_heart_belt/fierce_heart_belt.vmdl"},--7650
-		{"model","models/items/ursa/fierce_heart_back/fierce_heart_back.vmdl"},--7652
-		{"model","models/items/ursa/fierce_heart_head/fierce_heart_head.vmdl"},--7653
-
-		--E6 00
-		{"model","models/items/brewmaster/wep_brewmaster_cleaver_01/wep_brewmaster_cleaver_01.vmdl"},--4894
-		{"model","models/items/brewmaster/gear_brewmaster_sake_01/gear_brewmaster_sake_01.vmdl"},--4890
-		{"model","models/items/brewmaster/gear_brewmaster_gloves_01/gear_brewmaster_gloves_01.vmdl"},--4891
-		{"model","models/items/brewmaster/gear_brewmaster_back_01/gear_brewmaster_back_01.vmdl"},--4893
-		{"model","models/items/brewmaster/gear_brewmaster_shoulder_01/gear_brewmaster_shoulder_01.vmdl"},--4892
-
-		--E6 10
-		{"model","models/items/brewmaster/reddragon_weapon/reddragon_weapon.vmdl"},--6969
-		{"model","models/items/brewmaster/reddragon_offhand/reddragon_offhand.vmdl"},--6968
-		{"model","models/items/brewmaster/reddragon_arms/reddragon_arms.vmdl"},--6967
-		{"model","models/items/brewmaster/reddragon_back/reddragon_back.vmdl"},--6966
-		{"model","models/items/brewmaster/reddragon_shoulder/reddragon_shoulder.vmdl"},--5641
-
-		--D8 00
-		{"model","models/items/windrunner/wingsweapon2/wingsweapon2.vmdl"},--4552
-		{"model","models/items/windrunner/falconhelm1/falconhelm1.vmdl"},--4559
-		{"model","models/items/windrunner/falconcloak/falconcloak.vmdl"},--4554
-		{"model","models/items/windrunner/wingsshoulders2/wingsshoulders2.vmdl"},--4562
-		{"model","models/items/windrunner/featherquiver21/featherquiver21.vmdl"},--4553
-
-		--D8 10
-		{"model","models/items/windrunner/tranquility_weapon/tranquility_weapon.vmdl"},--6835
-		{"model","models/items/windrunner/tranquility_head/tranquility_head.vmdl"},--6831
-		{"model","models/items/windrunner/tranquility_back/tranquility_back.vmdl"},--6836
-		{"model","models/items/windrunner/tranquility_shoulder/tranquility_shoulder.vmdl"},--6838
-		{"model","models/items/windrunner/tranquility_quiver/tranquility_quiver.vmdl"},--6837
-
-		--R6 00
-		{"model","models/heroes/gyro/gyro_head.vmdl"},--131
-		{"model","models/heroes/gyro/gyro_guns.vmdl"},--177
-		{"model","models/heroes/gyro/gyro_goggles.vmdl"},--176
-		{"model","models/heroes/gyro/gyro_bottles.vmdl"},--126
-		{"model","models/heroes/gyro/gyro_propeller.vmdl"},--178
-		{"model","models/heroes/gyro/gyro_missile.vmdl"},--179
-
-		--R6 10
-		{"model","models/items/gyrocopter/rainmaker_weapon/rainmaker_weapon.vmdl"},--6899
-		{"model","models/items/gyrocopter/rainmaker_head/rainmaker_head.vmdl"},--7121
-		{"model","models/items/gyrocopter/rainmaker_back/rainmaker_back.vmdl"},--6903
-		{"model","models/items/gyrocopter/rainmaker_misc/rainmaker_misc.vmdl"},--6898
-		{"model","models/items/gyrocopter/rainmaker_offhand/rainmaker_offhand.vmdl"},--6897
-
-
-		--R6 11
-		{"model","models/items/gyrocopter/skyhigh_head/skyhigh_head.vmdl"},--7825
-		{"model","models/items/gyrocopter/skyhigh_back/skyhigh_back.vmdl"},--7823
-		{"model","models/items/gyrocopter/skyhigh_propeller/skyhigh_propeller.vmdl"},--7828
-		{"model","models/items/gyrocopter/skyhigh_bomb_missle/skyhigh_bomb.vmdl"},--7822
-		--131
-		{"model","models/items/gyrocopter/immortal_guns/immortal_guns_gold.vmdl"},--9428
-		--Q8 00
-
-		{"model","models/items/rattletrap/artisan_of_havoc_hook/artisan_of_havoc_hook.vmdl"},--6810
-		{"model","models/items/rattletrap/ironclock_head/ironclock_head.vmdl"},--7018
-		{"model","models/items/rattletrap/artisan_of_havoc_armor/artisan_of_havoc_armor.vmdl"},--6809
-		{"model","models/items/rattletrap/artisan_of_havoc_rocket/artisan_of_havoc_rocket.vmdl"},--6811
-
-		--Q8 10
-		{"model","models/items/rattletrap/forge_warrior_claw/forge_warrior_claw.vmdl"},--6481
-		{"model","models/items/rattletrap/forge_warrior_helm/forge_warrior_helm.vmdl"},--6482
-		{"model","models/items/rattletrap/forge_warrior_steam_exoskeleton/forge_warrior_steam_exoskeleton.vmdl"},--6485
-		{"model","models/items/rattletrap/forge_warrior_rocket_cannon/forge_warrior_rocket_cannon.vmdl"},--6484
-
-		--Q8 20
-		{"model","models/items/rattletrap/steelcrow_weapon/steelcrow_weapon.vmdl"},--9015
-		{"model","models/items/rattletrap/steelcrow_head/steelcrow_head.vmdl"},--9014
-		{"model","models/items/rattletrap/steelcrow_armor/steelcrow_armor.vmdl"},--9013
-		{"model","models/items/rattletrap/steelcrow_misc/steelcrow_misc.vmdl"},--9016
-
-		--F7 00
-		{"model","models/heroes/alchemist/alchemist_scabbard.vmdl"},--118
-		{"model","models/heroes/alchemist/alchemist_shoulderbottles.vmdl"},--125
-		{"model","models/heroes/alchemist/alchemist_ogre_head.vmdl"},--124
-		{"model","models/heroes/alchemist/alchemist_goblin_body.vmdl"},--117
-		{"model","models/heroes/alchemist/alchemist_gauntlets.vmdl"},--120
-		{"model","models/heroes/alchemist/alchemist_goblinhat.vmdl"},--121
-		{"model","models/heroes/alchemist/alchemist_saddlehat.vmdl"},--119
-		{"model","models/heroes/alchemist/alchemist_goblin_head.vmdl"},--123
-
-		--F7 10
-		{"model","models/items/alchemist/toxic_siege_blades/toxic_siege_blades.vmdl"},--6123
-		{"model","models/items/alchemist/toxic_siege_pauldrons/toxic_siege_pauldrons.vmdl"},--6122
-		--124
-		{"model","models/items/alchemist/toxic_siege_garb/toxic_siege_garb.vmdl"},--6118
-		{"model","models/items/alchemist/toxic_siege_bracers/toxic_siege_bracers.vmdl"},--6117
-		{"model","models/items/alchemist/toxic_siege_safety_goggles/toxic_siege_safety_goggles.vmdl"},--6119
-		{"model","models/items/alchemist/toxic_siege_armored_saddle/toxic_siege_armored_saddle.vmdl"},--6121
-		{"model","models/items/alchemist/toxic_siege_corrosive_flasks/toxic_siege_corrosive_flasks.vmdl"},--6120
-		--123
-
-		--F8 00
-		{"model","models/items/dazzle/staff_of_the_yuwipi/staff_of_the_yuwipi.vmdl"},--5882
-		{"model","models/items/dazzle/band_of_summoning/band_of_summoning.vmdl"},--5879
-		{"model","models/items/dazzle/headdress_of_the_yuwipi/headdress_of_the_yuwipi.vmdl"},--5880
-		{"model","models/items/dazzle/bonedress_of_the_yuwipi/bonedress_of_the_yuwipi.vmdl"},--5881
-		{"model","models/heroes/dazzle/dazzle_shoulder.vmdl"},--468
-		--F8 10
-		{"model","models/items/dazzle/dazzleset_weapon/dazzleset_weapon.vmdl"},--4685
-		{"model","models/items/dazzle/dazzleset_arm/dazzleset_arm.vmdl"},--4683
-		{"model","models/items/dazzle/dazzleset_back/dazzleset_back.vmdl"},--4682
-		{"model","models/items/dazzle/dazzleset_legs/dazzleset_legs.vmdl"},--4684
-		{"model","models/items/dazzle/dazzleset_misc/dazzleset_misc.vmdl"},--4681
-		--banner badguys
-		{"model","models/props_teams/banner_dire_small.vmdl"},
-		--F9 00
-		{"model","models/heroes/ogre_magi/ogre_magi_weapon.vmdl"},--105
-		{"model","models/heroes/ogre_magi/ogre_magi_cape.vmdl"},--133
-		{"model","models/heroes/ogre_magi/ogre_magi_hats.vmdl"},--135
-		{"model","models/heroes/ogre_magi/ogre_magi_belt.vmdl"},--136
-		{"model","models/heroes/ogre_magi/ogre_magi_bracers.vmdl"},--134
-
-		--F9 10
-		{"model","models/items/ogre_magi/antipodean_weapon/antipodean_weapon.vmdl"},--7848
-		{"model","models/items/ogre_magi/antipodean_back/antipodean_back.vmdl"},--7845
-		{"model","models/items/ogre_magi/antipodean_head/antipodean_head.vmdl"},--7847
-		{"model","models/items/ogre_magi/antipodean_belt/antipodean_belt.vmdl"},--7846
-		{"model","models/items/ogre_magi/antipodean_arms/antipodean_arms.vmdl"},--7839
-
-		--F9 11
-		{"model","models/items/ogre_magi/ogre_ancestral_weapon/ogre_ancestral_weapon.vmdl"},--5241
-		{"model","models/items/ogre_magi/ogre_ancestral_back/ogre_ancestral_back.vmdl"},--5243
-		{"model","models/items/ogre_magi/ogre_ancestral_head/ogre_ancestral_head.vmdl"},--5245
-		{"model","models/items/ogre_magi/ogre_ancestral_belt/ogre_ancestral_belt.vmdl"},--5244
-		{"model","models/items/ogre_magi/ogre_ancestral_arms/ogre_ancestral_arms.vmdl"},--5242
-
-		--G7 00
-		{"model","models/items/antimage/wh_weapon/wh_weapon.vmdl"}, --4781
-		{"model","models/items/antimage/wh_offhand_weapon/wh_offhand_weapon.vmdl"},--4779
-		{"model","models/items/antimage/wh_mask/wh_mask.vmdl"},--4769
-		{"model","models/items/antimage/wh_armor/wh_armor.vmdl"},--4778
-		{"model","models/items/antimage/wh_arms/wh_arms.vmdl"},--4784
-		{"model","models/items/antimage/wh_belt/wh_belt.vmdl"},--4782
-		{"model","models/items/antimage/wh_shoulder/wh_shoulder.vmdl"},--4770
-
-		--G7 10
-		{"model","models/items/antimage/reprieve_of_the_clergy_ascetic/reprieve_of_the_clergy_ascetic.vmdl"},--5531
-		{"model","models/items/antimage/reprieve_of_the_clergy_ascetic__offhand/reprieve_of_the_clergy_ascetic__offhand.vmdl"},--5529
-		{"model","models/items/antimage/hood_of_the_clergy_ascetic/hood_of_the_clergy_ascetic.vmdl"},--5538
-		{"model","models/items/antimage/adornment_of_the_clergy_ascetic/adornment_of_the_clergy_ascetic.vmdl"},--5530
-		{"model","models/items/antimage/bracers_of_the_clergy_ascetic/bracers_of_the_clergy_ascetic.vmdl"},--5549
-		{"model","models/items/antimage/cloth_of_the_clergy_ascetic/cloth_of_the_clergy_ascetic.vmdl"},--5528
-		{"model","models/items/antimage/guard_of_the_clergy_ascetic/guard_of_the_clergy_ascetic.vmdl"},--5532
-
-		--G7 11
-		{"model","models/items/antimage/tarrasque_scale_weapon/tarrasque_scale_weapon.vmdl"},--8611
-		{"model","models/items/antimage/tarrasque_scale_offhand/tarrasque_scale_offhand.vmdl"},--8678
-		{"model","models/items/antimage/tarrasque_scale_head/tarrasque_scale_head.vmdl"},--8596
-		{"model","models/items/antimage/tarrasque_scale_armor/tarrasque_scale_armor.vmdl"},--8595
-		{"model","models/items/antimage/tarrasque_scale_arms/tarrasque_scale_arms.vmdl"},--8610
-		{"model","models/items/antimage/tarrasque_scale_belt/tarrasque_scale_belt.vmdl"},--8609
-		{"model","models/items/antimage/tarrasque_scale_shoulder/tarrasque_scale_shoulder.vmdl"},--8620
-
-		--G8 00
-		{"model","models/heroes/phantom_lancer/phantom_lancer_head.vmdl"},--127
-		{"model","models/items/phantom_lancer/weapon_kinship/weapon_kinship.vmdl"},--4439
-		{"model","models/items/phantom_lancer/shoulder_kinship/shoulder_kinship.vmdl"},--4451
-		{"model","models/items/phantom_lancer/arms_kinship/arms_kinship.vmdl"},--4402
-		{"model","models/items/phantom_lancer/belt_kinship/belt_kinship.vmdl"},--4409
-
-		--G8 10
-		{"model","models/items/phantom_lancer/infinite_waves_serpent_weapon/infinite_waves_serpent_weapon.vmdl"},--6317
-		{"model","models/items/phantom_lancer/infinite_waves_shoulder/infinite_waves_shoulder.vmdl"},--6755
-		{"model","models/items/phantom_lancer/infinite_waves_arms/infinite_waves_arms.vmdl"},--6752
-		{"model","models/items/phantom_lancer/infinite_waves_belt/infinite_waves_belt.vmdl"},--6753
-		--127
-
-		--G8 11
-		{"model","models/items/phantom_lancer/sunwarrior_weapon/sunwarrior_weapon.vmdl"},--6620
-		{"model","models/items/phantom_lancer/sunwarrior_head/sunwarrior_head.vmdl"},--6621
-		{"model","models/items/phantom_lancer/sunwarrior_arms/sunwarrior_arms.vmdl"},--6619
-		{"model","models/items/phantom_lancer/sunwarrior_belt/sunwarrior_belt.vmdl"},--6617
-
-
-	}
-
-
-
+	 --dummy
+
+	{"model", "models/items/pedestals/pedestal_2/pedestal_2.vmdl"},
+	{"model", "models/courier/frull/frull_courier_flying.vmdl"},
+	{"model", "models/items/courier/gnomepig/gnomepig_flying.vmdl"},
+
+	
+	 --left king
+	{"model", "models/heroes/chen/chen.vmdl"},
+	{"model", "models/items/chen/squareskystaff_weapon/squareskystaff_weapon.vmdl"},
+	{"model", "models/items/chen/weapon_navi/weapon_navi.vmdl"},
+	{"model", "models/items/chen/armor_navi/armor_navi.vmdl"},
+	{"model", "models/items/chen/arms_navi/arms_navi.vmdl"},
+	{"model", "models/items/chen/head_navi/head_navi.vmdl"},
+	{"model", "models/items/chen/mount_navi_new/mount_navi_new.vmdl"},
+	{"model", "models/items/chen/shoulder_navi/shoulder_navi.vmdl"},
+	{"model", "models/items/chen/neck_desert/neck_desert.vmdl"},
+	{"model", "models/items/chen/desert_gale_shoulder_plate/desert_gale_shoulder_plate.vmdl"},
+
+	--right king
+	{"model", "models/heroes/abaddon/abaddon.vmdl"},
+	{"model", "models/items/abaddon/netherax_nightmare_of_the_mist/netherax_nightmare_of_the_mist.vmdl"},
+	{"model", "models/items/abaddon/alliance_abba_back/alliance_abba_back.vmdl"},
+	{"model", "models/items/abaddon/alliance_abba_head/alliance_abba_head.vmdl"},
+	{"model", "models/items/abaddon/mistblade/mistblade.vmdl"},
+	{"model", "models/items/abaddon/alliance_abba_shoulder/alliance_abba_shoulder.vmdl"},
+
+
+	--Q1 00
+	{"model", "models/heroes/sven/sven_belt.vmdl"},
+	{"model", "models/heroes/sven/sven_gauntlet.vmdl"},
+	{"model", "models/heroes/sven/sven_mask.vmdl"},
+	{"model", "models/heroes/sven/sven_shoulder.vmdl"},
+	{"model", "models/heroes/sven/sven_sword.vmdl"},
+
+	--Q1 10
+	{"model", "models/items/sven/mono_militis_head.vmdl"},
+	{"model", "models/items/sven/mono_militis_shoulder.vmdl"},
+	{"model", "models/items/sven/mono_militis_weapon.vmdl"},
+	{"particle", "particles/base_attacks/ranged_badguy_explosion.vpcf"},
+
+	--Q1 20
+	{"model", "models/items/sven/ceremonialtassetsofthemyrmidon/ceremonialtassetsofthemyrmidon.vmdl"},
+	{"model", "models/items/sven/sven_ceremonialarmbladesofthemyrmidon/sven_ceremonialarmbladesofthemyrmidon.vmdl"},
+	{"model", "models/items/sven/sven_ceremonialgreathelmofthemyrmidon/sven_ceremonialgreathelmofthemyrmidon.vmdl"},
+	{"model", "models/items/sven/sven_ceremonialshieldbladeofthemyrmidon/sven_ceremonialshieldbladeofthemyrmidon.vmdl"},
+	{"model", "models/items/sven/sven_ceremonialshoulderbladesofthemyrmidon/sven_ceremonialshoulderbladesofthemyrmidon.vmdl"},
+	{"particle", "particles/zjz_units/q1_20_skill02.vpcf"},
+	{"particle", "particles/units/heroes/hero_sven/sven_gods_strength_hero_effect.vpcf"},
+
+
+	--Q1 21
+	
+	{"model", "models/items/sven/belt_of_tielong/belt_of_tielong.vmdl"},
+	{"model", "models/items/sven/breath_of_tielong/breath_of_tielong.vmdl"},
+	{"model", "models/items/sven/gauntlet_of_tielong/gauntlet_of_tielong.vmdl"},
+	{"model", "models/items/sven/helmet_of_tielong/helmet_of_tielong.vmdl"},
+	{"model", "models/items/sven/pauldron_of_tielong/pauldron_of_tielong.vmdl"},
+
+	--Q2 00
+	--"models/heroes/lycan/lycan.vmdl"},,
+	{"model", "models/heroes/lycan/lycan_blades.vmdl"},--206
+	{"model", "models/heroes/lycan/lycan_head.vmdl"},	--207
+	{"model", "models/heroes/lycan/lycan_armor.vmdl"}, --208
+	{"model", "models/heroes/lycan/lycan_fur.vmdl"},--209
+	{"model", "models/heroes/lycan/lycan_belt.vmdl"}, --210
+
+	--Q2 10
+	{"model", "models/items/lycan/armor_royal/armor_royal.vmdl"},--4974
+	{"model", "models/items/lycan/belt_alpha/belt_alpha.vmdl"},--4975
+	{"model", "models/items/lycan/clawsy_greatg/clawsy_greatg.vmdl"},--4976
+	{"model", "models/items/lycan/shoulder_alpha/shoulder_alpha.vmdl"},--4977
+	{"model", "models/items/lycan/head_alpha/head_alpha.vmdl"},--4978
+
+	--Q2 20
+	{"model", "models/items/lycan/sanguinemoon_armor/sanguinemoon_armor.vmdl"}, --4859
+	{"model", "models/items/lycan/sanguinemoon_shoulder/sanguinemoon_shoulder.vmdl"},--4860
+	{"model", "models/items/lycan/sanguinemoon_weapon/sanguinemoon_weapon.vmdl"}, --4861
+	{"model", "models/items/lycan/sanguinemoon_belt/sanguinemoon_belt.vmdl"},--4862
+	{"model", "models/items/lycan/sanguinemoon_head/sanguinemoon_head.vmdl"}, --4863
+
+	--Q2 21
+	--"models/items/lycan/ultimate/thegreatcalamityti4/thegreatcalamityti4.vmdl"},,
+	--Q2 1a 幼狼
+	--"models/items/lycan/wolves/alpha_summon_01/alpha_summon_01.vmdl"},,
+	--Q2 2a 野狼
+	--"models/heroes/lycan/summon_wolves.vmdl"},,
+
+	--Q3 00
+	--"models/heroes/life_stealer/life_stealer.vmdl"},,
+	--Q3 10
+	{"model", "models/items/lifestealer/ravenous_head/ravenous_head.vmdl"},--6260
+	{"model", "models/items/lifestealer/ravenous_arms/ravenous_arms.vmdl"},--6261
+	{"model", "models/items/lifestealer/ravenous_belt/ravenous_belt.vmdl"},--6262
+	{"model", "models/items/lifestealer/ravenous_back/ravenous_back.vmdl"},--6263
+	--Q3 20
+	{"model", "models/items/lifestealer/redrage_head/redrage_head.vmdl"},--6318
+	{"model", "models/items/lifestealer/redrage_belt/redrage_belt.vmdl"},--6319
+	{"model", "models/items/lifestealer/redrage_battlewings/redrage_battlewings.vmdl"},--6320
+	{"model", "models/items/lifestealer/redrage_bracers/redrage_bracers.vmdl"},--6321
+
+	--Q4 00
+	--"models/heroes/faceless_void/faceless_void.vmdl"},,
+	{"model", "models/heroes/faceless_void/faceless_void_weapon.vmdl"},--15
+	{"model", "models/heroes/faceless_void/faceless_void_head.vmdl"},--90
+	{"model", "models/heroes/faceless_void/faceless_void_shoulder.vmdl"},--91
+	{"model", "models/heroes/faceless_void/faceless_void_bracer.vmdl"},--92
+	{"model", "models/heroes/faceless_void/faceless_void_belt.vmdl"},--93
+
+	--Q4 10
+	{"model", "models/items/faceless_void/acolyte_belt/acolyte_belt.vmdl"},--5059
+	{"model", "models/items/faceless_void/acolyte_cowl/acolyte_cowl.vmdl"},--5060
+	{"model", "models/items/faceless_void/acolyte_gauntlet/acolyte_gauntlet.vmdl"},--5061
+	{"model", "models/items/faceless_void/acolyte_mace/acolyte_mace.vmdl"},--5062
+	{"model", "models/items/faceless_void/acolyte_hood/acolyte_hood.vmdl"},--5063
+
+	--Q4 20
+	{"model", "models/items/faceless_void/timelord_bracers/timelord_bracers.vmdl"},--5861
+	{"model", "models/items/faceless_void/timelord_head/timelord_head.vmdl"},--5868
+	{"model", "models/items/faceless_void/timelord_shoulders/timelord_shoulders.vmdl"},--5896
+	{"model", "models/items/faceless_void/timelord_skirt/timelord_skirt.vmdl"},--5897
+	{"model", "models/items/faceless_void/timelord_weapon/timelord_weapon.vmdl"},--5898
+
+	--Q5 00
+	{"model", "models/items/slark/deep_warden_scimitar/deep_warden_scimitar.vmdl"},--5261
+	{"model", "models/items/slark/deep_warden_pauldron/deep_warden_pauldron.vmdl"},--5262
+	{"model", "models/items/slark/deep_warden_bracer/deep_warden_bracer.vmdl"},--5263
+	{"model", "models/items/slark/deep_warden_cape/deep_warden_cape.vmdl"},--5264
+	{"model", "models/items/slark/deep_warden_hood/deep_warden_hood.vmdl"},--5265
+
+	--Q5 10
+	{"model", "models/items/slark/deepscoundrel_arms/deepscoundrel_arms.vmdl"},--6417
+	{"model", "models/items/slark/deepscoundrel_back/deepscoundrel_back.vmdl"},--6418
+	{"model", "models/items/slark/deepscoundrel_weapon/deepscoundrel_weapon.vmdl"},--6419
+	{"model", "models/items/slark/deepscoundrel_shoulder/deepscoundrel_shoulder.vmdl"},--6420
+	{"model", "models/items/slark/deepscoundrel_head/deepscoundrel_head.vmdl"},--6421
+
+	--Q5 20
+	{"model", "models/items/slark/dark_reef_arms/dark_reef_arms.vmdl"},--7710
+	{"model", "models/items/slark/dark_reef_back/dark_reef_back.vmdl"},--7711
+	{"model", "models/items/slark/dark_reef_head/dark_reef_head.vmdl"},--7712
+	{"model", "models/items/slark/dark_reef_shoulders/dark_reef_shoulders.vmdl"},--7713
+	{"model", "models/items/slark/dark_reef_weapon/dark_reef_weapon.vmdl"},--7714
+
+	--Q5 21
+	{"model", "models/items/slark/oceanconquerer_back/oceanconquerer_back.vmdl"},--6383
+	{"model", "models/items/slark/oceanconquerer_shoulder/oceanconquerer_shoulder.vmdl"},--6392
+	{"model", "models/items/slark/oceanconquerer_head/oceanconquerer_head.vmdl"},--6405
+	{"model", "models/items/slark/oceanconquerer_arms/oceanconquerer_arms.vmdl"},--6406
+	{"model", "models/items/slark/oceanconquerer_weapon/oceanconquerer_weapon.vmdl"},--6407
+
+	--W1 00
+	--{"model", "models/heroes/sniper/sniper.vmdl"},
+	{"model", "models/heroes/sniper/bracer.vmdl"},
+	{"model", "models/heroes/sniper/cape.vmdl"},
+	{"model", "models/heroes/sniper/headitem.vmdl"},
+	{"model", "models/heroes/sniper/shoulder.vmdl"},
+	{"model", "models/heroes/sniper/weapon.vmdl"},
+	--W1 10	
+	{"model", "models/items/sniper/sharpshooter_stache/sharpshooter_stache.vmdl"},
+	{"model", "models/items/sniper/killstealer/killstealer.vmdl"},
+	{"model", "models/items/sniper/sharpshooter_shoulder/sharpshooter_shoulder.vmdl"},
+	{"model", "models/items/sniper/sharpshooter_cloak/sharpshooter_cloak.vmdl"},
+	{"model", "models/items/sniper/sharpshooter_arms/sharpshooter_arms.vmdl"},
+	--W1 11
+	--{"model", "models/heroes/techies/techies.vmdl"},
+	{"model", "models/heroes/techies/techies_barrel.vmdl"},
+	{"model", "models/heroes/techies/techies_spleen_weapon.vmdl"},
+	{"model", "models/heroes/techies/techies_cart.vmdl"},
+	{"model", "models/heroes/techies/techies_spleen_costume.vmdl"},
+	{"model", "models/heroes/techies/techies_squee_costume.vmdl"},
+	--W1 20
+	{"model", "models/items/sniper/wildwest_weapon/wildwest_weapon.vmdl"},
+	{"model", "models/items/sniper/wildwest_head/wildwest_head.vmdl"},
+	{"model", "models/items/sniper/wildwest_back/wildwest_back.vmdl"},
+	{"model", "models/items/sniper/wildwest_shoulders/wildwest_shoulders.vmdl"},
+	{"model", "models/items/sniper/wildwest_arms/wildwest_arms.vmdl"},
+	--W1 21
+	{"model", "models/items/techies/bigshot/bigshot.vmdl"},
+	{"model", "models/items/techies/bigshot/bigshot_spleen_costume.vmdl"},
+	{"model", "models/items/techies/bigshot/bigshot_squee_costume.vmdl"},
+	{"model", "models/items/techies/bigshot/bigshot_barrel.vmdl"},
+	{"model", "models/items/techies/bigshot/bigshot.vmdl"},
+	
+	--W2 00  models/heroes/huskar/huskar.vmdl
+	{"model", "models/heroes/huskar/huskar_spear.vmdl"},--268
+	{"model", "models/heroes/huskar/huskar_dagger.vmdl"},--269
+	{"model", "models/heroes/huskar/huskar_helmet.vmdl"},--270
+	{"model", "models/heroes/huskar/huskar_shoulder.vmdl"},--271
+	{"model", "models/heroes/huskar/huskar_bracer.vmdl"},--272
+
+	--W2 10
+	{"model", "models/items/huskar/sacred_bones_offhand_weapon/sacred_bones_offhand_weapon.vmdl"}, --4906
+	{"model", "models/items/huskar/sacred_bones_shoulder/sacred_bones_shoulder.vmdl"}, --4907
+	{"model", "models/items/huskar/sacred_bones_arms/sacred_bones_arms.vmdl"}, --4908
+	{"model", "models/items/huskar/sacred_bones_helmet/sacred_bones_helmet.vmdl"},--4909
+	{"model", "models/items/huskar/sacred_bones_spear/sacred_bones_spear.vmdl"}, --4910
+
+	--W2 20
+	{"model", "models/items/huskar/obsidian_claw_of_the_jaguar_arms/obsidian_claw_of_the_jaguar_arms.vmdl"}, --4299
+	{"model", "models/items/huskar/obsidian_claw_of_the_jaguar_helmet/obsidian_claw_of_the_jaguar_helmet.vmdl"},--4300
+	{"model", "models/items/huskar/obsidian_claw_of_the_jaguar_shoulder/obsidian_claw_of_the_jaguar_shoulder.vmdl"},--4301
+	{"model", "models/items/huskar/obsidian_blade_spear/obsidian_blade_spear.vmdl"},--4748
+	{"model", "models/items/huskar/obsidian_claw_of_the_jaguar_dagger/obsidian_claw_of_the_jaguar_dagger.vmdl"},--4749
+
+	--W3 00 models/heroes/clinkz/clinkz.vmdl
+	{"model", "models/heroes/clinkz/clinkz_head.vmdl"}, --56 通用
+	{"model", "models/heroes/clinkz/clinkz_bow.vmdl"},  --57
+	{"model", "models/heroes/clinkz/clinkz_pads.vmdl"},  --58
+	{"model", "models/heroes/clinkz/clinkz_back.vmdl"},  --59
+	{"model", "models/heroes/clinkz/clinkz_horns.vmdl"}, --60
+	{"model", "models/heroes/clinkz/clinkz_gloves.vmdl"}, --61
+
+	--W3 10
+	{"model", "models/items/clinkz/clinkz_weapon_goc/clinkz_weapon_goc.vmdl"},--4741
+	{"model", "models/items/clinkz/clinkz_shoulders_goc/clinkz_shoulders_goc.vmdl"},--4742
+	{"model", "models/items/clinkz/clinkz_helmet01_goc/clinkz_helmet01_goc.vmdl"},--4971
+	{"model", "models/items/clinkz/clinkz_hands_goc/clinkz_hands_goc.vmdl"},--4972
+	{"model", "models/items/clinkz/clinkz_back_goc/clinkz_back_goc.vmdl"},--4973
+
+	--W3 20
+	{"model", "models/items/clinkz/lost_viking_back/lost_viking_back.vmdl"},--5151
+	{"model", "models/items/clinkz/lost_viking_bow/lost_viking_bow.vmdl"},--5152
+	{"model", "models/items/clinkz/lost_viking_gauntlet/lost_viking_gauntlet.vmdl"},--5153
+	{"model", "models/items/clinkz/lost_viking_helmet/lost_viking_helmet.vmdl"},--5154
+	{"model", "models/items/clinkz/lost_viking_shoulder/lost_viking_shoulder.vmdl"},--5155
+
+	--W4 00 models/heroes/lanaya/lanaya.vmdl
+	{"model", "models/heroes/lanaya/lanaya_hair.vmdl"},--173
+	{"model", "models/heroes/lanaya/lanaya_cowl_shoulder.vmdl"},--174
+	{"model", "models/heroes/lanaya/lanaya_bracers_skirt.vmdl"},--175
+
+	--W4 10
+	{"model", "models/items/lanaya/thiefscholar_girdle/thiefscholar_girdle.vmdl"}, --4695
+	{"model", "models/items/lanaya/thiefscholar_coiffure/thiefscholar_coiffure.vmdl"},--4696
+	{"model", "models/items/lanaya/thiefscholar_shoulder/thiefscholar_shoulder.vmdl"},--4697
+
+	--W4 20
+	{"model", "models/items/lanaya/ta_ns_shoulder/ta_ns_shoulder.vmdl"},--4668
+	{"model", "models/items/lanaya/ta_ns_armor/ta_ns_armor.vmdl"},--4669
+	{"model", "models/items/lanaya/ta_ns_head/ta_ns_head.vmdl"},--4670
+
+	--W5 00 models/heroes/shadowshaman/shadowshaman.vmdl
+	{"model", "models/heroes/shadowshaman/head.vmdl"},--251  通用
+	{"model", "models/items/shadowshaman/shades_weapon/shades_weapon.vmdl"},--6197
+	{"model", "models/items/shadowshaman/shades_offhand/shades_offhand.vmdl"},--6198
+	{"model", "models/items/shadowshaman/shades_belt/shades_belt.vmdl"},--6206
+	{"model", "models/items/shadowshaman/shades_arms/shades_arms.vmdl"},--6309
+	{"model", "models/items/shadowshaman/shades_head/shades_head.vmdl"}, --6310
+
+	--W5 10
+	{"model", "models/items/shadowshaman/vagabond_pack/vagabond_pack.vmdl"}, --4412
+	{"model", "models/items/shadowshaman/vagabond_wand/vagabond_wand.vmdl"},--4416
+	{"model", "models/items/shadowshaman/vagabond_hat/vagabond_hat.vmdl"},--4417
+	{"model", "models/items/shadowshaman/vagabond_drink/vagabond_drink.vmdl"},--4419
+
+	--W5 20
+	{"model", "models/items/shadowshaman/tangki_offhand/tangki_offhand.vmdl"},--6814
+	{"model", "models/items/shadowshaman/tangki_weapon/tangki_weapon.vmdl"},--6816
+	{"model", "models/items/shadowshaman/tangki_arms/tangki_arms.vmdl"},--6817
+	{"model", "models/items/shadowshaman/tangki_belt/tangki_belt.vmdl"},--6818
+	{"model", "models/items/shadowshaman/tangki_head/tangki_head.vmdl"},--6819
+
+	--W5 21
+	{"model", "models/items/shadowshaman/eki_bukaw_bracers/eki_bukaw_bracers.vmdl"},--5501
+	{"model", "models/items/shadowshaman/records_of_the_eki_bukaw/records_of_the_eki_bukaw.vmdl"},--5500
+	{"model", "models/items/shadowshaman/eki_bukaw_wand__offhand/eki_bukaw_wand__offhand.vmdl"},--5503
+	{"model", "models/items/shadowshaman/eki_bukaw_wand/eki_bukaw_wand.vmdl"},--5504
+	{"model", "models/items/shadowshaman/visage_of_eki_bukaw/visage_of_eki_bukaw.vmdl"},--5548
+
+	--E1 00 models/heroes/tiny_02/tiny_02.vmdl
+	{"model", "models/heroes/tiny_01/tiny_01_body.vmdl"},--494
+	{"model", "models/heroes/tiny_01/tiny_01_head.vmdl"},--493
+	{"model", "models/heroes/tiny_01/tiny_01_left_arm.vmdl"},--495
+	{"model", "models/heroes/tiny_01/tiny_01_right_arm.vmdl"},--496
+
+	--E1 10  
+	{"model", "models/items/tiny/scarletquarry_arms/scarletquarry_arms.vmdl"},--6886
+	{"model", "models/items/tiny/scarletquarry_offhand/scarletquarry_offhand.vmdl"},--6998
+	{"model", "models/items/tiny/scarletquarry_head/scarletquarry_head.vmdl"},--6999
+	{"model", "models/items/tiny/scarletquarry_armor/scarletquarry_armor.vmdl"},--7000
+
+
+	--E2 00 models/heroes/undying/undying.vmdl
+	{"model", "models/heroes/undying/undying_helmet.vmdl"}, --392
+	{"model", "models/heroes/undying/undying_armor.vmdl"}, --393
+
+	--E2 10 models/heroes/undying/undying_flesh_golem.vmdl
+
+	--E2 1a models/heroes/undying/undying_minion.vmdl
+
+	--E3 00 models/heroes/wraith_king/wraith_king.vmdl
+	{"model", "models/heroes/wraith_king/wraith_king_chest.vmdl"}, --500 通用
+	{"model", "models/items/wraith_king/eternal_arms/eternal_arms.vmdl"},--6171
+	{"model", "models/items/wraith_king/eternal_back/eternal_back.vmdl"}, --6172
+	{"model", "models/items/wraith_king/eternal_blade/eternal_blade.vmdl"}, --6173
+	{"model", "models/items/wraith_king/eternal_head/eternal_head.vmdl"},--6174
+	{"model", "models/items/wraith_king/eternal_shoulder/eternal_shoulder.vmdl"},--6175
+
+	--E3 10
+	{"model", "models/items/wraith_king/regalia_of_the_wraith_lord_back/regalia_of_the_wraith_lord_back.vmdl"},--5052
+	{"model", "models/items/wraith_king/regalia_of_the_wraith_lord_sword/regalia_of_the_wraith_lord_sword.vmdl"},--5053
+	{"model", "models/items/wraith_king/regalia_of_the_wraith_lord_bracers/regalia_of_the_wraith_lord_bracers.vmdl"},--5054
+	{"model", "models/items/wraith_king/regalia_of_the_wraith_lord_helmet/regalia_of_the_wraith_lord_helmet.vmdl"},--5055
+	{"model", "models/items/wraith_king/regalia_of_the_wraith_lord_shoulder/regalia_of_the_wraith_lord_shoulder.vmdl"},--5056
+
+	--E4 00 models/heroes/shredder/shredder.vmdl
+	{"model", "models/heroes/shredder/shredder_driver_hat.vmdl"},--386
+	{"model", "models/heroes/shredder/shredder_chainsaw.vmdl"},--388(注意不连贯)
+	{"model", "models/heroes/shredder/shredder_shoulders.vmdl"},--389
+	{"model", "models/heroes/shredder/shredder_body.vmdl"},--390
+	{"model", "models/heroes/shredder/shredder_armor.vmdl"},--401
+	{"model", "models/heroes/shredder/shredder_hook.vmdl"},--402
+
+	--E4 10
+	{"model", "models/items/shredder/timberthaw_armor/timberthaw_armor.vmdl"},--6519
+	{"model", "models/items/shredder/timberthaw_weapon/timberthaw_weapon.vmdl"},--6520
+	{"model", "models/items/shredder/timberthaw_head/timberthaw_head.vmdl"},--6521
+	{"model", "models/items/shredder/timberthaw_offhand/timberthaw_offhand.vmdl"},--6522
+	{"model", "models/items/shredder/timberthaw_shoulder/timberthaw_shoulder.vmdl"},--6523
+	{"model", "models/items/shredder/timberthaw_back/timberthaw_back.vmdl"},--6524
+
+	--E5 00 models/heroes/chaos_knight/chaos_knight.vmdl
+	{"model", "models/items/chaos_knight/chaos_legion_mount/chaos_legion_mount.vmdl"},--5980
+	{"model", "models/items/chaos_knight/chaos_legion_drapes/chaos_legion_drapes.vmdl"},--5981
+	{"model", "models/items/chaos_knight/chaos_legion_helm/chaos_legion_helm.vmdl"},--5982
+	{"model", "models/items/chaos_knight/chaos_legion_shield/chaos_legion_shield.vmdl"},--5983
+	{"model", "models/items/chaos_knight/chaos_legion_weapon/chaos_legion_weapon.vmdl"},--5984
+
+	--E5 10
+	{"model", "models/items/chaos_knight/ck_esp_blade/ck_esp_blade.vmdl"},--5518
+	{"model", "models/items/chaos_knight/ck_esp_helm/ck_esp_helm.vmdl"},--5519
+	{"model", "models/items/chaos_knight/ck_esp_mount/ck_esp_mount.vmdl"},--5520
+	{"model", "models/items/chaos_knight/ck_esp_shield/ck_esp_shield.vmdl"},--5521
+	{"model", "models/items/chaos_knight/ck_esp_shoulder/ck_esp_shoulder.vmdl"},--5522
+
+	--E5 11
+	{"model", "models/items/chaos_knight/rising_chaos_blade/rising_chaos_blade.vmdl"},--5921
+	{"model", "models/items/chaos_knight/rising_chaos_helm/rising_chaos_helm.vmdl"},--5922
+	{"model", "models/items/chaos_knight/rising_chaos_spaulders/rising_chaos_spaulders.vmdl"},--5923
+	{"model", "models/items/chaos_knight/rising_chaos_steed/rising_chaos_steed.vmdl"},--5924
+	{"model", "models/items/chaos_knight/rising_chaos_shield/rising_chaos_shield.vmdl"},--5925
+
+	--E6 00 models/heroes/nerubian_assassin/nerubian_assassin.vmdl
+	{"model", "models/items/nerubian_assassin/nyx_dusky_back/nyx_dusky_back.vmdl"},--5567
+	{"model", "models/items/nerubian_assassin/nyx_dusky_head/nyx_dusky_head.vmdl"},--5568
+	{"model", "models/items/nerubian_assassin/nyx_dusky_misc/nyx_dusky_misc.vmdl"},--5569
+	{"model", "models/items/nerubian_assassin/nyx_dusky_weapon/nyx_dusky_weapon.vmdl"},--5570
+
+	--E6 10	
+	{"model", "models/items/nerubian_assassin/spines_of_the_predator/spines_of_the_predator.vmdl"},--5201
+	{"model", "models/items/nerubian_assassin/mind_piercer_of_the_predator/mind_piercer_of_the_predator.vmdl"},--5202
+	{"model", "models/items/nerubian_assassin/preyfinders_of_the_predator/preyfinders_of_the_predator.vmdl"},--5203
+	{"model", "models/items/nerubian_assassin/blades_of_the_predator/blades_of_the_predator.vmdl"},--5204
+
+	--E6 11 models/heroes/broodmother/broodmother.vmdl (和E6 10模型不一样)
+	{"model", "models/items/broodmother/abdomen_of_perception/abdomen_of_perception.vmdl"},--5854
+	{"model", "models/items/broodmother/crown_of_perception/crown_of_perception.vmdl"}, --5891
+	{"model", "models/items/broodmother/legs_of_perception/legs_of_perception.vmdl"}, --5892
+	
+	--E6 1a  models/heroes/broodmother/spiderling.vmdl
+
+	--D1 00 models/heroes/storm_spirit/storm_spirit.vmdl
+	{"model", "models/items/storm_spirit/festive_dress_of_good_fortune/festive_dress_of_good_fortune.vmdl"}, --6019
+	{"model", "models/items/storm_spirit/ornate_hat_of_good_fortune/ornate_hat_of_good_fortune.vmdl"},--6022
+	{"model", "models/items/storm_spirit/scale_pauldrons_of_good_fortune/scale_pauldrons_of_good_fortune.vmdl"},--6023
+
+	--D1 10
+	{"model", "models/items/storm_spirit/heavenlygeneral_armor/heavenlygeneral_armor.vmdl"},--6168
+	{"model", "models/items/storm_spirit/heavenlygeneral_hat/heavenlygeneral_hat.vmdl"},--6169
+	{"model","models/items/storm_spirit/heavenlygeneral_shoulders/heavenlygeneral_shoulders.vmdl"},--6170
+
+	--D2 00 models/heroes/earth_spirit/earth_spirit.vmdl
+	{"model","models/heroes/earth_spirit/earth_spirit_head.vmdl"},--482 通用
+	{"model","models/items/earth_spirit/demon_stone_bracers/demon_stone_bracers.vmdl"},--6002
+	{"model","models/items/earth_spirit/demon_stone_belt/demon_stone_belt.vmdl"},--6003
+	{"model","models/items/earth_spirit/demon_stone_hair/demon_stone_hair.vmdl"}, --6004
+	{"model","models/items/earth_spirit/demon_stone_necklace/demon_stone_necklace.vmdl"}, --6005
+	{"model","models/items/earth_spirit/demon_stone_weapon/demon_stone_weapon.vmdl"}, --6006
+
+	--D2 10
+	{"model","models/items/earth_spirit/vanquishing_demons_arms/vanquishing_demons_arms.vmdl"},--6432
+	{"model","models/items/earth_spirit/vanquishing_demons_belt/vanquishing_demons_belt.vmdl"},--6433
+	{"model","models/items/earth_spirit/vanquishing_demons_helmet/vanquishing_demons_helmet.vmdl"},--6434
+	{"model","models/items/earth_spirit/vanquishing_demons_neck/vanquishing_demons_neck.vmdl"},--6435
+	{"model","models/items/earth_spirit/vanquishing_demons_weapon/vanquishing_demons_weapon.vmdl"},--6436
+
+	--D3 00 D3 10 models/heroes/zuus/zuus.vmdl
+	{"model","models/items/zeus/lightning_weapon/zuus_lightning_weapon.vmdl"}, --5412
+	--D4 00  models/heroes/nevermore/nevermore.vmdl
+	
+	--D4 10  models/heroes/shadow_fiend/shadow_fiend.vmdl
+	{"model","models/heroes/shadow_fiend/shadow_fiend_head.vmdl"},--387
+	{"model","models/heroes/shadow_fiend/shadow_fiend_shoulders.vmdl"},--486
+	{"model","models/heroes/shadow_fiend/shadow_fiend_arms.vmdl"},--488
+
+	--D5 00 models/heroes/medusa/medusa.vmdl
+	{"model","models/heroes/medusa/medusa_bow.vmdl"},--381
+	{"model","models/heroes/medusa/medusa_veil.vmdl"},--382
+	{"model","models/heroes/medusa/medusa_torso.vmdl"},--383
+	{"model","models/heroes/medusa/medusa_arms.vmdl"},--384
+		{"model","models/heroes/medusa/medusa_tail.vmdl"},--385
+
+	--D5 10
+	{"model","models/items/medusa/forsaken_beauty_arms/forsaken_beauty_arms.vmdl"},--5004
+	{"model","models/items/medusa/forsaken_beauty_bow/forsaken_beauty_bow.vmdl"},--5005
+	{"model","models/items/medusa/forsaken_beauty_chest/forsaken_beauty_chest.vmdl"},--5006
+	{"model","models/items/medusa/forsaken_beauty_head/forsaken_beauty_head.vmdl"},--5007
+	{"model","models/items/medusa/forsaken_beauty_tail/forsaken_beauty_tail.vmdl"},--5008
+
+	--D6 00 models/heroes/drow/drow.vmdl
+	{"model","models/items/drow/gauntlets_of_the_boreal_watch/gauntlets_of_the_boreal_watch.vmdl"},--5194
+	{"model","models/items/drow/legplates_of_the_boreal_watch/legplates_of_the_boreal_watch.vmdl"},--5195
+	{"model","models/items/drow/longbow_of_the_boreal_watch/longbow_of_the_boreal_watch.vmdl"},--5196
+	{"model","models/items/drow/cowl_of_the_boreal_watch/cowl_of_the_boreal_watch.vmdl"},--5197
+	{"model","models/items/drow/pauldrons_of_the_boreal_watch/pauldrons_of_the_boreal_watch.vmdl"},--5198
+	{"model","models/items/drow/quiver_of_the_boreal_watch/quiver_of_the_boreal_watch.vmdl"},--5199
+	{"model","models/items/drow/cloak_of_the_boreal_watch/cloak_of_the_boreal_watch.vmdl"},--5120
+
+	--D6 10
+	{"model","models/items/drow/drow_sentinel_bow/drow_sentinel_bow.vmdl"},--5883
+	{"model","models/items/drow/drow_sentinel_helm/drow_sentinel_helm.vmdl"},--5974
+	{"model","models/items/drow/drow_sentintel_legs/drow_sentintel_legs.vmdl"},--5975
+	{"model","models/items/drow/drow_sentinel_quiver/drow_sentinel_quiver.vmdl"},--5979
+	{"model","models/items/drow/drow_sentinel_shoulders/drow_sentinel_shoulders.vmdl"},--5985
+	{"model","models/items/drow/drow_sentinel_gloves/drow_sentinel_gloves.vmdl"},--5986
+	{"model","models/items/drow/drow_sentinel_cloak/drow_sentinel_cloak.vmdl"},--5989
+
+	--D6 20
+	{"model","models/items/drow/black_wind_head/black_wind_head.vmdl"},--6552
+	{"model","models/items/drow/black_wind_arms/black_wind_arms.vmdl"},--6553
+	{"model","models/items/drow/black_wind_shoulders/black_wind_shoulders.vmdl"},--6554
+	{"model","models/items/drow/black_wind_legs/black_wind_legs.vmdl"},--6555
+	{"model","models/items/drow/black_wind_weapon/black_wind_weapon.vmdl"},--6556
+	{"model","models/items/drow/black_wind_quiver/black_wind_quiver.vmdl"},--6557
+	{"model","models/items/drow/black_wind_back/black_wind_back.vmdl"},--6558
+
+	--F1 00
+	{"model","models/items/keeper_of_the_light/northlight_stag_mount/northlight_stag_mount.vmdl"},--5773
+	{"model","models/items/keeper_of_the_light/northlight_staff/northlight_staff.vmdl"},--5772
+	{"model","models/items/keeper_of_the_light/northlight_head/northlight_head.vmdl"},--5771
+	{"model","models/items/keeper_of_the_light/northlight_belt/northlight_belt.vmdl"},--5770
+	{"model","models/items/keeper_of_the_light/northlight_armor/northlight_armor.vmdl"},--5769
+
+--F1 10
+	{"model","models/items/keeper_of_the_light/horse_roehringods/horse_roehringods.vmdl"},--4867
+	{"model","models/items/keeper_of_the_light/weapon_staffgods/weapon_staffgods.vmdl"},--4865
+	{"model","models/items/keeper_of_the_light/head_hoodgodsv3/head_hoodgodsv3.vmdl"},--4868
+	{"model","models/items/keeper_of_the_light/belt_skirtgodsv2/belt_skirtgodsv2.vmdl"},--4866
+	{"model","models/items/keeper_of_the_light/armor_armorgodsv3/armor_armorgodsv3.vmdl"},--4864
+
+--F1 20
+	{"model","models/items/keeper_of_the_light/cradle_of_lights_mount/cradle_of_lights_mount.vmdl"},--7676
+	{"model","models/items/keeper_of_the_light/cradle_of_lights_weapon/cradle_of_lights_weapon.vmdl"},--7677
+	{"model","models/items/keeper_of_the_light/cradle_of_lights_head/cradle_of_lights_head.vmdl"},--7679
+	{"model","models/items/keeper_of_the_light/cradle_of_lights_belt/cradle_of_lights_belt.vmdl"},--7678
+	{"model","models/items/keeper_of_the_light/cradle_of_lights_armor/cradle_of_lights_armor.vmdl"},--7675
+
+--F2  00
+	{"model","models/items/lich/imperialists_mana_chamber/imperialists_mana_chamber.vmdl"},--7065
+	{"model","models/items/lich/imperialists_guardian_lions/imperialists_guardian_lions.vmdl"},--7064
+	{"model","models/items/lich/imperialists_runed_bracers/imperialists_runed_bracers.vmdl"},--7066
+	{"model","models/items/lich/imperialists_cape_of_the_twin_dragons/imperialists_cape_of_the_twin_dragons.vmdl"},--6949
+	{"model","models/items/lich/imperialists_frost_biter/imperialists_frost_biter.vmdl"},--7063
+
+--F2  10
+	{"model","models/items/lich/the_deadwinter_sash/the_deadwinter_sash.vmdl"},--4853
+	{"model","models/items/lich/the_deadwinter_head/the_deadwinter_head.vmdl"},--4851
+	{"model","models/items/lich/the_deadwinter_arms/the_deadwinter_arms.vmdl"},--4854
+	{"model","models/items/lich/the_deadwinter_back/the_deadwinter_back.vmdl"},--4852
+
+--F3 00
+	{"model","models/items/witchdoctor/tale_tellers_hairhat.vmdl"},--4254
+	{"model","models/items/witchdoctor/tale_tellers_poncho.vmdl"},--4253
+	{"model","models/items/witchdoctor/tale_tellers_dress.vmdl"},--4251
+	{"model","models/items/witchdoctor/witchstaff_weapon/witchstaff_weapon.vmdl"}, --6577
+	{"model","models/items/witchdoctor/tale_tellers_drum.vmdl"},--4252
+
+--F3 10
+	{"model","models/items/witchdoctor/purplenightmare_head/purplenightmare_head.vmdl"},--6954
+	{"model","models/items/witchdoctor/purplenightmare_shoulder/purplenightmare_shoulder.vmdl"},--6951
+	{"model","models/items/witchdoctor/purplenightmare_belt/purplenightmare_belt.vmdl"},--6955
+	{"model","models/items/witchdoctor/purplenightmare_weapon/purplenightmare_weapon.vmdl"},--6956
+	{"model","models/items/witchdoctor/purplenightmare_back/purplenightmare_back.vmdl"},--6953
+
+--F3 11
+	{"model","models/items/witchdoctor/voodoo_skullmask.vmdl"},--4222
+	{"model","models/heroes/witchdoctor/witchdoctor_bag.vmdl"},--95
+	{"model","models/items/witchdoctor/voodoo_belt.vmdl"},--4096
+	{"model","models/items/witchdoctor/voodo_staff.vmdl"},--4221
+	{"model","models/items/witchdoctor/voodoo_backpack.vmdl"},--4220
+
+--F4 00
+	{"model","models/items/necrolyte/heretic_weapon/heretic_weapon.vmdl"}, --6379
+	{"model","models/items/necrolyte/heretic_head/heretic_head.vmdl"},--6377
+	{"model","models/items/necrolyte/heretic_hood/heretic_hood.vmdl"},--6378
+	{"model","models/items/necrolyte/heretic_shoulder/heretic_shoulder.vmdl"},--6380
+
+--F4 10
+	{"model","models/items/necrolyte/necronub_scythe/necronub_scythe.vmdl"},--7132
+	{"model","models/items/necrolyte/necronub_head/necronub_head.vmdl"},--6291
+	{"model","models/items/necrolyte/necronub_top/necronub_top.vmdl"},--7083
+	{"model","models/items/necrolyte/necronub_wings/necronub_wings.vmdl"},--7124
+
+--F4 11
+	{"model","models/items/necrolyte/immemorial_emperor_weapon/immemorial_emperor_weapon.vmdl"},--6054
+	{"model","models/items/necrolyte/immemorial_emperor_beard/immemorial_emperor_beard.vmdl"},--6051
+	{"model","models/items/necrolyte/immemorial_emperor_head/immemorial_emperor_head.vmdl"},--6052
+	{"model","models/items/necrolyte/immemorial_emperor_shoulder/immemorial_emperor_shoulder.vmdl"},--6053
+
+--F5 00
+	{"model","models/items/vengefulspirit/banished_princess_head/banished_princess_head.vmdl"},--6516
+	{"model","models/items/vengefulspirit/banished_princess_weapon/banished_princess_weapon.vmdl"},--6518
+	{"model","models/items/vengefulspirit/banished_princess_cape/banished_princess_cape.vmdl"},--6515
+	{"model","models/items/vengefulspirit/banished_princess_legs/banished_princess_legs.vmdl"},--6517
+
+-- --F5 10
+-- 	{"model","models/items/vengefulspirit/fallenprincess_head/fallenprincess_head.vmdl"},--6256
+-- 	{"model","models/items/vengefulspirit/fallenprincess_weapon/fallenprincess_weapon.vmdl"},--6258
+-- 	{"model","models/items/vengefulspirit/fallenprincess_shoulders/fallenprincess_shoulders.vmdl"},--6257
+-- 	{"model","models/items/vengefulspirit/fallenprincess_legs/fallenprincess_legs.vmdl"},--6259
+--F5 10
+	{"model","models/items/vengefulspirit/huangs_umbra_head/huangs_umbra_head.vmdl"}, --7797
+	{"model","models/items/vengefulspirit/huangs_umbra_weapon/huangs_umbra_weapon.vmdl"},--7798
+	{"model","models/items/vengefulspirit/huangs_umbra_shoulders/huangs_umbra_shoulders.vmdl"}, --7799
+	{"model","models/items/vengefulspirit/huangs_umbra_skirt/huangs_umbra_skirt.vmdl"},--7796
+	--R1 00
+	{"model","models/items/puck/mischievous_back/mischievous_back.vmdl"}, --6166
+	{"model","models/items/puck/mischievous_tail/mischievous_tail.vmdl"},--6165
+	{"model","models/items/puck/mischievous_head/mischievous_head.vmdl"},--6167
+
+	--R1 10
+	{"model","models/items/puck/reminiscence_wings/reminiscence_wings.vmdl"}, --6711
+	{"model","models/items/puck/reminiscence_tail/reminiscence_tail.vmdl"},--6710
+	{"model","models/items/puck/reminiscence_head/reminiscence_head.vmdl"}, --6709
+
+	--R1 11
+	{"model","models/items/puck/mysticcoils_wings/mysticcoils_wings.vmdl"}, --6177
+	{"model","models/items/puck/mysticcoils_tail/mysticcoils_tail.vmdl"},--6176
+	{"model","models/items/puck/mysticcoils_antennae/mysticcoils_antennae.vmdl"},--6178
+
+	--R3 00
+	{"model","models/heroes/winterwyvern/winterwyvern_backitem.vmdl"}, --552
+	{"model","models/heroes/winterwyvern/winterwyvern_crown.vmdl"},--551
+
+	--R5 00
+	{"model","models/items/obsidian_destroyer/head_arcanef/head_arcanef.vmdl"}, --4641
+	{"model","models/items/obsidian_destroyer/armor_bacon/armor_bacon.vmdl"},--4586
+	{"model","models/items/obsidian_destroyer/weapon_arcane_obliva/weapon_arcane_obliva.vmdl"},--4642
+	{"model","models/items/obsidian_destroyer/back_baconator_d/back_baconator_d.vmdl"},--4587
+	{"model","models/heroes/obsidian_destroyer/obsidian_destroyer_head.vmdl"},--226
+
+	--R5 10
+	{"model","models/items/obsidian_destroyer/dragon_forged_staff/dragon_forged_staff.vmdl"}, --5210
+	{"model","models/items/obsidian_destroyer/dragon_forged_wings/dragon_forged_wings.vmdl"},--5211
+	{"model","models/heroes/obsidian_destroyer/obsidian_destroyer_head.vmdl"},--226
+	{"model","models/items/obsidian_destroyer/dragon_forged_stare/dragon_forged_stare.vmdl"},--5209
+	{"model","models/items/obsidian_destroyer/dragon_forged_armor/dragon_forged_armor.vmdl"},--5208
+
+
+	--hire 12
+	{"model","models/items/doom/eleven_curses__belt/eleven_curses__belt.vmdl"}, --4634
+	{"model","models/items/doom/eleven_curses__bracer/eleven_curses__bracer.vmdl"}, --4627
+	{"model","models/items/doom/eleven_curses__head/eleven_curses__head.vmdl"},  --4624
+	{"model","models/items/doom/eleven_curses__shoulder/eleven_curses__shoulder.vmdl"},  --4639
+	{"model","models/items/doom/eleven_curses__tail/eleven_curses__tail.vmdl"},  --4620
+	{"model","models/items/doom/eleven_curses__wings/eleven_curses__wings.vmdl"},  --4631
+	{"model","models/items/doom/eleven_curses__sword/eleven_curses__sword.vmdl"},  --4623
+
+--D7 00
+	{"model","models/heroes/tuskarr/tusk_weapon.vmdl"},--417
+	{"model","models/heroes/tuskarr/tusk_hat.vmdl"},--415
+	{"model","models/heroes/tuskarr/tusk_fish_basket.vmdl"},--418
+	{"model","models/heroes/tuskarr/tusk_horns.vmdl"},--416
+	{"model","models/heroes/tuskarr/tusk_cowl.vmdl"},--414
+	{"model","models/heroes/tuskarr/tusk_armor_glove.vmdl"},--413
+
+
+--D7 10
+	{"model","models/items/tuskarr/onizaphk_ahunter_armsv2/onizaphk_ahunter_armsv2.vmdl"}, --4499
+	{"model","models/items/tuskarr/onizaphk_ahunter_back/onizaphk_ahunter_back.vmdl"},--4498
+	{"model","models/items/tuskarr/onizaphk_ahunter_head/onizaphk_ahunter_head.vmdl"},--4460
+	{"model","models/items/tuskarr/onizaphk_ahunter_neck/onizaphk_ahunter_neck.vmdl"},--4441
+	{"model","models/items/tuskarr/onizaphk_ahunter_shoulder/onizaphk_ahunter_shoulder.vmdl"},--4123
+	{"model","models/items/tuskarr/onizaphk_ahunter_weapon/onizaphk_ahunter_weapon.vmdl"},--4097
+
+--D7 11
+	{"model","models/items/tuskarr/glaciomarine_arm/glaciomarine_arm.vmdl"},--9010
+	{"model","models/items/tuskarr/glaciomarine_back/glaciomarine_back.vmdl"},--9011
+	{"model","models/items/tuskarr/glaciomarine_head/glaciomarine_head.vmdl"},--9007
+	{"model","models/items/tuskarr/glaciomarine_neck/glaciomarine_neck.vmdl"},--9008
+	{"model","models/items/tuskarr/glaciomarine_shoulder/glaciomarine_shoulder.vmdl"},--9012
+	{"model","models/items/tuskarr/glaciomarine_weapon/glaciomarine_weapon.vmdl"},--9009
+
+--Q6 00
+	{"model","models/heroes/luna/luna_head.vmdl"},--453
+	{"model","models/heroes/luna/luna_mount.vmdl"},--452
+	{"model","models/heroes/luna/luna_shoulder.vmdl"},--451
+	{"model","models/heroes/luna/luna_shield.vmdl"},--449
+	{"model","models/heroes/luna/luna_helmet.vmdl"},--450
+	{"model","models/heroes/luna/luna_weapon.vmdl"},--448
+
+--Q6 10
+	{"model","models/items/luna/selemenes_eclipse_helm/selemenes_eclipse_helm.vmdl"},--7701
+	{"model","models/items/luna/selemenes_eclipse_mount/selemenes_eclipse_mount.vmdl"},--7703
+	{"model","models/items/luna/selemenes_eclipse_shield/selemenes_eclipse_shield.vmdl"},--7700
+	{"model","models/items/luna/selemenes_eclipse_shoulders/selemenes_eclipse_shoulders.vmdl"},--7702
+	{"model","models/items/luna/selemenes_eclipse_weapon/selemenes_eclipse_weapon.vmdl"},--7699
+
+--Q6 20
+	{"model","models/items/luna/lucent_epaulets/lucent_epaulets.vmdl"},--5944
+	{"model","models/items/luna/lucent_glaive/lucent_glaive.vmdl"},--5945
+	{"model","models/items/luna/lucent_guard/lucent_guard.vmdl"},--5946
+	{"model","models/items/luna/lucent_head/lucent_head.vmdl"},--5948
+	{"model","models/items/luna/lucent_mount/lucent_mount.vmdl"},--5947
+
+--Q6 21
+	{"model","models/items/mirana/crescent_bow/crescent_bow.vmdl"},--6658
+	{"model","models/items/mirana/crescent_back/crescent_back.vmdl"},--6657
+	{"model","models/items/mirana/crescent_bracers/crescent_bracers.vmdl"},--6659
+	{"model","models/items/mirana/crescent_hair/crescent_hair.vmdl"},--6660
+	{"model","models/items/mirana/crescent_mount/crescent_mount.vmdl"},--6661
+	{"model","models/items/mirana/crescent_quiver/crescent_quiver.vmdl"},--6662
+	{"model","models/items/mirana/crescent_shoulder/crescent_shoulder.vmdl"},--6663
+
+	--General 1
+	{"model","models/items/legion_commander/battlefield_weapon/battlefield_weapon.vmdl"},--6827
+	{"model","models/items/legion_commander/battlefield_head/battlefield_head.vmdl"},--6861
+	{"model","models/items/legion_commander/battlefield_back/battlefield_back.vmdl"},--6829
+	{"model","models/items/legion_commander/battlefield_shoulder/battlefield_shoulder.vmdl"},--6828
+	{"model","models/items/legion_commander/battlefield_arms/battlefield_arms.vmdl"},--6834
+
+	--General 2
+	{"model","models/items/legion_commander/immortalspride_weapon/immortalspride_weapon.vmdl"},--6995
+	{"model","models/items/legion_commander/immortalspride_head/immortalspride_head.vmdl"},--6994
+	{"model","models/items/legion_commander/immortalspride_back/immortalspride_back.vmdl"},--6909
+	{"model","models/items/legion_commander/immortalspride_shoulder/immortalspride_shoulder.vmdl"},--7008
+	{"model","models/items/legion_commander/immortalspride_arms/immortalspride_arms.vmdl"},--6910
+
+	--General 3
+	{"model","models/items/legion_commander/spear_of_the_dragon_guard/spear_of_the_dragon_guard.vmdl"},--6035
+	{"model","models/items/legion_commander/plume_of_the_dragon_guard/plume_of_the_dragon_guard.vmdl"},--6031
+	{"model","models/items/legion_commander/twin_dragon_banner/twin_dragon_banner.vmdl"},--6034
+	{"model","models/items/legion_commander/scales_of_the_dragon_guard/scales_of_the_dragon_guard.vmdl"},--6032
+	{"model","models/items/legion_commander/armlet_of_the_dragon_guard/armlet_of_the_dragon_guard.vmdl"},--6033
+
+	--General 4
+	{"model","models/items/legion_commander/valkyrie_weapon/valkyrie_weapon.vmdl"},--6244
+	{"model","models/items/legion_commander/valkyrie_head/valkyrie_head.vmdl"},--6243
+	{"model","models/items/legion_commander/valkyrie_back/valkyrie_back.vmdl"},--6242
+	{"model","models/items/legion_commander/valkyrie_shoulder/valkyrie_shoulder.vmdl"},--6240
+	{"model","models/items/legion_commander/valkyrie_arms/valkyrie_arms.vmdl"},--6241
+
+	--General 5
+	{"model","models/items/legion_commander/errant_spear/errant_spear.vmdl"},--7224
+	{"model","models/items/legion_commander/errant_cowl/errant_cowl.vmdl"},--7222
+	{"model","models/items/legion_commander/errant_standards/errant_standards.vmdl"},--7221
+	{"model","models/items/legion_commander/errant_pauldrons/errant_pauldrons.vmdl"},--7223
+	{"model","models/items/legion_commander/errant_bracers/errant_bracers.vmdl"},--7220
+
+	--General 6
+	{"model","models/items/legion_commander/stonehall_weapon/stonehall_weapon.vmdl"},--5890
+	{"model","models/items/legion_commander/stonehall_head/stonehall_head.vmdl"},--5887
+	{"model","models/items/legion_commander/stonehall_back/stonehall_back.vmdl"},--5886
+	{"model","models/items/legion_commander/stonehall_shoulder/stonehall_shoulder.vmdl"},--5889
+	{"model","models/items/legion_commander/stonehall_arms/stonehall_arms.vmdl"},--5885
+
+--F6 00
+	{"model","models/items/crystal_maiden/warden_icewrack_arms/warden_icewrack_arms.vmdl"},--9324
+	{"model","models/items/crystal_maiden/warden_icewrack_back/warden_icewrack_back.vmdl"},--9325
+	{"model","models/items/crystal_maiden/warden_icewrack_head/warden_icewrack_head.vmdl"},--9327
+	{"model","models/items/crystal_maiden/warden_icewrack_shoulder/warden_icewrack_shoulder.vmdl"},--9326
+	{"model","models/items/crystal_maiden/warden_icewrack_staff/warden_icewrack_staff.vmdl"},--9328
+--F6 10
+	{"model","models/items/crystal_maiden/crystalline_comet_weapon/crystalline_comet_weapon.vmdl"},--6769
+	{"model","models/items/crystal_maiden/belle_arms_bracers/belle_arms_bracers.vmdl"},--4420
+	{"model","models/items/crystal_maiden/belle_head_hair/belle_head_hair.vmdl"},--4540
+	{"model","models/items/crystal_maiden/belle_shoulders/belle_shoulders.vmdl"},--4389
+	{"model","models/items/crystal_maiden/polarisbelle_cape/polarisbelle_cape.vmdl"},--4386
+--F6 11
+	{"model","models/heroes/crystal_maiden/crystal_maiden_arcana_back.vmdl"},--7385
+	{"model","models/items/crystal_maiden/frostbringer_hair/frostbringer_hair.vmdl"},--8456
+	{"model","models/items/crystal_maiden/frostbringer_shoulders/frostbringer_shoulders.vmdl"},--8450
+	{"model","models/items/crystal_maiden/frostbringer_sleeves/frostbringer_sleeves.vmdl"},--8448
+	{"model","models/items/crystal_maiden/frostbringer_staff/frostbringer_staff.vmdl"},--8449
+--E7 00
+	{"model","models/items/slardar/royal_guard_armplates/royal_guard_armplates.vmdl"},--5071
+	{"model","models/items/slardar/royal_guard_skullguard/royal_guard_skullguard.vmdl"},--5073
+	{"model","models/items/slardar/royal_guard_spine/royal_guard_spine.vmdl"},--5072
+	{"model","models/items/slardar/royal_guard_trident/royal_guard_trident.vmdl"},--5074
+--E7 10
+	{"model","models/items/slardar/sea_devil_back/sea_devil_back.vmdl"},--8133
+	{"model","models/items/slardar/sea_devil_bracers/sea_devil_bracers.vmdl"},--7857
+	{"model","models/items/slardar/sea_devil_head/sea_devil_head.vmdl"},--7858
+	{"model","models/items/slardar/sea_devil_weapon/sea_devil_weapon.vmdl"},--7859
+--E7 11
+	{"model","models/items/slardar/sea_dragon_arm/sea_dragon_arm.vmdl"},--4923
+	{"model","models/items/slardar/sea_dragon_back/sea_dragon_back.vmdl"},--4924
+	{"model","models/items/slardar/sea_dragon_helmet/sea_dragon_helmet.vmdl"},--4922
+	{"model","models/items/slardar/sea_dragon_weapon/sea_dragon_weapon.vmdl"},--4921
+
+--G5 00
+	{"model","models/items/centaur/warstomp_weapon/warstomp_weapon.vmdl"},--6311
+	{"model","models/items/centaur/warstomp_head/warstomp_head.vmdl"},--6210
+	{"model","models/items/centaur/warstomp_armor/warstomp_armor.vmdl"},--6312
+	{"model","models/items/centaur/warstomp_belt/warstomp_belt.vmdl"},--6211
+	{"model","models/items/centaur/warstomp_arms/warstomp_arms.vmdl"},--6207
+	{"model","models/items/centaur/warstomp_back/warstomp_back.vmdl"},--6209
+	{"model","models/items/centaur/warstomp_tail/warstomp_tail.vmdl"},--6208
+
+--G5 10
+	{"model","models/items/centaur/dc_weaponbsk/dc_weaponbsk.vmdl"},--6500
+	{"model","models/items/centaur/dc_headitembsrk/dc_headitembsrk.vmdl"},--6497
+	{"model","models/items/centaur/dc_shoulderbsrk/dc_shoulderbsrk.vmdl"},--6494
+	{"model","models/items/centaur/dc_beltbsrk/dc_beltbsrk.vmdl"},--6495
+	{"model","models/items/centaur/dc_armsbsrk/dc_armsbsrk.vmdl"},--6496
+	{"model","models/items/centaur/dc_shieldbsrk/dc_shieldbsrk.vmdl"},--6889
+	{"model","models/items/centaur/dc_tailbsrk/dc_tailbsrk.vmdl"},--6498
+
+--G5 11
+	{"model","models/items/centaur/warlordofhell_weapon/warlordofhell_weapon.vmdl"},--6962
+	{"model","models/items/centaur/warlordofhell_head/warlordofhell_head.vmdl"},--6958
+	{"model","models/items/centaur/warlordofhell_shoulder/warlordofhell_shoulder.vmdl"},--6961
+	{"model","models/items/centaur/warlordofhell_belt/warlordofhell_belt.vmdl"},--6960
+	{"model","models/items/centaur/warlordofhell_arms/warlordofhell_arms.vmdl"},--6959
+	{"model","models/items/centaur/warlordofhell_back/warlordofhell_back.vmdl"},--6964
+	{"model","models/items/centaur/warlordofhell_tail/warlordofhell_tail.vmdl"},--6963
+
+--Q7 00
+	{"model","models/heroes/meepo/meepo_weapon.vmdl"},--104
+	{"model","models/heroes/meepo/hood.vmdl"},--296
+	{"model","models/heroes/meepo/shoulders.vmdl"},--298
+	{"model","models/heroes/meepo/pack.vmdl"},--297
+	{"model","models/heroes/meepo/bracers.vmdl"},--299
+	{"model","models/heroes/meepo/tail.vmdl"},--300
+
+--Q7 10
+	{"model","models/items/meepo/riftshadow_roamer_pan/riftshadow_roamer_pan.vmdl"},--4423
+	{"model","models/items/meepo/riftshadow_roamer_hat/riftshadow_roamer_hat.vmdl"},--4427
+	{"model","models/items/meepo/riftshadow_roamer_vest/riftshadow_roamer_vest.vmdl"},--4421
+	{"model","models/items/meepo/riftshadow_roamer_pack/riftshadow_roamer_pack.vmdl"},--4344
+	{"model","models/items/meepo/riftshadow_roamer_gloves/riftshadow_roamer_gloves.vmdl"},--4434
+--300
+
+--Q7 20
+	{"model","models/items/meepo/dosa_weapon/dosa_weapon.vmdl"},--6230
+	{"model","models/items/meepo/dosa_hat/dosa_hat.vmdl"},--6238
+	{"model","models/items/meepo/dosa_shoulder/dosa_shoulder.vmdl"},--6228
+	{"model","models/items/meepo/dosa_back/dosa_back.vmdl"},--6237
+	{"model","models/items/dark_seer/gombangdae_arms/gombangdae_arms.vmdl"},--6231
+	{"model","models/items/meepo/dosa_tail/dosa_tail.vmdl"},--6229
+
+--Q7 21
+	{"model","models/items/meepo/meepo_skeletonkey_sword/meepo_skeletonkey_sword.vmdl"},--4912
+	{"model","models/items/meepo/meepo_skeletonkey_bandana/meepo_skeletonkey_bandana.vmdl"},--4911
+	{"model","models/items/meepo/meeposksh/meeposksh.vmdl"},--4914
+	{"model","models/items/meepo/meeposkback/meeposkback.vmdl"},--4913
+--299
+--300
+--W6 00
+	{"model","models/items/phantom_assassin/carreau_weapon/carreau_weapon.vmdl"},--7113
+	{"model","models/items/phantom_assassin/carreau_head/carreau_head.vmdl"},--7117
+	{"model","models/items/phantom_assassin/carreau_shoulder/carreau_shoulder.vmdl"},--7116
+	{"model","models/items/phantom_assassin/carreau_back/carreau_back.vmdl"},--7114
+	{"model","models/items/phantom_assassin/carreau_belt/carreau_belt.vmdl"},--7115
+
+--W6 10
+	{"model","models/items/phantom_assassin/dark_wraith_weapon/dark_wraith_weapon.vmdl"},--5354
+	{"model","models/items/phantom_assassin/dark_wraith_helmet/dark_wraith_helmet.vmdl"},--5352
+	{"model","models/items/phantom_assassin/dark_wraith_shoulder/dark_wraith_shoulder.vmdl"},--5353
+	{"model","models/items/phantom_assassin/dark_wraith_back/dark_wraith_back.vmdl"},--5350
+	{"model","models/items/phantom_assassin/dark_wraith_belt/dark_wraith_belt.vmdl"},--5351
+
+--W6 20
+	{"model","models/items/phantom_assassin/kiss_of_crows_weapon/kiss_of_crows_weapon.vmdl"},--8138
+	{"model","models/items/phantom_assassin/kiss_of_crows_head/kiss_of_crows_head.vmdl"},--8139
+	{"model","models/items/phantom_assassin/kiss_of_crows_shoulders/kiss_of_crows_shoulders.vmdl"},--8140
+	{"model","models/items/phantom_assassin/kiss_of_crows_back/kiss_of_crows_back.vmdl"},--8137
+	{"model","models/items/phantom_assassin/kiss_of_crows_belt/kiss_of_crows_belt.vmdl"},--8136
+
+--W6 21
+	{"model","models/items/phantom_assassin/raiment_of_the_sacred_blossom_head/raiment_of_the_sacred_blossom_head.vmdl"},--8015
+	{"model","models/items/phantom_assassin/raiment_of_the_sacred_blossom_shoulder/raiment_of_the_sacred_blossom_shoulder.vmdl"},--8012
+	{"model","models/items/phantom_assassin/raiment_of_the_sacred_blossom_back/raiment_of_the_sacred_blossom_back.vmdl"},--8014
+	{"model","models/items/phantom_assassin/raiment_of_the_sacred_blossom_belt/raiment_of_the_sacred_blossom_belt.vmdl"},--8013
+	{"model","models/heroes/phantom_assassin/pa_arcana_weapons.vmdl"},--7247
+
+--W7 00
+	{"model","models/heroes/enchantress/enchantress_weapon.vmdl"},--290
+	{"model","models/heroes/enchantress/enchantress_dress.vmdl"},--288
+	{"model","models/heroes/enchantress/enchantress_bracers.vmdl"},--289
+	{"model","models/heroes/enchantress/enchantress_hair.vmdl"},--287
+	{"model","models/heroes/enchantress/enchantress_weapon.vmdl"},--290
+
+--W7 10
+	{"model","models/items/enchantress/anuxi_wldkin_weapon2/anuxi_wldkin_weapon2.vmdl"},--4785
+	{"model","models/items/enchantress/anuxi_wldkin_hair2/anuxi_wldkin_hair2.vmdl"},--4786
+	{"model","models/items/enchantress/anuxi_wldkin_dress2/anuxi_wldkin_dress2.vmdl"},--4787
+	{"model","models/items/enchantress/anuxi_wildkin_neck/anuxi_wildkin_neck.vmdl"},--4678
+	{"model","models/items/enchantress/anuxi_wildkin_arm/anuxi_wildkin_arm.vmdl"},--4676
+
+--W7 20
+	{"model","models/items/enchantress/anuxi_summer_spear/anuxi_summer_spear.vmdl"},--5021
+	{"model","models/items/enchantress/anuxi_summer_head/anuxi_summer_head.vmdl"},--5024
+	{"model","models/items/enchantress/anuxi_summer_skirt/anuxi_summer_skirt.vmdl"},--5022
+	{"model","models/items/enchantress/anuxi_summer_shoulder/anuxi_summer_shoulder.vmdl"},--5023
+	{"model","models/items/enchantress/anuxi_summer_arms/anuxi_summer_arms.vmdl"},--5025
+
+--E3 00
+	{"model","models/items/ursa/wraps_of_the_radiant_protector/wraps_of_the_radiant_protector.vmdl"},--5893
+	{"model","models/items/ursa/belt_of_radiant_protector/belt_of_radiant_protector.vmdl"},--5888
+	{"model","models/items/ursa/mark_of_the_radiant_protector/mark_of_the_radiant_protector.vmdl"},--5894
+	{"model","models/items/ursa/braids_of_the_radiant_protector/braids_of_the_radiant_protector.vmdl"},--5893
+
+--E3 10
+	{"model","models/items/ursa/ursa_cryo_arms/ursa_cryo_arms.vmdl"},--5805
+	{"model","models/items/ursa/ursa_cryo_belt/ursa_cryo_belt.vmdl"},--5808
+	{"model","models/items/ursa/ursa_cryo_back/ursa_cryo_back.vmdl"},--5807
+	{"model","models/items/ursa/ursa_cryo_head/ursa_cryo_head.vmdl"},--5550
+
+--E3 11
+	{"model","models/items/ursa/fierce_heart_weapon/fierce_heart_weapon.vmdl"},--7654
+	{"model","models/items/ursa/fierce_heart_arms/fierce_heart_arms.vmdl"},--7651
+	{"model","models/items/ursa/fierce_heart_belt/fierce_heart_belt.vmdl"},--7650
+	{"model","models/items/ursa/fierce_heart_back/fierce_heart_back.vmdl"},--7652
+	{"model","models/items/ursa/fierce_heart_head/fierce_heart_head.vmdl"},--7653
+
+--E6 00
+	{"model","models/items/brewmaster/wep_brewmaster_cleaver_01/wep_brewmaster_cleaver_01.vmdl"},--4894
+	{"model","models/items/brewmaster/gear_brewmaster_sake_01/gear_brewmaster_sake_01.vmdl"},--4890
+	{"model","models/items/brewmaster/gear_brewmaster_gloves_01/gear_brewmaster_gloves_01.vmdl"},--4891
+	{"model","models/items/brewmaster/gear_brewmaster_back_01/gear_brewmaster_back_01.vmdl"},--4893
+	{"model","models/items/brewmaster/gear_brewmaster_shoulder_01/gear_brewmaster_shoulder_01.vmdl"},--4892
+
+--E6 10
+	{"model","models/items/brewmaster/reddragon_weapon/reddragon_weapon.vmdl"},--6969
+	{"model","models/items/brewmaster/reddragon_offhand/reddragon_offhand.vmdl"},--6968
+	{"model","models/items/brewmaster/reddragon_arms/reddragon_arms.vmdl"},--6967
+	{"model","models/items/brewmaster/reddragon_back/reddragon_back.vmdl"},--6966
+	{"model","models/items/brewmaster/reddragon_shoulder/reddragon_shoulder.vmdl"},--5641
+
+--D8 00
+	{"model","models/items/windrunner/wingsweapon2/wingsweapon2.vmdl"},--4552
+	{"model","models/items/windrunner/falconhelm1/falconhelm1.vmdl"},--4559
+	{"model","models/items/windrunner/falconcloak/falconcloak.vmdl"},--4554
+	{"model","models/items/windrunner/wingsshoulders2/wingsshoulders2.vmdl"},--4562
+	{"model","models/items/windrunner/featherquiver21/featherquiver21.vmdl"},--4553
+
+--D8 10
+	{"model","models/items/windrunner/tranquility_weapon/tranquility_weapon.vmdl"},--6835
+	{"model","models/items/windrunner/tranquility_head/tranquility_head.vmdl"},--6831
+	{"model","models/items/windrunner/tranquility_back/tranquility_back.vmdl"},--6836
+	{"model","models/items/windrunner/tranquility_shoulder/tranquility_shoulder.vmdl"},--6838
+	{"model","models/items/windrunner/tranquility_quiver/tranquility_quiver.vmdl"},--6837
+
+--R6 00
+	{"model","models/heroes/gyro/gyro_head.vmdl"},--131
+	{"model","models/heroes/gyro/gyro_guns.vmdl"},--177
+	{"model","models/heroes/gyro/gyro_goggles.vmdl"},--176
+	{"model","models/heroes/gyro/gyro_bottles.vmdl"},--126
+	{"model","models/heroes/gyro/gyro_propeller.vmdl"},--178
+	{"model","models/heroes/gyro/gyro_missile.vmdl"},--179
+
+--R6 10
+	{"model","models/items/gyrocopter/rainmaker_weapon/rainmaker_weapon.vmdl"},--6899
+	{"model","models/items/gyrocopter/rainmaker_head/rainmaker_head.vmdl"},--7121
+	{"model","models/items/gyrocopter/rainmaker_back/rainmaker_back.vmdl"},--6903
+	{"model","models/items/gyrocopter/rainmaker_misc/rainmaker_misc.vmdl"},--6898
+	{"model","models/items/gyrocopter/rainmaker_offhand/rainmaker_offhand.vmdl"},--6897
+
+
+--R6 11
+	{"model","models/items/gyrocopter/skyhigh_head/skyhigh_head.vmdl"},--7825
+	{"model","models/items/gyrocopter/skyhigh_back/skyhigh_back.vmdl"},--7823
+	{"model","models/items/gyrocopter/skyhigh_propeller/skyhigh_propeller.vmdl"},--7828
+	{"model","models/items/gyrocopter/skyhigh_bomb_missle/skyhigh_bomb.vmdl"},--7822
+--131
+	{"model","models/items/gyrocopter/immortal_guns/immortal_guns_gold.vmdl"},--9428
+--Q8 00
+
+	{"model","models/items/rattletrap/artisan_of_havoc_hook/artisan_of_havoc_hook.vmdl"},--6810
+	{"model","models/items/rattletrap/ironclock_head/ironclock_head.vmdl"},--7018
+	{"model","models/items/rattletrap/artisan_of_havoc_armor/artisan_of_havoc_armor.vmdl"},--6809
+	{"model","models/items/rattletrap/artisan_of_havoc_rocket/artisan_of_havoc_rocket.vmdl"},--6811
+
+--Q8 10
+	{"model","models/items/rattletrap/forge_warrior_claw/forge_warrior_claw.vmdl"},--6481
+	{"model","models/items/rattletrap/forge_warrior_helm/forge_warrior_helm.vmdl"},--6482
+	{"model","models/items/rattletrap/forge_warrior_steam_exoskeleton/forge_warrior_steam_exoskeleton.vmdl"},--6485
+	{"model","models/items/rattletrap/forge_warrior_rocket_cannon/forge_warrior_rocket_cannon.vmdl"},--6484
+
+--Q8 20
+	{"model","models/items/rattletrap/steelcrow_weapon/steelcrow_weapon.vmdl"},--9015
+	{"model","models/items/rattletrap/steelcrow_head/steelcrow_head.vmdl"},--9014
+	{"model","models/items/rattletrap/steelcrow_armor/steelcrow_armor.vmdl"},--9013
+	{"model","models/items/rattletrap/steelcrow_misc/steelcrow_misc.vmdl"},--9016
+
+--F7 00
+	{"model","models/heroes/alchemist/alchemist_scabbard.vmdl"},--118
+	{"model","models/heroes/alchemist/alchemist_shoulderbottles.vmdl"},--125
+	{"model","models/heroes/alchemist/alchemist_ogre_head.vmdl"},--124
+	{"model","models/heroes/alchemist/alchemist_goblin_body.vmdl"},--117
+	{"model","models/heroes/alchemist/alchemist_gauntlets.vmdl"},--120
+	{"model","models/heroes/alchemist/alchemist_goblinhat.vmdl"},--121
+	{"model","models/heroes/alchemist/alchemist_saddlehat.vmdl"},--119
+	{"model","models/heroes/alchemist/alchemist_goblin_head.vmdl"},--123
+
+--F7 10
+	{"model","models/items/alchemist/toxic_siege_blades/toxic_siege_blades.vmdl"},--6123
+	{"model","models/items/alchemist/toxic_siege_pauldrons/toxic_siege_pauldrons.vmdl"},--6122
+--124
+	{"model","models/items/alchemist/toxic_siege_garb/toxic_siege_garb.vmdl"},--6118
+	{"model","models/items/alchemist/toxic_siege_bracers/toxic_siege_bracers.vmdl"},--6117
+	{"model","models/items/alchemist/toxic_siege_safety_goggles/toxic_siege_safety_goggles.vmdl"},--6119
+	{"model","models/items/alchemist/toxic_siege_armored_saddle/toxic_siege_armored_saddle.vmdl"},--6121
+	{"model","models/items/alchemist/toxic_siege_corrosive_flasks/toxic_siege_corrosive_flasks.vmdl"},--6120
+--123
+
+--F8 00
+	{"model","models/items/dazzle/staff_of_the_yuwipi/staff_of_the_yuwipi.vmdl"},--5882
+	{"model","models/items/dazzle/band_of_summoning/band_of_summoning.vmdl"},--5879
+	{"model","models/items/dazzle/headdress_of_the_yuwipi/headdress_of_the_yuwipi.vmdl"},--5880
+	{"model","models/items/dazzle/bonedress_of_the_yuwipi/bonedress_of_the_yuwipi.vmdl"},--5881
+	{"model","models/heroes/dazzle/dazzle_shoulder.vmdl"},--468
+--F8 10
+	{"model","models/items/dazzle/dazzleset_weapon/dazzleset_weapon.vmdl"},--4685
+	{"model","models/items/dazzle/dazzleset_arm/dazzleset_arm.vmdl"},--4683
+	{"model","models/items/dazzle/dazzleset_back/dazzleset_back.vmdl"},--4682
+	{"model","models/items/dazzle/dazzleset_legs/dazzleset_legs.vmdl"},--4684
+	{"model","models/items/dazzle/dazzleset_misc/dazzleset_misc.vmdl"},--4681
+--banner badguys
+	{"model","models/props_teams/banner_dire_small.vmdl"},
+--F9 00
+	{"model","models/heroes/ogre_magi/ogre_magi_weapon.vmdl"},--105
+	{"model","models/heroes/ogre_magi/ogre_magi_cape.vmdl"},--133
+	{"model","models/heroes/ogre_magi/ogre_magi_hats.vmdl"},--135
+	{"model","models/heroes/ogre_magi/ogre_magi_belt.vmdl"},--136
+	{"model","models/heroes/ogre_magi/ogre_magi_bracers.vmdl"},--134
+
+--F9 10
+	{"model","models/items/ogre_magi/antipodean_weapon/antipodean_weapon.vmdl"},--7848
+	{"model","models/items/ogre_magi/antipodean_back/antipodean_back.vmdl"},--7845
+	{"model","models/items/ogre_magi/antipodean_head/antipodean_head.vmdl"},--7847
+	{"model","models/items/ogre_magi/antipodean_belt/antipodean_belt.vmdl"},--7846
+	{"model","models/items/ogre_magi/antipodean_arms/antipodean_arms.vmdl"},--7839
+
+--F9 11
+	{"model","models/items/ogre_magi/ogre_ancestral_weapon/ogre_ancestral_weapon.vmdl"},--5241
+	{"model","models/items/ogre_magi/ogre_ancestral_back/ogre_ancestral_back.vmdl"},--5243
+	{"model","models/items/ogre_magi/ogre_ancestral_head/ogre_ancestral_head.vmdl"},--5245
+	{"model","models/items/ogre_magi/ogre_ancestral_belt/ogre_ancestral_belt.vmdl"},--5244
+	{"model","models/items/ogre_magi/ogre_ancestral_arms/ogre_ancestral_arms.vmdl"},--5242
+
+--G7 00
+	{"model","models/items/antimage/wh_weapon/wh_weapon.vmdl"}, --4781
+	{"model","models/items/antimage/wh_offhand_weapon/wh_offhand_weapon.vmdl"},--4779
+	{"model","models/items/antimage/wh_mask/wh_mask.vmdl"},--4769
+	{"model","models/items/antimage/wh_armor/wh_armor.vmdl"},--4778
+	{"model","models/items/antimage/wh_arms/wh_arms.vmdl"},--4784
+	{"model","models/items/antimage/wh_belt/wh_belt.vmdl"},--4782
+	{"model","models/items/antimage/wh_shoulder/wh_shoulder.vmdl"},--4770
+
+--G7 10
+	{"model","models/items/antimage/reprieve_of_the_clergy_ascetic/reprieve_of_the_clergy_ascetic.vmdl"},--5531
+	{"model","models/items/antimage/reprieve_of_the_clergy_ascetic__offhand/reprieve_of_the_clergy_ascetic__offhand.vmdl"},--5529
+	{"model","models/items/antimage/hood_of_the_clergy_ascetic/hood_of_the_clergy_ascetic.vmdl"},--5538
+	{"model","models/items/antimage/adornment_of_the_clergy_ascetic/adornment_of_the_clergy_ascetic.vmdl"},--5530
+	{"model","models/items/antimage/bracers_of_the_clergy_ascetic/bracers_of_the_clergy_ascetic.vmdl"},--5549
+	{"model","models/items/antimage/cloth_of_the_clergy_ascetic/cloth_of_the_clergy_ascetic.vmdl"},--5528
+	{"model","models/items/antimage/guard_of_the_clergy_ascetic/guard_of_the_clergy_ascetic.vmdl"},--5532
+
+--G7 11
+	{"model","models/items/antimage/tarrasque_scale_weapon/tarrasque_scale_weapon.vmdl"},--8611
+	{"model","models/items/antimage/tarrasque_scale_offhand/tarrasque_scale_offhand.vmdl"},--8678
+	{"model","models/items/antimage/tarrasque_scale_head/tarrasque_scale_head.vmdl"},--8596
+	{"model","models/items/antimage/tarrasque_scale_armor/tarrasque_scale_armor.vmdl"},--8595
+	{"model","models/items/antimage/tarrasque_scale_arms/tarrasque_scale_arms.vmdl"},--8610
+	{"model","models/items/antimage/tarrasque_scale_belt/tarrasque_scale_belt.vmdl"},--8609
+	{"model","models/items/antimage/tarrasque_scale_shoulder/tarrasque_scale_shoulder.vmdl"},--8620
+
+--G8 00
+	{"model","models/heroes/phantom_lancer/phantom_lancer_head.vmdl"},--127
+	{"model","models/items/phantom_lancer/weapon_kinship/weapon_kinship.vmdl"},--4439
+	{"model","models/items/phantom_lancer/shoulder_kinship/shoulder_kinship.vmdl"},--4451
+	{"model","models/items/phantom_lancer/arms_kinship/arms_kinship.vmdl"},--4402
+	{"model","models/items/phantom_lancer/belt_kinship/belt_kinship.vmdl"},--4409
+
+--G8 10
+	{"model","models/items/phantom_lancer/infinite_waves_serpent_weapon/infinite_waves_serpent_weapon.vmdl"},--6317
+	{"model","models/items/phantom_lancer/infinite_waves_shoulder/infinite_waves_shoulder.vmdl"},--6755
+	{"model","models/items/phantom_lancer/infinite_waves_arms/infinite_waves_arms.vmdl"},--6752
+	{"model","models/items/phantom_lancer/infinite_waves_belt/infinite_waves_belt.vmdl"},--6753
+--127
+
+--G8 11
+	{"model","models/items/phantom_lancer/sunwarrior_weapon/sunwarrior_weapon.vmdl"},--6620
+	{"model","models/items/phantom_lancer/sunwarrior_head/sunwarrior_head.vmdl"},--6621
+	{"model","models/items/phantom_lancer/sunwarrior_arms/sunwarrior_arms.vmdl"},--6619
+	{"model","models/items/phantom_lancer/sunwarrior_belt/sunwarrior_belt.vmdl"},--6617
+
+
+}
+
+
+		 
 	-- print("loading shiping")
 	local t=#zr;
 	for i=1,t do
@@ -1072,7 +1080,7 @@ function PrecacheEverythingFromTable( context, kvtable)
 				PrecacheResource( "particle",  value, context)
 				-- print("PRECACHE PARTICLE RESOURCE", value)
 			end
-			if string.find(value, "vmdl") then
+			if string.find(value, "vmdl") then 	
 				PrecacheResource( "model",  value, context)
 				-- print("PRECACHE MODEL RESOURCE", value)
 			end
@@ -1081,7 +1089,7 @@ function PrecacheEverythingFromTable( context, kvtable)
 				-- print("PRECACHE SOUND RESOURCE", value)
 			end
 		end
-	end
+	end	   
 end
 
 --技能特效预载表
@@ -1306,10 +1314,13 @@ SoundTabel={
 }
 
 function Precache( context )
+
+
 	-- print("BEGIN TO PRECACHE RESOURCE")
 	local time = GameRules:GetGameTime()
-
 	PrecacheEveryThingFromKV( context )
+	time = time - GameRules:GetGameTime()
+	-- print("DONE PRECACHEING IN:"..tostring(time).."Seconds")
 
 	for i=1,#ParticleTable do
 		PrecacheParticle(ParticleTable[i],context)
@@ -1321,9 +1332,6 @@ function Precache( context )
 	for i=1,#SoundTabel do
 		PrecacheSound(SoundTabel[i],context)
 	end
-
-	time = time - GameRules:GetGameTime()
-	-- print("DONE PRECACHEING IN:"..tostring(time).."Seconds")
 end
 
 
@@ -1383,12 +1391,8 @@ function CbtfGameMode:InitGameMode()
 	Convars:SetInt("dota_render_y_inset", 0)
 	-- Convars:GetBool("sv_cheats")
 
-	Game:TestMode(true)
-	Game:RankMode(true)
-	Game:SetMatchID(GameRules:GetMatchID())
-
 	--设置游戏准备时间
-	if Game:IsTestMode() then
+	if _G.test_mode then
 		GameRules:SetStartingGold(999999)
 		GameRules:SetPreGameTime(5)
 	else
@@ -1397,7 +1401,7 @@ function CbtfGameMode:InitGameMode()
 	end
 	GameRules:SetCustomGameEndDelay(1)
 	--重复选择英雄
-	GameRules:SetSameHeroSelectionEnabled(true)
+	GameRules:SetSameHeroSelectionEnabled(true)    
 
 	--取消自动增加金钱
 	GameRules:SetGoldPerTick(0)
@@ -1412,35 +1416,30 @@ function CbtfGameMode:InitGameMode()
 	ListenToGameEvent("dota_unit_event", Dynamic_Wrap(CbtfGameMode, "OnEvent"), self) 	--???
 	ListenToGameEvent('player_disconnect', Dynamic_Wrap(CbtfGameMode, 'OnPlayerDisconnect'), self)
 	ListenToGameEvent("player_reconnected", Dynamic_Wrap(CbtfGameMode, "OnPlayerReconnected" ), self ) --玩家重连事件
-	ListenToGameEvent("player_connect_full", Dynamic_Wrap(CbtfGameMode, "OnPlayerConnectFull"), self)
 	-- ListenToGameEvent("entity_hurt", Dynamic_Wrap(CbtfGameMode, "OnEntityHurt"), self) --伤害事件
 --添加伤害事件
 
 	CustomGameEventManager:RegisterListener("item_purchased", ItemPurchased)
 	CustomGameEventManager:RegisterListener("boss_levelup", BossLevelup)
 	CustomGameEventManager:RegisterListener("set_boss_controllable", SetBossControllableEvent)
+	CustomGameEventManager:RegisterListener("get_rank_state", GetPlayerRankState)
 	CustomGameEventManager:RegisterListener("reroll", Reroll)
 	CustomGameEventManager:RegisterListener("update_player_settings", UpdatePlayerSettings)
 
 	GameRules:GetGameModeEntity():SetExecuteOrderFilter( Dynamic_Wrap( CbtfGameMode, "ExecuteOrderFilter" ), self )
 	GameRules:GetGameModeEntity():SetDamageFilter( Dynamic_Wrap( CbtfGameMode, "DamageFilter" ),self)
 	GameRules:GetGameModeEntity():SetModifyGoldFilter( Dynamic_Wrap( CbtfGameMode, "ModifyGoldFilter" ),self)
-end
 
-function CbtfGameMode:OnPlayerConnectFull(keys)
-	PlayerData(keys.PlayerID)
 end
-
 function CbtfGameMode:OnPlayerDisconnect( keys )
 	GameRules:GetGameModeEntity():SetContextThink("abandon",
 		function()
-			PlayerData:Look(
-				function(playerID, playerData)
-					if not playerData:IsAbandon() and PlayerResource:GetConnectionState(playerID) == DOTA_CONNECTION_STATE_ABANDONED then
-						playerData:Abandon()
-					end
+			for _,PlayerPosition in pairs(AllPlayers) do
+				if not PlayerS[PlayerPosition].Abandon and PlayerResource:GetConnectionState(PlayerCalc:GetPlayerIDByPosition(PlayerPosition)) == DOTA_CONNECTION_STATE_ABANDONED then
+					PlayerS[PlayerPosition].Abandon = true
+					PlayerS[PlayerPosition].AbandonRound = GetRound()
 				end
-			)
+			end
 			return 1
 		end
 	,1)
@@ -1455,73 +1454,159 @@ function CbtfGameMode:ModifyGoldFilter( filterTable )
 	-- reliable
 	-- player_id_const
 	-- gold
-	local playerData = PlayerData:GetPlayerData(filterTable.player_id_const)
-	if playerData ~= nil then
-		playerData:ModifyGold(filterTable.gold, filterTable.reason_const)
+	if filterTable.reason_const == 13 and filterTable.gold > 0 then
+		local PlayerPosition = PlayerCalc:GetPlayerPositionByID(filterTable.player_id_const)
+		if PlayerPosition then
+			PlayerS[PlayerPosition].MVP_TotalGold = PlayerS[PlayerPosition].MVP_TotalGold + filterTable.gold
+		end
 	end
+
+	-- if filterTable.reason_const == 6 and filterTable.gold > 0 then
+	-- 	local PlayerPosition = PlayerCalc:GetPlayerPositionByID(filterTable.player_id_const)
+	-- 	if PlayerPosition then
+	-- 		if PlayerS[PlayerPosition].Lumber < 100 then
+	-- 		BTFGeneral:ShowError(hero:GetPlayerOwnerID(),"#OnlyCommanderCanTakeArmaments","General.NoGold") --警告信息
+	-- 		return false
+	-- 		end
+	-- 	end
+	-- end
 
 	return true
 end
 
 function UpdatePlayerSettings(index,keys)
-	local playerID = keys.PlayerID
-	local playerData = PlayerData:GetPlayerData(playerID)
+	local pid = keys.PlayerID
+	local PlayerPosition = PlayerCalc:GetPlayerPositionByID(pid)
 
 	if keys.show_damage_message then
-		playerData:ShowDamageMessage((keys.show_damage_message == 1))
+		PlayerS[PlayerPosition].show_damage_message = (keys.show_damage_message == 1)
 	end
 end
 
 function Reroll(index,keys)
 	local pid = keys.PlayerID
-	local playerData = PlayerData:GetPlayerData(pid)
-	--重选全部技能
-	local BUILD_Q = playerData:GetBuildingTypeName("Q") --获取Q旧编号
-	local BUILD_W = playerData:GetBuildingTypeName("W") --获取W旧编号
-	local BUILD_E = playerData:GetBuildingTypeName("E") --获取E旧编号
-	local BUILD_D = playerData:GetBuildingTypeName("D") --获取D旧编号
-	local BUILD_F = playerData:GetBuildingTypeName("F") --获取F旧编号
-	local BUILD_G = playerData:GetBuildingTypeName("G") --获取G旧编号
-	local BUILD_R = playerData:GetBuildingTypeName("R") --获取R旧编号
-	local BUILD_X = playerData:GetBuildingTypeName("X") --获取R旧编号
+	local PlayerPosition = PlayerCalc:GetPlayerPositionByID(pid)
+	--重选全部技能 
+	local BUILD_Q = PlayerS[PlayerPosition].buildtype["Q"] --获取Q旧编号
+	local BUILD_W = PlayerS[PlayerPosition].buildtype["W"] --获取W旧编号
+	local BUILD_E = PlayerS[PlayerPosition].buildtype["E"] --获取E旧编号
+	local BUILD_D = PlayerS[PlayerPosition].buildtype["D"] --获取D旧编号
+	local BUILD_F = PlayerS[PlayerPosition].buildtype["F"] --获取F旧编号
+	local BUILD_G = PlayerS[PlayerPosition].buildtype["G"] --获取G旧编号
+	local BUILD_R = PlayerS[PlayerPosition].buildtype["R"] --获取R旧编号
+	local BUILD_X = PlayerS[PlayerPosition].buildtype["X"] --获取R旧编号
 
 	if keys.Q == 1 then
-		playerData:SetBuildingTypeName("Q", GetRandomBuildingTypeName("Q", BUILD_Q))
+		PlayerS[PlayerPosition].buildtype["Q"] = GetRandomBuild("Q",BUILD_Q) --设置新编号
 	end
 	if keys.W == 1 then
-		playerData:SetBuildingTypeName("W", GetRandomBuildingTypeName("W", BUILD_W))
+		PlayerS[PlayerPosition].buildtype["W"] = GetRandomBuild("W",BUILD_W) --从W列表里随机 (1,x)
 	end
 	if keys.E == 1 then
-		playerData:SetBuildingTypeName("E", GetRandomBuildingTypeName("E", BUILD_E))
+		PlayerS[PlayerPosition].buildtype["E"] = GetRandomBuild("E",BUILD_E) --从E列表里随机 (1,x)
 	end
 	if keys.D == 1 then
-		playerData:SetBuildingTypeName("D", GetRandomBuildingTypeName("D", BUILD_D))
+		PlayerS[PlayerPosition].buildtype["D"] = GetRandomBuild("D",BUILD_D) --从D列表里随机 (1,x)
 	end
 	if keys.F == 1 then
-		playerData:SetBuildingTypeName("F", GetRandomBuildingTypeName("F", BUILD_F))
+		PlayerS[PlayerPosition].buildtype["F"] = GetRandomBuild("F",BUILD_F) --从F列表里随机 (1,x)
 	end
 	if keys.G == 1 then
-		playerData:SetBuildingTypeName("G", GetRandomBuildingTypeName("G", BUILD_G))
+		PlayerS[PlayerPosition].buildtype["G"] = GetRandomBuild("G",BUILD_G) --从G列表里随机 (1,x)
 	end
 	if keys.R == 1 then
-		playerData:SetBuildingTypeName("R", GetRandomBuildingTypeName("R", BUILD_Q))
+		PlayerS[PlayerPosition].buildtype["R"] = GetRandomBuild("R",BUILD_R) --从R列表里随机 (1,x)
 	end
 	if keys.X == 1 then
-		playerData:SetBuildingTypeName("X", GetRandomBuildingTypeName("X", BUILD_Q))
+		PlayerS[PlayerPosition].buildtype["X"] = GetRandomBuild("X",BUILD_X) --从X列表里随机 (1,x)
 	end
 	--替换函数
-	playerData:UpdateBuildingsBuildAbility()
+	local build_table = Entities:FindAllByClassnameWithin("npc_dota_creature", PlayerS[PlayerPosition].StartPoint, 3000)
+	for _,build in pairs(build_table) do
+		if IsValidEntity(build) then
+			if build:IsAlive() then
+				if build:GetUnitName() == "npc_dummy_build_base" and build:GetPlayerOwnerID() == pid then
+					for i=0,15 do
+						local ability = build:GetAbilityByIndex(i)
+						if ability then
+							if ability:GetAbilityName() ~= "kexuanmajia" then
+								build:RemoveAbility(ability:GetAbilityName())
+							end
+						end
+					end
+					playerstarts:RollBuilds(build) --重设技能
+					build:RemoveModifierByName("modifier_rerollbuilds")
+				end
+			end
+		end
+	end
+end
+function GetPlayerLevelAndAppellation(score,rank,per)
+	local level = 101 - math.ceil((per or 1)*100)
+	-- print("%%level "..level)
+	-- print("%%per "..per)
+	-- print("%%rank "..rank)
+	if score == 0 then
+		level = 1
+	end
+	if (rank or 99999) <= 50 then
+		level = 101
+	end
+	local appellation = 0
+	if level == 1 then
+		appellation = 1
+	elseif level >=  2 and level < 30 then
+		appellation = 2
+	elseif level >= 30 and level < 50 then
+		appellation = 3
+	elseif level >= 50 and level < 70 then
+		appellation = 4
+	elseif level >= 70 and level < 80 then
+		appellation = 5
+	elseif level >= 80 and level < 90 then
+		appellation = 6
+	elseif level >= 90 and level < 96 then
+		appellation = 7
+	elseif level >= 96 and level < 101 then
+		appellation = 8
+	elseif level == 100 then
+		appellation = 9
+	elseif level == 101 then
+		appellation = 10
+	end
+	return level,appellation
+end
+function GetPlayerRankState(index,keys)
+	local pid = keys.PlayerID
+	local PlayerPosition = PlayerCalc:GetPlayerPositionByID(pid)
+	PlayerS[PlayerPosition].steamid = keys.steamid
+	local url = "http://www.dota2rpg.com/game_wz1/wz_get_ladderpoints.php?playerid="..keys.steamid.."&hehe="..math.random()
+	local req = CreateHTTPRequestScriptVM("GET", url)
+	req:Send(
+		function (result)
+			local keys = json.decode(result.Body)
+			if keys then
+				if keys.err ~= 1300 then
+					local playerrank = tonumber(keys.rank)
+					PlayerS[PlayerPosition].ranking_score = keys.score
+					PlayerS[PlayerPosition].ranking_rank = playerrank
+					PlayerS[PlayerPosition].ranking_total = keys.total
+					PlayerS[PlayerPosition].ranking_per = keys.per
+					PlayerS[PlayerPosition].ranking_level,PlayerS[PlayerPosition].ranking_appellation = GetPlayerLevelAndAppellation(keys.score,playerrank,keys.per)
+				end
+			end
+		end
+	)
 end
 --游戏结束传递信息到UI
 function ComputeAndSendPlayerStates()
-	if Game:GetRound() < 10 then
-		Game:RankMode(false)
+	if GetRound() < 10 then
+		_G.Rank_mode = false
 	end
-	if Game:IsTestMode() then
-		Game:RankMode(true)
+	if _G.test_mode then
+		_G.Rank_mode = false
 	end
-
-	local count = Game:GetPlayerCount()
+	local count = #AllPlayers
 	local damagetoking_rank = {}
 	local killcount_rank = {}
 	local breakgold_rank = {}
@@ -1540,135 +1625,154 @@ function ComputeAndSendPlayerStates()
 	local rank_extra_score_seed = 2
 	local rank_basic_score = 20
 	local lastmvp = 0
-
-	PlayerData:Look(
-		function(playerID, playerData)
-			local playerPosition = playerData:GetPlayerPosition()
-
-			damagetoking_rank[playerPosition] = 1
-			damagetoking_rank[playerPosition] = 1
-			killcount_rank[playerPosition] = 1
-			breakgold_rank[playerPosition] = 1
-			score_rank[playerPosition] = 1
-			income_rank[playerPosition] = 1
-			armaments_rank[playerPosition] = 1
-			PlayerData:Look(
-				function(_playerID, _playerData)
-					local _playerPosition = _playerData:GetPlayerPosition()
-					if _playerData:GetDamageToKing() > playerData:GetDamageToKing() then
-						damagetoking_rank[playerPosition] = damagetoking_rank[playerPosition] + 1
-					end
-					if _playerData:GetKills() > playerData:GetKills() then
-						killcount_rank[playerPosition] = killcount_rank[playerPosition] + 1
-					end
-					if _playerData:GetBreakGold() > playerData:GetBreakGold() then
-						breakgold_rank[playerPosition] = breakgold_rank[playerPosition] + 1
-					end
-					if _playerData:GetScore() > playerData:GetScore() then
-						score_rank[playerPosition] = score_rank[playerPosition] + 1
-					end
-					if _playerData:GetAllIncome() > playerData:GetAllIncome() then
-						income_rank[playerPosition] = income_rank[playerPosition] + 1
-					end
-					if _playerData:GetArmsValue() > playerData:GetArmsValue() then
-						armaments_rank[playerPosition] = armaments_rank[playerPosition] + 1
-					end
-				end
-			)
-			MVP[playerPosition] = (count-damagetoking_rank[playerPosition])*11 + (count-killcount_rank[playerPosition])*8 + (count-breakgold_rank[playerPosition])*5 + (count-score_rank[playerPosition])*7 + (count-income_rank[playerPosition])*4 + (count-armaments_rank[playerPosition])*4
-			if playerPosition <= 4 then
-				damagetoking_team1 = damagetoking_team1 + playerData:GetDamageToKing()
-				team1_level = team1_level + playerData:GetRankingLevel()
+	for _,i in pairs(AllPlayers) do
+		damagetoking_rank[i] = 1
+		killcount_rank[i] = 1
+		breakgold_rank[i] = 1
+		score_rank[i] = 1
+		income_rank[i] = 1
+		armaments_rank[i] = 1
+		for __,n in pairs(AllPlayers) do
+			if PlayerS[n].MVP_DamageToKing > PlayerS[i].MVP_DamageToKing then
+				damagetoking_rank[i] = damagetoking_rank[i] + 1
 			end
-			if playerPosition > 4 then
-				damagetoking_team2 = damagetoking_team2 + playerData:GetDamageToKing()
-				team2_level = team2_level + playerData:GetRankingLevel()
+			if PlayerS[n].MVP_KillCount > PlayerS[i].MVP_KillCount then
+				killcount_rank[i] = killcount_rank[i] + 1
+			end
+			if PlayerS[n].MVP_BreakGold > PlayerS[i].MVP_BreakGold then
+				breakgold_rank[i] = breakgold_rank[i] + 1
+			end
+			if PlayerS[n].Score > PlayerS[i].Score then
+				score_rank[i] = score_rank[i] + 1
+			end
+			if PlayerS[n].Income > PlayerS[i].Income then
+				income_rank[i] = income_rank[i] + 1
+			end
+			if PlayerS[n].Arms > PlayerS[i].Arms then
+				armaments_rank[i] = armaments_rank[i] + 1
 			end
 		end
-	)
+		MVP[i] = (count-damagetoking_rank[i])*11 + (count-killcount_rank[i])*8 + (count-breakgold_rank[i])*5 + (count-score_rank[i])*7 + (count-income_rank[i])*4 + (count-armaments_rank[i])*4
+		if i <= 4 then
+			damagetoking_team1 = damagetoking_team1 + PlayerS[i].MVP_DamageToKing
+			team1_level = team1_level + PlayerS[i].ranking_level
+		end
+		if i > 4 then
+			damagetoking_team2 = damagetoking_team2 + PlayerS[i].MVP_DamageToKing
+			team2_level = team2_level + PlayerS[i].ranking_level
+		end
+	end
 	team1_level = team1_level/(count/2)
 	team2_level = team2_level/(count/2)
-	PlayerData:Look(
-		function(playerID, playerData)
-			local playerPosition = playerData:GetPlayerPosition()
-
-			MVP_rank[playerPosition] = 1
-
-			PlayerData:Look(
-				function(_playerID, _playerData)
-					local _playerPosition = _playerData:GetPlayerPosition()
-					if MVP[_playerPosition] > MVP[playerPosition] then
-						MVP_rank[playerPosition] = MVP_rank[playerPosition] + 1
+	for _,i in pairs(AllPlayers) do
+		MVP_rank[i] = 1;
+		for __,n in pairs(AllPlayers) do
+			if MVP[n] > MVP[i] then
+				MVP_rank[i] = MVP_rank[i] + 1
+			end
+		end
+		if PlayerResource:GetTeam(PlayerS[i].playerid) == _G.WinnerTeam then
+			if lastmvp <= MVP[i] then
+				lastmvp = MVP[i]
+				MVP_PlayerPosition = i
+			end
+		end
+		if _G.Rank_mode then
+			local rank_basic_score_s
+			if PlayerResource:GetTeam(PlayerS[i].playerid) == _G.WinnerTeam then
+				rank_basic_score_s = rank_basic_score + 6
+			else
+				rank_basic_score_s = -rank_basic_score
+			end
+			if PlayerS[i].Abandon and GetRound() - PlayerS[i].AbandonRound > 1 then
+				rank_basic_score_s = rank_basic_score_s - 20
+			end
+			local rank_extra_score = (count/2 - MVP_rank[i]) * rank_extra_score_seed
+			local rank_level_coefficient
+			if i <= 4 then
+				rank_level_coefficient = (team2_level-PlayerS[i].ranking_level)*rank_level_seed
+			else
+				rank_level_coefficient = (team1_level-PlayerS[i].ranking_level)*rank_level_seed
+			end
+			rank_add_score[i] = rank_basic_score_s + rank_extra_score + math.abs(rank_extra_score)*rank_level_coefficient
+			if PlayerS[i].steamid then
+				local match_id = _G.Match_id .. string.sub(tostring(PlayerS[i].steamid),-10,-1)
+				-- print("match_id: "..match_id)
+				local url= "http://www.dota2rpg.com/game_wz1/wz_set_ladderpoints.php?"
+				url = url .. "playerid=" .. PlayerS[i].steamid
+				url = url .. "&points=" .. rank_add_score[i]
+				url = url .. "&match_id=" .. match_id
+				url = url .. "&wu_shuang=" .. wushuang.sumhexa(match_id)
+				url = url .. "&hehe=" .. RandomInt(1000, 9999)
+				local req = CreateHTTPRequestScriptVM("GET", url)
+				req:Send(
+					function (result)
 					end
-				end
-			)
-			if PlayerResource:GetTeam(playerID) == Game:GetWinnerTeam() then
-				if lastmvp <= MVP[playerPosition] then
-					lastmvp = MVP[playerPosition]
-					MVP_PlayerPosition = playerPosition
-				end
-			end
-			if Game:IsRankMode() then
-				local rank_basic_score_s
-				if PlayerResource:GetTeam(playerID) == Game:GetWinnerTeam() then
-					rank_basic_score_s = rank_basic_score + 6
-				else
-					rank_basic_score_s = -rank_basic_score
-				end
-				if playerData:IsAbandon() and Game:GetRound() - playerData:GetAbandonRound() > 1 then
-					rank_basic_score_s = rank_basic_score_s - 20
-				end
-				local rank_extra_score = (count/2 - MVP_rank[playerPosition]) * rank_extra_score_seed
-				local rank_level_coefficient
-				if playerPosition <= 4 then
-					rank_level_coefficient = (team2_level-playerData:GetRankingLevel())*rank_level_seed
-				else
-					rank_level_coefficient = (team1_level-playerData:GetRankingLevel())*rank_level_seed
-				end
-				rank_add_score[playerPosition] = rank_basic_score_s + rank_extra_score + math.abs(rank_extra_score)*rank_level_coefficient
-				if playerData:GetSteamID() then
-					local match_id = tostring(Game:GetMatchID())
-					-- print("match_id: "..match_id)
-					local url= "http://www.dota2rpg.com/game_wz1/wz_set_ladderpoints.php?"
-					url = url .. "playerid=" .. tostring(playerData:GetSteamID())
-					url = url .. "&points=" .. rank_add_score[playerPosition]
-					url = url .. "&match_id=" .. Game:GetMatchID()
-					url = url .. "&wu_shuang=" .. wushuang.sumhexa(match_id)
-					url = url .. "&hehe=" .. RandomInt(1000, 9999)
-					local req = CreateHTTPRequestScriptVM("GET", url)
-					req:Send(
-						function (result)
-						end
-					)
-					print(url)
-				end
+				)
 			end
 		end
-	)
-
+	end
 	--传递数据
-	local playeridtable = {}
-	local mvptable = {}
-	local rankingaddscoretable = {}
-	PlayerData:Look(
-		function(playerID, playerData)
-			local playerPosition = playerData:GetPlayerPosition()
-
-			playeridtable[playerPosition] = playerID
-			mvptable[playerID] = MVP[playerPosition]
-			rankingaddscoretable[playerID] = Round(rank_add_score[playerPosition], 1)
-		end
-	)
-	CustomGameEventManager:Send_ServerToAllClients("end_screen_player_states", 
-		{
-			mvp = mvptable,
-			rankingaddscore = rankingaddscoretable,
-			mvpplayerposition = MVP_PlayerPosition,
-			damagetoking1 = damagetoking_team1,
-			damagetoking2 = damagetoking_team2,
-			rank_mode = Game:IsRankMode(),
-		}
-	)
+	local playerpositiontable={}
+	local playeridtable={}
+	local damagetokingtable={}
+	local breakgoldtable={}
+	local killcounttable={}
+	local scoretable={}
+	local goldtable={}
+	local lumbertable={}
+	local incometable={}
+	local armamentstable={}
+	local mvptable={}
+	local rankingscoretable={}
+	local rankingleveltable={}
+	local rankingappellationtable={}
+	local rankingaddscoretable={}
+	local steamidtable={}
+	local teamtable={}
+	for _, PlayerPosition in pairs( AllPlayers ) do
+		table.insert(playerpositiontable,PlayerPosition)
+		table.insert(playeridtable,PlayerS[PlayerPosition].playerid)
+		table.insert(damagetokingtable,PlayerS[PlayerPosition].MVP_DamageToKing)
+		table.insert(breakgoldtable,PlayerS[PlayerPosition].MVP_BreakGold)
+		table.insert(killcounttable,PlayerS[PlayerPosition].MVP_KillCount)
+		table.insert(scoretable,PlayerS[PlayerPosition].Score)
+		table.insert(goldtable,PlayerS[PlayerPosition].MVP_TotalGold)
+		table.insert(lumbertable,PlayerS[PlayerPosition].MVP_TotalLumer)
+		table.insert(incometable,PlayerS[PlayerPosition].Income)
+		table.insert(armamentstable,PlayerS[PlayerPosition].Arms)
+		table.insert(mvptable,MVP[PlayerPosition])
+		table.insert(rankingscoretable,PlayerS[PlayerPosition].ranking_score)
+		table.insert(rankingleveltable,PlayerS[PlayerPosition].ranking_level)
+		table.insert(rankingappellationtable,PlayerS[PlayerPosition].ranking_appellation)
+		table.insert(rankingaddscoretable,Round(rank_add_score[PlayerPosition],1))
+		table.insert(steamidtable,PlayerS[PlayerPosition].steamid)
+		table.insert(teamtable,PlayerResource:GetTeam(PlayerS[PlayerPosition].playerid))
+	end
+	CustomGameEventManager:Send_ServerToAllClients("end_screen_player_states",{
+		playercount=_G.PlayerCount,
+		playerposition=playerpositiontable,
+		playerid=playeridtable,
+		damagetoking=damagetokingtable,
+		breakgold=breakgoldtable,
+		killcount=killcounttable,
+		score=scoretable,
+		gold=goldtable,
+		lumber=lumbertable,
+		income=incometable,
+		armaments=armamentstable,
+		mvp=mvptable,
+		rankingscore=rankingscoretable,
+		rankinglevel=rankingleveltable,
+		rankingappellation=rankingappellationtable,
+		rankingaddscore=rankingaddscoretable,
+		steamid=steamidtable,
+		team=teamtable,
+		mvpplayerposition=MVP_PlayerPosition,
+		damagetoking1=damagetoking_team1,
+		damagetoking2=damagetoking_team2,
+		rank_mode=_G.Rank_mode,
+	})
 end
 --DamageFilter
 function CbtfGameMode:DamageFilter( filterTable )
@@ -1717,10 +1821,12 @@ function CbtfGameMode:DamageFilter( filterTable )
 				local damaged_hero
 				local source_hero
 				if damaged_unit:GetPlayerOwnerID() ~= -1 then
-					damaged_hero = PlayerData:GetPlayerData(damaged_unit:GetPlayerOwnerID()):GetHero()
+					local PlayerPosition = PlayerCalc:GetPlayerPositionByID(damaged_unit:GetPlayerOwnerID())
+					damaged_hero = PlayerS[PlayerPosition].Hero
 				end
 				if source_unit:GetPlayerOwnerID() ~= -1 then
-					source_hero = PlayerData:GetPlayerData(source_unit:GetPlayerOwnerID()):GetHero()
+					local PlayerPosition = PlayerCalc:GetPlayerPositionByID(source_unit:GetPlayerOwnerID())
+					source_hero = PlayerS[PlayerPosition].Hero
 				end
 				--吸血技能
 				local lifesteal = 0--总
@@ -1791,20 +1897,20 @@ function CbtfGameMode:DamageFilter( filterTable )
 					DamageManager:SpellDamage( damaged_unit, source_unit, pure_damage*0.10)
 				end
 			end
-			if damaged_unit == Game:GetLeftKing() or damaged_unit == Game:GetRightKing() then
+			if damaged_unit == king_left or damaged_unit == king_right then
 				if source_unit:GetPlayerOwnerID() ~= -1 then
-					PlayerData:GetPlayerData(source_unit:GetPlayerOwnerID()):IncrementDamageToKing(filterTable.damage)
+					local PlayerPosition = PlayerCalc:GetPlayerPositionByID(source_unit:GetPlayerOwnerID())
+					PlayerS[PlayerPosition].MVP_DamageToKing = PlayerS[PlayerPosition].MVP_DamageToKing + filterTable.damage
 				end
 			end
 		end
 		if PlayerResource:IsValidPlayer(source_unit:GetPlayerOwnerID()) then
-			PlayerData:Look(
-				function(playerID, playerData)
-					if PlayerResource:IsValidPlayer(playerID) and playerData:IsShowDamageMessage() == true then
-						SendOverheadEventMessage(PlayerResource:GetPlayer(playerID), OVERHEAD_ALERT_DAMAGE, damaged_unit, filterTable.damage, nil)
-					end
+			for _, PlayerPosition in pairs(AllPlayers) do
+				local pid = PlayerCalc:GetPlayerIDByPosition(PlayerPosition)
+				if PlayerResource:IsValidPlayer(pid) and PlayerS[PlayerPosition].show_damage_message == true then
+					SendOverheadEventMessage(PlayerResource:GetPlayer(pid), OVERHEAD_ALERT_DAMAGE, damaged_unit, filterTable.damage, nil)
 				end
-			)
+			end
 		end
 	end
 	return true
@@ -2151,7 +2257,6 @@ function CbtfGameMode:ExecuteOrderFilter( filterTable )
 			BTFGeneral:ShowError(hero:GetPlayerOwnerID(),"#OnlyCommanderCanTakeArmaments","General.NoGold") --警告信息
 			return false
 		end
-
 		local itemname_levelup = levelupitemtable[filterTable.entindex_ability] or ""
 		local itemname_s = ItemName[filterTable.entindex_ability] or ""
 		if not hero:HasItemInInventory(itemname_levelup) then
@@ -2171,46 +2276,44 @@ function CbtfGameMode:ExecuteOrderFilter( filterTable )
 				end
 			end
 		end
-
-		--队伍判断
-		local teamHasArmaments = false
-		PlayerData:Look(
-			function(playerID, playerData)
-				if PlayerResource:GetTeam(playerID) == hero:GetTeamNumber() and playerID ~= hero:GetPlayerOwnerID() then
-					local _hero = playerData:GetHero()
-					for i = 0, 5, 1 do
-						local item = _hero:GetItemInSlot(i)
-						if item then
-							if LevelItemName[item:GetName()] == itemname_s then
-								teamHasArmaments = true
-								return true
-							end
+		local heroPlayerPosition = PlayerCalc:GetPlayerPositionByID(hero:GetPlayerOwnerID())
+		local i = 1
+		local iMax = 4
+		if hero:GetTeamNumber() == DOTA_TEAM_BADGUYS then
+			i = 5
+			iMax = 8
+		end
+		for PlayerPosition=i,iMax,1 do
+			if PlayerS[PlayerPosition].Hero and PlayerPosition ~= heroPlayerPosition then
+				for i=0,5,1 do
+					local item = PlayerS[PlayerPosition].Hero:GetItemInSlot(i)
+					if item then
+						if LevelItemName[item:GetName()] == itemname_s then
+							BTFGeneral:ShowError(hero:GetPlayerOwnerID(),"#TeamHasArmaments","General.NoGold") --警告信息
+							return false
 						end
 					end
 				end
 			end
-		)
-		if teamHasArmaments then
-			BTFGeneral:ShowError(hero:GetPlayerOwnerID(),"#TeamHasArmaments","General.NoGold") --警告信息
-			return false
 		end
 	end
 	--卖出军备判断
 	if filterTable.order_type == 17 then
 
 		local hero = EntIndexToHScript(filterTable.units["0"])
-		local playerData = PlayerData:GetPlayerData(hero:GetPlayerOwnerID())
+		local PlayerPosition = PlayerCalc:GetPlayerPositionByID(hero:GetPlayerOwnerID())
 		if not IsCommander(hero) then
 			BTFGeneral:ShowError(hero:GetPlayerOwnerID(),"#OnlyCommanderCanTakeArmaments","General.NoGold") --警告信息
 			return false
 		end
 
-		if playerData then
-			if playerData:GetCrystal() < 300 then
+		if PlayerPosition then
+			if PlayerS[PlayerPosition].Lumber < 300 then
 				BTFGeneral:ShowError(hero:GetPlayerOwnerID(),"#SellItemLumberEnough","General.NoGold") --警告信息
 				return false
 			else
-				playerData:ModifyCrystal(-300)
+				PlayerS[PlayerPosition].Lumber = PlayerS[PlayerPosition].Lumber - 300
+				return true
 			end
 		end
 	end
@@ -2219,100 +2322,172 @@ function CbtfGameMode:ExecuteOrderFilter( filterTable )
 end
 --触发事件 游戏规则改变
 function CbtfGameMode:OnGameRulesStateChange( keys )
+	-- print("OnGameRulesStateChange")
+	-- DeepPrintTable(keys)    --详细打印传递进来的表
 	--获取游戏进度
 	local newState = GameRules:State_Get()
-	if newState == DOTA_GAMERULES_STATE_HERO_SELECTION then
-		--开始选择英雄
-		Game:SetLeftPlayerCount(PlayerResource:GetPlayerCountForTeam(DOTA_TEAM_GOODGUYS))
-		Game:SetRightPlayerCount(PlayerResource:GetPlayerCountForTeam(DOTA_TEAM_BADGUYS))
-
-		local playerCount = Game:GetPlayerCount()
-		if playerCount < 4 then
-			Game:RankMode(false)
+	if newState==DOTA_GAMERULES_STATE_INIT then
+	--初始化
+		runTable()
+	elseif newState==DOTA_GAMERULES_STATE_HERO_SELECTION then
+	--开始选择英雄
+		_G.PlayerCount = PlayerResource:GetPlayerCountForTeam(DOTA_TEAM_GOODGUYS)+PlayerResource:GetPlayerCountForTeam(DOTA_TEAM_BADGUYS)
+		if _G.PlayerCount<4 then
+			_G.Rank_mode = false
 		end
 		local PlayerPosition1 = 0
 		local PlayerPosition2 = 4
-		for i = 0, playerCount-1, 1 do
+		for i=0,_G.PlayerCount-1 do
 			if PlayerResource:GetTeam(i) == DOTA_TEAM_GOODGUYS then
 				PlayerPosition1 = PlayerPosition1 + 1--位置1-4
-				CbtfGameMode:InitPlayer(i, PlayerPosition1)
+				CbtfGameMode:InitPlayer(i,PlayerPosition1)
 			end
 			if PlayerResource:GetTeam(i) == DOTA_TEAM_BADGUYS then
 				PlayerPosition2 = PlayerPosition2 + 1--位置5-8
-				CbtfGameMode:InitPlayer(i, PlayerPosition2)
+				CbtfGameMode:InitPlayer(i,PlayerPosition2)
 			end
 		end
-
-		local initLife = math.max(Game:GetLeftPlayerCount(), Game:GetRightPlayerCount())
-		Game:ModifyLeftLife(initLife)
-		Game:ModifyRightLife(initLife)
-
-		Game:SetRoundTime(38)
-		Game:SetEarnCrystalTime(7)
-		--刷王和地基等物体
-		chushihua:SpawnBuildBase()
-	elseif newState == DOTA_GAMERULES_STATE_PRE_GAME then
-		--游戏准备
-		playerstarts:CreatePortal()
+		GameRules.LeftPlayerCount = PlayerResource:GetPlayerCountForTeam(DOTA_TEAM_GOODGUYS)
+		GameRules.RightPlayerCount = PlayerResource:GetPlayerCountForTeam(DOTA_TEAM_BADGUYS)
+		GameRules.LeftLife = math.ceil(_G.PlayerCount/2) 
+		GameRules.RightLife = GameRules.LeftLife
+		chushihua:SpawnBuildBase() --刷王和地基等物体
+		-- print(GameRules.LeftLife)
+	--总兵力默认
+		GameRules.LeftScore = 0
+		GameRules.RightScore = 0 
+	elseif newState==DOTA_GAMERULES_STATE_PRE_GAME then
+	--游戏准备
+		--GameRules:SendCustomMessage("#ConfirmList", -1, 0)
+		playerstarts:playertable()
 	elseif newState == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
-		--游戏开始
-		PlayerData:Look(
-			function(playerID, playerData)
-				local playerPosition = playerData:GetPlayerPosition()
-
-				if playerData:GetHero() == nil and PlayerResource:IsValidPlayer(playerID) then
-					local hero = CreateHeroForPlayer(GetRandomCommanderName(), PlayerResource:GetPlayer(playerID))
-					hero:SetControllableByPlayer(playerID, true)
-					playerData:SetHero(hero)
-				end
-
-				local ent = Entities:FindByName(nil, "player_"..tostring(playerPosition).."_farmer_4")
-				local techBuilding = UnitManager:CreateUnitByName("npc_dummy_lib", ent:GetAbsOrigin(), false, playerID, PlayerResource:GetTeam(playerID))
-				techBuilding:SetControllableByPlayer(playerID, true)
-				playerData:SetTechBuilding(techBuilding)
-
-				local ent = Entities:FindByName(nil, "player_"..tostring(playerPosition).."_farmer_3")
-				local foodBuilding = UnitManager:CreateUnitByName("npc_dummy_pig", ent:GetAbsOrigin(), false, playerID, PlayerResource:GetTeam(playerID))
-				foodBuilding:SetControllableByPlayer(playerID, true)
-				playerData:SetFoodBuilding(foodBuilding)
-
-				local ent = Entities:FindByName(nil, "player_"..tostring(playerPosition).."_farmer_2")
-				local bannerBuilding = UnitManager:CreateUnitByName("npc_dummy_banner", ent:GetAbsOrigin(), false, playerID, PlayerResource:GetTeam(playerID))
-				bannerBuilding:SetControllableByPlayer(playerID, true)
-				if PlayerResource:GetTeam(playerID) == DOTA_TEAM_BADGUYS then
-					bannerBuilding:SetOriginalModel("models/props_teams/banner_dire_small.vmdl")
-				end
-				playerData:SetBannerBuilding(bannerBuilding)
-
-				playerData:LookBuildings(
-					function(n, building)
-						building:SetBaseManaRegen(20)
-					end
-				)
+	--游戏开始
+		_G.Match_id = RandomInt(100000000, 999999999)
+		-- print(_G.Match_id)
+		for _, i in pairs( AllPlayers ) do
+			local pid = PlayerS[i].playerid
+			--local Player = PlayerResource:GetPlayer(pid)
+			--test
+			if not IsValidEntity(PlayerS[i].Hero) then 
+				PlayerS[i].Hero = CreateHeroForPlayer(GetRandomCommanderName(), PlayerResource:GetPlayer(pid))
+				PlayerS[i].Hero.SetControllableByPlayer(pid, true)
+				--Player:MakeRandomHeroSelection()
 			end
-		)
+			local lib_ent = Entities:FindByName(nil, "player_"..tostring(i).."_farmer_4")   --player_i_lib
+			PlayerS[i].Lib = UnitManager:CreateUnitByName("npc_dummy_lib", lib_ent:GetAbsOrigin() , false, pid, PlayerResource:GetTeam(pid)) 
+			PlayerS[i].Lib:SetControllableByPlayer(pid, true)
+			PlayerS[i].Lib:SetContextThink(DoUniqueString("lib"),
+				function()
+					PlayerS[i].Lib:SetOwner(PlayerS[i].Hero)
+					PlayerS[i].Lib:SetControllableByPlayer(pid, true)
+					return 2
+				end
+			,2)
 
-		--计时器
-		Game:SetNextRoundTime(GameRules:GetGameTime() + Game:GetRoundTime())
-		Game:SetNextEarnCrystalTime(GameRules:GetGameTime() + Game:GetEarnCrystalTime())
+			local pig_ent = Entities:FindByName(nil, "player_"..tostring(i).."_farmer_3")   --player_i_lib
+			PlayerS[i].Pig = UnitManager:CreateUnitByName("npc_dummy_pig", pig_ent:GetAbsOrigin() , false, pid, PlayerResource:GetTeam(pid)) 
+			PlayerS[i].Pig:SetControllableByPlayer(pid, true)
+			PlayerS[i].Pig:SetContextThink(DoUniqueString("pig"),
+				function()
+					PlayerS[i].Pig:SetOwner(PlayerS[i].Hero)
+					PlayerS[i].Pig:SetControllableByPlayer(pid, true)
+					return 2
+				end
+			,2)
+
+			local banner_ent = Entities:FindByName(nil, "player_"..tostring(i).."_farmer_2")   --player_i_lib
+			PlayerS[i].Banner = UnitManager:CreateUnitByName("npc_dummy_banner", banner_ent:GetAbsOrigin() , false, pid, PlayerResource:GetTeam(pid)) 
+			PlayerS[i].Banner:SetControllableByPlayer(pid, true)
+			if PlayerS[i].Hero:GetTeamNumber() == DOTA_TEAM_BADGUYS then
+				PlayerS[i].Banner:SetOriginalModel("models/props_teams/banner_dire_small.vmdl") 
+			end
+			PlayerS[i].Banner:SetContextThink(DoUniqueString("banner"),
+				function()
+					PlayerS[i].Banner:SetOwner(PlayerS[i].Hero)
+					PlayerS[i].Banner:SetControllableByPlayer(pid, true)
+					return 2
+				end
+			,2)
+
+			for x,v in pairs (PlayerS[i].Build) do
+				v:SetBaseManaRegen(20)
+			end
+
+		end
+		-- print("Player game begin")  --玩家开始游戏
+		-- 计时器
+		local last_time = GameRules:GetGameTime()
+		SetLastTime(GameRules:GetGameTime(),1)
+		SetLastTime(GameRules:GetGameTime(),2)
 		GameRules:GetGameModeEntity():SetContextThink("GlobalThink",
 			function()
-				local now = GameRules:GetGameTime()
-				RoundThinker(now)
-
-				if GameRules:State_Get() >= DOTA_GAMERULES_STATE_POST_GAME then
-					return nil
+				if IsServer() then
+					if GameRules:State_Get() == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS or GameRules:State_Get() == DOTA_GAMERULES_STATE_PRE_GAME then
+						local now = GameRules:GetGameTime()
+						CustomGameEventManager:Send_ServerToAllClients("updateroundprogressbar",{time=now-last_time,period=RoundThinker_Period})
+						RoundThinker(now)
+						if now - last_time >= RoundThinker_Period then
+							last_time = now
+							EmitGlobalSound("Tutorial.Quest.complete_01") -- game_sounds_music_tutorial中的音乐
+							local team1_win = true
+							local team2_win = true
+							local is_all_abandoned = true
+							local playercount = 0
+							for _, PlayerPosition in pairs(AllPlayers) do
+								local pid = PlayerCalc:GetPlayerIDByPosition(PlayerPosition)
+								if PlayerResource:GetConnectionState(pid) == DOTA_CONNECTION_STATE_ABANDONED then
+									if GetRound == 10 then
+										_G.Rank_mode = false
+									end
+								else
+									playercount = playercount + 1
+									is_all_abandoned = false
+									if PlayerResource:GetTeam(pid) == DOTA_TEAM_GOODGUYS then
+										team2_win = false
+									end
+									if PlayerResource:GetTeam(pid) == DOTA_TEAM_BADGUYS then
+										team1_win = false
+									end
+								end
+							end
+							if _G.PlayerCount == playercount then
+								team1_win = false
+								team2_win = false
+								is_all_abandoned = false
+							end
+							GameRules:GetGameModeEntity():SetContextThink(DoUniqueString("abandon_game"), 
+								function()
+									if is_all_abandoned then
+										_G.Rank_mode = false
+									end
+									if team1_win then
+							    		king_right:RemoveModifierByName('modifier_never_dead')
+										king_right:Kill(nil,king_left)
+										--GameRules:SendCustomMessage("#EnemyAbandonedLumiWin", -1, 0)
+									end
+									if team2_win then
+							    		king_left:RemoveModifierByName('modifier_never_dead')
+										king_left:Kill(nil,king_right)
+										--GameRules:SendCustomMessage("#EnemyAbandonedDarkWin", -1, 0)
+									end
+									return nil
+								end
+							, 15)
+						end
+					elseif GameRules:State_Get() >= DOTA_GAMERULES_STATE_POST_GAME then
+						return nil
+					end
 				end
-				return 0
+				return 0.05
 			end
-		,0)
+		,0.05)
 	end
 end
 CustomMessage = false
 --触发事件 单位重生和创建
 function CbtfGameMode:OnNPCSpawned( keys )
 	local trigger_unit = EntIndexToHScript(keys.entindex)
-	local trigger_unit_team_number = trigger_unit:GetTeamNumber()
+	local trigger_unit_team_number = trigger_unit:GetTeamNumber() 
 	--设置新生单位的朝向
 	if trigger_unit_team_number == DOTA_TEAM_GOODGUYS then
 		trigger_unit:SetForwardVector((Vector(2000,0,0) - Vector(-2000,0,0)):Normalized())--朝右
@@ -2323,29 +2498,57 @@ function CbtfGameMode:OnNPCSpawned( keys )
 
 	--是英雄的话 传送到开始点
 	if trigger_unit:IsRealHero() == true then
-		local hero = trigger_unit
-		local playerID = hero:GetPlayerOwnerID()
-		local playerData = PlayerData:GetPlayerData(playerID)
-
-		playerData:SetHero(hero)
+		--trigger_unit.Player=player
+		local pid = trigger_unit:GetPlayerOwnerID()
+		print("testpid"..pid)
+		local PlayerPosition = PlayerCalc:GetPlayerPositionByID(pid)
+		-- print("The player ID of that hero is " .. tostring(pid))
+		PlayerS[PlayerPosition].Hero=trigger_unit
 
 		if not CustomMessage then
 			CustomMessage = true
-			ShowCustomHeaderMessage("#SelectTime", playerID, hero:entindex(), 5)
+			ShowCustomHeaderMessage("#SelectTime", pid, PlayerS[PlayerPosition].Hero:entindex(), 5)
 		end
+		-- CustomUI:DynamicHud_Create(pid,"crystalshop","file://{resources}/layout/custom_game/crystalshop.xml",nil)
+		-- CustomUI:DynamicHud_Create(pid,"playerstates","file://{resources}/layout/custom_game/playerstates.xml",nil)
+		-- CustomUI:DynamicHud_Create(pid,"showmessage","file://{resources}/layout/custom_game/showmessage.xml",nil)
 
-		playerstarts:init(hero)
+		playerstarts:init(trigger_unit)
+		GameRules:GetGameModeEntity():SetContextThink(DoUniqueString("telepor_later"), function() FindClearSpaceForUnit(trigger_unit, PlayerS[PlayerPosition].StartPoint, true) end, 0.1)--传送到开始点
+		PlayerS[PlayerPosition].Hero = trigger_unit				--传递参数给玩家表
+		PlayerResource:SetCameraTarget(pid, trigger_unit) --锁定并移动镜头 	
+		GameRules:GetGameModeEntity():SetContextThink(DoUniqueString("camera_later"), function() PlayerResource:SetCameraTarget(pid, nil)  end, 2)--2秒后解锁
+		
+		trigger_unit:SetAbilityPoints(0)                --取消技能点   
+		--local j=0
+		-- for j = 0,15,1 do
+		-- 	local temp=trigger_unit:GetAbilityByIndex(j) --获取技能实体
+
+		-- 	if temp then
+		-- 		temp:SetLevel(1)                     --设置技能等级
+		-- 	end
+
+		-- end
+		for i = 0, 23 do
+			local ability = trigger_unit:GetAbilityByIndex(i)
+			if ability ~= nil then
+				if string.find(ability:GetAbilityName(), "special_bonus_") then
+					trigger_unit:RemoveAbility(ability:GetAbilityName())
+				end
+				ability:SetLevel(1)
+			end
+		end		
 	end
 end
 
 function GameWinner(winner_team)
 	local king
-	Game:SetWinnerTeam(winner_team)
+	_G.WinnerTeam = winner_team
 	if winner_team == DOTA_TEAM_GOODGUYS then
-		king = Game:GetRightKing()
+		king = king_right
 	end
 	if winner_team == DOTA_TEAM_BADGUYS then
-		king = Game:GetLeftKing()
+		king = king_left
 	end
 	GameRules:SetGameWinner(winner_team)
 	for _, i in pairs( AllPlayers ) do
@@ -2377,10 +2580,20 @@ function CbtfGameMode:OnEntityKilled(keys)
 	local killed_unit = EntIndexToHScript( keys.entindex_killed )
 	local killing_unit = EntIndexToHScript( keys.entindex_attacker )
 
-	if killed_unit == Game:GetLeftKing() then
+	if killing_unit and killed_unit then
+		local killed_player = killed_unit:GetPlayerOwnerID()
+		local killing_player = killing_unit:GetPlayerOwnerID()
+		if killing_player ~= -1 and killed_player ~= -1 then
+			if not HasLabel(killed_unit,"SummonUnit") then
+				local PlayerPosition = PlayerCalc:GetPlayerPositionByID(killing_player)
+				PlayerS[PlayerPosition].MVP_KillCount = PlayerS[PlayerPosition].MVP_KillCount + 1
+			end
+		end
+	end
+	if killed_unit == king_left then
 		GameWinner(DOTA_TEAM_BADGUYS)
 	end
-	if killed_unit == Game:GetRightKing() then
+	if killed_unit == king_right then
 		GameWinner(DOTA_TEAM_GOODGUYS)
 	end
 	if killed_unit then
@@ -2397,181 +2610,166 @@ end
 
 --记分牌
 function CbtfGameMode:UpdateScoreboard()
-	-- if IsServer() then
-	-- 	for _, PlayerPosition in pairs( AllPlayers ) do
-	-- 		local pid = PlayerCalc:GetPlayerIDByPosition(PlayerPosition)
-	-- 		PlayerS[PlayerPosition].Gold = PlayerResource:GetGold(pid)  --金币绑定
+	if IsServer() then
+		for _, PlayerPosition in pairs( AllPlayers ) do
+			local pid = PlayerCalc:GetPlayerIDByPosition(PlayerPosition)
+			PlayerS[PlayerPosition].Gold = PlayerResource:GetGold(pid)  --金币绑定
 
-	-- 		local hero = PlayerS[PlayerPosition].Hero
-	-- 		if hero then
-	-- 			PlayerS[PlayerPosition].Arms = 0
-	-- 			for i=0,5,1 do
-	-- 				local item = hero:GetItemInSlot(i)
-	-- 				if item then
-	-- 					PlayerS[PlayerPosition].Arms = PlayerS[PlayerPosition].Arms + item:GetCost()
-	-- 				end
-	-- 			end
-	-- 		end
+			local hero = PlayerS[PlayerPosition].Hero
+			if hero then
+				PlayerS[PlayerPosition].Arms = 0
+				for i=0,5,1 do
+					local item = hero:GetItemInSlot(i)
+					if item then
+						PlayerS[PlayerPosition].Arms = PlayerS[PlayerPosition].Arms + item:GetCost()
+					end
+				end
+			end
 
-	-- 		local GoldNum = PlayerS[PlayerPosition].Gold
-	-- 		local LumberNum = PlayerS[PlayerPosition].Lumber
-	-- 		local CurFoodNum = PlayerS[PlayerPosition].CurFood
-	-- 		local FullFoodNum = PlayerS[PlayerPosition].FullFood
-	-- 		local TechNum = PlayerS[PlayerPosition].Tech
-	-- 		local FarmerNum = PlayerS[PlayerPosition].FarmerNum
-	-- 		local ScoreNum = PlayerS[PlayerPosition].Score
-	-- 		local BaseIncomeNum = PlayerS[PlayerPosition].BaseIncome
-	-- 		local IncomeNum = PlayerS[PlayerPosition].Income
-	-- 		local ArmsNum = PlayerS[PlayerPosition].Arms
-	-- 		local ADLevel = PlayerS[PlayerPosition].ADLevel
-	-- 		local HLevel = PlayerS[PlayerPosition].HLevel
-	-- 		local HRLevel = PlayerS[PlayerPosition].HRLevel
+			local GoldNum = PlayerS[PlayerPosition].Gold
+			local LumberNum = PlayerS[PlayerPosition].Lumber
+			local CurFoodNum = PlayerS[PlayerPosition].CurFood
+			local FullFoodNum = PlayerS[PlayerPosition].FullFood
+			local TechNum = PlayerS[PlayerPosition].Tech
+			local FarmerNum = PlayerS[PlayerPosition].FarmerNum
+			local ScoreNum = PlayerS[PlayerPosition].Score
+			local BaseIncomeNum = PlayerS[PlayerPosition].BaseIncome
+			local IncomeNum = PlayerS[PlayerPosition].Income
+			local ArmsNum = PlayerS[PlayerPosition].Arms
+			local ADLevel = PlayerS[PlayerPosition].ADLevel
+			local HLevel = PlayerS[PlayerPosition].HLevel
+			local HRLevel = PlayerS[PlayerPosition].HRLevel
 
 
-	-- 		local BossADLevel = 0
-	-- 		local BossHLevel = 0
-	-- 		local BossHRLevel = 0
-	-- 		if king_left and king_right then
-	-- 			if PlayerResource:GetTeam(pid) == DOTA_TEAM_GOODGUYS then
-	-- 				BossADLevel = king_left:GetContext("attackdamagelevel")
-	-- 				BossHLevel = king_left:GetContext("healthlevel")
-	-- 				BossHRLevel = king_left:GetContext("healthregenlevel")
-	-- 			else
-	-- 				BossADLevel = king_right:GetContext("attackdamagelevel")
-	-- 				BossHLevel = king_right:GetContext("healthlevel")
-	-- 				BossHRLevel = king_right:GetContext("healthregenlevel")
-	-- 			end
-	-- 		end
-	-- 		if PlayerResource:IsValidPlayer(pid) then
-	-- 			local player = PlayerResource:GetPlayer(pid)
-	-- 			if IsValidEntity(player) then
-	-- 				CustomGameEventManager:Send_ServerToPlayer(player, "updateplayerstates",{
-	-- 					gold=GoldNum,
-	-- 					crystal=LumberNum,
-	-- 					baseincome=BaseIncomeNum,
-	-- 					income=IncomeNum,
-	-- 					score=ScoreNum,
-	-- 					woker=FarmerNum,
-	-- 					tech=TechNum,
-	-- 					food_count=CurFoodNum,
-	-- 					food_max=FullFoodNum,
-	-- 					ranking_level=PlayerS[PlayerPosition].ranking_level,
-	-- 					ranking_appellation=PlayerS[PlayerPosition].ranking_appellation,
-	-- 					ranking_score=PlayerS[PlayerPosition].ranking_score,
-	-- 					ranking_rank=PlayerS[PlayerPosition].ranking_rank,
-	-- 					bossadlevel=BossADLevel,
-	-- 					bosshlevel=BossHLevel,
-	-- 					bosshrlevel=BossHRLevel,
-	-- 				})--传递数据到玩家面板，更新玩家数据
-	-- 			end
-	-- 		end
-	-- 		CustomGameEventManager:Send_ServerToAllClients("updateflyoutscoreboard",{
-	-- 			position=PlayerPosition,
-	-- 			playerid=pid,
-	-- 			income=IncomeNum+BaseIncomeNum,
-	-- 			score=ScoreNum,
-	-- 			woker=FarmerNum,
-	-- 			tech=TechNum,
-	-- 			armaments=ArmsNum,
-	-- 			ranking_level=PlayerS[PlayerPosition].ranking_level,
-	-- 			ranking_appellation=PlayerS[PlayerPosition].ranking_appellation,
-	-- 			showtoother=(GetRound()>=8),
-	-- 			playerteam=PlayerResource:GetTeam(pid),
-	-- 			adlevel=ADLevel,
-	-- 			hlevel=HLevel,
-	-- 			hrlevel=HRLevel,
-	-- 			bossbool=(king_left and king_right),
-	-- 			boss1=king_left:GetEntityIndex(),
-	-- 			bosslife1=GameRules.LeftLife,
-	-- 			boss2=king_right:GetEntityIndex(),
-	-- 			bosslife2=GameRules.RightLife,
-	-- 		})--传递数据到积分板，更新玩家数据
-	-- 	end
-	-- 	CustomGameEventManager:Send_ServerToAllClients("updateround",{round=GetRound()})
-	-- end
-end
+			local BossADLevel = 0
+			local BossHLevel = 0
+			local BossHRLevel = 0
+			if king_left and king_right then
+				if PlayerResource:GetTeam(pid) == DOTA_TEAM_GOODGUYS then
+					BossADLevel = king_left:GetContext("attackdamagelevel")
+					BossHLevel = king_left:GetContext("healthlevel")
+					BossHRLevel = king_left:GetContext("healthregenlevel")
+				else
+					BossADLevel = king_right:GetContext("attackdamagelevel")
+					BossHLevel = king_right:GetContext("healthlevel")
+					BossHRLevel = king_right:GetContext("healthregenlevel")
+				end
+			end
+			if PlayerResource:IsValidPlayer(pid) then
+				local player = PlayerResource:GetPlayer(pid)
+				if IsValidEntity(player) then
+					CustomGameEventManager:Send_ServerToPlayer(player, "updateplayerstates",{
+						gold=GoldNum,
+						crystal=LumberNum,
+						baseincome=BaseIncomeNum,
+						income=IncomeNum,
+						score=ScoreNum,
+						woker=FarmerNum,
+						tech=TechNum,
+						food_count=CurFoodNum,
+						food_max=FullFoodNum,
+						ranking_level=PlayerS[PlayerPosition].ranking_level,
+						ranking_appellation=PlayerS[PlayerPosition].ranking_appellation,
+						ranking_score=PlayerS[PlayerPosition].ranking_score,
+						ranking_rank=PlayerS[PlayerPosition].ranking_rank,
+						bossadlevel=BossADLevel,
+						bosshlevel=BossHLevel,
+						bosshrlevel=BossHRLevel,
+					})--传递数据到玩家面板，更新玩家数据
+				end
+			end
+			CustomGameEventManager:Send_ServerToAllClients("updateflyoutscoreboard",{
+				position=PlayerPosition,
+				playerid=pid,
+				income=IncomeNum+BaseIncomeNum,
+				score=ScoreNum,
+				woker=FarmerNum,
+				tech=TechNum,
+				armaments=ArmsNum,
+				ranking_level=PlayerS[PlayerPosition].ranking_level,
+				ranking_appellation=PlayerS[PlayerPosition].ranking_appellation,
+				showtoother=(GetRound()>=8),
+				playerteam=PlayerResource:GetTeam(pid),
+				adlevel=ADLevel,
+				hlevel=HLevel,
+				hrlevel=HRLevel,
+				bossbool=(king_left and king_right),
+				boss1=king_left:GetEntityIndex(),
+				bosslife1=GameRules.LeftLife,
+				boss2=king_right:GetEntityIndex(),
+				bosslife2=GameRules.RightLife,
+			})--传递数据到积分板，更新玩家数据
+		end
+		CustomGameEventManager:Send_ServerToAllClients("updateround",{round=GetRound()})
+	end
+end	
 --初始化玩家
 function CbtfGameMode:InitPlayer(PlayerID,PlayerPosition)
-	-- PlayerCalc:SetPlayerIDPosition(PlayerID,PlayerPosition)
-	-- if PlayerS[PlayerPosition] == nil then--用位置来代替玩家ID
-	-- 	PlayerS[PlayerPosition] = {}
-	-- 	PlayerS[PlayerPosition].playerid = PlayerID
-	-- 	table.insert( AllPlayers, PlayerPosition)                                                         --加入全部玩家队伍
+	PlayerCalc:SetPlayerIDPosition(PlayerID,PlayerPosition)
+	if PlayerS[PlayerPosition] == nil then--用位置来代替玩家ID
+		PlayerS[PlayerPosition] = {}
+		PlayerS[PlayerPosition].playerid = PlayerID
+		table.insert( AllPlayers, PlayerPosition)                                                         --加入全部玩家队伍
 
-	-- 	local start_ent = Entities:FindByName(nil,"portal"..tostring(PlayerPosition))
-	-- 	local start_point = start_ent:GetAbsOrigin()
+		local start_ent = Entities:FindByName(nil,"portal"..tostring(PlayerPosition))
+		local start_point = start_ent:GetAbsOrigin() 
+									  
+		PlayerS[PlayerPosition].StartPoint = start_point  
 
-	-- 	PlayerS[PlayerPosition].StartPoint = start_point
+		PlayerS[PlayerPosition].Lumber = 0                 --定义初始木材  0
+		PlayerS[PlayerPosition].CurFood = 1                      --初始当前人口1
+		PlayerS[PlayerPosition].FullFood = 16                     --初始最大人口16            每次提升8
+		PlayerS[PlayerPosition].FarmerNum = 1                    --初始采集者数量 1         最多为8
+		PlayerS[PlayerPosition].Tech = 0                         --初始采集科技等级        最多为8
+		PlayerS[PlayerPosition].Score = 0                     --初始兵力
+		PlayerS[PlayerPosition].BaseIncome = 100                 --初始基础收入
+		PlayerS[PlayerPosition].Income = 0                       --初始额外收入
+		PlayerS[PlayerPosition].Arms = 0 						--初始军备
+						  --print(PlayerS[PlayerPosition].Gold)
+						  --print("player"..tostring(i).." gold is  "..PlayerS[PlayerPosition].Gold)
+		PlayerS[PlayerPosition].HireRoad = PlayerPosition 				--玩家默认的雇佣兵进攻路线
+		PlayerS[PlayerPosition].Unit = {}                                                                          --玩家单位 
+		PlayerS[PlayerPosition].Farmer = {}                                                                        --玩家采集者单位
+		PlayerS[PlayerPosition].Build = {}                                                                         --玩家的建筑
+		PlayerS[PlayerPosition].NewBuild = {}                                                                      --未出兵的建筑
+		PlayerS[PlayerPosition].Hire = {}                                                                          --玩家的佣兵
+		PlayerS[PlayerPosition].NewHire = {}
+		PlayerS[PlayerPosition].ItemNum = 0                                                                        --可拥有道具数量
+		PlayerS[PlayerPosition].Abhere = false                                                                     --固守状态
+		PlayerS[PlayerPosition].BuildTable = {"Q","W","E","D","F","G","R","X"}
+		PlayerS[PlayerPosition].TechLevel = 0                                                                      --科技等级
 
-	-- 	PlayerS[PlayerPosition].Lumber = 0                 --定义初始木材  0
-	-- 	PlayerS[PlayerPosition].CurFood = 1                      --初始当前人口1
-	-- 	PlayerS[PlayerPosition].FullFood = 16                     --初始最大人口16            每次提升8
-	-- 	PlayerS[PlayerPosition].FarmerNum = 1                    --初始采集者数量 1         最多为8
-	-- 	PlayerS[PlayerPosition].Tech = 0                         --初始采集科技等级        最多为8
-	-- 	PlayerS[PlayerPosition].Score = 0                     --初始兵力
-	-- 	PlayerS[PlayerPosition].BaseIncome = 100                 --初始基础收入
-	-- 	PlayerS[PlayerPosition].Income = 0                       --初始额外收入
-	-- 	PlayerS[PlayerPosition].Arms = 0 						--初始军备
-	-- 					  --print(PlayerS[PlayerPosition].Gold)
-	-- 					  --print("player"..tostring(i).." gold is  "..PlayerS[PlayerPosition].Gold)
-	-- 	PlayerS[PlayerPosition].HireRoad = PlayerPosition 				--玩家默认的雇佣兵进攻路线
-	-- 	PlayerS[PlayerPosition].Unit = {}                                                                          --玩家单位
-	-- 	PlayerS[PlayerPosition].Farmer = {}                                                                        --玩家采集者单位
-	-- 	PlayerS[PlayerPosition].Build = {}                                                                         --玩家的建筑
-	-- 	PlayerS[PlayerPosition].NewBuild = {}                                                                      --未出兵的建筑
-	-- 	PlayerS[PlayerPosition].Hire = {}                                                                          --玩家的佣兵
-	-- 	PlayerS[PlayerPosition].NewHire = {}
-	-- 	PlayerS[PlayerPosition].ItemNum = 0                                                                        --可拥有道具数量
-	-- 	PlayerS[PlayerPosition].Abhere = false                                                                     --固守状态
-	-- 	PlayerS[PlayerPosition].BuildTable = {"Q","W","E","D","F","G","R","X"}
-	-- 	PlayerS[PlayerPosition].TechLevel = 0                                                                      --科技等级
+		PlayerS[PlayerPosition].ADLevel = 0 		                                                               --王攻击强化等级
+		PlayerS[PlayerPosition].HLevel = 0 		                                                                   --王生命强化等级
+		PlayerS[PlayerPosition].HRLevel = 0 		                                                               --王回复强化等级
+		
+		PlayerS[PlayerPosition].ranking_score = 0
+		PlayerS[PlayerPosition].ranking_rank = 0
+		PlayerS[PlayerPosition].ranking_total = 0
+		PlayerS[PlayerPosition].ranking_per = 100
+		PlayerS[PlayerPosition].ranking_level = 1
+		PlayerS[PlayerPosition].ranking_appellation = 1
+		--MVP系统
+		PlayerS[PlayerPosition].MVP_DamageToKing = 0						--对王的伤害量
+		PlayerS[PlayerPosition].MVP_BreakGold = 0							--突破总奖励
+		PlayerS[PlayerPosition].MVP_KillCount = 0								--击杀
+		PlayerS[PlayerPosition].MVP_TotalLumer = 0							--总水晶
+		PlayerS[PlayerPosition].MVP_TotalGold = 0							--总金钱
 
-	-- 	PlayerS[PlayerPosition].ADLevel = 0 		                                                               --王攻击强化等级
-	-- 	PlayerS[PlayerPosition].HLevel = 0 		                                                                   --王生命强化等级
-	-- 	PlayerS[PlayerPosition].HRLevel = 0 		                                                               --王回复强化等级
+		PlayerS[PlayerPosition].Abandon = false
+		PlayerS[PlayerPosition].AbandonRound = 0
+		--HEX系统
+		PlayerS[PlayerPosition].hex_Q3 = false
 
-	-- 	PlayerS[PlayerPosition].ranking_score = 0
-	-- 	PlayerS[PlayerPosition].ranking_rank = 0
-	-- 	PlayerS[PlayerPosition].ranking_total = 0
-	-- 	PlayerS[PlayerPosition].ranking_per = 100
-	-- 	PlayerS[PlayerPosition].ranking_level = 1
-	-- 	PlayerS[PlayerPosition].ranking_appellation = 1
-	-- 	--MVP系统
-	-- 	PlayerS[PlayerPosition].MVP_DamageToKing = 0						--对王的伤害量
-	-- 	PlayerS[PlayerPosition].MVP_BreakGold = 0							--突破总奖励
-	-- 	PlayerS[PlayerPosition].MVP_KillCount = 0								--击杀
-	-- 	PlayerS[PlayerPosition].MVP_TotalLumer = 0							--总水晶
-	-- 	PlayerS[PlayerPosition].MVP_TotalGold = 0							--总金钱
+		--玩家设置
+		PlayerS[PlayerPosition].show_damage_message = false					--显示真实伤害
+		--测试模式
+		if _G.test_mode then
+			PlayerS[PlayerPosition].Lumber = 10000
+			PlayerS[PlayerPosition].Score = 20000
+		end
+	end
 
-	-- 	PlayerS[PlayerPosition].Abandon = false
-	-- 	PlayerS[PlayerPosition].AbandonRound = 0
-	-- 	--HEX系统
-	-- 	PlayerS[PlayerPosition].hex_Q3 = false
-
-	-- 	--玩家设置
-	-- 	PlayerS[PlayerPosition].show_damage_message = false					--显示真实伤害
-	-- 	--测试模式
-	-- 	if Game:IsTestMode() then
-	-- 		PlayerS[PlayerPosition].Lumber = 10000
-	-- 		PlayerS[PlayerPosition].Score = 20000
-	-- 	end
-	-- end
-
-	local playerData = PlayerData:GetPlayerData(PlayerID)
-	playerData:SetPlayerPosition(PlayerPosition)
-	playerData:ModifyGold(99999)
-	playerData:ModifyCrystal(99999)
-	playerData:SetScore(99999)
-	playerData:SetIncome(100, true)
-	playerData:SetIncome(0, false)
-	playerData:AddFarmer()
-	playerData:SetCurFood(1)
-	playerData:SetFullFood(16)
-
-	playerData:IncrementTotalGold(700)
-
-	--自定义数据
-	playerData:Save("hex_Q3", false)
 end
 
 
@@ -2581,12 +2779,16 @@ function CbtfGameMode:OnPlayerReconnected(keys)
 	local nReconnectedPlayerID = keys.PlayerID
 	if GameRules:State_Get() >= DOTA_GAMERULES_STATE_HERO_SELECTION then --判断是否进入了游戏
 		-- print("Reconnected Player is "..keys.PlayerID)
-		local playerData = PlayerData:GetPlayerData(nReconnectedPlayerID)
-		if playerData:GetHero() == nil then
-			local hero = CreateHeroForPlayer(GetRandomCommanderName(), PlayerResource:GetPlayer(nReconnectedPlayerID))
-			hero:SetControllableByPlayer(nReconnectedPlayerID, true)
-			playerData:SetHero(hero)
+		local PlayerPosition = PlayerCalc:GetPlayerPositionByID(nReconnectedPlayerID)
+		if not PlayerS[PlayerPosition].Hero then
+			PlayerS[PlayerPosition].Hero = CreateHeroForPlayer(GetRandomCommanderName(), PlayerResource:GetPlayer(nReconnectedPlayerID))
+		else
+			-- CustomUI:DynamicHud_Create(nReconnectedPlayerID,"crystalshop","file://{resources}/layout/custom_game/crystalshop.xml",nil)
+			-- CustomUI:DynamicHud_Create(nReconnectedPlayerID,"playerstates","file://{resources}/layout/custom_game/playerstates.xml",nil)
+			-- CustomUI:DynamicHud_Create(nReconnectedPlayerID,"showmessage","file://{resources}/layout/custom_game/showmessage.xml",nil)
 		end
+
+		PlayerS[PlayerPosition].show_damage_message = false					--显示真实伤害
 
 		GameRules:GetGameModeEntity():SetContextThink(DoUniqueString("OnPlayerReconnected"),
 			function()
@@ -2616,7 +2818,7 @@ function CbtfGameMode:OnPlayerReconnected(keys)
 			end
 		, 2)
 
-		PlayerResource:SetCameraTarget(nReconnectedPlayerID, nil) --解锁镜头
+		PlayerResource:SetCameraTarget(nReconnectedPlayerID, nil) --解锁镜头 	
 	end
 end
 
@@ -2661,3 +2863,69 @@ end
 		DZ 重甲  DS中甲  DW轻甲 DC城甲 DB无甲 DH英雄
 
 ]]
+	function runTable() 
+
+	AandD_table = 	table_new(1) 
+				{ 
+						BZ = 0.9,
+						BS = 1.3,
+						BW = 0.8,
+						BC = 0.9,
+						BB = 1,
+						BH = 0.85,
+						PZ = 0.8,
+						PS = 1,
+						PW = 1.3,
+						PC = 0.8,
+						PB = 1,
+						PH = 0.85,
+						MZ = 1.3,
+						MS = 0.8,
+						MW = 1.1,
+						MC = 0.7,
+						MB = 1,
+						MH = 0.85,
+						SZ = 0.9,
+						SS = 0.9,
+						SW = 0.8,
+						SC = 1.3,
+						SB = 1,
+						SH = 0.85,
+						LZ = 1.1,
+						LS = 1.1,
+						LW = 1.1,
+						LC = 1.1,
+						LB = 1.1,
+						LH = 1.1,
+						HZ = 1,
+						HS = 1,
+						HW = 1,
+						HC = 1,
+						HB = 1,
+						HH = 1,
+				}
+				  
+				rawset(_G, 'AandD_table', AandD_table) --声明全局变量
+				
+		-- print(AandD_table)
+
+
+		--if AllTypes == nil then
+			--AllTypes = { Q={},W={},E={},"D"={},"F"={},"R"={} }
+		--	AllTypes = {}
+		--end
+		--	AllTypes = {
+		--				Q={},
+		--				W={},
+		--				}		
+			--AllTypes["Q"] = {}
+			--AllTypes["W"] = {}
+
+
+	--AllTypes["Q"][1] = "Q1_00"
+
+		--AllTypes["W"][1] = "W1_00"
+		--rawset(_G, 'AllTypes', AllTypes) --声明全局变量
+		--print(getmetatable(_G).__index)
+		--print(getmetatable(_ENV).__newindex)
+		end

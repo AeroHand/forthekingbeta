@@ -77,8 +77,7 @@ if AbilityManager == nil then
 	AbilityManager = {}
 end
 
-function AbilityManager:AddAndSet(u_unit, s_ability_name)
-	if s_ability_name == nil or s_ability_name == "" then return end
+function AbilityManager:AddAndSet( u_unit, s_ability_name )
 	u_unit:AddAbility(s_ability_name)
 	a_ability = u_unit:FindAbilityByName(s_ability_name)
 	a_ability:SetLevel(1)
@@ -304,8 +303,8 @@ function UnitManager:AddDefaultAbility( u_unit )
 		end
 	end
 	if s_unit_name == "npc_unit_Q3_20_BZ" then
-		local playerData = PlayerData:GetPlayerData(u_unit:GetPlayerOwnerID())
-		if playerData:Load("hex_Q3") then
+		local PlayerPosition = PlayerCalc:GetPlayerPositionByID(u_unit:GetPlayerOwnerID())
+		if PlayerS[PlayerPosition].hex_Q3 == true then
 			local ab = AbilityManager:AddAndSet(u_unit, "jn_Q3_20z")
 			ab:ApplyDataDrivenModifier(u_unit, u_unit, "modifier_jn_Q3_20z", {})
 		end
@@ -313,11 +312,9 @@ function UnitManager:AddDefaultAbility( u_unit )
 	AbilityManager:AddAndSet(u_unit, "ability_dummy")
 end
 function UnitManager:CreateUnitByName(sUnitName, vLocation, bFindClearSpace, iPlayerID, iTeamNumber)
-	local playerData = PlayerData:GetPlayerData(iPlayerID)
-	local hero = playerData:GetHero()
-
+	local hero = PlayerS[PlayerCalc:GetPlayerPositionByID(iPlayerID)].Hero
 	local unit = CreateUnitByName(sUnitName, vLocation, bFindClearSpace, hero, hero, iTeamNumber)
-
+	unit:SetOwner(hero)
 	return unit
 end
 --从建筑创建单位
@@ -330,7 +327,7 @@ function UnitManager:CreateUnitByBuilding( u_building , s_ability_name)
 	local v_unit_point = u_building:GetAbsOrigin() 
 	local i_playerID = u_building:GetPlayerOwnerID()
 	local i_teamnumber = PlayerResource:GetTeam(i_playerID) 
-	local playerData = PlayerData:GetPlayerData(i_playerID)
+	local PlayerPosition = PlayerCalc:GetPlayerPositionByID(i_playerID)
 
 	local u_unit = UnitManager:CreateUnitByName( s_unit_name, v_unit_point, true, i_playerID, i_teamnumber)
 	local attack_type_name = UnitManager:GetAttackTypeFromName( s_unit_name )
@@ -359,7 +356,9 @@ function UnitManager:CreateUnitByBuilding( u_building , s_ability_name)
 	u_unit:SetContextThink(DoUniqueString("order_later"),
 		function()
 			ExecuteOrderFromTable(t_order)
-			playerData:AddSolider(u_unit)
+			if PlayerS[PlayerPosition].Unit then--BUG
+				table.insert(PlayerS[PlayerPosition].Unit,u_unit)
+			end
 		end
 	, 0)
 	--军备技能
@@ -375,7 +374,7 @@ function UnitManager:CreateUnitByBuilding( u_building , s_ability_name)
 	local item_armament_32_hero
 	local item
 
-		local hero = playerData:GetHero()
+		local hero = PlayerS[PlayerPosition].Hero
 		if hero:HasItemInInventory("item_armament_7") or hero:HasItemInInventory("item_armament_8") or hero:HasItemInInventory("item_armament_17") or hero:HasItemInInventory("item_armament_18") or hero:HasItemInInventory("item_armament_32") then
 			for i=0,5,1 do
 				item = hero:GetItemInSlot(i)
@@ -403,42 +402,48 @@ function UnitManager:CreateUnitByBuilding( u_building , s_ability_name)
 				end
 			end
 		end
-		PlayerData:Look(
-			function(playerID, playerData)
-				if PlayerResource:GetTeam(playerID) == hero:GetTeamNumber() and playerID ~= hero:GetPlayerOwnerID() then
-					local _hero = playerData:GetHero()
-					if _hero then
-						if _hero:HasItemInInventory("item_armament_7_level2") or _hero:HasItemInInventory("item_armament_8_level2") or _hero:HasItemInInventory("item_armament_17_level2") or _hero:HasItemInInventory("item_armament_18_level2") or _hero:HasItemInInventory("item_armament_32_level2") then
-							for i=0,5,1 do
-								item = _hero:GetItemInSlot(i)
-								if item then
-									if item:GetName() == "item_armament_7_level2" then
-										item_armament_7_hero = _hero
-										item_armament_7 = item
-									end
-									if item:GetName() == "item_armament_8_level2" then
-										item_armament_8_hero = _hero
-										item_armament_8 = item
-									end
-									if item:GetName() == "item_armament_17_level2" then
-										item_armament_17_hero = _hero
-										item_armament_17 = item
-									end
-									if item:GetName() == "item_armament_18_level2" then
-										item_armament_18_hero = _hero
-										item_armament_18 = item
-									end
-									if item:GetName() == "item_armament_32_level2" then
-										item_armament_32_hero = _hero
-										item_armament_32 = item
-									end
-								end
+		local n
+		local nmax
+		if i_teamnumber == DOTA_TEAM_GOODGUYS then
+			n = 1
+			nmax = 4
+		end
+		if i_teamnumber == DOTA_TEAM_BADGUYS then
+			n = 5
+			nmax = 8
+		end
+		for position=n,nmax,1 do
+			hero = PlayerS[position].Hero
+			if hero then
+				if hero:HasItemInInventory("item_armament_7_level2") or hero:HasItemInInventory("item_armament_8_level2") or hero:HasItemInInventory("item_armament_17_level2") or hero:HasItemInInventory("item_armament_18_level2") or hero:HasItemInInventory("item_armament_32_level2") then
+					for i=0,5,1 do
+						item = hero:GetItemInSlot(i)
+						if item then
+							if item:GetName() == "item_armament_7_level2" then
+								item_armament_7_hero = hero
+								item_armament_7 = item
+							end
+							if item:GetName() == "item_armament_8_level2" then
+								item_armament_8_hero = hero
+								item_armament_8 = item
+							end
+							if item:GetName() == "item_armament_17_level2" then
+								item_armament_17_hero = hero
+								item_armament_17 = item
+							end
+							if item:GetName() == "item_armament_18_level2" then
+								item_armament_18_hero = hero
+								item_armament_18 = item
+							end
+							if item:GetName() == "item_armament_32_level2" then
+								item_armament_32_hero = hero
+								item_armament_32 = item
 							end
 						end
 					end
 				end
 			end
-		)
+		end
 
 	if item_armament_7 then
 		if RandomInt(0,100) <= item_armament_7:GetSpecialValueFor("chance") then
@@ -486,9 +491,9 @@ function UnitManager:SummonUnit(u_caster,u_unit)
 	local v_unit_point = u_unit:GetAbsOrigin()
 	local s_unit_type = string.sub(s_unit_name, -8, -4)
 	local i_teamnumber = PlayerResource:GetTeam(i_playerID)
-	local playerData = PlayerData:GetPlayerData(i_playerID)
+	local PlayerPosition = PlayerCalc:GetPlayerPositionByID(i_playerID)
 
-	u_unit:SetOwner(playerData:GetHero())
+	u_unit:SetOwner(PlayerS[PlayerPosition].Hero)
 	u_unit:SetControllableByPlayer(-1,true)
 	local attack_type_name = UnitManager:GetAttackTypeFromName( s_unit_name )
 	local defend_type_name = UnitManager:GetDefendTypeFromName( s_unit_name )
@@ -517,7 +522,9 @@ function UnitManager:SummonUnit(u_caster,u_unit)
 	u_unit:SetContextThink(DoUniqueString("order_later"),
 		function()
 			ExecuteOrderFromTable(t_order)
-			playerData:AddSolider(u_unit)
+			if PlayerS[PlayerPosition].Unit then
+				table.insert(PlayerS[PlayerPosition].Unit,u_unit)
+			end
 		end
 	, 0)
 
@@ -552,9 +559,8 @@ function UnitManager:HireUnit(i_playerID,s_item,position)
 	local s_unit_name = UnitManager:GetHireNameByItemName(s_item)
 	local s_unit_type = string.sub(s_unit_name, -8, -4)
 	local i_teamnumber = PlayerResource:GetTeam(i_playerID)
-	local playerData = PlayerData:GetPlayerData(i_playerID)
-	local _playerData = PlayerData:GetPlayerDataByPosition(position)
-	local v_unit_point = _playerData:GetMercenaryPoint()+RandomVector(150)
+	local PlayerPosition = PlayerCalc:GetPlayerPositionByID(i_playerID)
+	local v_unit_point = Entities:FindByName(nil, "hire_"..tostring(position)):GetAbsOrigin()+RandomVector(150)
 
 	local u_unit = UnitManager:CreateUnitByName( s_unit_name,v_unit_point, true, i_playerID, i_teamnumber)
 	local attack_type_name = UnitManager:GetAttackTypeFromName( s_unit_name )
@@ -564,8 +570,12 @@ function UnitManager:HireUnit(i_playerID,s_item,position)
 
 	u_unit:SetContextThink(DoUniqueString("order_later"),
 		function()
-			playerData:AddMercenary(u_unit)
-			_playerData:AddNewMercenary(u_unit)
+			if PlayerS[position].NewHire then
+				table.insert(PlayerS[position].NewHire,u_unit)
+			end
+			if PlayerS[PlayerPosition].Hire then
+				table.insert(PlayerS[PlayerPosition].Hire,u_unit)
+			end
 		end
 	,0)
 
@@ -595,7 +605,7 @@ function UnitManager:CreateGeneral(i_playerID,s_item)
 	local s_unit_name = UnitManager:GetGeneralNameByItemName(s_item)
 	local s_unit_type = string.sub(s_unit_name, -8, -4)
 	local i_teamnumber = PlayerResource:GetTeam(i_playerID)
-	local playerData = PlayerData:GetPlayerData(i_playerID)
+	local PlayerPosition = PlayerCalc:GetPlayerPositionByID(i_playerID)
 	local x = RandomInt(1,7)
 	local v_unit_point
 	if i_teamnumber == DOTA_TEAM_GOODGUYS then
@@ -608,7 +618,7 @@ function UnitManager:CreateGeneral(i_playerID,s_item)
 	local u_unit = UnitManager:CreateUnitByName( s_unit_name,v_unit_point, true, i_playerID, i_teamnumber)
 	local attack_type_name = UnitManager:GetAttackTypeFromName( s_unit_name )
 	local defend_type_name = UnitManager:GetDefendTypeFromName( s_unit_name )
-	CreateAandDSystem(u_unit, attack_type_name, defend_type_name)
+	CreateAandDSystem(u_unit,attack_type_name,defend_type_name)
 	if s_item == "general_1" then
 		if i_teamnumber == DOTA_TEAM_GOODGUYS then
 			AbilityManager:AddAndSet( u_unit, "jn_king_20_left" )
@@ -640,7 +650,9 @@ function UnitManager:CreateGeneral(i_playerID,s_item)
 	u_unit:SetContextThink(DoUniqueString("order_later"),
 		function()
 			ExecuteOrderFromTable(t_order)
-			playerData:AddSolider(u_unit)
+			if PlayerS[PlayerPosition].Unit then
+				table.insert(PlayerS[PlayerPosition].Unit,u_unit)
+			end
 		end
 	, 0)
 

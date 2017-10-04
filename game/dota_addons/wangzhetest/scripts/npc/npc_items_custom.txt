@@ -3110,7 +3110,7 @@
 			"01"
 			{
 				"var_type"			"FIELD_INTEGER"
-				"attackspeed"		"120"
+				"attackspeed"		"70"
 			}
 			"02"
 			{
@@ -3189,7 +3189,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"attackdamamagepercent"	"8 16 24"
+				"attackdamamagepercent"	"8 13 18"
 			}
 		}
 		"OnEquip"
@@ -3303,7 +3303,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"attackdamamagepercent"	"8 16 24"
+				"attackdamamagepercent"	"8 13 18"
 			}
 		}
 		"OnEquip"
@@ -3417,7 +3417,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"attackdamamagepercent"	"8 16 24"
+				"attackdamamagepercent"	"8 13 18"
 			}
 		}
 		"OnEquip"
@@ -3756,7 +3756,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"attackdamamagepercent"	"10 20 30"
+				"attackdamamagepercent"	"10 15 20"
 			}
 		}
 		"OnEquip"
@@ -3870,7 +3870,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"attackdamamagepercent"	"10 20 30"
+				"attackdamamagepercent"	"10 15 20"
 			}
 		}
 		"OnEquip"
@@ -3984,7 +3984,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"attackdamamagepercent"	"10 20 30"
+				"attackdamamagepercent"	"10 15 20"
 			}
 		}
 		"OnEquip"
@@ -4289,7 +4289,7 @@
 		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_BASIC"
 
-		"ItemCost"					"250"
+		"ItemCost"					"300"
 		"ItemDroppable"				"0"
 		"ItemSellable"				"1"
 

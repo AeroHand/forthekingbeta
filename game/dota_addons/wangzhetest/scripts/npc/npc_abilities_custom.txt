@@ -1190,7 +1190,7 @@
 				"IsBuff"			"1"
 				"IsDebuff"			"0"
 				"IsStunDebuff"		"0"
-				"EffectName"		"particles/items2_fx/rod_of_atos_debuff.vpcf"
+				"EffectName"		"particles/items2_fx/rod_of_atos.vpcf"
 				"EffectAttachType"	"follow_origin"
 				"Properties"
 				{
@@ -2575,10 +2575,7 @@
 }
 
 
-//  1   2   3   4|  5   6   7   8|  9  10  11  12  13  14  15  16
-// 38  38  47  47| 56  56  65  65| 70  70  75  75  80  80  85  85
-//100 150 200 250|300 350 400 450|500 550 600 650 700 750 800 850
-//100 110 120 130|140 150 160 170|180 190 200 210 220 230 240 250
+
 //脡媒录露驴脝录录
 "Up_Tech1"
 {
@@ -2586,19 +2583,19 @@
 	"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELLED"
 	"AbilityManaCost" "0"
 	"AbilityTextureName" "custom/lumber_tech"
-	"AbilityChannelTime" "38 38 47 47"
+	"AbilityChannelTime" "38 38 47 47 56"
 	"AbilityType" "DOTA_ABILITY_TYPE_BASIC"
 	"HotKeyOverride"    "T"//驴矛陆脻录眉
-	"MaxLevel"                  "4"
-	"AbilityGoldCost"         "100 150 200 250" //禄篓路脩陆冒脟庐
-	"AbilityManaCost"         "100 110 120 130" //禄篓路脩脛戮虏脛
-	"AbilityCooldown" "38 38 47 47"
+	"MaxLevel"                  "9"
+	"AbilityGoldCost"         "100 150 200 250 300" //禄篓路脩陆冒脟庐
+	"AbilityManaCost"         "100 110 120 130 140" //禄篓路脩脛戮虏脛
+	"AbilityCooldown" "38 38 47 47 56"
 	"OnSpellStart"
 	{ 
 		"RunScript"
 		{ 
 		"ScriptFile"      "scripts/vscripts/building.lua"
-		"Function"        "UpCrystalTechStart"
+		"Function"        "UpTechStart"
 		}
 	}
 
@@ -2606,7 +2603,7 @@
 	{
 	  "RunScript"
 	  { "ScriptFile"      "scripts/vscripts/building.lua"
-		"Function"        "UpCrystalTechCancel"
+		"Function"        "UpTechCancel"
 	  }
 	}
 
@@ -2615,7 +2612,7 @@
 		"RunScript"
 		{ 
 		"ScriptFile"      "scripts/vscripts/building.lua"
-		"Function"        "UpCrystalTechSuccess"
+		"Function"        "UpTechSuccess"
 		}
 	}
 				   "AbilitySpecial"
@@ -2623,19 +2620,19 @@
 						"99"
 						{
 							"var_type"	"FIELD_INTEGER"
-							"GoldCost"	"100 150 200 250"
+							"GoldCost"	"100 150 200 250 300"
 						}
 
 						"01" //陆冒脟庐脧没潞脛
 						{
 								"var_type"                "FIELD_INTEGER"
-								"money"                        "100 150 200 250"
+								"money"                        "100 150 200 250 300"
 						}
 
 						"02" //脣庐戮搂脧没潞脛
 						{
 								"var_type"                "FIELD_INTEGER"
-								"lumber"                        "100 110 120 130"
+								"lumber"                        "100 110 120 130 140"
 						}
 
 				}
@@ -2652,7 +2649,7 @@
 	"AbilityChannelTime" "56 56 65 65"
 	"AbilityType" "DOTA_ABILITY_TYPE_BASIC"
 	"HotKeyOverride"    "T"//驴矛陆脻录眉
-	"MaxLevel"                  "4"
+	"MaxLevel"                  "9"
 	"AbilityGoldCost"         "300 350 400 450" //禄篓路脩陆冒脟庐
 	"AbilityManaCost"         "140 150 160 170" //禄篓路脩脛戮虏脛
 	"AbilityCooldown" "56 56 65 65"
@@ -2661,7 +2658,7 @@
 		"RunScript"
 		{ 
 		"ScriptFile"      "scripts/vscripts/building.lua"
-		"Function"        "UpCrystalTechStart"
+		"Function"        "UpTechStart"
 		}
 	}
 
@@ -2669,7 +2666,7 @@
 	{
 	  "RunScript"
 	  { "ScriptFile"      "scripts/vscripts/building.lua"
-		"Function"        "UpCrystalTechCancel"
+		"Function"        "UpTechCancel"
 	  }
 	}
 
@@ -2678,7 +2675,7 @@
 		"RunScript"
 		{ 
 		"ScriptFile"      "scripts/vscripts/building.lua"
-		"Function"        "UpCrystalTechSuccess"
+		"Function"        "UpTechSuccess"
 		}
 	}
 				   "AbilitySpecial"
@@ -2712,19 +2709,19 @@
 	"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELLED"
 	"AbilityManaCost" "0"
 	"AbilityTextureName" "custom/lumber_tech"
-	"AbilityChannelTime" "70 70 75 75 80 80 85 85"
+	"AbilityChannelTime" "65 65 70 70 75 75 80 80 85"
 	"AbilityType" "DOTA_ABILITY_TYPE_BASIC"
 	"HotKeyOverride"    "T"//驴矛陆脻录眉
-	"MaxLevel"                  "8"
-	"AbilityGoldCost"         "500 550 600 650 700 750 800 850" //禄篓路脩陆冒脟庐
-	"AbilityManaCost"         "180 190 200 210 220 230 240 250" //禄篓路脩脛戮虏脛
-	"AbilityCooldown" "70 70 75 75 80 80 85 85"
+	"MaxLevel"                  "9"
+	"AbilityGoldCost"         "450 500 550 600 650 700 750 800 850" //禄篓路脩陆冒脟庐
+	"AbilityManaCost"         "170 180 190 200 210 220 230 240 250" //禄篓路脩脛戮虏脛
+	"AbilityCooldown" "65 65 70 70 75 75 80 80 85"
 	"OnSpellStart"
 	{ 
 		"RunScript"
 		{ 
 		"ScriptFile"      "scripts/vscripts/building.lua"
-		"Function"        "UpCrystalTechStart"
+		"Function"        "UpTechStart"
 		}
 	}
 
@@ -2732,7 +2729,7 @@
 	{
 	  "RunScript"
 	  { "ScriptFile"      "scripts/vscripts/building.lua"
-		"Function"        "UpCrystalTechCancel"
+		"Function"        "UpTechCancel"
 	  }
 	}
 
@@ -2741,7 +2738,7 @@
 		"RunScript"
 		{ 
 		"ScriptFile"      "scripts/vscripts/building.lua"
-		"Function"        "UpCrystalTechSuccess"
+		"Function"        "UpTechSuccess"
 		}
 	}
 				   "AbilitySpecial"
@@ -2749,19 +2746,19 @@
 						"99"
 						{
 							"var_type"	"FIELD_INTEGER"
-							"GoldCost"	"500 550 600 650 700 750 800 850"
+							"GoldCost"	"450 500 550 600 650 700 750 800 850"
 						}
 
 						"01" //陆冒脟庐脧没潞脛
 						{
 								"var_type"                "FIELD_INTEGER"
-								"money"                        "500 550 600 650 700 750 800 850"
+								"money"                        "450 500 550 600 650 700 750 800 850"
 						}
 
 						"02" //脣庐戮搂脧没潞脛
 						{
 								"var_type"                "FIELD_INTEGER"
-								"lumber"                        "180 190 200 210 220 230 240 250"
+								"lumber"                        "170 180 190 200 210 220 230 240 250"
 						}
 
 				}
@@ -4528,7 +4525,7 @@
 	
 	"AbilityTextureName" "custom/W3_00"//脥录卤锚 潞脥录录脛脺脥卢脙没
 	"AbilityChannelTime" "1.5"
-	"AbilityGoldCost"         "65" //禄篓路脩陆冒脟庐
+	"AbilityGoldCost"         "75" //禄篓路脩陆冒脟庐
 	"AbilityManaCost"          "1"//禄篓路脩脠脣驴脷
 	"HotKeyOverride"    "W"//驴矛陆脻录眉 
 	"AbilityCastAnimation"	"ACT_DOTA_IDLE"
@@ -4537,7 +4534,7 @@
 		"99"
 		{
 			"var_type"	"FIELD_INTEGER"
-			"GoldCost"	"65"
+			"GoldCost"	"75"
 		}
 	}
 	"OnSpellStart"
@@ -4587,7 +4584,7 @@
 	
 	"AbilityTextureName" "custom/W3_10"//脥录卤锚 潞脥录录脛脺脥卢脙没
 	"AbilityChannelTime" "1.5"
-	"AbilityGoldCost"         "130" //禄篓路脩陆冒脟庐
+	"AbilityGoldCost"         "140" //禄篓路脩陆冒脟庐
 	"AbilityManaCost"          "1"//禄篓路脩脠脣驴脷
 	"HotKeyOverride"    "W"//驴矛陆脻录眉 
 	"AbilityCastAnimation"	"ACT_DOTA_IDLE"
@@ -4596,7 +4593,7 @@
 		"99"
 		{
 			"var_type"	"FIELD_INTEGER"
-			"GoldCost"	"130"
+			"GoldCost"	"140"
 		}
 	}
 	"OnSpellStart"
@@ -4646,7 +4643,7 @@
 	
 	"AbilityTextureName" "custom/W3_20"//脥录卤锚 潞脥录录脛脺脥卢脙没
 	"AbilityChannelTime" "1.5"
-	"AbilityGoldCost"         "150" //禄篓路脩陆冒脟庐
+	"AbilityGoldCost"         "160" //禄篓路脩陆冒脟庐
 	"AbilityManaCost"          "1"//禄篓路脩脠脣驴脷
 	"HotKeyOverride"    "W"//驴矛陆脻录眉 
 	"AbilityCastAnimation"	"ACT_DOTA_IDLE"
@@ -4655,7 +4652,7 @@
 		"99"
 		{
 			"var_type"	"FIELD_INTEGER"
-			"GoldCost"	"150"
+			"GoldCost"	"160"
 		}
 	}
 	"OnSpellStart"
@@ -6332,7 +6329,7 @@
 	"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELLED"
 	"AbilityTextureName" "custom/D4_00"//脥录卤锚 潞脥录录脛脺脥卢脙没
 	"AbilityChannelTime" "1.5"
-	"AbilityGoldCost"         "275" //禄篓路脩陆冒脟庐
+	"AbilityGoldCost"         "325" //禄篓路脩陆冒脟庐
 	"AbilityManaCost"          "2"//禄篓路脩脠脣驴脷
 	"HotKeyOverride"    "D"//驴矛陆脻录眉 
 	"AbilityCastAnimation"	"ACT_DOTA_IDLE"
@@ -6341,7 +6338,7 @@
 		"99"
 		{
 			"var_type"	"FIELD_INTEGER"
-			"GoldCost"	"275"
+			"GoldCost"	"325"
 		}
 	}
 	"OnSpellStart"
@@ -11845,7 +11842,7 @@
 	
 	"AbilityTextureName" "custom/X8_00"//脥录卤锚 
 	"AbilityChannelTime" "3"
-	"AbilityGoldCost"         "650" //禄篓路脩陆冒脟庐
+	"AbilityGoldCost"         "600" //禄篓路脩陆冒脟庐
 	"AbilityManaCost"          "5"//禄篓路脩脠脣驴脷
 	"HotKeyOverride"    "X"//驴矛陆脻录眉 
 	"AbilityCastAnimation"	"ACT_DOTA_IDLE"
@@ -11859,7 +11856,7 @@
 		"99"
 		{
 			"var_type"	"FIELD_INTEGER"
-			"GoldCost"	"650"//禄篓路脩陆冒脟庐
+			"GoldCost"	"600"//禄篓路脩陆冒脟庐
 		}
 	}
 	"OnSpellStart"
@@ -11909,7 +11906,7 @@
 	
 	"AbilityTextureName" "custom/X8_10"//脥录卤锚 
 	"AbilityChannelTime" "3"
-	"AbilityGoldCost"         "900" //禄篓路脩陆冒脟庐
+	"AbilityGoldCost"         "750" //禄篓路脩陆冒脟庐
 	"AbilityManaCost"          "4"//禄篓路脩脠脣驴脷
 	"HotKeyOverride"    "X"//驴矛陆脻录眉 
 	"AbilityCastAnimation"	"ACT_DOTA_IDLE"
@@ -11923,7 +11920,7 @@
 		"99"
 		{
 			"var_type"	"FIELD_INTEGER"
-			"GoldCost"	"900"//禄篓路脩陆冒脟庐
+			"GoldCost"	"1100"//禄篓路脩陆冒脟庐
 		}
 	}
 	"OnSpellStart"
@@ -12144,22 +12141,21 @@
   { 
 	  "RunScript"
 	  { 
-		"ScriptFile"      "scripts/vscripts/building.lua"
-		"Function"        "conditions"        
-		"hex"			"hex_Q3"
+	  "ScriptFile"      "scripts/vscripts/building.lua"
+	  "Function"        "hex_conditions"        
 	  }
   }
 	"OnChannelSucceeded"
 	{
 		"ReplaceUnit"
 		{
-			"UnitName"      "npc_unit_Q3_2z_BB"
+			"UnitName"      "npc_unit_Q3_2z"
 			"Target"        "CASTER"
 			"OnSpawn"
 			{
 			  "RunScript"
 			  { "ScriptFile"      "scripts/vscripts/building.lua"
-				"Function"        "buildbuilding"
+				"Function"        "hex_build"
 				"hex"			"hex_Q3"
 			  }
 			}
@@ -13644,12 +13640,12 @@
 		"02"
 		{
 			"var_type"			"FIELD_INTEGER"
-			"maxattackdamage"	"400"
+			"maxattackdamage"	"20"
 		}
 		"03"
 		{
 			"var_type"			"FIELD_INTEGER"
-			"radius"			"500"
+			"radius"			"400"
 		}
 	}
 	"Modifiers"
@@ -18476,17 +18472,17 @@
 		"01"
 		{
 			"var_type"			"FIELD_INTEGER"
-			"maxcount"			"6"
+			"maxcount"			"5"
 		}
 		"02"
 		{
 			"var_type"			"FIELD_INTEGER"
-			"attackdamage"		"6"
+			"attackdamage"		"2"
 		}
 		"03"
 		{
 			"var_type"			"FIELD_INTEGER"
-			"attackspeed"		"6"
+			"attackspeed"		"2"
 		}
 	}
 	"Modifiers"
@@ -23397,7 +23393,7 @@
 		"02"
 		{
 			"var_type"			"FIELD_INTEGER"
-			"radius"			"500"
+			"radius"			"300"
 		}
 	}
 	"Modifiers"
@@ -23444,7 +23440,7 @@
 		"02"
 		{
 			"var_type"			"FIELD_INTEGER"
-			"radius"			"700"
+			"radius"			"300"
 		}
 	}
 	"Modifiers"

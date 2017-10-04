@@ -194,39 +194,3 @@ new item: teleport rod. can teleport a friendly unit to any place on the map.
 9 split attack drow ranger's attack dmg increase by 5
 10 lv2 dazzle's chaos green dot's dmg increase from 10 to 15 and shooting rate from 0.33s to 0.3s
 11 lv2 centuar's stomp range increase to 300 and stun duration to 2s
-
-
-1 一级屠夫血量从1650降低至1450 价格从600提高至650 二级屠夫血量从2450降低至2250
-2 修复了传送权杖对雕像使用会进入cd的bug
-3 3种小骷髅的价格全部下降10点
-4 狂狼的光环上限从20点提高至400点 范围从400提高至500
-5 深海鱼龙勾结的每个雕像加成从2点攻击提高至6点攻击 从2%攻速提高至6%攻速 最多雕像数量从5个提高至6个
-6 阔剑提供的攻击力从8%/13%/18%提高至8%/16%/24%
-7 鹰歌弓提供的攻击力从10%/15%/20%提高至10%/20%/30%
-8 疯脸提供的攻速从70提高至120
-9 穷鬼盾价格从300降低至250
-
-1 lv1 pudge's hp reduce from 1650 to 1450, price increase from 600 to 650, lv2 pudge's hp reduce from 2450 to 2250
-2 fix the bug that if you use teleport rod to your statue it will goes into cool down
-3 all bone archers price decrease by 10! its skeleton on sale now!
-4 lv3.1 wolf's aura's attack limit increase from 20 to 400, radius increase from 400 to 500
-5 bashing slardar's bonus dmg per statue increase from 2 to 6, attack spd from 2% to 6% and max statue count increase from 5 to 6
-6 broadsword's attack bonus increase from 8%/13%/18% to 8%/16%/24%
-7 eaglesong's attack bonus increase from 10%/15%/20% to 10%/20%/30%
-8 mask of madness' attack spd boost increase from 70 to 120
-9 poorman shield's price decrease from 300 to 250
-
-9.29
-1 修复了玩家在选英雄时不选而使用系统随机的英雄开始游戏后无法建造的bug
-2 修复了尸王的介绍里的攻速
-3 2级屠夫价格从1100降低至900 (上次更新时误将其改成了1100)
-4 江湖劫匪的血量削弱100点 技能描述更新
-5 1级小强的反弹光环范围从300增加至500 2级小强的光环范围从300增加至700
-6 1级影魔的攻击范围从300降低至90 价格从325降低至275
-
-1 fix the bug that if player start the game without picking a hero, he won't be able to build anything with the system randomed hero, now he can
-2 fix undying's tooltip for atk spd
-3 lv2 pudge's price adjust from 1100 to 900 (it was mistakely changed to 1100 last patch without noticing anyone, sry for that)
-4 lv3.2 meepo's hp nerf from 900 to 800, fix the tooltip
-5 lv1 nyx' aura range increase from 300 to 500 lv2.1 nyx' aura range increase from 300 to 700
-6 lv1 shadow fiend's atk range decrease from 300 to 90, price decrease from 325 to 275

@@ -8676,7 +8676,7 @@
 	"AttackRate"                "1.35"                       // 攻击间隔
 	"ProjectileModel"           "particles/units/heroes/hero_nevermore/nevermore_base_attack.vpcf"                          // 投射物，填写特效路径，只有投射物特效才行
 	"ProjectileSpeed"           "900"                       // 投射速率
-	"AttackRange"               "90"                       // 攻击范围
+	"AttackRange"               "300"                       // 攻击范围
 	// Armor
 	//----------------------------------------------------------------
 	"ArmorPhysical"             "3"         // 基础护甲
@@ -18806,7 +18806,7 @@
 	"AttackDamageMin"           "34"                         // 最小伤害
 	"AttackDamageMax"           "35"                         // 最大伤害
 	"ArmorPhysical"             "3"         // 基础护甲
-	"StatusHealth"              "800"       // 基础生命值
+	"StatusHealth"              "900"       // 基础生命值
 	"BountyGoldMin"             "2"         // 最小金钱奖励
 	"BountyGoldMax"             "2"         // 最大金钱奖励
 	"StatusManaRegen"           "0"         // 魔法恢复速度
@@ -23574,7 +23574,7 @@
 
 }
 //邪法碑
-	"npc_unit_Q3_2z_BB"
+	"npc_unit_Q3_2z"
 {
 	"BaseClass"                 "npc_dota_creature"     // 单位继承的类，这个类有很多，一般我们用npc_dota_creature
 	"Model"                     "models/heroes/phantom_assassin/arcana_tombstone.vmdl"//"models/heroes/pedestal/pedestal_1.vmdl"
@@ -23618,7 +23618,7 @@
 	"Ability5"                  ""          // 技能 5.
 	"Ability6"                  ""          // 技能 6
 	"Ability7"                  ""          // 技能 7 -最高就显示6个技能，后面添加的技能将不显示
-	"Ability8"                  ""          // 技能 8 -最高就显示6个技能，后面添加的技能将不显示
+	"Ability8"                  "kexuanmajia"          // 技能 8 -最高就显示6个技能，后面添加的技能将不显示
 	"AbilityLayout"             "4"          // 技能槽数量，最低4个，最高为6个，技能不多默认即可
  
 	// Attack
@@ -24619,7 +24619,7 @@
 	"AttackDamageMin"           "58"                         // 最小伤害
 	"AttackDamageMax"           "67"                         // 最大伤害
 	"ArmorPhysical"             "3"         // 基础护甲
-	"StatusHealth"              "1450"       // 基础生命值
+	"StatusHealth"              "1650"       // 基础生命值
 	"BountyGoldMin"             "10"         // 最小金钱奖励
 	"BountyGoldMax"             "10"         // 最大金钱奖励
 	"StatusManaRegen"           "5"         // 魔法恢复速度
@@ -24748,7 +24748,7 @@
 	"AttackDamageMin"           "88"                         // 最小伤害
 	"AttackDamageMax"           "107"                         // 最大伤害
 	"ArmorPhysical"             "3"         // 基础护甲
-	"StatusHealth"              "2250"       // 基础生命值
+	"StatusHealth"              "2450"       // 基础生命值
 	"BountyGoldMin"             "10"         // 最小金钱奖励
 	"BountyGoldMax"             "10"         // 最大金钱奖励
 	"StatusManaRegen"           "5"         // 魔法恢复速度

@@ -74,23 +74,19 @@
 	{
 		width: 322px;
 		height: 50px;
-		background-image: url(file://{images}/custom_game/RoundProgressBarBG.png);
+		background-image: url(file://{images}/custom_game/RoundProgressBarBG.psd);
 		background-size: 100%;
 	}
 		#RoundProgressBarOverlay
 		{
 			width: 50%;
 			height: 100%;
-			background-image: url(file://{images}/custom_game/RoundProgressBar.png);
+			background-image: url(file://{images}/custom_game/RoundProgressBar.psd);
 			background-size: 200% 100%;
 			background-repeat: no-repeat;
 			background-position: 0% 50%;
-
-			transition-duration: 0s;
-			transition-property: width, background-size;
-			transition-timing-function: ease-in-out;
 		}
 		.full #RoundProgressBarOverlay
 		{
-			background-image: url(file://{images}/custom_game/RoundProgressBarFull.png);
+			background-image: url(file://{images}/custom_game/RoundProgressBarFull.psd);
 		}

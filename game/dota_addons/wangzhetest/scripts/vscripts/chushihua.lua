@@ -23,8 +23,8 @@ function chushihua:SpawnBuildBase()
 	CreateAandDSystem(king_right,"L","C")
 	--face_l = (right_p - left_p):Normalized()
 	--face_r = (left_p - right_p):Normalized()
-	Game:SetLeftKing(king_left)
-	Game:SetRightKing(king_right)
+	self.king_left = king_left
+	self.king_right = king_right
 
 	--king_left:SetForwardVector(face_l)
 	--king_right:SetForwardVector(face_r)
