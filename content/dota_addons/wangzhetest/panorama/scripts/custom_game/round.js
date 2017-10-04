@@ -17,7 +17,7 @@ function UpdataGame(tableName, keyName, table)
 }
 function Updata()
 {
-	$.Schedule(0.1, Updata);
+	$.Schedule(0.05, Updata);
 
 	var time = m_RoundTime - Math.max(0, m_NextRoundTime-Game.GetGameTime());
 

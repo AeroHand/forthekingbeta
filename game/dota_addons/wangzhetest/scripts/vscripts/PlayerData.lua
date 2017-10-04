@@ -58,7 +58,7 @@ end
 function PlayerData:constructor(iPlayerID)
 	local def = 
 	{
-		--非特定的数据储存表，例如hex_Q3
+		--非UI非特定的数据储存表，例如hex_Q3
 		Special = {},
 		--ID,位置
 		PlayerID = -1,
@@ -113,9 +113,9 @@ function PlayerData:constructor(iPlayerID)
 			X = false,
 		},
 		--科技建筑
-		TechBuilding = -1,
-		FoodBuilding = -1,
-		BannerBuilding = -1,
+		TechBuilding = nil,
+		FoodBuilding = nil,
+		BannerBuilding = nil,
 		--建筑
 		Buildings = {},
 		NewBuildings = {},
@@ -123,7 +123,7 @@ function PlayerData:constructor(iPlayerID)
 		Soliders = {},
 		--固守
 		Adherence = false,
-		AdherenceStele = -1,
+		AdherenceStele = nil,
 		--强化
 		ADLevel = 0,
 		HLevel = 0,
@@ -273,7 +273,6 @@ function PlayerData:SetGold(iGold)
 	self.Gold = iGold
 
 	PlayerResource:SetGold(self.PlayerID, iGold, false)
-	PlayerResource:SetGold(self.PlayerID, 0, true)
 
 	self:UpdateNetTable()
 end
@@ -346,8 +345,7 @@ function PlayerData:AddFarmer(iFarmerNum)
 
 	for i = self.FarmerNum+1, self.FarmerNum+iFarmerNum, 1 do
 		local farmerEnt = Entities:FindByName(nil, "player_"..tostring(self.PlayerPosition).."_farmer_"..tostring(i))
-		local farmer = UnitManager:CreateUnitByName("npc_dummy_farmer", farmerEnt:GetAbsOrigin() , false, self.PlayerID, PlayerResource:GetTeam(self.PlayerID)) 
-		self.Farmers[i] = farmer:entindex()
+		self.Farmers[i] = UnitManager:CreateUnitByName("npc_dummy_farmer", farmerEnt:GetAbsOrigin() , false, self.PlayerID, PlayerResource:GetTeam(self.PlayerID)) 
 	end
 
 	self.FarmerNum = self.FarmerNum + iFarmerNum 
@@ -358,7 +356,7 @@ function PlayerData:RemoveFarmer(iFarmerNum)
 	if iFarmerNum == nil or iFarmerNum < 1 then iFarmerNum = 1 end
 
 	for i = self.FarmerNum-iFarmerNum+1, self.FarmerNum, 1 do
-		EntIndexToHScript(self.Farmers[i]):RemoveSelf()
+		self.Farmers[i]:RemoveSelf()
 		self.Farmers[i] = nil
 	end
 
@@ -370,7 +368,7 @@ function PlayerData:LookFarmer(fCallback)
 	if fCallback == nil or type(fCallback) ~= "function" then error("fCallback is missing or not a function") end
 
 	for k, v in pairs(self.Farmers) do
-		if fCallback(k, EntIndexToHScript(v)) == true then
+		if fCallback(k, v) == true then
 			return true
 		end
 	end
@@ -661,32 +659,32 @@ end
 function PlayerData:SetTechBuilding(hUnit)
 	if hUnit == nil or not IsValidEntity(hUnit) then error("hUnit is missing or not a CDOTA_BaseNPC") end
 
-	self.TechBuilding = hUnit:entindex()
+	self.TechBuilding = hUnit
 
 	self:UpdateNetTable()
 end
 function PlayerData:GetTechBuilding(hUnit)
-	return EntIndexToHScript(self.TechBuilding)
+	return self.TechBuilding
 end
 function PlayerData:SetFoodBuilding(hUnit)
 	if hUnit == nil or not IsValidEntity(hUnit) then error("hUnit is missing or not a CDOTA_BaseNPC") end
 
-	self.FoodBuilding = hUnit:entindex()
+	self.FoodBuilding = hUnit
 
 	self:UpdateNetTable()
 end
 function PlayerData:GetFoodBuilding(hUnit)
-	return EntIndexToHScript(self.FoodBuilding)
+	return self.FoodBuilding
 end
 function PlayerData:SetBannerBuilding(hUnit)
 	if hUnit == nil or not IsValidEntity(hUnit) then error("hUnit is missing or not a CDOTA_BaseNPC") end
 
-	self.BannerBuilding = hUnit:entindex()
+	self.BannerBuilding = hUnit
 
 	self:UpdateNetTable()
 end
 function PlayerData:GetBannerBuilding(hUnit)
-	return EntIndexToHScript(self.BannerBuilding)
+	return self.BannerBuilding
 end
 --建筑
 function PlayerData:AddNewBuilding(hUnit)
@@ -825,14 +823,14 @@ function PlayerData:IsSolider(hUnit)
 end
 --固守
 function PlayerData:StartAdherence(hAdherenceStele)
-	self.AdherenceStele = hAdherenceStele:entindex()
+	self.AdherenceStele = hAdherenceStele
 	self.Adherence = true
 end
 function PlayerData:IsAdherence()
 	return self.Adherence
 end
 function PlayerData:GetAdherenceStele()
-	return EntIndexToHScript(self.AdherenceStele)
+	return self.AdherenceStele
 end
 --强化
 function PlayerData:UpgradeADLevel(iLevel)
@@ -858,7 +856,7 @@ function PlayerData:UpgradeHRLevel(iLevel)
 end
 --天梯
 function PlayerData:GetRankingFromServer()
-	self.SteamID = tostring(PlayerResource:GetSteamID(self.PlayerID))
+	self.SteamID = PlayerResource:GetSteamID(self.PlayerID)
 
 	local caculate = function(score, rank, per)
 		score = score or 0
@@ -898,7 +896,7 @@ function PlayerData:GetRankingFromServer()
 		return level,appellation
 	end
 
-	local url = "http://www.dota2rpg.com/game_wz1/wz_get_ladderpoints.php?playerid="..self.SteamID.."&hehe="..math.random()
+	local url = "http://www.dota2rpg.com/game_wz1/wz_get_ladderpoints.php?playerid="..tostring(self.SteamID).."&hehe="..math.random()
 	local req = CreateHTTPRequestScriptVM("GET", url)
 	req:Send(
 		function(result)
@@ -1018,5 +1016,71 @@ function PlayerData:OnEntityKilled(events)
 end
 --更新NetTable
 function PlayerData:UpdateNetTable()
-	CustomNetTables:SetTableValue("PlayerData", "Player_"..self.PlayerID, self)
+	local t = {}
+
+	t.PlayerPosition = self.PlayerPosition
+	t.FrontEnemyPosition = self.FrontEnemyPosition
+
+	t.Gold = self.Gold
+	t.BaseIncome = self.BaseIncome
+	t.Income = self.Income
+
+	t.Crystal = self.Crystal
+	t.CrystalTech = self.CrystalTech
+	t.FarmerNum = self.FarmerNum
+	t.Farmers = {}
+	for k,v in pairs(self.Farmers) do
+		t.Farmers[k] = v:entindex()
+	end
+
+	t.CurFood = self.CurFood
+	t.FullFood = self.FullFood
+
+	t.Tech = self.Tech
+
+	t.Score = self.Score
+
+	t.ArmsValue = self.ArmsValue
+
+	t.MercenaryRoad = self.MercenaryRoad
+	t.Mercenaries = self.Mercenaries
+	t.NewMercenaries = self.NewMercenaries
+
+	t.BuildingTypeList = self.BuildingTypeList
+	t.RemovedBuildingType = self.RemovedBuildingType
+
+	if self.TechBuilding ~= nil then t.TechBuilding = self.TechBuilding:entindex() end
+	if self.FoodBuilding ~= nil then t.FoodBuilding = self.FoodBuilding:entindex() end
+	if self.BannerBuilding ~= nil then t.BannerBuilding = self.BannerBuilding:entindex() end
+	t.Buildings = self.Buildings
+	t.NewBuildings = self.NewBuildings
+
+	t.Soliders = self.Soliders
+
+	t.Adherence = self.Adherence
+
+	t.ADLevel = self.ADLevel
+	t.HLevel = self.HLevel
+	t.HRLevel = self.HRLevel
+
+	t.SteamID = tostring(self.SteamID)
+	t.RankingScore = self.RankingScore
+	t.RankingRank = self.RankingRank
+	t.RankingTotal = self.RankingTotal
+	t.RankingPer = self.RankingPer
+	t.RankingLevel = self.RankingLevel
+	t.RankingAppellation = self.RankingAppellation
+
+	t.MVP_DamageToKing = self.MVP_DamageToKing
+	t.MVP_BreakGold = self.MVP_BreakGold
+	t.MVP_Kills = self.MVP_Kills
+	t.MVP_TotalCrystal = self.MVP_TotalCrystal
+	t.MVP_TotalGold = self.MVP_TotalGold
+
+	t.IsAbandonState = self.IsAbandonState
+	t.AbandonRound = self.AbandonRound
+
+	t.ShowDamageMessage = self.ShowDamageMessage
+
+	CustomNetTables:SetTableValue("PlayerData", "Player_"..self.PlayerID, t)
 end

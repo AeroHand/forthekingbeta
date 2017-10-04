@@ -322,15 +322,14 @@ function UnitManager:CreateUnitByName(sUnitName, vLocation, bFindClearSpace, iPl
 end
 --从建筑创建单位
 function UnitManager:CreateUnitByBuilding( u_building , s_ability_name)
-	--local s_building_name = u_building:GetUnitName()
-
-	--local s_unit_name = "npc_unit_" .. string.sub(s_building_name, 11, -1)
-	local s_unit_name = u_building:GetUnitName()
-	if s_unit_name == "npc_unit_Q3_2z_BB" then return end
+	--local s_building_name = u_building:GetUnitName() 
+	
+	--local s_unit_name = "npc_unit_" .. string.sub(s_building_name, 11, -1) 
+	local s_unit_name = u_building:GetUnitName() 
 	local s_unit_type = string.sub(s_unit_name, -8, -4)
-	local v_unit_point = u_building:GetAbsOrigin()
+	local v_unit_point = u_building:GetAbsOrigin() 
 	local i_playerID = u_building:GetPlayerOwnerID()
-	local i_teamnumber = PlayerResource:GetTeam(i_playerID)
+	local i_teamnumber = PlayerResource:GetTeam(i_playerID) 
 	local playerData = PlayerData:GetPlayerData(i_playerID)
 
 	local u_unit = UnitManager:CreateUnitByName( s_unit_name, v_unit_point, true, i_playerID, i_teamnumber)
@@ -348,14 +347,14 @@ function UnitManager:CreateUnitByBuilding( u_building , s_ability_name)
 	end
 	v_order.x = math.min(v_order.x,6400)
 	v_order.x = math.max(v_order.x,-6400)
-	local t_order =
+	local t_order = 
 		{                                        --发送攻击指令
-			UnitIndex = u_unit:entindex(),
+			UnitIndex = u_unit:entindex(), 
 			OrderType = DOTA_UNIT_ORDER_ATTACK_MOVE,
-			TargetIndex = nil,
-			AbilityIndex = 0,
-			Position = v_order,
-			Queue = 0
+			TargetIndex = nil, 
+			AbilityIndex = 0, 
+			Position = v_order, 
+			Queue = 0 
 		}
 	u_unit:SetContextThink(DoUniqueString("order_later"),
 		function()
@@ -506,14 +505,14 @@ function UnitManager:SummonUnit(u_caster,u_unit)
 	end
 	v_order.x = math.min(v_order.x,5120)
 	v_order.x = math.max(v_order.x,-5120)
-	local t_order =
+	local t_order = 
 		{                                        --发送攻击指令
-			UnitIndex = u_unit:entindex(),
+			UnitIndex = u_unit:entindex(), 
 			OrderType = DOTA_UNIT_ORDER_ATTACK_MOVE,
-			TargetIndex = nil,
-			AbilityIndex = 0,
-			Position = v_order,
-			Queue = 0
+			TargetIndex = nil, 
+			AbilityIndex = 0, 
+			Position = v_order, 
+			Queue = 0 
 		}
 	u_unit:SetContextThink(DoUniqueString("order_later"),
 		function()
@@ -629,14 +628,14 @@ function UnitManager:CreateGeneral(i_playerID,s_item)
 	end
 	v_order.x = math.min(v_order.x,5120)
 	v_order.x = math.max(v_order.x,-5120)
-	local t_order =
+	local t_order = 
 		{
-			UnitIndex = u_unit:entindex(),
+			UnitIndex = u_unit:entindex(), 
 			OrderType = DOTA_UNIT_ORDER_ATTACK_MOVE,
-			TargetIndex = nil,
-			AbilityIndex = 0,
-			Position = v_order,
-			Queue = 0
+			TargetIndex = nil, 
+			AbilityIndex = 0, 
+			Position = v_order, 
+			Queue = 0 
 		}
 	u_unit:SetContextThink(DoUniqueString("order_later"),
 		function()
@@ -680,7 +679,7 @@ function DamageManager:SpellDamage( caster, target, damage)
 		end
 	end
 	if damage > 0 then
-		local damageTable =
+		local damageTable = 
 		{
 			victim = target,
 			attacker = caster,
@@ -703,7 +702,7 @@ function DamageManager:CustonDamage( caster, target, a_type, base_damage, isatta
 	local pure_damage = base_damage
 	local damageTable
 	if isattack then
-		damageTable =
+		damageTable = 
 		{
 			victim = target,
 			attacker = caster,
@@ -714,7 +713,7 @@ function DamageManager:CustonDamage( caster, target, a_type, base_damage, isatta
 		local damaged_unit_AandD = GetAandDSystem(target)
 		local source_unit_AandD = GetAandDSystem(caster)
 		local resistance = damaged_unit_AandD:GetAttacktypeResistance(source_unit_AandD:GetAttackType())
-		damageTable =
+		damageTable = 
 		{
 			victim = target,
 			attacker = caster,

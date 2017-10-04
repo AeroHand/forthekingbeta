@@ -1427,7 +1427,6 @@ function CbtfGameMode:InitGameMode()
 	GameRules:GetGameModeEntity():SetExecuteOrderFilter( Dynamic_Wrap( CbtfGameMode, "ExecuteOrderFilter" ), self )
 	GameRules:GetGameModeEntity():SetDamageFilter( Dynamic_Wrap( CbtfGameMode, "DamageFilter" ),self)
 	GameRules:GetGameModeEntity():SetModifyGoldFilter( Dynamic_Wrap( CbtfGameMode, "ModifyGoldFilter" ),self)
-	GameRules:GetGameModeEntity():SetItemAddedToInventoryFilter(Dynamic_Wrap(CbtfGameMode, "ItemAddedToInventoryFilter"), self)
 end
 
 function CbtfGameMode:OnPlayerConnectFull(keys)
@@ -1449,11 +1448,11 @@ function CbtfGameMode:OnPlayerDisconnect( keys )
 	,1)
 end
 function CbtfGameMode:ModifyGoldFilter( filterTable )
-	print("ModifyGoldFilter begin")
-	for k, v in pairs( filterTable ) do
-		print(k .. " " .. tostring(v))
-	end
-	print("ModifyGoldFilter end")
+	-- print("ModifyGoldFilter begin")
+	-- for k, v in pairs( filterTable ) do
+	-- 	print("EO: " .. k .. " " .. tostring(v) )
+	-- end
+	-- print("ModifyGoldFilter end")
 	-- reason_const
 	-- reliable
 	-- player_id_const
@@ -2129,11 +2128,11 @@ function HasAnyAvailableInventorySpace(hero)
 end
 
 function CbtfGameMode:ExecuteOrderFilter( filterTable )
-	-- print("ExecuteOrderFilter begin")
-	-- for k, v in pairs( filterTable ) do
-	-- 	print("EO: " .. k .. " " .. tostring(v) )
-	-- end
-	-- print("ExecuteOrderFilter end")
+	--print("ExecuteOrderFilter begin")
+	--for k, v in pairs( filterTable ) do
+		--print("EO: " .. k .. " " .. tostring(v) )
+	--end
+	--print("ExecuteOrderFilter end")
 	--entindex_ability
 	--sequence_number_const
 	--queue
@@ -2202,7 +2201,6 @@ function CbtfGameMode:ExecuteOrderFilter( filterTable )
 	if filterTable.order_type == 17 then
 
 		local hero = EntIndexToHScript(filterTable.units["0"])
-		local item = EntIndexToHScript(filterTable.entindex_ability)
 		local playerData = PlayerData:GetPlayerData(hero:GetPlayerOwnerID())
 		if not IsCommander(hero) then
 			BTFGeneral:ShowError(hero:GetPlayerOwnerID(),"#OnlyCommanderCanTakeArmaments","General.NoGold") --警告信息
@@ -2214,28 +2212,11 @@ function CbtfGameMode:ExecuteOrderFilter( filterTable )
 				BTFGeneral:ShowError(hero:GetPlayerOwnerID(),"#SellItemLumberEnough","General.NoGold") --警告信息
 				return false
 			else
-				local cost = item:GetCost()
-				if (GameRules:GetGameTime()-item:GetPurchaseTime()) > 10 then
-					cost = math.floor(cost/2)
-				end
-				playerData:ModifyGold(cost)
 				playerData:ModifyCrystal(-300)
 			end
 		end
 	end
 
-	return true
-end
---ItemAddedToInventoryFilter
-function CbtfGameMode:ItemAddedToInventoryFilter(filterTable)
-	local item = EntIndexToHScript(filterTable.item_entindex_const)
-	local unit = EntIndexToHScript(filterTable.inventory_parent_entindex_const)
-	if IsCommander(unit) then
-		local playerID = unit:GetPlayerOwnerID()
-		local playerData = PlayerData:GetPlayerData(playerID)
-
-		playerData:ModifyGold(-item:GetCost())
-	end
 	return true
 end
 --触发事件 游戏规则改变
@@ -2580,20 +2561,16 @@ function CbtfGameMode:InitPlayer(PlayerID,PlayerPosition)
 
 	local playerData = PlayerData:GetPlayerData(PlayerID)
 	playerData:SetPlayerPosition(PlayerPosition)
-	if Game:IsTestMode() then
-		playerData:ModifyGold(99999)
-		playerData:ModifyCrystal(99999)
-		playerData:SetScore(99999)
-	else
-		playerData:ModifyGold(700)
-		playerData:ModifyCrystal(0)
-		playerData:SetScore(0)
-	end
+	playerData:ModifyGold(700)
+	playerData:ModifyCrystal(0)
+	playerData:SetScore(0)
 	playerData:SetIncome(100, true)
 	playerData:SetIncome(0, false)
 	playerData:AddFarmer()
 	playerData:SetCurFood(1)
 	playerData:SetFullFood(16)
+
+	playerData:IncrementTotalGold(700)
 
 	--自定义数据
 	playerData:Save("hex_Q3", false)
@@ -2644,6 +2621,38 @@ function CbtfGameMode:OnPlayerReconnected(keys)
 		PlayerResource:SetCameraTarget(playerID, nil) --解锁镜头
 	end
 end
+
+--建立带有默认值的表
+function table_new(n)
+	local mt = {}
+	function mt.__index()
+		return n
+	end
+	function mt.__call(t, nt)
+		mt.__call = nil
+		--print(nt)
+		return setmetatable(nt, mt)
+
+	end
+	return setmetatable({}, mt)
+end
+
+-- --伤害事件
+-- function CbtfGameMode:OnEntityHurt(keys)
+-- 	DeepPrintTable(keys)    --详细打印传递进来的表
+-- end
+
+-- --添加伤害事件
+-- function CbtfGameMode:ExecuteOrderFilter( filterTable )
+-- 	print("ExecuteOrderFilter begin")
+-- 	for k, v in pairs( filterTable ) do
+-- 		print("EO: " .. k .. " " .. tostring(v) )
+-- 	end
+-- 	print("ExecuteOrderFilter end")
+-- 	return true
+-- end
+
+
 
 --[[
 攻防相克表
