@@ -252,9 +252,14 @@ function conditions(keys)--开始建筑
 
 	local cost = ability:GetGoldCost(-1)
 	local food = ability:GetManaCost(-1)
+	local gold = playerData:GetGold()
 	local fullFood = playerData:GetFullFood()
 	local curFood = playerData:GetCurFood()
 
+	if gold < cost then
+		building:Stop()
+		BTFGeneral:ShowError(playerID,"#dota_hud_error_not_enough_gold","General.NoGold")
+	end
 	if (curFood + food) > fullFood then
 		building:Stop()
 		BTFGeneral:ShowError(playerID,"#NoEnoughFood","General.NoGold")--人口不足的警告信息
@@ -298,10 +303,15 @@ function Xconditions(keys) --开始建筑
 	local needScore = ability:GetSpecialValueFor("NeedScore")
 	local cost = ability:GetGoldCost(-1)
 	local food = ability:GetManaCost(-1)
+	local gold = playerData:GetGold()
 	local fullFood = playerData:GetFullFood()
 	local curFood = playerData:GetCurFood()
 	local score = playerData:GetScore()
 
+	if gold < cost then
+		building:Stop()
+		BTFGeneral:ShowError(playerID,"#dota_hud_error_not_enough_gold","General.NoGold")
+	end
 	if (curFood + food) > fullFood then
 		building:Stop()
 		BTFGeneral:ShowError(playerID,"#NoEnoughFood","General.NoGold")--人口不足的警告信息
@@ -373,7 +383,12 @@ function UpTechLevelStart1(keys)
 	local crystalCost = ability:GetManaCost(-1)
 	local cost = ability:GetGoldCost(-1)
 	local crystal = playerData:GetCrystal()
+	local gold = playerData:GetGold()
 
+	if gold < cost then
+		caster:Stop()
+		BTFGeneral:ShowError(playerID,"#dota_hud_error_not_enough_gold","General.NoGold")
+	end
 	if crystal < crystalCost then
 		caster:Stop()
 		BTFGeneral:ShowError(playerID,"#NoEnoughLumber","General.NoGold")
@@ -428,7 +443,12 @@ function UpTechLevelStart2(keys)
 	local crystalCost = ability:GetManaCost(-1)
 	local cost = ability:GetGoldCost(-1)
 	local crystal = playerData:GetCrystal()
+	local gold = playerData:GetGold()
 
+	if gold < cost then
+		caster:Stop()
+		BTFGeneral:ShowError(playerID,"#dota_hud_error_not_enough_gold","General.NoGold")
+	end
 	if crystal < crystalCost then
 		caster:Stop()
 		BTFGeneral:ShowError(playerID,"#NoEnoughLumber","General.NoGold")
@@ -487,23 +507,29 @@ function UpFoodStart(keys)
 	local crystalCost = ability:GetManaCost(-1)
 	local fullFood = playerData:GetFullFood()
 	local crystal = playerData:GetCrystal()
+	local gold = playerData:GetGold()
 
-	if fullFood < 288 then
-		if lvnum == "2" and playerData:GetTechLevel() < 1 then
-			BTFGeneral:ShowError(playerID,"#NeedTechLevel1","General.NoGold") --警告信息
-			caster:Stop()
-		end
-		if lvnum == "3" and playerData:GetTechLevel() < 2 then
-			BTFGeneral:ShowError(playerID,"#NeedTechLevel2","General.NoGold") --警告信息
-			caster:Stop()
-		end
-		if crystal < crystalCost then
-			BTFGeneral:ShowError(playerID,"#NoEnoughLumber","General.NoGold") --警告信息
-			caster:Stop()
-		end
-	else
-		BTFGeneral:ShowError(playerID,"#MaxFullFood","General.NoGold") --警告信息
+	if gold < cost then
 		caster:Stop()
+		BTFGeneral:ShowError(playerID,"#dota_hud_error_not_enough_gold","General.NoGold")
+	else
+		if fullFood < 288 then
+			if lvnum == "2" and playerData:GetTechLevel() < 1 then
+				BTFGeneral:ShowError(playerID,"#NeedTechLevel1","General.NoGold") --警告信息
+				caster:Stop()
+			end
+			if lvnum == "3" and playerData:GetTechLevel() < 2 then
+				BTFGeneral:ShowError(playerID,"#NeedTechLevel2","General.NoGold") --警告信息
+				caster:Stop()
+			end
+			if crystal < crystalCost then
+				BTFGeneral:ShowError(playerID,"#NoEnoughLumber","General.NoGold") --警告信息
+				caster:Stop()
+			end
+		else
+			BTFGeneral:ShowError(playerID,"#MaxFullFood","General.NoGold") --警告信息
+			caster:Stop()
+		end
 	end
 
 	playerData:ModifyGold(-cost, DOTA_ModifyGold_AbilityCost)
@@ -584,25 +610,31 @@ function UpCrystalTechStart(keys)
 	local tech = playerData:GetTechLevel()
 	local score = playerData:GetScore()
 	local crystal = playerData:GetCrystal()
+	local gold = playerData:GetGold()
 
-	if crystalTech >= 16 then
-		BTFGeneral:ShowError(playerID,"#MaxTechLevel","General.NoGold") --警告信息
+	if gold < cost then
 		caster:Stop()
+		BTFGeneral:ShowError(playerID,"#dota_hud_error_not_enough_gold","General.NoGold")
 	else
-		if score < 2000 then
-			BTFGeneral:ShowError(playerID,"#NoEnoughScore2000","General.NoGold") --警告信息
+		if crystalTech >= 16 then
+			BTFGeneral:ShowError(playerID,"#MaxTechLevel","General.NoGold") --警告信息
 			caster:Stop()
 		else
-			if crystal < crystalCost then
-				BTFGeneral:ShowError(playerID,"#NoEnoughLumber","General.NoGold") --警告信息
+			if score < 2000 then
+				BTFGeneral:ShowError(playerID,"#NoEnoughScore2000","General.NoGold") --警告信息
 				caster:Stop()
 			else
-				if crystalTech >= 4 and tech < 1 then
-					BTFGeneral:ShowError(playerID,"#NeedTechLevel1","General.NoGold") --警告信息
+				if crystal < crystalCost then
+					BTFGeneral:ShowError(playerID,"#NoEnoughLumber","General.NoGold") --警告信息
 					caster:Stop()
-				elseif crystalTech >= 8 and tech < 2 then
-					BTFGeneral:ShowError(playerID,"#NeedTechLevel2","General.NoGold") --警告信息
-					caster:Stop()
+				else
+					if crystalTech >= 4 and tech < 1 then
+						BTFGeneral:ShowError(playerID,"#NeedTechLevel1","General.NoGold") --警告信息
+						caster:Stop()
+					elseif crystalTech >= 8 and tech < 2 then
+						BTFGeneral:ShowError(playerID,"#NeedTechLevel2","General.NoGold") --警告信息
+						caster:Stop()
+					end
 				end
 			end
 		end
@@ -676,24 +708,30 @@ function UpFarmerStart(keys)
 	local score = playerData:GetScore()
 	local curFood = playerData:GetCurFood()
 	local fullFood = playerData:GetFullFood()
+	local gold = playerData:GetGold()
 
-	if	farmerNum >= 8 then
-		BTFGeneral:ShowError(playerID,"#MaxFarmerNum","General.NoGold") --最大采集者数量警告信息
-		caster:Stop() --升级中断
+	if gold < cost then
+		caster:Stop()
+		BTFGeneral:ShowError(playerID,"#dota_hud_error_not_enough_gold","General.NoGold")
 	else
-		if (curFood + food) > fullFood then
-			BTFGeneral:ShowError(playerID,"#NoEnoughFood","General.NoGold")--人口不足的警告信息
+		if	farmerNum >= 8 then
+			BTFGeneral:ShowError(playerID,"#MaxFarmerNum","General.NoGold") --最大采集者数量警告信息
 			caster:Stop() --升级中断
 		else
-			if farmerNum < 4 then
-				if score < 600 then
-					BTFGeneral:ShowError(playerID,"#NoEnoughScore600","General.NoGold") --兵力不足警告信息
-					caster:Stop() --升级中断
-				end
+			if (curFood + food) > fullFood then
+				BTFGeneral:ShowError(playerID,"#NoEnoughFood","General.NoGold")--人口不足的警告信息
+				caster:Stop() --升级中断
 			else
-				if score < 1000 then
-					BTFGeneral:ShowError(playerID,"#NoEnoughScore1000","General.NoGold") --兵力不足警告信息
-					caster:Stop() --升级中断
+				if farmerNum < 4 then
+					if score < 600 then
+						BTFGeneral:ShowError(playerID,"#NoEnoughScore600","General.NoGold") --兵力不足警告信息
+						caster:Stop() --升级中断
+					end
+				else
+					if score < 1000 then
+						BTFGeneral:ShowError(playerID,"#NoEnoughScore1000","General.NoGold") --兵力不足警告信息
+						caster:Stop() --升级中断
+					end
 				end
 			end
 		end

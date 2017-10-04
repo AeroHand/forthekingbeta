@@ -1449,18 +1449,18 @@ function CbtfGameMode:OnPlayerDisconnect( keys )
 	,1)
 end
 function CbtfGameMode:ModifyGoldFilter( filterTable )
-	print("ModifyGoldFilter begin")
-	for k, v in pairs( filterTable ) do
-		print(k .. " " .. tostring(v))
-	end
-	print("ModifyGoldFilter end")
+	-- print("ModifyGoldFilter begin")
+	-- for k, v in pairs( filterTable ) do
+	-- 	print(k .. " " .. tostring(v))
+	-- end
+	-- print("ModifyGoldFilter end")
 	-- reason_const
 	-- reliable
 	-- player_id_const
 	-- gold
 	local playerData = PlayerData:GetPlayerData(filterTable.player_id_const)
 	if playerData ~= nil then
-		playerData:ModifyGold(filterTable.gold, filterTable.reason_const)
+		playerData:ModifyGoldByFilter(filterTable.gold, filterTable.reason_const)
 	end
 
 	return true
