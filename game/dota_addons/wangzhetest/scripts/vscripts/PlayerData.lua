@@ -277,16 +277,6 @@ function PlayerData:SetGold(iGold)
 
 	self:UpdateNetTable()
 end
-function PlayerData:ModifyGoldByFilter(iGoldChange, nReason)
-	self.Gold = self.Gold + iGoldChange
-
-	self:UpdateNetTable()
-
-	nReason = nReason or DOTA_ModifyGold_Unspecified
-
-	--增加总计
-	self:IncrementTotalGold(math.max(0, iGoldChange))
-end
 function PlayerData:ModifyGold(iGoldChange, nReason)
 	self:SetGold(self.Gold + iGoldChange)
 	
