@@ -251,13 +251,6 @@ function PlayerData:SetHero(hHero)
 
 	self.Hero = hHero
 
-	self.Hero:SetContextThink(DoUniqueString("ArmsValue"), 
-		function()
-			self:UpdateArms()
-			return 0.5
-		end
-	, 0.5)
-
 	self:UpdateNetTable()
 end
 function PlayerData:GetHero()
@@ -455,15 +448,17 @@ function PlayerData:GetScore()
 	return self.Score
 end
 --军备
-function PlayerData:UpdateArms()
-	if self.Hero == nil then return end
-	self.ArmsValue = 0
-	for item_index = 0, 5, 1 do
-		local item = self.Hero:GetItemInSlot(item_index)
-		if item then
-			self.ArmsValue = self.ArmsValue + item:GetCost()
-		end
-	end
+function PlayerData:AddArms(hItem)
+	if hItem == nil or not IsValidEntity(hItem) or not hItem:IsItem() then error("hItem is missing or not a CDOTA_Item") end
+
+	self.ArmsValue = self.ArmsValue + hItem:GetCost()
+
+	self:UpdateNetTable()
+end
+function PlayerData:RemoveArms(hItem)
+	if hItem == nil or not IsValidEntity(hItem) or not hItem:IsItem() then error("hItem is missing or not a CDOTA_Item") end
+
+	self.ArmsValue = self.ArmsValue - hItem:GetCost()
 
 	self:UpdateNetTable()
 end
