@@ -270,15 +270,15 @@ function PlayerData:GetHero()
 end
 --金钱
 function PlayerData:SetGold(iGold)
-	self.Gold = iGold
+	self.Gold = math.floor(iGold)
 
-	PlayerResource:SetGold(self.PlayerID, iGold, false)
+	PlayerResource:SetGold(self.PlayerID, self.Gold, false)
 	PlayerResource:SetGold(self.PlayerID, 0, true)
 
 	self:UpdateNetTable()
 end
 function PlayerData:ModifyGoldByFilter(iGoldChange, nReason)
-	self.Gold = self.Gold + iGoldChange
+	self.Gold = math.floor(self.Gold + iGoldChange)
 
 	self:UpdateNetTable()
 

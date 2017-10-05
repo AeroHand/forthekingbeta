@@ -4,16 +4,6 @@
 	height: 100%;
 	opacity: 1;
 }
-#MapInfo
-{
-	vertical-align: bottom;
-	horizontal-align: right;
-	height: 80px;
-	width: 80px;
-	background-image: url(file://{images}/custom_game/PlayerStates/GameInfo.png);
-	background-size: 100%;
-	z-index: 1;
-}
 .is_not_commander #PlayerRandkInfo,
 .is_not_commander #RankingLevel,
 {
@@ -28,8 +18,8 @@
 	width: 204px;
 	height: 45px;
 	z-index: 1;
-	margin-bottom: 150px;
-	margin-right: 675px;
+	margin-bottom: 145px;
+	margin-right: 650px;
 	flow-children: down;
 }
 #RankingLevel
@@ -41,23 +31,26 @@
 	width: 45px;
 	height: 45px;
 	z-index: 2;
-	margin-bottom: 150px;
-	margin-right: 870px;
+	margin-bottom: 145px;
+	margin-right: 845px;
 }
 	#LevelNumber
 	{
-		margin-top: 6px;
+		padding-left: 2.5px;
+		padding-right: 2.5px;
+		padding-top: 5px;
+		padding-bottom: 5px;
 		width: 100%;
 		height: 100%;
-		font-size: 28px;
+		font-size: 100px;
+		text-overflow: shrink;
 		color: gradient( linear, 0% 0%, 0% 100%, from( #c88423 ), color-stop( 0.25, #c88423 ), color-stop( 0.5, #fffb84 ), color-stop( 0.75, #c88423 ), to( #9a6717 ) );
 		text-align: center;
 	}
 	#RankingAppellationAndName
 	{
-		margin-left: 30%;
-		vertical-align: center;
-		horizontal-align: left;
+		margin-left: 36px;
+		margin-right: 25px;
 		width: 100%;
 		height: 50%;
 	}
@@ -70,7 +63,8 @@
 		}
 	#RankingScoreAndRank
 	{
-		margin-left: 25%;
+		margin-left: 36px;
+		margin-right: 25px;
 		vertical-align: center;
 		horizontal-align: left;
 		width: 100%;
@@ -78,7 +72,10 @@
 	}
 		#RankingScore
 		{
-			font-size: 14px;
+			width: 50%;
+			height: 100%;
+			font-size: 100px;
+			text-overflow: shrink;
 			vertical-align: center;
 			horizontal-align: left;
 			color: white;
@@ -86,10 +83,12 @@
 		}
 		#Rank
 		{
-			font-size: 14px;
+			width: 50%;
+			height: 100%;
+			font-size: 100px;
+			text-overflow: shrink;
 			vertical-align: center;
-			horizontal-align: left;
-			margin-left: 75px;
+			horizontal-align: right;
 			color: white;
 			font-weight: bolder;
 		}

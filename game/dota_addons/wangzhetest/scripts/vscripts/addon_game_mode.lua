@@ -1431,7 +1431,10 @@ function CbtfGameMode:InitGameMode()
 end
 
 function CbtfGameMode:OnPlayerConnectFull(keys)
-	PlayerData(keys.PlayerID)
+	local playerID = keys.PlayerID
+	if PlayerData:GetPlayerData(playerID) == nil then
+		PlayerData(playerID)
+	end
 end
 
 function CbtfGameMode:OnPlayerDisconnect( keys )
