@@ -6329,7 +6329,7 @@
 	"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELLED"
 	"AbilityTextureName" "custom/D4_00"//脥录卤锚 潞脥录录脛脺脥卢脙没
 	"AbilityChannelTime" "1.5"
-	"AbilityGoldCost"         "325" //禄篓路脩陆冒脟庐
+	"AbilityGoldCost"         "275" //禄篓路脩陆冒脟庐
 	"AbilityManaCost"          "2"//禄篓路脩脠脣驴脷
 	"HotKeyOverride"    "D"//驴矛陆脻录眉 
 	"AbilityCastAnimation"	"ACT_DOTA_IDLE"
@@ -6338,7 +6338,7 @@
 		"99"
 		{
 			"var_type"	"FIELD_INTEGER"
-			"GoldCost"	"325"
+			"GoldCost"	"275"
 		}
 	}
 	"OnSpellStart"
@@ -11842,7 +11842,7 @@
 	
 	"AbilityTextureName" "custom/X8_00"//脥录卤锚 
 	"AbilityChannelTime" "3"
-	"AbilityGoldCost"         "600" //禄篓路脩陆冒脟庐
+	"AbilityGoldCost"         "650" //禄篓路脩陆冒脟庐
 	"AbilityManaCost"          "5"//禄篓路脩脠脣驴脷
 	"HotKeyOverride"    "X"//驴矛陆脻录眉 
 	"AbilityCastAnimation"	"ACT_DOTA_IDLE"
@@ -11856,7 +11856,7 @@
 		"99"
 		{
 			"var_type"	"FIELD_INTEGER"
-			"GoldCost"	"600"//禄篓路脩陆冒脟庐
+			"GoldCost"	"650"//禄篓路脩陆冒脟庐
 		}
 	}
 	"OnSpellStart"
@@ -11906,7 +11906,7 @@
 	
 	"AbilityTextureName" "custom/X8_10"//脥录卤锚 
 	"AbilityChannelTime" "3"
-	"AbilityGoldCost"         "750" //禄篓路脩陆冒脟庐
+	"AbilityGoldCost"         "900" //禄篓路脩陆冒脟庐
 	"AbilityManaCost"          "4"//禄篓路脩脠脣驴脷
 	"HotKeyOverride"    "X"//驴矛陆脻录眉 
 	"AbilityCastAnimation"	"ACT_DOTA_IDLE"
@@ -11920,7 +11920,7 @@
 		"99"
 		{
 			"var_type"	"FIELD_INTEGER"
-			"GoldCost"	"1100"//禄篓路脩陆冒脟庐
+			"GoldCost"	"900"//禄篓路脩陆冒脟庐
 		}
 	}
 	"OnSpellStart"
