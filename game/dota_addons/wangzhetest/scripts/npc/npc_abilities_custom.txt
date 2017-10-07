@@ -5351,7 +5351,61 @@
   }
 
 
+"E2_11"                      
+  {
+	"BaseClass" "ability_datadriven"
+	"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELLED"
+	
+	"AbilityTextureName" "custom/E2_11"//脥录卤锚 
+	"AbilityChannelTime" "1.5"
+	"AbilityGoldCost"         "250" //禄篓路脩陆冒脟庐
+	"AbilityManaCost"          "3"//禄篓路脩脠脣驴脷
+	"HotKeyOverride"    "E"//驴矛陆脻录眉 
+	"AbilityCastAnimation"	"ACT_DOTA_IDLE"
+	"AbilitySpecial"
+	{
+		"99"
+		{
+			"var_type"	"FIELD_INTEGER"
+			"GoldCost"	"250"
+		}
+	}
+	"OnSpellStart"
+	{ 
+		"RunScript"
+		{ 
+		"ScriptFile"      "scripts/vscripts/building.lua"
+		"Function"        "conditions"
+		
+		}
+	}
 
+	"OnChannelSucceeded"
+	{
+		"ReplaceUnit"
+		{
+			"UnitName"      "npc_unit_E2_11_BS"
+			"Target"        "CASTER"
+			"OnSpawn"
+			{
+			  "RunScript"
+			  { "ScriptFile"      "scripts/vscripts/building.lua"
+				"Function"        "buildbuilding"
+			  }
+			}
+		}
+	}
+	
+	"OnChannelInterrupted"
+	{
+	  "RunScript"
+	  { "ScriptFile"      "scripts/vscripts/building.lua"
+		"Function"        "CancelBuild"
+	  }
+	}
+
+
+  }
 
 
 
@@ -18472,17 +18526,17 @@
 		"01"
 		{
 			"var_type"			"FIELD_INTEGER"
-			"maxcount"			"5"
+			"maxcount"			"6"
 		}
 		"02"
 		{
 			"var_type"			"FIELD_INTEGER"
-			"attackdamage"		"2"
+			"attackdamage"		"6"
 		}
 		"03"
 		{
 			"var_type"			"FIELD_INTEGER"
-			"attackspeed"		"2"
+			"attackspeed"		"6"
 		}
 	}
 	"Modifiers"
@@ -31950,4 +32004,40 @@
 }
 
 
+
+
+"jn_E2_11"
+{
+	"BaseClass"					"ability_datadriven"
+	"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+	"AbilityTextureName"		"custom/jn_E2_11"
+	"MaxLevel"					"1"
+	"Modifiers"
+	{
+		"modifier_jn_E2_11"
+		{
+			"Passive"			"1"
+			"IsHidden"			"1"
+			"IsPurgable"		"0"
+			"IsBuff"			"1"
+			"IsDebuff"			"0"
+			"IsStunDebuff"		"0"
+			"OnCreated"
+			{
+				"DelayedAction"
+				{
+					"Delay"		"0.1"
+					"Action"
+					{
+						"RunScript"
+						{
+							"ScriptFile"	"scripts/vscripts/abilities.lua"
+							"Function"		"jn_E2_11"
+						}
+					}
+				}
+			}
+		}
+	}
+}
 }

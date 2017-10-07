@@ -194,3 +194,23 @@ new item: teleport rod. can teleport a friendly unit to any place on the map.
 9 split attack drow ranger's attack dmg increase by 5
 10 lv2 dazzle's chaos green dot's dmg increase from 10 to 15 and shooting rate from 0.33s to 0.3s
 11 lv2 centuar's stomp range increase to 300 and stun duration to 2s
+
+
+10.07
+1 为了庆祝一百万订阅！
+	新兵种：缝合兽 由1级尸王升级而成 
+	生命值：1点  攻击力：1点
+	技能：缝合 出生时将周围的友方单位全部杀死并缝合，获得他们的生命值、攻击力和技能
+2 王者烽火狼烟感谢你的游玩！如果你想讨论这个游戏或者寻找队友/对手，欢迎加群207808618讨论~
+3 修复了屠夫被回滚的血量 现在每级屠夫都被正确的削弱了200点生命值
+4 修复了深海鱼龙被回滚的更新 现在3个堆叠数值都是6了
+
+1 To celebrate 1,000,000 subscribers! Many thanks to everyone who loves this game!!!! <3
+	New unit: Stitches, leveled up from lv1 Undying,
+	Health: 1,    Attack Damage: 1,
+	Ability: Stitch. Stitch nearby allies together, kill friendly units in 300 radius and gain their health, attack damage and abilities
+2 If you want to talk about this game or simply just want to find buddies to play together just come to our discord! https://discord.gg/TF69edk
+3 Fix pudge's health because of the system rollback
+4 Fix slardar's ability because of the system rollback
+
+

@@ -2596,6 +2596,38 @@ function jn_X5_10c(keys)
 	ab:ApplyDataDrivenModifier(caster, target, keys.ModifierName, nil)
 	target:SetContextNum("jn_X5_10c_absorb", ab:GetSpecialValueFor("absorb"), 0)
 end
+function jn_E2_11(keys)
+	local caster = keys.caster
+	local ab = keys.ability
+	local target = FindUnitsInRadius(
+		caster:GetTeamNumber(),
+		caster:GetAbsOrigin(),
+		nil,
+		300,
+		DOTA_UNIT_TARGET_TEAM_FRIENDLY,
+		DOTA_UNIT_TARGET_BASIC,
+		DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE,
+		FIND_ANY_ORDER,
+		true)
+	
+	for i,targetunit in pairs(target) do
+		if (targetunit) and (targetunit ~= caster) then
+			for i=0,15 do	
+				local target_ab=targetunit:GetAbilityByIndex(i)
+				if (target_ab) then
+					local abname=target_ab:GetAbilityName()
+					if string.find(abname, "jn") then
+						AbilityManager:AddAndSet( caster, abname)
+					end
+				end
+			end
+			caster:SetBaseDamageMax(caster:GetBaseDamageMax()+targetunit:GetBaseDamageMax())
+			caster:SetBaseDamageMin(caster:GetBaseDamageMin()+targetunit:GetBaseDamageMin())
+			caster:SetBaseMaxHealth(caster:GetBaseMaxHealth()+targetunit:GetBaseMaxHealth())
+			targetunit:Kill(ab,caster)
+		end
+	end
+end
 function jn_X6_00b(keys)
 	local caster = keys.attacker
 	local ab = keys.ability

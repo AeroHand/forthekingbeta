@@ -14,7 +14,7 @@ end
 AllTypes = {}
 AllTypes["Q"] = { "Q1_00","Q2_00","Q3_00","Q4_00","Q5_00","Q6_00","Q7_00","Q8_00", }
 AllTypes["W"] = { "W1_00","W2_00","W3_00","W4_00","W5_00","W6_00","W7_00", }
-AllTypes["E"] = { "E1_00","E2_00","E3_00","E4_00","E5_00","E6_00","E7_00", }
+AllTypes["E"] = { "E1_00","E2_00","E3_00","E4_00","E5_00","E6_00","E7_00", }	--
 AllTypes["D"] = { "D1_00","D2_00","D3_00","D4_00","D5_00","D6_00","D7_00","D8_00", }
 AllTypes["F"] = { "F1_00","F2_00","F3_00","F5_00","F6_00","F7_00","F8_00","F9_00", } --,"F4_00"
 AllTypes["G"] = { "G1_00","G2_00","G3_00","G4_00","G5_00","G6_00","G7_00","G8_00", }
@@ -80,8 +80,9 @@ building_tech.t_tech["E1_00"] = {"E1_10",}
 building_tech.t_tech["E1_10"] = {}
 
 
-building_tech.t_tech["E2_00"] = {"E2_10",}
+building_tech.t_tech["E2_00"] = {"E2_10","E2_11"}
 building_tech.t_tech["E2_10"] = {}
+building_tech.t_tech["E2_11"] = {}
 
 building_tech.t_tech["G1_00"] = {"G1_10",}
 building_tech.t_tech["G1_10"] = {}

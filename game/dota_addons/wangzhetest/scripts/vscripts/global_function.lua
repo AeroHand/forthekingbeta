@@ -128,6 +128,7 @@ UnitManager.AbilityTable={
 	npc_unit_E1_10_SC={"jn_E1_10a","jn_E1_10b"},
 	npc_unit_E2_00_BS={"jn_E2_00"},
 	npc_unit_E2_10_BS={"jn_E2_10a","jn_E2_10b"},
+	npc_unit_E2_11_BS={"jn_E2_11"},
 	npc_unit_G1_00_BZ={"jn_G1_00"},
 	npc_unit_G1_10_BZ={"jn_G1_10a","jn_G1_10b"},
 	npc_unit_E4_00_SS={"jn_E4_00"},
