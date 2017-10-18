@@ -281,3 +281,12 @@ new item: teleport rod. can teleport a friendly unit to any place on the map.
 
 1 all lv3 shadow shaman's mana regen reduce from 3/s to 1.8/s
 2 fix Hephaestus' ability tooltip, its aura should only work on range units
+
+10/18
+1 add tournament info on loading screen
+2 fix antimage's english tooltip: it misses the ability description that it will also deal damage according to target's lost mana
+3 lv1 antimage's mana burn decreases from 3 to 2, lv2.2 antimage's mana burn decreases from 6 to 3
+
+1 载入界面加入了外服锦标赛信息
+2 修复了敌法的英文描述
+3 一级敌法烧蓝从3降低到2，最大的敌法烧蓝从6降低到4

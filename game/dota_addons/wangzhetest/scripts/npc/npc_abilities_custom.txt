@@ -24847,7 +24847,7 @@
 		"01"
 		{
 			"var_type"			"FIELD_INTEGER"
-			"manaburn"			"3"
+			"manaburn"			"2"
 		}
 		"02"
 		{
@@ -24927,7 +24927,7 @@
 		"01"
 		{
 			"var_type"			"FIELD_INTEGER"
-			"manaburn"			"6"
+			"manaburn"			"4"
 		}
 		"02"
 		{

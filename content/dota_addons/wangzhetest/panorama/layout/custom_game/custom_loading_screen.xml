@@ -22,6 +22,12 @@
 			<Label id="GameTitle" text="#addon_game_name" style="" />
 			<Label text="E-mail: zhuzes@gmail.com\nhttp://www.dota2rpg.com" id="WebAndEmile"/>
 		</Panel>
+		
+		<Panel id="AnouncePanel">
+			<Label id="AnnounceTitle" text="#addon_game_announcement" style="" />
+			<Label text="#addon_game_announcement_content_1" id="WebAndEmile"/>
+			<Label text="#addon_game_announcement_content_2" id="WebAndEmile2"/>
+		</Panel>
 
 		<Panel id="TipPanel" hittest="false">
 			<Label id="Tip" text="" style="" hittest="false" />
