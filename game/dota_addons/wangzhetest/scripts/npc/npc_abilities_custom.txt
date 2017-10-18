@@ -4525,7 +4525,7 @@
 	
 	"AbilityTextureName" "custom/W3_00"//脥录卤锚 潞脥录录脛脺脥卢脙没
 	"AbilityChannelTime" "1.5"
-	"AbilityGoldCost"         "75" //禄篓路脩陆冒脟庐
+	"AbilityGoldCost"         "65" //禄篓路脩陆冒脟庐
 	"AbilityManaCost"          "1"//禄篓路脩脠脣驴脷
 	"HotKeyOverride"    "W"//驴矛陆脻录眉 
 	"AbilityCastAnimation"	"ACT_DOTA_IDLE"
@@ -4534,7 +4534,7 @@
 		"99"
 		{
 			"var_type"	"FIELD_INTEGER"
-			"GoldCost"	"75"
+			"GoldCost"	"65"
 		}
 	}
 	"OnSpellStart"
@@ -4584,7 +4584,7 @@
 	
 	"AbilityTextureName" "custom/W3_10"//脥录卤锚 潞脥录录脛脺脥卢脙没
 	"AbilityChannelTime" "1.5"
-	"AbilityGoldCost"         "140" //禄篓路脩陆冒脟庐
+	"AbilityGoldCost"         "130" //禄篓路脩陆冒脟庐
 	"AbilityManaCost"          "1"//禄篓路脩脠脣驴脷
 	"HotKeyOverride"    "W"//驴矛陆脻录眉 
 	"AbilityCastAnimation"	"ACT_DOTA_IDLE"
@@ -4593,7 +4593,7 @@
 		"99"
 		{
 			"var_type"	"FIELD_INTEGER"
-			"GoldCost"	"140"
+			"GoldCost"	"130"
 		}
 	}
 	"OnSpellStart"
@@ -4643,7 +4643,7 @@
 	
 	"AbilityTextureName" "custom/W3_20"//脥录卤锚 潞脥录录脛脺脥卢脙没
 	"AbilityChannelTime" "1.5"
-	"AbilityGoldCost"         "160" //禄篓路脩陆冒脟庐
+	"AbilityGoldCost"         "150" //禄篓路脩陆冒脟庐
 	"AbilityManaCost"          "1"//禄篓路脩脠脣驴脷
 	"HotKeyOverride"    "W"//驴矛陆脻录眉 
 	"AbilityCastAnimation"	"ACT_DOTA_IDLE"
@@ -4652,7 +4652,7 @@
 		"99"
 		{
 			"var_type"	"FIELD_INTEGER"
-			"GoldCost"	"160"
+			"GoldCost"	"150"
 		}
 	}
 	"OnSpellStart"
@@ -5358,7 +5358,7 @@
 	
 	"AbilityTextureName" "custom/E2_11"//脥录卤锚 
 	"AbilityChannelTime" "1.5"
-	"AbilityGoldCost"         "250" //禄篓路脩陆冒脟庐
+	"AbilityGoldCost"         "1" //禄篓路脩陆冒脟庐
 	"AbilityManaCost"          "3"//禄篓路脩脠脣驴脷
 	"HotKeyOverride"    "E"//驴矛陆脻录眉 
 	"AbilityCastAnimation"	"ACT_DOTA_IDLE"
@@ -5367,7 +5367,7 @@
 		"99"
 		{
 			"var_type"	"FIELD_INTEGER"
-			"GoldCost"	"250"
+			"GoldCost"	"1"
 		}
 	}
 	"OnSpellStart"
@@ -12231,7 +12231,7 @@
   
   "AbilityTextureName" "custom/G7_00" //脥录卤锚 潞脥录录脛脺脥卢脙没
   "AbilityChannelTime" "1.5"
-  "AbilityGoldCost"         "275" //禄篓路脩陆冒脟庐
+  "AbilityGoldCost"         "285" //禄篓路脩陆冒脟庐
   "AbilityManaCost"          "2"//禄篓路脩脠脣驴脷
   "HotKeyOverride"    "G"
 	"AbilitySpecial"
@@ -12239,7 +12239,7 @@
 		"99"
 		{
 			"var_type"	"FIELD_INTEGER"
-			"GoldCost"	"265"
+			"GoldCost"	"285"
 		}
 	}
   "OnSpellStart"
@@ -15393,7 +15393,7 @@
 		"02"
 		{
 			"var_type"			"FIELD_FLOAT"
-			"damagepercent"		"30"
+			"damagepercent"		"70"
 		}
 	}
 	"Modifiers"
@@ -16040,7 +16040,7 @@
 	"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 	"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 	"AbilityTextureName"		    "custom/jn_W5_10"
-	"AbilityCastRange"				"400"
+	"AbilityCastRange"				"600"
 	"AbilityCastPoint"				"0.3"
 	"MaxLevel"						"1"
 	"AbilityChannelTime"			"2"
@@ -16207,11 +16207,11 @@
 	"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 	"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 	"AbilityTextureName"		    "custom/jn_W5_20"
-	"AbilityCastRange"				"400"
+	"AbilityCastRange"				"600"
 	"AbilityCastPoint"				"0.3"
 	"MaxLevel"						"1"
-	"AbilityChannelTime"			"3"
-	"AbilityCooldown"				"30"
+	"AbilityChannelTime"			"5"
+	"AbilityCooldown"				"15"
 	"AbilityManaCost"				"60"
 	"AbilitySpecial"
 	{
@@ -16374,11 +16374,11 @@
 	"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 	"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 	"AbilityTextureName"		    "custom/jn_W5_21"
-	"AbilityCastRange"				"400"
+	"AbilityCastRange"				"600"
 	"AbilityCastPoint"				"0.3"
 	"MaxLevel"						"1"
-	"AbilityChannelTime"			"5"
-	"AbilityCooldown"				"20"
+	"AbilityChannelTime"			"8"
+	"AbilityCooldown"				"8"
 	"AbilityManaCost"				"60"
 	"AbilitySpecial"
 	{
@@ -18526,17 +18526,17 @@
 		"01"
 		{
 			"var_type"			"FIELD_INTEGER"
-			"maxcount"			"6"
+			"maxcount"			"4"
 		}
 		"02"
 		{
 			"var_type"			"FIELD_INTEGER"
-			"attackdamage"		"6"
+			"attackdamage"		"4"
 		}
 		"03"
 		{
 			"var_type"			"FIELD_INTEGER"
-			"attackspeed"		"6"
+			"attackspeed"		"4"
 		}
 	}
 	"Modifiers"
@@ -26456,12 +26456,12 @@
 		"02"
 		{
 			"var_type"			"FIELD_FLOAT"
-			"slowattackspeed"	"-1"
+			"slowattackspeed"	"30"
 		}
 		"03"
 		{
 			"var_type"			"FIELD_FLOAT"
-			"slowmovespeed"		"-1"
+			"slowmovespeed"		"30"
 		}
 		"04"
 		{

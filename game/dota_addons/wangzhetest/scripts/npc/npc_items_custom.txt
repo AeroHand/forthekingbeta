@@ -4289,7 +4289,7 @@
 		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_BASIC"
 
-		"ItemCost"					"300"
+		"ItemCost"					"250"
 		"ItemDroppable"				"0"
 		"ItemSellable"				"1"
 
@@ -7770,7 +7770,7 @@
 		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_BASIC"
 
-		"ItemCost"					"150"
+		"ItemCost"					"250"
 		"ItemDroppable"				"0"
 		"ItemSellable"				"1"
 		"ItemBaseLevel"				"1"

@@ -2609,9 +2609,10 @@ function jn_E2_11(keys)
 		DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE,
 		FIND_ANY_ORDER,
 		true)
-	
+	local stitch_count=0;
 	for i,targetunit in pairs(target) do
-		if (targetunit) and (targetunit ~= caster) then
+		if (targetunit) and (targetunit ~= caster) and (targetunit:HasGroundMovementCapability()) and (stitch_count<2) then
+			stitch_count=stitch_count+1
 			for i=0,15 do	
 				local target_ab=targetunit:GetAbilityByIndex(i)
 				if (target_ab) then
@@ -2621,9 +2622,9 @@ function jn_E2_11(keys)
 					end
 				end
 			end
-			caster:SetBaseDamageMax(caster:GetBaseDamageMax()+targetunit:GetBaseDamageMax())
-			caster:SetBaseDamageMin(caster:GetBaseDamageMin()+targetunit:GetBaseDamageMin())
-			caster:SetBaseMaxHealth(caster:GetBaseMaxHealth()+targetunit:GetBaseMaxHealth())
+			caster:SetBaseDamageMax(caster:GetBaseDamageMax()+targetunit:GetBaseDamageMax()*0.8)
+			caster:SetBaseDamageMin(caster:GetBaseDamageMin()+targetunit:GetBaseDamageMin()*0.8)
+			caster:SetBaseMaxHealth(caster:GetBaseMaxHealth()+targetunit:GetBaseMaxHealth()*0.8)
 			targetunit:Kill(ab,caster)
 		end
 	end
@@ -2660,7 +2661,7 @@ function Devour(keys)
 			local target_ab=target[1]:GetAbilityByIndex(i)
 			if (target_ab) then
 				local abname=target_ab:GetAbilityName()
-				if string.find(abname, "jn") then
+				if string.find(abname, "jn") and (abname ~= "jn_E2_11") then
 					AbilityManager:AddAndSet( caster, abname)
 				end
 			end

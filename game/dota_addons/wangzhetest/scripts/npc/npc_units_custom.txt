@@ -3453,7 +3453,7 @@
 	"AttackCapabilities"        "DOTA_UNIT_CAP_RANGED_ATTACK"   //攻击类型 "NO_ATTACK"无  "MELEE_ATTACK" 近战 "RANGED_ATTACK" 远程
 	"AttackDamageMin"           "28"                        // 最小伤害
 	"AttackDamageMax"           "34"                         // 最大伤害
-	"AttackRate"                "1.1"                       // 攻击间隔
+	"AttackRate"                "0.9"                       // 攻击间隔
 	"ProjectileModel"           "particles/units/heroes/hero_sniper/sniper_base_attack.vpcf"                          // 投射物，填写特效路径，只有投射物特效才行
 	"ProjectileSpeed"           "1300"                       // 投射速率
 	"AttackRange"               "620"                       // 攻击范围
@@ -3717,7 +3717,7 @@
 	"AttackCapabilities"        "DOTA_UNIT_CAP_RANGED_ATTACK"   //攻击类型 "NO_ATTACK"无  "MELEE_ATTACK" 近战 "RANGED_ATTACK" 远程
 	"AttackDamageMin"           "48"                         // 最小伤害
 	"AttackDamageMax"           "54"                         // 最大伤害
-	"AttackRate"                "0.87"                       // 攻击间隔
+	"AttackRate"                "0.77"                       // 攻击间隔
 	"ProjectileModel"           "particles/units/heroes/hero_sniper/sniper_base_attack.vpcf"                          // 投射物，填写特效路径，只有投射物特效才行
 	"ProjectileSpeed"           "1300"                       // 投射速率
 	"AttackRange"               "620"                       // 攻击范围
@@ -5194,7 +5194,7 @@
 	"AttackRate"                "1.5"                       // 攻击间隔
 	"ProjectileModel"           "particles/units/heroes/hero_shadowshaman/shadowshaman_base_attack.vpcf"                          // 投射物，填写特效路径，只有投射物特效才行
 	"ProjectileSpeed"           "900"                       // 投射速率
-	"AttackRange"               "380"                       // 攻击范围
+	"AttackRange"               "600"                       // 攻击范围
 	// Armor
 	//----------------------------------------------------------------
 	"ArmorPhysical"             "1"         // 基础护甲
@@ -5334,7 +5334,7 @@
 	"AttackRate"                "1.4"                       // 攻击间隔
 	"ProjectileModel"           "particles/units/heroes/hero_shadowshaman/shadowshaman_base_attack.vpcf"                          // 投射物，填写特效路径，只有投射物特效才行
 	"ProjectileSpeed"           "900"                       // 投射速率
-	"AttackRange"               "380"                       // 攻击范围
+	"AttackRange"               "600"                       // 攻击范围
 	// Armor
 	//----------------------------------------------------------------
 	"ArmorPhysical"             "1"         // 基础护甲
@@ -5470,7 +5470,7 @@
 	"AttackRate"                "1.3"                       // 攻击间隔
 	"ProjectileModel"           "particles/units/heroes/hero_shadowshaman/shadowshaman_base_attack.vpcf"                          // 投射物，填写特效路径，只有投射物特效才行
 	"ProjectileSpeed"           "900"                       // 投射速率
-	"AttackRange"               "380"                       // 攻击范围
+	"AttackRange"               "600"                       // 攻击范围
 	// Armor
 	//----------------------------------------------------------------
 	"ArmorPhysical"             "1"         // 基础护甲
@@ -5484,7 +5484,7 @@
 	"StatusHealth"              "675"       // 基础生命值
 	"StatusHealthRegen"         "0.25"         // 生命恢复速度
 	"StatusMana"                "60"         // 基础魔法值
-	"StatusManaRegen"           "1.2"         // 魔法恢复速度
+	"StatusManaRegen"           "3"         // 魔法恢复速度
 
 	"SoundSet"		"Hero_ShadowShaman"
 	"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_shadowshaman.vsndevts"
@@ -5632,7 +5632,7 @@
 	"AttackRate"                "1.2"                       // 攻击间隔
 	"ProjectileModel"           "particles/units/heroes/hero_shadowshaman/shadowshaman_base_attack.vpcf"                          // 投射物，填写特效路径，只有投射物特效才行
 	"ProjectileSpeed"           "900"                       // 投射速率
-	"AttackRange"               "380"                       // 攻击范围
+	"AttackRange"               "600"                       // 攻击范围
 	// Armor
 	//----------------------------------------------------------------
 	"ArmorPhysical"             "1"         // 基础护甲
@@ -5646,7 +5646,7 @@
 	"StatusHealth"              "875"       // 基础生命值
 	"StatusHealthRegen"         "0.25"         // 生命恢复速度
 	"StatusMana"                "60"         // 基础魔法值
-	"StatusManaRegen"           "1.5"         // 魔法恢复速度
+	"StatusManaRegen"           "3"         // 魔法恢复速度
 
 	"SoundSet"		"Hero_ShadowShaman"
 	"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_shadowshaman.vsndevts"
@@ -6252,7 +6252,7 @@
 	"AttackCapabilities"        "DOTA_UNIT_CAP_MELEE_ATTACK"   //攻击类型 "NO_ATTACK"无  "MELEE_ATTACK" 近战 "RANGED_ATTACK" 远程 射程大于120都算远程
 	"AttackDamageMin"           "1"                         // 最小伤害
 	"AttackDamageMax"           "1"                         // 最大伤害
-	"AttackRate"                "1.2"                       // 攻击间隔
+	"AttackRate"                "1.4"                       // 攻击间隔
 	"ProjectileModel"           ""                          // 投射物，填写特效路径，只有投射物特效才行
 	"ProjectileSpeed"           "900"                       // 投射速率
 	"AttackRange"               "90"                       // 攻击范围
@@ -6269,7 +6269,7 @@
 	"StatusHealth"              "1"       // 基础生命值
 	"StatusHealthRegen"         "0.25"         // 生命恢复速度
 	"StatusMana"                "60"         // 基础魔法值
-	"StatusManaRegen"           "1"         // 魔法恢复速度
+	"StatusManaRegen"           "3"         // 魔法恢复速度
 
 	"SoundSet"		"Hero_Undying"
 	"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_undying.vsndevts"
@@ -24716,7 +24716,7 @@
 	"ModelScale"                "1.2"
 	"AttackCapabilities"        "DOTA_UNIT_CAP_MELEE_ATTACK"   //攻击类型 "NO_ATTACK"无  "MELEE_ATTACK" 近战 "RANGED_ATTACK" 远程 射程大于120都算远程
 	"AttackRange"               "128"                       // 攻击范围
-	"AttackRate"                "0.95"                       // 攻击间隔
+	"AttackRate"                "1.2"                       // 攻击间隔
 	"AttackDamageMin"           "58"                         // 最小伤害
 	"AttackDamageMax"           "67"                         // 最大伤害
 	"ArmorPhysical"             "3"         // 基础护甲
