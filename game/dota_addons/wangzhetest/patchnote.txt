@@ -274,3 +274,10 @@ new item: teleport rod. can teleport a friendly unit to any place on the map.
 3 lv2 sniper's atk spd increases from 1.1s to 0.9s, lv3 sniper's atk spd increases from 0.87s to 0.77s
 4 all techies' ability splash damage increases from 30% to 70%
 5 lv3.1 shadow shaman's ability cool down decreases from 30s to 15s, lv3.2 shadow shaman's ability cool down decreases from 30s to 8s, both of their mana regen increases to 3/s
+
+10/17
+1 两种3级小y的魔法恢复速度降低至1.8/s
+2 修复了一些英文描述
+
+1 all lv3 shadow shaman's mana regen reduce from 3/s to 1.8/s
+2 fix Hephaestus' ability tooltip, its aura should only work on range units

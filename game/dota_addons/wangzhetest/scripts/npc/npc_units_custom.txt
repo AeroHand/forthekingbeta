@@ -5484,7 +5484,7 @@
 	"StatusHealth"              "675"       // 基础生命值
 	"StatusHealthRegen"         "0.25"         // 生命恢复速度
 	"StatusMana"                "60"         // 基础魔法值
-	"StatusManaRegen"           "3"         // 魔法恢复速度
+	"StatusManaRegen"           "1.8"         // 魔法恢复速度
 
 	"SoundSet"		"Hero_ShadowShaman"
 	"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_shadowshaman.vsndevts"
@@ -5646,7 +5646,7 @@
 	"StatusHealth"              "875"       // 基础生命值
 	"StatusHealthRegen"         "0.25"         // 生命恢复速度
 	"StatusMana"                "60"         // 基础魔法值
-	"StatusManaRegen"           "3"         // 魔法恢复速度
+	"StatusManaRegen"           "1.8"         // 魔法恢复速度
 
 	"SoundSet"		"Hero_ShadowShaman"
 	"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_shadowshaman.vsndevts"
