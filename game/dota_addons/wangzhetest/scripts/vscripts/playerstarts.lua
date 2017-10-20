@@ -280,6 +280,11 @@ function playerstarts:init(hero) --英雄登场之后准备开始运行的函数
 		local PlayerPosition = PlayerCalc:GetPlayerPositionByID(playerID)
 		if PlayerS[PlayerPosition].Initialize == nil then
 			PlayerS[PlayerPosition].Initialize = true
+			if _G.test_mode then
+				PlayerS[PlayerPosition].Gold = 7000 
+			else
+				PlayerS[PlayerPosition].Gold = 700 
+			end
 			PlayerS[PlayerPosition].Gold = 700                    --定义初始金钱 700   
 			PlayerS[PlayerPosition].MVP_TotalGold = PlayerS[PlayerPosition].MVP_TotalGold + PlayerS[PlayerPosition].Gold
 			PlayerResource:SetGold(playerID,PlayerS[PlayerPosition].Gold, false) --设置初始金钱   
