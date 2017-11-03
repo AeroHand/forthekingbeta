@@ -26456,12 +26456,12 @@
 		"02"
 		{
 			"var_type"			"FIELD_FLOAT"
-			"slowattackspeed"	"30"
+			"slowattackspeed"	"-30"
 		}
 		"03"
 		{
 			"var_type"			"FIELD_FLOAT"
-			"slowmovespeed"		"30"
+			"slowmovespeed"		"-30"
 		}
 		"04"
 		{
