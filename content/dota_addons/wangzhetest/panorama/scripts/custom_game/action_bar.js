@@ -101,15 +101,15 @@ function UpdateAbilityList()
 
 	if (Game.GameStateIsAfter(DOTA_GameState.DOTA_GAMERULES_STATE_PRE_GAME))
 	{
-		$.GetContextPanel().style.opacity = "1";
-		// return;
+		$.GetContextPanel().style.opacity = "0";
+		return;
 	}
 
 	var queryUnit = Players.GetLocalPlayerPortraitUnit();
 	if (Entities.GetUnitName(queryUnit)!="npc_dummy_build_base")
 	{
 		$.GetContextPanel().style.opacity = "0";
-		// return;
+		return;
 	}
 	else
 	{
