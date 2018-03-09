@@ -57,11 +57,13 @@
 			<Panel id="DuelOfKingDownload">
 				<Panel id="ios_TwoDimensionCode">
 					<Label text="#iosVersion" />
-					<Image class="TwoDimensionCode" src="file://{images}/custom_game/DuelOfKing/ios.png" />
+					<Image id="chineseVersion" class="TwoDimensionCode" src="file://{images}/custom_game/DuelOfKing/ios.png" />
+					<Image id="internationalVersion" class="TwoDimensionCode" src="file://{images}/custom_game/DuelOfKing/ios_international.png" />
 				</Panel>
 				<Panel id="android_TwoDimensionCode">
 					<Label text="androidVersion" />
-					<Image class="TwoDimensionCode" src="file://{images}/custom_game/DuelOfKing/android.png" />
+					<Image id="chineseVersion" class="TwoDimensionCode" src="file://{images}/custom_game/DuelOfKing/android.png" />
+					<Image id="internationalVersion" class="TwoDimensionCode" src="file://{images}/custom_game/DuelOfKing/android_international.png" />
 				</Panel>
 			</Panel>
 		</Panel>

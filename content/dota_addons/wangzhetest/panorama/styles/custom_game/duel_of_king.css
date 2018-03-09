@@ -72,6 +72,22 @@
 			width: 50%;
 			flow-children: down;
 		}
+			#chineseVersion
+			{
+				visibility: collapse;
+			}
+			#internationalVersion
+			{
+				visibility: visible;
+			}
+			.Language_schinese #chineseVersion
+			{
+				visibility: visible;
+			}
+			.Language_schinese #internationalVersion
+			{
+				visibility: collapse;
+			}
 			.TwoDimensionCode
 			{
 				horizontal-align: center;
