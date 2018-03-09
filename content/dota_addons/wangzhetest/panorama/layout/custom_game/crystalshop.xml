@@ -11,6 +11,40 @@
 	<Panel class="CrystalShopRoot" hittest="false">
 		<Panel id="CrystalShopPanel" hittest="false">
 			<Panel id="CrystalShop">
+				<DOTAScenePanel id="DuelOfKing" class="DuelOfKingRoot" map="scenes/hud/levelupburst">
+					<Label id="DuelOfKingName" text="#DuelOfKingName" />
+					<Label id="DuelOfKingInfo" text="#DuelOfKingInfo" />
+					<Panel class="Division">
+						<Panel class="DivisionLine" />
+						<Label id="DuelOfKingDownloadText" text="#Download" />
+						<Panel class="DivisionLine" />
+					</Panel>
+					<Panel id="DuelOfKingDownload">
+						<Panel id="ios_TwoDimensionCode">
+							<Label text="#iosVersion" />
+							<Image id="chineseVersion" class="TwoDimensionCode" src="file://{images}/custom_game/DuelOfKing/ios.png" />
+						</Panel>
+						<Panel id="android_TwoDimensionCode">
+							<Label text="androidVersion" />
+							<Image id="chineseVersion" class="TwoDimensionCode" src="file://{images}/custom_game/DuelOfKing/android.png" />
+						</Panel>
+					</Panel>
+					<Panel class="Division">
+						<Panel class="DivisionLine" />
+						<Label id="DuelOfKingDownloadText" text="#International" />
+						<Panel class="DivisionLine" />
+					</Panel>
+					<Panel id="internationalDuelOfKingDownload">
+						<Panel id="ios_TwoDimensionCode">
+							<Label text="#iosVersion" />
+							<Image id="internationalVersion" class="TwoDimensionCode" src="file://{images}/custom_game/DuelOfKing/ios_international.png" />
+						</Panel>
+						<Panel id="android_TwoDimensionCode">
+							<Label text="androidVersion" />
+							<Image id="internationalVersion" class="TwoDimensionCode" src="file://{images}/custom_game/DuelOfKing/android_international.png" />
+						</Panel>
+					</Panel>
+				</DOTAScenePanel>
 				<Panel id="BossLevelupAndGenerals">
 					<Panel id="BossLevelup">
 						<Label id="BossLevelup_tittle" text="#BossLevelUp"/>
@@ -42,27 +76,6 @@
 					<Panel id="Generals">
 						<Panel id="generals_column_1" />
 						<Panel id="generals_column_2" />
-					</Panel>
-					<Panel id="DuelOfKing" class="DuelOfKingRoot" onmouseover="UIShowTextTooltip(DuelOfKingInfo)"  onmouseout="UIHideTextTooltip()" >
-						<Label id="DuelOfKingName" text="#DuelOfKingName" />
-						<Label id="DuelOfKingInfo" text="#DuelOfKingInfo" />
-						<Panel id="Division">
-							<Panel class="DivisionLine" />
-							<Label id="DuelOfKingDownloadText" text="#Download" />
-							<Panel class="DivisionLine" />
-						</Panel>
-						<Panel id="DuelOfKingDownload">
-							<Panel id="ios_TwoDimensionCode">
-								<Label text="#iosVersion" />
-								<Image id="chineseVersion" class="TwoDimensionCode" src="file://{images}/custom_game/DuelOfKing/ios.png" />
-								<Image id="internationalVersion" class="TwoDimensionCode" src="file://{images}/custom_game/DuelOfKing/ios_international.png" />
-							</Panel>
-							<Panel id="android_TwoDimensionCode">
-								<Label text="androidVersion" />
-								<Image id="chineseVersion" class="TwoDimensionCode" src="file://{images}/custom_game/DuelOfKing/android.png" />
-								<Image id="internationalVersion" class="TwoDimensionCode" src="file://{images}/custom_game/DuelOfKing/android_international.png" />
-							</Panel>
-						</Panel>
 					</Panel>
 				</Panel>
 				<Panel id="hireshop">

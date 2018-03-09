@@ -167,7 +167,8 @@
 
 		"DuelOfKingName"																	"Duel Of King"
 		"DuelOfKingInfo"																	"Play ForTheKing:BeaconFire on your phones!"
-		"Download"																			"Download"
+		"Download"																			"Chinese Server"
+		"International"																		"International Server"
 		"iosVersion"																		"ios"
 		"androidVersion"																	"android"
 

@@ -6,12 +6,10 @@
 {
 	horizontal-align: left;
 	vertical-align: top;
-	position: 0px 64px 0px;
+	position: 0px 50px 0px;
 
 	width: 225px;
-
-	padding-top: 10px;
-	padding-bottom: 10px;
+	height: 390px;
 
 	background-color: #000000cc;
 }
@@ -108,7 +106,9 @@
 	flow-children: down;
 	background-color: #000000cc;
 	horizontal-align: left;
-	vertical-align: center;
+	vertical-align: top;
+
+	position: 0px 450px 0px;
 }
 #Developers Label
 {

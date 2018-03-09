@@ -22,7 +22,7 @@
 		font-size: 18px;
 		text-align: center;
 	}
-	#Division
+	.Division
 	{
 		width: 100%;
 
@@ -45,12 +45,19 @@
 			color: white;
 			text-align: center;
 		}
+	#internationalDuelOfKingDownload,
 	#DuelOfKingDownload
 	{
 		width: 100%;
 
 		flow-children: right;
 	}
+	#LevelUpBurstFX
+	{
+		width: 100%;
+		height: 100%;
+	}
+		#internationalDuelOfKingDownload Label,
 		#DuelOfKingDownload Label
 		{
 			horizontal-align: center;
@@ -72,22 +79,6 @@
 			width: 50%;
 			flow-children: down;
 		}
-			#chineseVersion
-			{
-				visibility: collapse;
-			}
-			#internationalVersion
-			{
-				visibility: visible;
-			}
-			.Language_schinese #chineseVersion
-			{
-				visibility: visible;
-			}
-			.Language_schinese #internationalVersion
-			{
-				visibility: collapse;
-			}
 			.TwoDimensionCode
 			{
 				horizontal-align: center;

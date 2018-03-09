@@ -174,7 +174,8 @@
 
 		"DuelOfKingName"																	"军团对决"
 		"DuelOfKingInfo"																	"在手机上玩王者·烽火狼烟！"
-		"Download"																			"下载"
+		"Download"																			"中国版"
+		"International"																		"国际版"
 		"iosVersion"																		"ios版本"
 		"androidVersion"																	"android版本"
 
