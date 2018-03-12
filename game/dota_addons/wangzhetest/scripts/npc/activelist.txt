@@ -1,13 +1,6 @@
 "whitelist"
 {
-	"npc_dota_hero_ancient_apparition" "1"
-	"npc_dota_hero_axe" "1"
-	"npc_dota_hero_bane" "1"
-	"npc_dota_hero_naga_siren" "1"
-	"npc_dota_hero_bloodseeker" "1"
-	"npc_dota_hero_juggernaut" "1"
-	"npc_dota_hero_tinker" "1"
-	"npc_dota_hero_legion_commander" "1"
-	"npc_dota_hero_kunkka" "1"
-	"npc_dota_hero_furion" "1"
+    "npc_dota_hero_legion_commander" "1"
+    "npc_dota_hero_kunkka" "1"
+    "npc_dota_hero_furion" "1"
 }

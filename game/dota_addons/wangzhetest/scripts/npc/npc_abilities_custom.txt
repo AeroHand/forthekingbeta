@@ -9094,7 +9094,7 @@
 	
 	"AbilityTextureName" "custom/X1_10"//脥录卤锚 
 	"AbilityChannelTime" "3"
-	"AbilityGoldCost"         "900" //禄篓路脩陆冒脟庐
+	"AbilityGoldCost"         "1000" //禄篓路脩陆冒脟庐
 	"AbilityManaCost"          "4"//禄篓路脩脠脣驴脷
 	"HotKeyOverride"    "X"//驴矛陆脻录眉 
 	"AbilityCastAnimation"	"ACT_DOTA_IDLE"
@@ -9108,7 +9108,7 @@
 		"99"
 		{
 			"var_type"	"FIELD_INTEGER"
-			"GoldCost"	"900"//禄篓路脩陆冒脟庐
+			"GoldCost"	"1000"//禄篓路脩陆冒脟庐
 		}
 	}
 	"OnSpellStart"
@@ -11323,6 +11323,11 @@
   "HotKeyOverride"    "R"
 	"AbilitySpecial"
 	{
+		"98"
+		{
+			"var_type"	"FIELD_INTEGER"
+			"NeedScore"	"5000"//卤酶脕娄脪陋脟贸
+		}
 		"99"
 		{
 			"var_type"	"FIELD_INTEGER"
@@ -11334,7 +11339,7 @@
 	  "RunScript"
 	  { 
 	  "ScriptFile"      "scripts/vscripts/building.lua"
-	  "Function"        "conditions"        
+	  "Function"        "Xconditions"        
 	  }
   }
 	"OnChannelSucceeded"
@@ -11605,6 +11610,11 @@
   "HotKeyOverride"    "R"
 	"AbilitySpecial"
 	{
+		"98"
+		{
+			"var_type"	"FIELD_INTEGER"
+			"NeedScore"	"5000"//卤酶脕娄脪陋脟贸
+		}
 		"99"
 		{
 			"var_type"	"FIELD_INTEGER"
@@ -15393,7 +15403,7 @@
 		"02"
 		{
 			"var_type"			"FIELD_FLOAT"
-			"damagepercent"		"70"
+			"damagepercent"		"30"
 		}
 	}
 	"Modifiers"
@@ -16377,7 +16387,7 @@
 	"AbilityCastRange"				"600"
 	"AbilityCastPoint"				"0.3"
 	"MaxLevel"						"1"
-	"AbilityChannelTime"			"8"
+	"AbilityChannelTime"			"6"
 	"AbilityCooldown"				"8"
 	"AbilityManaCost"				"60"
 	"AbilitySpecial"
@@ -16395,7 +16405,7 @@
 		"03"
 		{
 			"var_type"			"FIELD_FLOAT"
-			"duration"			"8"
+			"duration"			"6"
 		}
 	}
 	"OnAbilityPhaseStart"
@@ -25788,7 +25798,7 @@
 		"01"
 		{
 			"var_type"			"FIELD_INTEGER"
-			"damage"			"200"
+			"damage"			"120"
 		}
 		"02"
 		{

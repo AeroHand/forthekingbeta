@@ -290,3 +290,24 @@ new item: teleport rod. can teleport a friendly unit to any place on the map.
 1 载入界面加入了外服锦标赛信息
 2 修复了敌法的英文描述
 3 一级敌法烧蓝从3降低到2，最大的敌法烧蓝从6降低到4
+
+
+3/11
+1 international server for mobile for the king is ready! play it buy scaning qr code!
+2 visage damage reduces from 150 to 120
+3 lv2 kudo price increase from 900 to 1000
+4 fix centuar armor type
+5 normal attack PL is back
+6 tower is back, but now they need 5000 army points to build
+7 alchemist now gains 3 times more gold instead of 2
+8 hand of midas cooldown decrease from 60 to 45
+
+
+1 国际服的手游王者烽火狼烟上线啦！扫描二维码即可玩到
+2 死灵龙伤害从150降低至120
+3 2级科多价格从900提高至1000
+4 修复了人马的护甲类型
+5 普攻猴子又回来啦
+6 天辉圣塔回归 现在需要5000兵力才能建造
+7 炼金现在会获得3倍赏金而不是2倍
+8 点金手cd从60降低至45

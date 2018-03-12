@@ -7701,7 +7701,7 @@
 		"ItemDroppable"				"0"
 		"ItemSellable"				"1"
 
-		"AbilityCooldown"			"60"
+		"AbilityCooldown"			"45"
 
 		"AbilitySpecial"
 		{
