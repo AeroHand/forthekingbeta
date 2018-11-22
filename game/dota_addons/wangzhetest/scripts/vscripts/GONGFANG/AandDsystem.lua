@@ -35,7 +35,7 @@ function DuoChongGongJi( keys )
 --只对远程有效
 	if caster:IsRangedAttacker() then
 		--获取攻击范围
-		local radius = caster:GetAttackRange() +100
+		local radius = caster:Script_GetAttackRange() +100
 		local teams = DOTA_UNIT_TARGET_TEAM_ENEMY
 		local types = DOTA_UNIT_TARGET_BASIC+DOTA_UNIT_TARGET_HERO+DOTA_UNIT_TARGET_BUILDING
 		local flags = DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE+DOTA_UNIT_TARGET_FLAG_NO_INVIS
