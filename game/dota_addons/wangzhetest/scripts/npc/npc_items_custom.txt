@@ -6517,7 +6517,7 @@
 		"MaxUpgradeLevel"			"3"
 
 		"AoERadius"					"%radius"
-		"AbilityCooldown"			"120 60 30"
+		"AbilityCooldown"			"120 85 50"
 		"AbilitySharedCooldown"		"item_armament_30"
 
 		"AbilitySpecial"
@@ -6653,7 +6653,7 @@
 		"MaxUpgradeLevel"			"3"
 
 		"AoERadius"					"%radius"
-		"AbilityCooldown"			"120 60 30"
+		"AbilityCooldown"			"120 85 50"
 		"AbilitySharedCooldown"		"item_armament_30"
 
 		"AbilitySpecial"
@@ -6789,7 +6789,7 @@
 		"MaxUpgradeLevel"			"3"
 
 		"AoERadius"					"%radius"
-		"AbilityCooldown"			"120 60 30"
+		"AbilityCooldown"			"120 85 50"
 		"AbilitySharedCooldown"		"item_armament_30"
 
 		"AbilitySpecial"

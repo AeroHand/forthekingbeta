@@ -12108,7 +12108,7 @@
 	"ModelScale"                "0.8"
 	"AttackCapabilities"        "DOTA_UNIT_CAP_RANGED_ATTACK"   //攻击类型 "NO_ATTACK"无  "MELEE_ATTACK" 近战 "RANGED_ATTACK" 远程 射程大于120都算远程
 	"AttackRange"               "480"                       // 攻击范围
-	"AttackRate"                "1.3"                       // 攻击间隔
+	"AttackRate"                "1"                       // 攻击间隔
 	"AttackDamageMin"           "69"                         // 最小伤害
 	"AttackDamageMax"           "79"                         // 最大伤害
 	"ArmorPhysical"             "3"         // 基础护甲

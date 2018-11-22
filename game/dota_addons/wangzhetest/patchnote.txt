@@ -311,3 +311,32 @@ new item: teleport rod. can teleport a friendly unit to any place on the map.
 6 天辉圣塔回归 现在需要5000兵力才能建造
 7 炼金现在会获得3倍赏金而不是2倍
 8 点金手cd从60降低至45
+
+3/29
+1 lv2 kudo aoe dmg from 340 to 280
+2 lv2 viper atk rate from 1.3s to 1s
+3 lv2.2 ck aura armor from 3 to 2
+4 lv1 nyx aura range from 300 to 400, lv2 range from 300 to 500
+5 mek cool down rescale to 120s/85s/50s
+6 legion's ult cast range is now global
+
+1 二级科多aoe伤害从340降低至280
+2 二级毒龙攻速从1.3s提高至1s
+3 防御光环混沌的防御提高从3降低至2
+4 一级小强的光环范围从300提高至400，二级从300提高至500
+5 梅肯的冷却降低为120s/85s/50s
+6 军团的镇压现在是全地图释放的技能
+
+3/30
+1 更新了载入界面外服的锦标赛链接
+
+4/30
+1 lv2.2 witch doc tower ward aoe range decrease from 400 to 300
+2 kudo's slam no longer decrease attack spd and move spd
+3 alchemist's extra gold change from 3x to 2.5x
+4 fix mek's cooldown
+
+1 治疗棒巫医的棒子范围从400降低至300
+2 科多的踩地板不再减少敌人的攻击速度和移动速度
+3 炼金的额外金钱从3倍降低至2.5倍
+4 修复了梅肯的冷却时间

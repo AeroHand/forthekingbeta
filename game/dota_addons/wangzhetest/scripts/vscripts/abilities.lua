@@ -1663,7 +1663,7 @@ function jn_F7_00(keys)
 	local caster = keys.attacker
 	local target = keys.unit
 	if target:GetUnitName() ~= "npc_unit_huweidui_left_BZ" and target:GetUnitName() ~= "npc_unit_huweidui_right_BZ" then
-		local bounty = target:GetGoldBounty()*2
+		local bounty = target:GetGoldBounty()*1.5
 		if bounty ~= 0 then
 			local PlayerPosition = PlayerCalc:GetPlayerPositionByID(caster:GetPlayerOwnerID())
 			PlayerResource:SetGold(caster:GetPlayerOwnerID(), PlayerResource:GetGold(caster:GetPlayerOwnerID())+bounty, false)

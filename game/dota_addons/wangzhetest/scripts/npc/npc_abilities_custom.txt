@@ -18126,7 +18126,7 @@
 		"01"
 		{
 			"var_type"			"FIELD_INTEGER"
-			"armor"				"3"
+			"armor"				"2"
 		}
 		"02"
 		{
@@ -21493,7 +21493,7 @@
 		"03"
 		{
 			"var_type"			"FIELD_INTEGER"
-			"radius"			"400"
+			"radius"			"300"
 		}
 		"04"
 		{
@@ -23457,7 +23457,7 @@
 		"02"
 		{
 			"var_type"			"FIELD_INTEGER"
-			"radius"			"300"
+			"radius"			"400"
 		}
 	}
 	"Modifiers"
@@ -23504,7 +23504,7 @@
 		"02"
 		{
 			"var_type"			"FIELD_INTEGER"
-			"radius"			"300"
+			"radius"			"500"
 		}
 	}
 	"Modifiers"
@@ -26732,12 +26732,12 @@
 		"02"
 		{
 			"var_type"				"FIELD_INTEGER"
-			"slowattackspeed"		"-25"
+			"slowattackspeed"		"-1"
 		}
 		"03"
 		{
 			"var_type"				"FIELD_INTEGER"
-			"slowmovespeed"			"-25"
+			"slowmovespeed"			"-1"
 		}
 		"04"
 		{
@@ -26944,17 +26944,17 @@
 		"01"
 		{
 			"var_type"				"FIELD_INTEGER"
-			"damage"				"340"
+			"damage"				"280"
 		}
 		"02"
 		{
 			"var_type"				"FIELD_INTEGER"
-			"slowattackspeed"		"-35"
+			"slowattackspeed"		"-1"
 		}
 		"03"
 		{
 			"var_type"				"FIELD_INTEGER"
-			"slowmovespeed"			"-35"
+			"slowmovespeed"			"-1"
 		}
 		"04"
 		{
