@@ -397,17 +397,3 @@
 		{
 			flow-children: down;
 		}
-
-	#DuelOfKing
-	{
-		horizontal-align: center;
-		
-		width: 225px;
-		height: 390px;
-
-		background-color: #00000080;
-
-		tooltip-position: bottom;
-		tooltip-body-position: 50% 100%;
-		tooltip-arrow-position: 50% 50%;
-	}
