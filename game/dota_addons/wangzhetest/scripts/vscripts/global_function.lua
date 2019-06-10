@@ -703,7 +703,7 @@ function DamageManager:SpellDamage( caster, target, damage)
 	end
 end
 function CalculateArmorResistance(target)
-	local armor = target:GetPhysicalArmorValue()
+	local armor = target:GetPhysicalArmorValue(false)
 	if armor >= 0 then
 		return (armor*0.06)/(1+armor*0.06)
 	else
