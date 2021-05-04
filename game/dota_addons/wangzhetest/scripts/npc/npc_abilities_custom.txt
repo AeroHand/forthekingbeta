@@ -16074,22 +16074,7 @@
 			"duration"			"2"
 		}
 	}
-	"OnAbilityPhaseStart"
-	{
-		"DelayedAction"
-		{
-			"Delay"		"%AbilityCastPoint"
-			"Action"
-			{
-				"RunScript"
-				{
-					"ScriptFile"	"scripts/vscripts/abilities.lua"
-					"Function"		"AttackOrder"
-					"TargetUnit"	"CASTER"
-				}
-			}
-		}
-	}
+	
 	"OnSpellStart"
 	{
 		"ApplyModifier"
@@ -16241,22 +16226,7 @@
 			"duration"			"5"
 		}
 	}
-	"OnAbilityPhaseStart"
-	{
-		"DelayedAction"
-		{
-			"Delay"		"%AbilityCastPoint"
-			"Action"
-			{
-				"RunScript"
-				{
-					"ScriptFile"	"scripts/vscripts/abilities.lua"
-					"Function"		"AttackOrder"
-					"TargetUnit"	"CASTER"
-				}
-			}
-		}
-	}
+	
 	"OnSpellStart"
 	{
 		"ApplyModifier"
@@ -16408,22 +16378,7 @@
 			"duration"			"6"
 		}
 	}
-	"OnAbilityPhaseStart"
-	{
-		"DelayedAction"
-		{
-			"Delay"		"%AbilityCastPoint"
-			"Action"
-			{
-				"RunScript"
-				{
-					"ScriptFile"	"scripts/vscripts/abilities.lua"
-					"Function"		"AttackOrder"
-					"TargetUnit"	"CASTER"
-				}
-			}
-		}
-	}
+	
 	"OnSpellStart"
 	{
 		"ApplyModifier"
