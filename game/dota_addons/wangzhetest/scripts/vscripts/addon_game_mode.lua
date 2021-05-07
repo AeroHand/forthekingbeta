@@ -1881,6 +1881,7 @@ function CbtfGameMode:InitGameMode()
     GameRules:SetGoldTickTime(999999)
     --设置选择英雄的时间
     GameRules:SetHeroSelectionTime(30)
+    GameRules:GetGameModeEntity():SetCameraZRange(0, 4000)
 
     --监听游戏
     ListenToGameEvent("game_rules_state_change", Dynamic_Wrap(CbtfGameMode, "OnGameRulesStateChange"), self) --规则改变

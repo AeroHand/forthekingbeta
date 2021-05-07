@@ -103,14 +103,14 @@
 		width: 100%;
 		flow-children: down;
 		horizontal-align: center;
-		background-image: url(file://{images}/custom_game/EndScreen/TeamInfoBG.psd);
+		background-image: url("file://{images}/custom_game/EndScreen/TeamInfoBG.psd");
 		background-size: 100%;
 	}
 		.Teaminfo
 		{
 			height: 30px;
 			flow-children: right;
-			background-image: url(file://{images}/custom_game/EndScreen/TeamInfoBG.psd);
+			background-image: url("file://{images}/custom_game/EndScreen/TeamInfoBG.psd");
 			background-size: 100%;
 		}
 		.Playerinfo
@@ -118,13 +118,13 @@
 			height: 55px;
 			vertical-align: top;
 			flow-children: right;
-			background-image: url(file://{images}/custom_game/EndScreen/Team1BG.png);
+			background-image: url("file://{images}/custom_game/EndScreen/Team1BG.png");
 			background-size: 100%;
 			margin-top: 5px;
 		}
 		.badguys.Playerinfo
 		{
-			background-image: url(file://{images}/custom_game/EndScreen/Team2BG.png);
+			background-image: url("file://{images}/custom_game/EndScreen/Team2BG.png");
 		}
 			.TeamName
 			{

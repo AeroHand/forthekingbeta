@@ -10,13 +10,13 @@
 	margin-top: 0px;
 	margin-right: 250px;
 	flow-children: right;
-	background-image: url(file://{images}/custom_game/FlyoutScoreboard/Button.psd);
+	background-image: url("file://{images}/custom_game/FlyoutScoreboard/Button.psd");
 	background-size: 100%;
 	padding: 10px;
 }
 #RankboardButton:hover
 {
-	background-image: url(file://{images}/custom_game/FlyoutScoreboard/Button_light.psd);
+	background-image: url("file://{images}/custom_game/FlyoutScoreboard/Button_light.psd");
 }
 .AspectRatio16x10 #RankboardButton
 {
@@ -39,14 +39,14 @@
 	#RankboardButtonArrow
 	{
 		vertical-align: center;
-		background-image: url(file://{images}/custom_game/FlyoutScoreboard/openbutton.psd);
+		background-image: url("file://{images}/custom_game/FlyoutScoreboard/openbutton.psd");
 		background-size: 100%;
 		width: 18px;
 		height: 20px;
 	}
 	.show_rank_board #RankboardButtonArrow
 	{
-		background-image: url(file://{images}/custom_game/FlyoutScoreboard/closebutton.psd);
+		background-image: url("file://{images}/custom_game/FlyoutScoreboard/closebutton.psd");
 		background-size: 100%;
 	}
 #Rankboard

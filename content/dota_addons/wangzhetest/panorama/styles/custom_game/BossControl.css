@@ -7,7 +7,7 @@
 }
 #BossControlButton
 {
-	background-image: url(file://{images}/custom_game/BossControllableButton.psd);
+	background-image: url("file://{images}/custom_game/BossControllableButton.psd");
 	background-size: 100%;
 	margin-top: 5px;
 	margin-right: 5px;
@@ -16,7 +16,7 @@
 }
 #BossControlButton:hover
 {
-	background-image: url(file://{images}/custom_game/BossControllableButton_light.psd);
+	background-image: url("file://{images}/custom_game/BossControllableButton_light.psd");
 }
 #BossControlButton:hover Label
 {

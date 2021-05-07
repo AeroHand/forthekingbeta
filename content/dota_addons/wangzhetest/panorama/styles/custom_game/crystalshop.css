@@ -25,7 +25,7 @@
 {
 	height: 36px;
 	width: 96px;
-	background-image: url(file://{images}/custom_game/CrystalShop.psd);
+	background-image: url("file://{images}/custom_game/CrystalShop.psd");
 	background-size: 100%;
 }
 	#CrystalShop_Button_Open_Label
@@ -43,7 +43,7 @@
 {
 	height: 36px;
 	width: 96px;
-	background-image: url(file://{images}/custom_game/CrystalShop.psd);
+	background-image: url("file://{images}/custom_game/CrystalShop.psd");
 	background-size: 100%;
 }
 	#CrystalShop_Button_Close_Label
@@ -67,7 +67,7 @@
 	width: 300px;
 	height: 700px;
 	flow-children: down;
-	background-image: url(file://{images}/custom_game/shopui.png);
+	background-image: url("file://{images}/custom_game/shopui.png");
 	background-size: 100%;
 }
 	#hireshop_tittle
@@ -217,7 +217,7 @@
 	width: 300px;
 	height: 700px;
 	flow-children: down;
-	background-image: url(file://{images}/custom_game/shopui.png);
+	background-image: url("file://{images}/custom_game/shopui.png");
 	background-size: 100%;
 }
 #BossLevelup
@@ -252,7 +252,7 @@
 			margin-left: 11px;
 			width: 76px;
 			height: 76px;
-			background-image: url(file://{images}/custom_game/LvlupAttackDamage.png);
+			background-image: url("file://{images}/custom_game/LvlupAttackDamage.png");
 			background-size: 100%;
 			border: 3px solid gold;
 			border-radius: 2px;
@@ -285,7 +285,7 @@
 			margin-left: 11px;
 			width: 76px;
 			height: 76px;
-			background-image: url(file://{images}/custom_game/LvlupHealth.png);
+			background-image: url("file://{images}/custom_game/LvlupHealth.png");
 			background-size: 100%;
 			border: 3px solid gold;
 			border-radius: 2px;
@@ -318,7 +318,7 @@
 			margin-left: 11px;
 			width: 76px;
 			height: 76px;
-			background-image: url(file://{images}/custom_game/LvlupHealthRegen.png);
+			background-image: url("file://{images}/custom_game/LvlupHealthRegen.png");
 			background-size: 100%;
 			border: 3px solid gold;
 			border-radius: 2px;

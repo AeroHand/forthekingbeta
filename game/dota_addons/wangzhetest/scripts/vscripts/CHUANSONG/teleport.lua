@@ -159,7 +159,7 @@ function order_portal_player (trigger)
 					OrderType = DOTA_UNIT_ORDER_ATTACK_MOVE,
 					TargetIndex = nil, --Optional.  Only used when targeting units
 					AbilityIndex = 0, --Optional.  Only used when casting abilities
-					Position = OrderPoint, --Optional.  Only used when targeting the ground
+					Position = OrderPoint + Vector(100, 0, 0), --Optional.  Only used when targeting the ground
 					Queue = 0 --Optional.  Used for queueing up abilities
 				}
 			ExecuteOrderFromTable(newOrder)
@@ -180,7 +180,7 @@ function order_portal_player2 (trigger)
 					OrderType = DOTA_UNIT_ORDER_ATTACK_MOVE,
 					TargetIndex = nil, --Optional.  Only used when targeting units
 					AbilityIndex = 0, --Optional.  Only used when casting abilities
-					Position = OrderPoint, --Optional.  Only used when targeting the ground
+					Position = OrderPoint + Vector(-100, 0, 0), --Optional.  Only used when targeting the ground
 					Queue = 0 --Optional.  Used for queueing up abilities
 				}
 			ExecuteOrderFromTable(newOrder)

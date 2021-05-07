@@ -11,7 +11,7 @@
 		{
 			width: 60px;
 			height: 73px;
-			background-image: url(file://{images}/custom_game/Boss/Boss1.psd);
+			background-image: url("file://{images}/custom_game/Boss/Boss1.psd");
 			background-size: 100%;
 			z-index: 2;
 		}
@@ -33,7 +33,7 @@
 		{
 			width: 60px;
 			height: 73px;
-			background-image: url(file://{images}/custom_game/Boss/Boss2.psd);
+			background-image: url("file://{images}/custom_game/Boss/Boss2.psd");
 			background-size: 100%;
 			z-index: 2;
 		}
@@ -117,7 +117,7 @@
 					margin-left: 3px;
 					width: 300px;
 					height: 19px;
-					background-image: url(file://{images}/custom_game/Boss/HealthBar1.psd);
+					background-image: url("file://{images}/custom_game/Boss/HealthBar1.psd");
 					background-size: 100%;
 					z-index: 1;
 					horizontal-align: left;
@@ -127,7 +127,7 @@
 				{
 					width: 306px;
 					height: 25px;
-					background-image: url(file://{images}/custom_game/Boss/HealthBarEmpty1.psd);
+					background-image: url("file://{images}/custom_game/Boss/HealthBarEmpty1.psd");
 					background-size: 100%;
 					border: 3px solid #ffa70f;
 					border-radius: 3px;
@@ -139,7 +139,7 @@
 				{
 					width: 306px;
 					height: 25px;
-					background-image: url(file://{images}/custom_game/Boss/HealthBarLight1.psd);
+					background-image: url("file://{images}/custom_game/Boss/HealthBarLight1.psd");
 					background-size: 100%;
 					z-index: 2;
 					horizontal-align: left;
@@ -208,7 +208,7 @@
 					margin-right: 3px;
 					width: 300px;
 					height: 19px;
-					background-image: url(file://{images}/custom_game/Boss/HealthBar2.psd);
+					background-image: url("file://{images}/custom_game/Boss/HealthBar2.psd");
 					background-size: 100%;
 					z-index: 1;
 					horizontal-align: right;
@@ -218,7 +218,7 @@
 				{
 					width: 306px;
 					height: 25px;
-					background-image: url(file://{images}/custom_game/Boss/HealthBarEmpty2.psd);
+					background-image: url("file://{images}/custom_game/Boss/HealthBarEmpty2.psd");
 					background-size: 100%;
 					border: 3px solid #6e45a0;
 					border-radius: 3px;
@@ -230,7 +230,7 @@
 				{
 					width: 306px;
 					height: 25px;
-					background-image: url(file://{images}/custom_game/Boss/HealthBarLight2.psd);
+					background-image: url("file://{images}/custom_game/Boss/HealthBarLight2.psd");
 					background-size: 100%;
 					z-index: 2;
 					horizontal-align: right;
